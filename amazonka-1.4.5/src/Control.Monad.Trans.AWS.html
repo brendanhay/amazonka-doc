@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE BangPatterns               #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# LANGUAGE ConstraintKinds            #-}</span><span>
+</span><a name="line-3"></a><span class="hs-pragma">{-# LANGUAGE FlexibleContexts           #-}</span><span>
+</span><a name="line-4"></a><span class="hs-pragma">{-# LANGUAGE FlexibleInstances          #-}</span><span>
+</span><a name="line-5"></a><span class="hs-pragma">{-# LANGUAGE GeneralizedNewtypeDeriving #-}</span><span>
+</span><a name="line-6"></a><span class="hs-pragma">{-# LANGUAGE LambdaCase                 #-}</span><span>
+</span><a name="line-7"></a><span class="hs-pragma">{-# LANGUAGE MultiParamTypeClasses      #-}</span><span>
+</span><a name="line-8"></a><span class="hs-pragma">{-# LANGUAGE RankNTypes                 #-}</span><span>
+</span><a name="line-9"></a><span class="hs-pragma">{-# LANGUAGE RecordWildCards            #-}</span><span>
+</span><a name="line-10"></a><span class="hs-pragma">{-# LANGUAGE TypeFamilies               #-}</span><span>
+</span><a name="line-11"></a><span class="hs-pragma">{-# LANGUAGE UndecidableInstances       #-}</span><span>
+</span><a name="line-12"></a><span>
+</span><a name="line-13"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-14"></a><span>
+</span><a name="line-15"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- Module      : Control.Monad.Trans.AWS</span><span>
+</span><a name="line-17"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-19"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-20"></a><span class="hs-comment">-- Stability   : provisional</span><span>
+</span><a name="line-21"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-22"></a><span class="hs-comment">--</span><span>
+</span><a name="line-23"></a><span class="hs-comment">-- The 'AWST' transformer provides the environment required to perform AWS</span><span>
+</span><a name="line-24"></a><span class="hs-comment">-- operations. The transformer is intended to be used directly</span><span>
+</span><a name="line-25"></a><span class="hs-comment">-- or embedded as a layer within a transformer stack.</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--</span><span>
+</span><a name="line-27"></a><span class="hs-comment">-- &quot;Network.AWS&quot; contains an 'IO' specialised version of 'AWST' with a typeclass</span><span>
+</span><a name="line-28"></a><span class="hs-comment">-- to assist in automatically lifting operations.</span><span>
+</span><a name="line-29"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Trans</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-31"></a><span>    </span><span class="hs-comment">-- * Running AWS Actions</span><span>
+</span><a name="line-32"></a><span>      </span><a href="Control.Monad.Trans.AWS.html#AWST"><span class="hs-identifier hs-type">AWST</span></a><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#runAWST"><span class="hs-identifier hs-var">runAWST</span></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">runResourceT</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWSConstraint"><span class="hs-identifier hs-type">AWSConstraint</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- * Authentication and Environment</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#newEnv"><span class="hs-identifier hs-var">newEnv</span></a><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#Env"><span class="hs-identifier hs-type">Env</span></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span>       </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-42"></a><span>
+</span><a name="line-43"></a><span>    </span><span class="hs-comment">-- ** Credential Discovery</span><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Auth.html#Credentials"><span class="hs-identifier hs-type">Credentials</span></a><span>  </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-comment">-- $discovery</span><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** Supported Regions</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Region</span><span>       </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- * Sending Requests</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-comment">-- $sending</span><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#send"><span class="hs-identifier hs-var">send</span></a><span>
+</span><a name="line-54"></a><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-comment">-- ** Pagination</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- $pagination</span><span>
+</span><a name="line-57"></a><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#paginate"><span class="hs-identifier hs-var">paginate</span></a><span>
+</span><a name="line-59"></a><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-comment">-- ** Waiters</span><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-62"></a><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#await"><span class="hs-identifier hs-var">await</span></a><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** Service Configuration</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-comment">-- $service</span><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- *** Overriding Defaults</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#configure"><span class="hs-identifier hs-var">configure</span></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#override"><span class="hs-identifier hs-var">override</span></a><span>
+</span><a name="line-71"></a><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-comment">-- *** Scoped Actions</span><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#reconfigure"><span class="hs-identifier hs-var">reconfigure</span></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#within"><span class="hs-identifier hs-var">within</span></a><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#once"><span class="hs-identifier hs-var">once</span></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#timeout"><span class="hs-identifier hs-var">timeout</span></a><span>
+</span><a name="line-77"></a><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-comment">-- ** Streaming</span><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- $streaming</span><span>
+</span><a name="line-80"></a><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-comment">-- *** Request Bodies</span><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">ToHashedBody</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#hashedFile"><span class="hs-identifier hs-var">hashedFile</span></a><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#hashedBody"><span class="hs-identifier hs-var">hashedBody</span></a><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- *** Chunked Request Bodies</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">ToBody</span><span>       </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">ChunkSize</span><span>    </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">defaultChunkSize</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#chunkedFile"><span class="hs-identifier hs-var">chunkedFile</span></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#unsafeChunkedBody"><span class="hs-identifier hs-var">unsafeChunkedBody</span></a><span>
+</span><a name="line-92"></a><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-comment">-- *** Response Bodies</span><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#sinkBody"><span class="hs-identifier hs-var">sinkBody</span></a><span>
+</span><a name="line-95"></a><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-comment">-- *** File Size and MD5/SHA256</span><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#getFileSize"><span class="hs-identifier hs-var">getFileSize</span></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#sinkMD5"><span class="hs-identifier hs-var">sinkMD5</span></a><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Body.html#sinkSHA256"><span class="hs-identifier hs-var">sinkSHA256</span></a><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- * Presigning Requests</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-comment">-- $presigning</span><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#presignURL"><span class="hs-identifier hs-var">presignURL</span></a><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#presign"><span class="hs-identifier hs-var">presign</span></a><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- * EC2 Instance Metadata</span><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-comment">-- $metadata</span><span>
+</span><a name="line-109"></a><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#isEC2"><span class="hs-identifier hs-var">isEC2</span></a><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#dynamic"><span class="hs-identifier hs-var">dynamic</span></a><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#metadata"><span class="hs-identifier hs-var">metadata</span></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Control.Monad.Trans.AWS.html#userdata"><span class="hs-identifier hs-var">userdata</span></a><span>
+</span><a name="line-114"></a><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EC2.Metadata.html#Dynamic"><span class="hs-identifier hs-type">EC2</span><span class="hs-operator hs-type">.</span><span class="hs-identifier hs-type">Dynamic</span></a><span>  </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EC2.Metadata.html#Metadata"><span class="hs-identifier hs-type">EC2</span><span class="hs-operator hs-type">.</span><span class="hs-identifier hs-type">Metadata</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-117"></a><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-comment">-- * Running Asynchronous Actions</span><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- $async</span><span>
+</span><a name="line-120"></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-comment">-- * Handling Errors</span><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-123"></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">AsError</span><span>      </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Auth.html#AsAuthError"><span class="hs-identifier hs-type">AsAuthError</span></a><span>  </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-126"></a><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">trying</span><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">catching</span><span>
+</span><a name="line-129"></a><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-comment">-- ** Building Error Prisms</span><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">Error</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">_MatchServiceError</span><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">Error</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">hasService</span><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">Error</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">hasStatus</span><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">Error</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">hasCode</span><span>
+</span><a name="line-135"></a><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-comment">-- * Logging</span><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-comment">-- $logging</span><span>
+</span><a name="line-138"></a><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Logger</span><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">LogLevel</span><span>     </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-141"></a><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-comment">-- ** Constructing a Logger</span><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Internal.Logger.html#newLogger"><span class="hs-identifier hs-var">newLogger</span></a><span>
+</span><a name="line-144"></a><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-comment">-- ** Endpoints</span><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Endpoint</span><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">setEndpoint</span><span>
+</span><a name="line-148"></a><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-comment">-- * Re-exported Types</span><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Waiter</span><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Pager</span><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">RqBody</span><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">HashedBody</span><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">ChunkedBody</span><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">RsBody</span><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Applicative</span><span>
+</span><a name="line-160"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Base</span><span>
+</span><a name="line-161"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Catch</span><span>
+</span><a name="line-162"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Error</span><span class="hs-operator">.</span><span class="hs-identifier">Class</span><span>    </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadError</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-163"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Morph</span><span>
+</span><a name="line-164"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Reader</span><span>
+</span><a name="line-165"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">State</span><span class="hs-operator">.</span><span class="hs-identifier">Class</span><span>
+</span><a name="line-166"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Trans</span><span class="hs-operator">.</span><span class="hs-identifier">Control</span><span>
+</span><a name="line-167"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Trans</span><span class="hs-operator">.</span><span class="hs-identifier">Resource</span><span>
+</span><a name="line-168"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Writer</span><span class="hs-operator">.</span><span class="hs-identifier">Class</span><span>
+</span><a name="line-169"></a><span>
+</span><a name="line-170"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Conduit</span><span>      </span><span class="hs-keyword">hiding</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">await</span><span class="hs-special">)</span><span>
+</span><a name="line-171"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Conduit</span><span class="hs-operator">.</span><span class="hs-identifier">Lazy</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadActive</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-172"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">IORef</span><span>
+</span><a name="line-173"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Monoid</span><span>
+</span><a name="line-174"></a><span>
+</span><a name="line-175"></a><span class="hs-keyword">import</span><span> </span><a href="Network.AWS.Auth.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Auth</span></a><span>
+</span><a name="line-176"></a><span class="hs-keyword">import</span><span> </span><a href="Network.AWS.Env.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Env</span></a><span>
+</span><a name="line-177"></a><span class="hs-keyword">import</span><span> </span><a href="Network.AWS.Internal.Body.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Internal</span><span class="hs-operator">.</span><span class="hs-identifier">Body</span></a><span>
+</span><a name="line-178"></a><span class="hs-keyword">import</span><span> </span><a href="Network.AWS.Internal.HTTP.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Internal</span><span class="hs-operator">.</span><span class="hs-identifier">HTTP</span></a><span>
+</span><a name="line-179"></a><span class="hs-keyword">import</span><span> </span><a href="Network.AWS.Internal.Logger.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Internal</span><span class="hs-operator">.</span><span class="hs-identifier">Logger</span></a><span>
+</span><a name="line-180"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>            </span><span class="hs-special">(</span><span class="hs-identifier hs-var">catching</span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">throwingM</span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">trying</span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">view</span><span class="hs-special">)</span><span>
+</span><a name="line-181"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Pager</span><span>           </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSPager</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-182"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Prelude</span><span>         </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">AWS</span><span>
+</span><a name="line-183"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Request</span><span>         </span><span class="hs-special">(</span><span class="hs-identifier hs-var">requestURL</span><span class="hs-special">)</span><span>
+</span><a name="line-184"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span><span>           </span><span class="hs-keyword">hiding</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">LogLevel</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-185"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Waiter</span><span>          </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Accept</span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Wait</span><span class="hs-special">)</span><span>
+</span><a name="line-186"></a><span>
+</span><a name="line-187"></a><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><a href="Network.AWS.EC2.Metadata.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EC2</span><span class="hs-operator">.</span><span class="hs-identifier">Metadata</span></a><span> </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">EC2</span><span>
+</span><a name="line-188"></a><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Error</span><span>        </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">Error</span><span>
+</span><a name="line-189"></a><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><a href="Network.AWS.Presign.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Presign</span></a><span>      </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">Sign</span><span>
+</span><a name="line-190"></a><span>
+</span><a name="line-191"></a><span class="hs-keyword">type</span><span> </span><a name="AWST"><a href="Control.Monad.Trans.AWS.html#AWST"><span class="hs-identifier">AWST</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="Network.AWS.Env.html#Env"><span class="hs-identifier hs-type">Env</span></a><span>
+</span><a name="line-192"></a><span>
+</span><a name="line-193"></a><span class="hs-keyword">newtype</span><span> </span><a name="AWST%27"><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier">AWST'</span></a></a><span> </span><a name="local-6989586621679149657"><a href="#local-6989586621679149657"><span class="hs-identifier">r</span></a></a><span> </span><a name="local-6989586621679149658"><a href="#local-6989586621679149658"><span class="hs-identifier">m</span></a></a><span> </span><a name="local-6989586621679149659"><a href="#local-6989586621679149659"><span class="hs-identifier">a</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="AWST%27"><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier">AWST'</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="unAWST"><a href="Control.Monad.Trans.AWS.html#unAWST"><span class="hs-identifier">unAWST</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">ReaderT</span><span> </span><a href="#local-6989586621679149657"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149658"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679149659"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-keyword">deriving</span><span>
+</span><a name="line-195"></a><span>        </span><span class="hs-special">(</span><span> </span><span class="hs-identifier hs-type">Functor</span><span>
+</span><a name="line-196"></a><span>        </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Applicative</span><span>
+</span><a name="line-197"></a><span>        </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Alternative</span><span>
+</span><a name="line-198"></a><span>        </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Monad</span><span>
+</span><a name="line-199"></a><span>        </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadPlus</span><span>
+</span><a name="line-200"></a><span>        </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadIO</span><span>
+</span><a name="line-201"></a><span>        </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadActive</span><span>
+</span><a name="line-202"></a><span>        </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadTrans</span><span>
+</span><a name="line-203"></a><span>        </span><span class="hs-special">)</span><span>
+</span><a name="line-204"></a><span>
+</span><a name="line-205"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadThrow</span><span> </span><a href="#local-6989586621679149718"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadThrow</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149719"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149718"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-206"></a><span>    </span><a name="local-8214565720323797324"><span class="hs-identifier">throwM</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lift</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">throwM</span><span>
+</span><a name="line-207"></a><span>
+</span><a name="line-208"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadCatch</span><span> </span><a href="#local-6989586621679149714"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadCatch</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149715"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149714"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-209"></a><span>    </span><a name="local-8214565720323805629"><span class="hs-identifier">catch</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><a name="local-6989586621679149716"><a href="#local-6989586621679149716"><span class="hs-identifier">m</span></a></a><span class="hs-special">)</span><span> </span><a name="local-6989586621679149717"><a href="#local-6989586621679149717"><span class="hs-identifier">f</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">catch</span><span> </span><a href="#local-6989586621679149716"><span class="hs-identifier hs-var">m</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier">unAWST</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="#local-6989586621679149717"><span class="hs-identifier hs-var">f</span></a><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-210"></a><span>
+</span><a name="line-211"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadMask</span><span> </span><a href="#local-6989586621679149708"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadMask</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149709"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149708"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-212"></a><span>    </span><a name="local-8214565720323805627"><span class="hs-identifier">mask</span></a><span> </span><a name="local-6989586621679149710"><a href="#local-6989586621679149710"><span class="hs-identifier">a</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">$</span><span> </span><span class="hs-identifier hs-var">mask</span><span> </span><span class="hs-operator hs-var">$</span><span> </span><span class="hs-glyph">\</span><a name="local-6989586621679149711"><a href="#local-6989586621679149711"><span class="hs-identifier">u</span></a></a><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a name="line-213"></a><span>        </span><span class="hs-identifier">unAWST</span><span> </span><span class="hs-operator hs-var">$</span><span> </span><a href="#local-6989586621679149710"><span class="hs-identifier hs-var">a</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="#local-6989586621679149711"><span class="hs-identifier hs-var">u</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier">unAWST</span><span class="hs-special">)</span><span>
+</span><a name="line-214"></a><span>
+</span><a name="line-215"></a><span>    </span><a name="local-8214565720323805626"><span class="hs-identifier">uninterruptibleMask</span></a><span> </span><a name="local-6989586621679149712"><a href="#local-6989586621679149712"><span class="hs-identifier">a</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">$</span><span> </span><span class="hs-identifier hs-var">uninterruptibleMask</span><span> </span><span class="hs-operator hs-var">$</span><span> </span><span class="hs-glyph">\</span><a name="local-6989586621679149713"><a href="#local-6989586621679149713"><span class="hs-identifier">u</span></a></a><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a name="line-216"></a><span>        </span><span class="hs-identifier">unAWST</span><span> </span><span class="hs-operator hs-var">$</span><span> </span><a href="#local-6989586621679149712"><span class="hs-identifier hs-var">a</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="#local-6989586621679149713"><span class="hs-identifier hs-var">u</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier">unAWST</span><span class="hs-special">)</span><span>
+</span><a name="line-217"></a><span>
+</span><a name="line-218"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadBase</span><span> </span><a href="#local-6989586621679149705"><span class="hs-identifier hs-type">b</span></a><span> </span><a href="#local-6989586621679149706"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadBase</span><span> </span><a href="#local-6989586621679149705"><span class="hs-identifier hs-type">b</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149707"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149706"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-219"></a><span>    </span><a name="local-8214565720323874099"><span class="hs-identifier">liftBase</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">liftBaseDefault</span><span>
+</span><a name="line-220"></a><span>
+</span><a name="line-221"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadTransControl</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149703"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-keyword">type</span><span> </span><span class="hs-identifier">StT</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149703"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><a href="#local-6989586621679149704"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-type">StT</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">ReaderT</span><span> </span><a href="#local-6989586621679149703"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><a href="#local-6989586621679149704"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-223"></a><span>
+</span><a name="line-224"></a><span>    </span><a name="local-8214565720323880540"><span class="hs-identifier">liftWith</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">defaultLiftWith</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-identifier">unAWST</span><span>
+</span><a name="line-225"></a><span>    </span><a name="local-8214565720323880539"><span class="hs-identifier">restoreT</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">defaultRestoreT</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span>
+</span><a name="line-226"></a><span>
+</span><a name="line-227"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadBaseControl</span><span> </span><a href="#local-6989586621679149699"><span class="hs-identifier hs-type">b</span></a><span> </span><a href="#local-6989586621679149700"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadBaseControl</span><span> </span><a href="#local-6989586621679149699"><span class="hs-identifier hs-type">b</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149701"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149700"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-keyword">type</span><span> </span><span class="hs-identifier">StM</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149701"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149700"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><a href="#local-6989586621679149702"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-type">ComposeSt</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149701"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><a href="#local-6989586621679149700"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679149702"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-229"></a><span>
+</span><a name="line-230"></a><span>    </span><a name="local-8214565720323875791"><span class="hs-identifier">liftBaseWith</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">defaultLiftBaseWith</span><span>
+</span><a name="line-231"></a><span>    </span><a name="local-8214565720323875788"><span class="hs-identifier">restoreM</span></a><span>     </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">defaultRestoreM</span><span>
+</span><a name="line-232"></a><span>
+</span><a name="line-233"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadResource</span><span> </span><a href="#local-6989586621679149697"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadResource</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149698"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149697"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-234"></a><span>    </span><a name="local-8214565720323807275"><span class="hs-identifier">liftResourceT</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lift</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">liftResourceT</span><span>
+</span><a name="line-235"></a><span>
+</span><a name="line-236"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadError</span><span> </span><a href="#local-6989586621679149692"><span class="hs-identifier hs-type">e</span></a><span> </span><a href="#local-6989586621679149693"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadError</span><span> </span><a href="#local-6989586621679149692"><span class="hs-identifier hs-type">e</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149694"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149693"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-237"></a><span>    </span><a name="local-8214565720323874937"><span class="hs-identifier">throwError</span></a><span>     </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lift</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">throwError</span><span>
+</span><a name="line-238"></a><span>    </span><a name="local-8214565720323874938"><span class="hs-identifier">catchError</span></a><span> </span><a name="local-6989586621679149695"><a href="#local-6989586621679149695"><span class="hs-identifier">m</span></a></a><span> </span><a name="local-6989586621679149696"><a href="#local-6989586621679149696"><span class="hs-identifier">f</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier">unAWST</span><span> </span><a href="#local-6989586621679149695"><span class="hs-identifier hs-var">m</span></a><span> </span><span class="hs-special">`</span><span class="hs-identifier hs-var">catchError</span><span class="hs-special">`</span><span> </span><span class="hs-special">(</span><span class="hs-identifier">unAWST</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="#local-6989586621679149696"><span class="hs-identifier hs-var">f</span></a><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-239"></a><span>
+</span><a name="line-240"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">Monad</span><span> </span><a href="#local-6989586621679149689"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679149690"><span class="hs-identifier hs-type">r</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149690"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149689"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-241"></a><span>    </span><a name="local-8214565720323874916"><span class="hs-identifier">ask</span></a><span>     </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-identifier hs-var">ask</span><span>
+</span><a name="line-242"></a><span>    </span><a name="local-8214565720323874917"><span class="hs-identifier">local</span></a><span> </span><a name="local-6989586621679149691"><a href="#local-6989586621679149691"><span class="hs-identifier">f</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">local</span><span> </span><a href="#local-6989586621679149691"><span class="hs-identifier hs-var">f</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier">unAWST</span><span>
+</span><a name="line-243"></a><span>    </span><a name="local-8214565720323869075"><span class="hs-identifier">reader</span></a><span>  </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">reader</span><span>
+</span><a name="line-244"></a><span>
+</span><a name="line-245"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadWriter</span><span> </span><a href="#local-6989586621679149686"><span class="hs-identifier hs-type">w</span></a><span> </span><a href="#local-6989586621679149687"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadWriter</span><span> </span><a href="#local-6989586621679149686"><span class="hs-identifier hs-type">w</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149688"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149687"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-246"></a><span>    </span><a name="local-8214565720323874896"><span class="hs-identifier">writer</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lift</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">writer</span><span>
+</span><a name="line-247"></a><span>    </span><a name="local-8214565720323874897"><span class="hs-identifier">tell</span></a><span>   </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lift</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">tell</span><span>
+</span><a name="line-248"></a><span>    </span><a name="local-8214565720323869107"><span class="hs-identifier">listen</span></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">listen</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier">unAWST</span><span>
+</span><a name="line-249"></a><span>    </span><a name="local-8214565720323875626"><span class="hs-identifier">pass</span></a><span>   </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">pass</span><span>   </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier">unAWST</span><span>
+</span><a name="line-250"></a><span>
+</span><a name="line-251"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MonadState</span><span> </span><a href="#local-6989586621679149683"><span class="hs-identifier hs-type">s</span></a><span> </span><a href="#local-6989586621679149684"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">MonadState</span><span> </span><a href="#local-6989586621679149683"><span class="hs-identifier hs-type">s</span></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149685"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149684"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-252"></a><span>    </span><a name="local-8214565720323874814"><span class="hs-identifier">get</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lift</span><span> </span><span class="hs-identifier hs-var">get</span><span>
+</span><a name="line-253"></a><span>    </span><a name="local-8214565720323874905"><span class="hs-identifier">put</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lift</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">put</span><span>
+</span><a name="line-254"></a><span>
+</span><a name="line-255"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">MFunctor</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149681"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-256"></a><span>    </span><a name="local-8214565720323873968"><span class="hs-identifier">hoist</span></a><span> </span><a name="local-6989586621679149682"><a href="#local-6989586621679149682"><span class="hs-identifier">nat</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">hoist</span><span> </span><a href="#local-6989586621679149682"><span class="hs-identifier hs-var">nat</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier">unAWST</span><span>
+</span><a name="line-257"></a><span>
+</span><a name="line-258"></a><span class="hs-comment">-- | Run an 'AWST' action with the specified environment.</span><span>
+</span><a name="line-259"></a><span class="hs-identifier">runAWST</span><span> </span><span class="hs-glyph">::</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span> </span><a href="#local-6989586621679149745"><span class="hs-identifier hs-type">r</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679149745"><span class="hs-identifier hs-type">r</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-type">AWST'</span></a><span> </span><a href="#local-6989586621679149745"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149746"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679149747"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149746"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679149747"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-260"></a><a name="runAWST"><a href="Control.Monad.Trans.AWS.html#runAWST"><span class="hs-identifier">runAWST</span></a></a><span> </span><a name="local-6989586621679149748"><a href="#local-6989586621679149748"><span class="hs-identifier">r</span></a></a><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWST%27"><span class="hs-identifier hs-var">AWST'</span></a><span> </span><a name="local-6989586621679149749"><a href="#local-6989586621679149749"><span class="hs-identifier">m</span></a></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier">runReaderT</span><span> </span><a href="#local-6989586621679149749"><span class="hs-identifier hs-var">m</span></a><span> </span><a href="#local-6989586621679149748"><span class="hs-identifier hs-var">r</span></a><span>
+</span><a name="line-261"></a><span>
+</span><a name="line-262"></a><span class="hs-comment">-- | An alias for the constraints required to send requests,</span><span>
+</span><a name="line-263"></a><span class="hs-comment">-- which 'AWST' implicitly fulfils.</span><span>
+</span><a name="line-264"></a><span class="hs-keyword">type</span><span> </span><a name="AWSConstraint"><a href="Control.Monad.Trans.AWS.html#AWSConstraint"><span class="hs-identifier">AWSConstraint</span></a></a><span> </span><a name="local-6989586621679149655"><a href="#local-6989586621679149655"><span class="hs-identifier">r</span></a></a><span> </span><a name="local-6989586621679149656"><a href="#local-6989586621679149656"><span class="hs-identifier">m</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-special">(</span><span> </span><span class="hs-identifier hs-type">MonadCatch</span><span>     </span><a href="#local-6989586621679149656"><span class="hs-identifier hs-type">m</span></a><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadResource</span><span>  </span><a href="#local-6989586621679149656"><span class="hs-identifier hs-type">m</span></a><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span>  </span><a href="#local-6989586621679149655"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149656"><span class="hs-identifier hs-type">m</span></a><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span>       </span><a href="#local-6989586621679149655"><span class="hs-identifier hs-type">r</span></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">)</span><span>
+</span><a name="line-270"></a><span>
+</span><a name="line-271"></a><span class="hs-comment">-- | Send a request, returning the associated response if successful.</span><span>
+</span><a name="line-272"></a><span class="hs-comment">--</span><span>
+</span><a name="line-273"></a><span class="hs-comment">-- Throws 'Error'.</span><span>
+</span><a name="line-274"></a><span class="hs-identifier">send</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWSConstraint"><span class="hs-identifier hs-type">AWSConstraint</span></a><span> </span><a href="#local-6989586621679149742"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149743"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">AWSRequest</span><span> </span><a href="#local-6989586621679149744"><span class="hs-identifier hs-type">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-275"></a><span>     </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679149744"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-276"></a><span>     </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149743"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Rs</span><span> </span><a href="#local-6989586621679149744"><span class="hs-identifier hs-type">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-277"></a><a name="send"><a href="Control.Monad.Trans.AWS.html#send"><span class="hs-identifier">send</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Network.AWS.Internal.HTTP.html#retrier"><span class="hs-identifier hs-var">retrier</span></a><span> </span><span class="hs-operator hs-var">&gt;=&gt;</span><span> </span><span class="hs-identifier hs-var">fmap</span><span> </span><span class="hs-identifier hs-var">snd</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="Control.Monad.Trans.AWS.html#hoistError"><span class="hs-identifier hs-var">hoistError</span></a><span>
+</span><a name="line-278"></a><span>
+</span><a name="line-279"></a><span class="hs-comment">-- | Repeatedly send a request, automatically setting markers and</span><span>
+</span><a name="line-280"></a><span class="hs-comment">-- paginating over multiple responses while available.</span><span>
+</span><a name="line-281"></a><span class="hs-comment">--</span><span>
+</span><a name="line-282"></a><span class="hs-comment">-- Throws 'Error'.</span><span>
+</span><a name="line-283"></a><span class="hs-identifier">paginate</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWSConstraint"><span class="hs-identifier hs-type">AWSConstraint</span></a><span> </span><a href="#local-6989586621679149739"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149740"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">AWSPager</span><span> </span><a href="#local-6989586621679149741"><span class="hs-identifier hs-type">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-284"></a><span>         </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679149741"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-285"></a><span>         </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-type">Source</span><span> </span><a href="#local-6989586621679149740"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Rs</span><span> </span><a href="#local-6989586621679149741"><span class="hs-identifier hs-type">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-286"></a><a name="paginate"><a href="Control.Monad.Trans.AWS.html#paginate"><span class="hs-identifier">paginate</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="#local-6989586621679149765"><span class="hs-identifier hs-var">go</span></a><span>
+</span><a name="line-287"></a><span>  </span><span class="hs-keyword">where</span><span>
+</span><a name="line-288"></a><span>    </span><a name="local-6989586621679149765"><a href="#local-6989586621679149765"><span class="hs-identifier">go</span></a></a><span> </span><span class="hs-glyph">!</span><a name="local-6989586621679149766"><a href="#local-6989586621679149766"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-289"></a><span>        </span><span class="hs-glyph">!</span><a name="local-6989586621679149767"><a href="#local-6989586621679149767"><span class="hs-identifier">y</span></a></a><span> </span><span class="hs-glyph">&lt;-</span><span> </span><a href="Control.Monad.Trans.AWS.html#send"><span class="hs-identifier hs-var">send</span></a><span> </span><a href="#local-6989586621679149766"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-290"></a><span>        </span><span class="hs-identifier hs-var">yield</span><span> </span><a href="#local-6989586621679149767"><span class="hs-identifier hs-var">y</span></a><span>
+</span><a name="line-291"></a><span>        </span><span class="hs-identifier hs-var">maybe</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">pure</span><span> </span><span class="hs-special">(</span><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><a href="#local-6989586621679149765"><span class="hs-identifier hs-var">go</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">page</span><span> </span><a href="#local-6989586621679149766"><span class="hs-identifier hs-var">x</span></a><span> </span><a href="#local-6989586621679149767"><span class="hs-identifier hs-var">y</span></a><span class="hs-special">)</span><span>
+</span><a name="line-292"></a><span>
+</span><a name="line-293"></a><span class="hs-comment">-- | Poll the API with the supplied request until a specific 'Wait' condition</span><span>
+</span><a name="line-294"></a><span class="hs-comment">-- is fulfilled.</span><span>
+</span><a name="line-295"></a><span class="hs-comment">--</span><span>
+</span><a name="line-296"></a><span class="hs-comment">-- Throws 'Error'.</span><span>
+</span><a name="line-297"></a><span class="hs-identifier">await</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><a href="Control.Monad.Trans.AWS.html#AWSConstraint"><span class="hs-identifier hs-type">AWSConstraint</span></a><span> </span><a href="#local-6989586621679149736"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149737"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">AWSRequest</span><span> </span><a href="#local-6989586621679149738"><span class="hs-identifier hs-type">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-298"></a><span>      </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">Wait</span><span> </span><a href="#local-6989586621679149738"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-299"></a><span>      </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149738"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-300"></a><span>      </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149737"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">Accept</span><span>
+</span><a name="line-301"></a><a name="await"><a href="Control.Monad.Trans.AWS.html#await"><span class="hs-identifier">await</span></a></a><span> </span><a name="local-6989586621679149768"><a href="#local-6989586621679149768"><span class="hs-identifier">w</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Network.AWS.Internal.HTTP.html#waiter"><span class="hs-identifier hs-var">waiter</span></a><span> </span><a href="#local-6989586621679149768"><span class="hs-identifier hs-var">w</span></a><span> </span><span class="hs-operator hs-var">&gt;=&gt;</span><span> </span><a href="Control.Monad.Trans.AWS.html#hoistError"><span class="hs-identifier hs-var">hoistError</span></a><span>
+</span><a name="line-302"></a><span>
+</span><a name="line-303"></a><span class="hs-comment">-- | Presign an URL that is valid from the specified time until the</span><span>
+</span><a name="line-304"></a><span class="hs-comment">-- number of seconds expiry has elapsed.</span><span>
+</span><a name="line-305"></a><span class="hs-identifier">presignURL</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span> </span><span class="hs-identifier hs-type">MonadIO</span><span> </span><a href="#local-6989586621679149733"><span class="hs-identifier hs-type">m</span></a><span>
+</span><a name="line-306"></a><span>              </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679149734"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149733"><span class="hs-identifier hs-type">m</span></a><span>
+</span><a name="line-307"></a><span>              </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span> </span><a href="#local-6989586621679149734"><span class="hs-identifier hs-type">r</span></a><span>
+</span><a name="line-308"></a><span>              </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">AWSRequest</span><span> </span><a href="#local-6989586621679149735"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-309"></a><span>              </span><span class="hs-special">)</span><span>
+</span><a name="line-310"></a><span>           </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">UTCTime</span><span>     </span><span class="hs-comment">-- ^ Signing time.</span><span>
+</span><a name="line-311"></a><span>           </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-type">Seconds</span><span>     </span><span class="hs-comment">-- ^ Expiry time.</span><span>
+</span><a name="line-312"></a><span>           </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149735"><span class="hs-identifier hs-type">a</span></a><span>           </span><span class="hs-comment">-- ^ Request to presign.</span><span>
+</span><a name="line-313"></a><span>           </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149733"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">ByteString</span><span>
+</span><a name="line-314"></a><a name="presignURL"><a href="Control.Monad.Trans.AWS.html#presignURL"><span class="hs-identifier">presignURL</span></a></a><span> </span><a name="local-6989586621679149769"><a href="#local-6989586621679149769"><span class="hs-identifier">ts</span></a></a><span> </span><a name="local-6989586621679149770"><a href="#local-6989586621679149770"><span class="hs-identifier">ex</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">liftM</span><span> </span><span class="hs-identifier hs-var">requestURL</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="Control.Monad.Trans.AWS.html#presign"><span class="hs-identifier hs-var">presign</span></a><span> </span><a href="#local-6989586621679149769"><span class="hs-identifier hs-var">ts</span></a><span> </span><a href="#local-6989586621679149770"><span class="hs-identifier hs-var">ex</span></a><span>
+</span><a name="line-315"></a><span>
+</span><a name="line-316"></a><span class="hs-comment">-- | Presign an HTTP request that is valid from the specified time until the</span><span>
+</span><a name="line-317"></a><span class="hs-comment">-- number of seconds expiry has elapsed.</span><span>
+</span><a name="line-318"></a><span class="hs-identifier">presign</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span> </span><span class="hs-identifier hs-type">MonadIO</span><span> </span><a href="#local-6989586621679149730"><span class="hs-identifier hs-type">m</span></a><span>
+</span><a name="line-319"></a><span>           </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679149731"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149730"><span class="hs-identifier hs-type">m</span></a><span>
+</span><a name="line-320"></a><span>           </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span> </span><a href="#local-6989586621679149731"><span class="hs-identifier hs-type">r</span></a><span>
+</span><a name="line-321"></a><span>           </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">AWSRequest</span><span> </span><a href="#local-6989586621679149732"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-322"></a><span>           </span><span class="hs-special">)</span><span>
+</span><a name="line-323"></a><span>        </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">UTCTime</span><span>     </span><span class="hs-comment">-- ^ Signing time.</span><span>
+</span><a name="line-324"></a><span>        </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-type">Seconds</span><span>     </span><span class="hs-comment">-- ^ Expiry time.</span><span>
+</span><a name="line-325"></a><span>        </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149732"><span class="hs-identifier hs-type">a</span></a><span>           </span><span class="hs-comment">-- ^ Request to presign.</span><span>
+</span><a name="line-326"></a><span>        </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149730"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">ClientRequest</span><span>
+</span><a name="line-327"></a><a name="presign"><a href="Control.Monad.Trans.AWS.html#presign"><span class="hs-identifier">presign</span></a></a><span> </span><a name="local-6989586621679149771"><a href="#local-6989586621679149771"><span class="hs-identifier">ts</span></a></a><span> </span><a name="local-6989586621679149772"><a href="#local-6989586621679149772"><span class="hs-identifier">ex</span></a></a><span> </span><a name="local-6989586621679149773"><a href="#local-6989586621679149773"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-328"></a><span>    </span><a href="Network.AWS.Env.html#Env"><span class="hs-identifier hs-var">Env</span></a><span class="hs-special">{</span><span class="hs-glyph">..</span><span class="hs-special">}</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">view</span><span> </span><a href="Network.AWS.Env.html#environment"><span class="hs-identifier hs-var">environment</span></a><span>
+</span><a name="line-329"></a><span>    </span><a href="Network.AWS.Presign.html#presignWith"><span class="hs-identifier hs-var">Sign</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">presignWith</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier">appEndo</span><span> </span><span class="hs-special">(</span><span class="hs-identifier">getDual</span><span> </span><a href="#local-6989586621679149777"><span class="hs-identifier hs-var">_envOverride</span></a><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><a href="#local-6989586621679149780"><span class="hs-identifier hs-var">_envAuth</span></a><span> </span><a href="#local-6989586621679149774"><span class="hs-identifier hs-var">_envRegion</span></a><span> </span><a href="#local-6989586621679149771"><span class="hs-identifier hs-var">ts</span></a><span> </span><a href="#local-6989586621679149772"><span class="hs-identifier hs-var">ex</span></a><span> </span><a href="#local-6989586621679149773"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-330"></a><span>
+</span><a name="line-331"></a><span class="hs-comment">-- | Test whether the underlying host is running on EC2.</span><span>
+</span><a name="line-332"></a><span class="hs-comment">-- This is memoised and any external check occurs for the first invocation only.</span><span>
+</span><a name="line-333"></a><span class="hs-identifier">isEC2</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadIO</span><span> </span><a href="#local-6989586621679149728"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679149729"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149728"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span> </span><a href="#local-6989586621679149729"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679149728"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-334"></a><a name="isEC2"><a href="Control.Monad.Trans.AWS.html#isEC2"><span class="hs-identifier">isEC2</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-335"></a><span>    </span><a name="local-6989586621679149781"><a href="#local-6989586621679149781"><span class="hs-identifier">ref</span></a></a><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">view</span><span> </span><a href="Network.AWS.Env.html#envEC2"><span class="hs-identifier hs-var">envEC2</span></a><span>
+</span><a name="line-336"></a><span>    </span><a name="local-6989586621679149782"><a href="#local-6989586621679149782"><span class="hs-identifier">mp</span></a></a><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">liftIO</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">readIORef</span><span> </span><a href="#local-6989586621679149781"><span class="hs-identifier hs-var">ref</span></a><span class="hs-special">)</span><span>
+</span><a name="line-337"></a><span>    </span><span class="hs-keyword">case</span><span> </span><a href="#local-6989586621679149782"><span class="hs-identifier hs-var">mp</span></a><span> </span><span class="hs-keyword">of</span><span>
+</span><a name="line-338"></a><span>        </span><span class="hs-identifier hs-var">Just</span><span> </span><a name="local-6989586621679149783"><a href="#local-6989586621679149783"><span class="hs-identifier">p</span></a></a><span>  </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-var">return</span><span> </span><a href="#local-6989586621679149783"><span class="hs-identifier hs-var">p</span></a><span>
+</span><a name="line-339"></a><span>        </span><span class="hs-identifier hs-var">Nothing</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-340"></a><span>            </span><a name="local-6989586621679149784"><a href="#local-6989586621679149784"><span class="hs-identifier">m</span></a></a><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">view</span><span> </span><a href="Network.AWS.Env.html#envManager"><span class="hs-identifier hs-var">envManager</span></a><span>
+</span><a name="line-341"></a><span>            </span><span class="hs-glyph">!</span><a name="local-6989586621679149785"><a href="#local-6989586621679149785"><span class="hs-identifier">p</span></a></a><span> </span><span class="hs-glyph">&lt;-</span><span> </span><a href="Network.AWS.EC2.Metadata.html#isEC2"><span class="hs-identifier hs-var">EC2</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">isEC2</span></a><span> </span><a href="#local-6989586621679149784"><span class="hs-identifier hs-var">m</span></a><span>
+</span><a name="line-342"></a><span>            </span><span class="hs-identifier hs-var">liftIO</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">atomicWriteIORef</span><span> </span><a href="#local-6989586621679149781"><span class="hs-identifier hs-var">ref</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">Just</span><span> </span><a href="#local-6989586621679149785"><span class="hs-identifier hs-var">p</span></a><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-343"></a><span>            </span><span class="hs-identifier hs-var">return</span><span> </span><a href="#local-6989586621679149785"><span class="hs-identifier hs-var">p</span></a><span>
+</span><a name="line-344"></a><span>
+</span><a name="line-345"></a><span class="hs-comment">-- | Retrieve the specified 'Dynamic' data.</span><span>
+</span><a name="line-346"></a><span class="hs-comment">--</span><span>
+</span><a name="line-347"></a><span class="hs-comment">-- Throws 'HttpException'.</span><span>
+</span><a name="line-348"></a><span class="hs-identifier">dynamic</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadIO</span><span> </span><a href="#local-6989586621679149726"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadThrow</span><span> </span><a href="#local-6989586621679149726"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679149727"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149726"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span> </span><a href="#local-6989586621679149727"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-349"></a><span>        </span><span class="hs-glyph">=&gt;</span><span> </span><a href="Network.AWS.EC2.Metadata.html#Dynamic"><span class="hs-identifier hs-type">EC2</span><span class="hs-operator hs-type">.</span><span class="hs-identifier hs-type">Dynamic</span></a><span>
+</span><a name="line-350"></a><span>        </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149726"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">ByteString</span><span>
+</span><a name="line-351"></a><a name="dynamic"><a href="Control.Monad.Trans.AWS.html#dynamic"><span class="hs-identifier">dynamic</span></a></a><span> </span><a name="local-6989586621679149786"><a href="#local-6989586621679149786"><span class="hs-identifier">d</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">view</span><span> </span><a href="Network.AWS.Env.html#envManager"><span class="hs-identifier hs-var">envManager</span></a><span> </span><span class="hs-operator hs-var">&gt;&gt;=</span><span> </span><span class="hs-identifier hs-var">flip</span><span> </span><a href="Network.AWS.EC2.Metadata.html#dynamic"><span class="hs-identifier hs-var">EC2</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">dynamic</span></a><span> </span><a href="#local-6989586621679149786"><span class="hs-identifier hs-var">d</span></a><span>
+</span><a name="line-352"></a><span>
+</span><a name="line-353"></a><span class="hs-comment">-- | Retrieve the specified 'Metadata'.</span><span>
+</span><a name="line-354"></a><span class="hs-comment">--</span><span>
+</span><a name="line-355"></a><span class="hs-comment">-- Throws 'HttpException'.</span><span>
+</span><a name="line-356"></a><span class="hs-identifier">metadata</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadIO</span><span> </span><a href="#local-6989586621679149724"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadThrow</span><span> </span><a href="#local-6989586621679149724"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679149725"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149724"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span> </span><a href="#local-6989586621679149725"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-357"></a><span>         </span><span class="hs-glyph">=&gt;</span><span> </span><a href="Network.AWS.EC2.Metadata.html#Metadata"><span class="hs-identifier hs-type">EC2</span><span class="hs-operator hs-type">.</span><span class="hs-identifier hs-type">Metadata</span></a><span>
+</span><a name="line-358"></a><span>         </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149724"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">ByteString</span><span>
+</span><a name="line-359"></a><a name="metadata"><a href="Control.Monad.Trans.AWS.html#metadata"><span class="hs-identifier">metadata</span></a></a><span> </span><a name="local-6989586621679149787"><a href="#local-6989586621679149787"><span class="hs-identifier">m</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">view</span><span> </span><a href="Network.AWS.Env.html#envManager"><span class="hs-identifier hs-var">envManager</span></a><span> </span><span class="hs-operator hs-var">&gt;&gt;=</span><span> </span><span class="hs-identifier hs-var">flip</span><span> </span><a href="Network.AWS.EC2.Metadata.html#metadata"><span class="hs-identifier hs-var">EC2</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">metadata</span></a><span> </span><a href="#local-6989586621679149787"><span class="hs-identifier hs-var">m</span></a><span>
+</span><a name="line-360"></a><span>
+</span><a name="line-361"></a><span class="hs-comment">-- | Retrieve the user data. Returns 'Nothing' if no user data is assigned</span><span>
+</span><a name="line-362"></a><span class="hs-comment">-- to the instance.</span><span>
+</span><a name="line-363"></a><span class="hs-comment">--</span><span>
+</span><a name="line-364"></a><span class="hs-comment">-- Throws 'HttpException'.</span><span>
+</span><a name="line-365"></a><span class="hs-identifier">userdata</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadIO</span><span> </span><a href="#local-6989586621679149722"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadCatch</span><span> </span><a href="#local-6989586621679149722"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679149723"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679149722"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.Env.html#HasEnv"><span class="hs-identifier hs-type">HasEnv</span></a><span> </span><a href="#local-6989586621679149723"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-366"></a><span>         </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679149722"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Maybe</span><span> </span><span class="hs-identifier hs-type">ByteString</span><span class="hs-special">)</span><span>
+</span><a name="line-367"></a><a name="userdata"><a href="Control.Monad.Trans.AWS.html#userdata"><span class="hs-identifier">userdata</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">view</span><span> </span><a href="Network.AWS.Env.html#envManager"><span class="hs-identifier hs-var">envManager</span></a><span> </span><span class="hs-operator hs-var">&gt;&gt;=</span><span> </span><a href="Network.AWS.EC2.Metadata.html#userdata"><span class="hs-identifier hs-var">EC2</span><span class="hs-operator hs-var">.</span><span class="hs-identifier hs-var">userdata</span></a><span>
+</span><a name="line-368"></a><span>
+</span><a name="line-369"></a><span class="hs-identifier">hoistError</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">MonadThrow</span><span> </span><a href="#local-6989586621679149720"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">Either</span><span> </span><span class="hs-identifier hs-type">Error</span><span> </span><a href="#local-6989586621679149721"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679149720"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679149721"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-370"></a><a name="hoistError"><a href="Control.Monad.Trans.AWS.html#hoistError"><span class="hs-identifier">hoistError</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">either</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">throwingM</span><span> </span><span class="hs-identifier hs-var">_Error</span><span class="hs-special">)</span><span> </span><span class="hs-identifier hs-var">return</span><span>
+</span><a name="line-371"></a><span>
+</span><a name="line-372"></a><span class="hs-comment">{- $discovery
+AuthN/AuthZ information is handled similarly to other AWS SDKs. You can read
+some of the options available &lt;http://blogs.aws.amazon.com/security/post/Tx3D6U6WSFGOK2H/A-New-and-Standardized-Way-to-Manage-Credentials-in-the-AWS-SDKs here&gt;.
+
+When running on an EC2 instance and using 'FromProfile' or 'Discover', a thread
+is forked which transparently handles the expiry and subsequent refresh of IAM
+profile information. See 'Network.AWS.Auth.fromProfileName' for more information.
+-}</span><span>
+</span><a name="line-380"></a><span>
+</span><a name="line-381"></a><span class="hs-comment">{- $sending
+To send a request you need to create a value of the desired operation type using
+the relevant constructor, as well as any further modifications of default/optional
+parameters using the appropriate lenses. This value can then be sent using 'send'
+or 'paginate' and the library will take care of serialisation/authentication and
+so forth.
+
+The default 'Service' configuration for a request contains retry configuration that is used to
+determine if a request can safely be retried and what kind of back off/on strategy
+should be used. (Usually exponential.)
+Typically services define retry strategies that handle throttling, general server
+errors and transport errors. Streaming requests are never retried.
+-}</span><span>
+</span><a name="line-394"></a><span>
+</span><a name="line-395"></a><span class="hs-comment">{- $pagination
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-411"></a><span>
+</span><a name="line-412"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+Error conditions that are not handled by the 'Wait' configuration will be thrown,
+or the first successful response that fulfills the success condition will be
+returned.
+
+'Wait' specifications can be found under the @Network.AWS.{ServiceName}.Waiters@
+namespace for services which support 'await'.
+-}</span><span>
+</span><a name="line-423"></a><span>
+</span><a name="line-424"></a><span class="hs-comment">{- $service
+When a request is sent, various values such as the endpoint,
+retry strategy, timeout and error handlers are taken from the associated 'Service'
+for a request. For example, 'DynamoDB' will use the 'Network.AWS.DynamoDB.dynamoDB'
+configuration when sending 'PutItem', 'Query' and all other operations.
+
+You can modify a specific 'Service''s default configuration by using
+'configure' or 'reconfigure'. To modify all configurations simultaneously, see 'override'.
+
+An example of how you might alter default configuration using these mechanisms
+is demonstrated below. Firstly, the default 'dynamoDB' service is configured to
+use non-SSL localhost as the endpoint:
+
+&gt; let dynamo :: Service
+&gt;     dynamo = setEndpoint False &quot;localhost&quot; 8000 dynamoDB
+
+The updated configuration is then passed to the 'Env' during setup:
+
+&gt; e &lt;- newEnv Discover &lt;&amp;&gt; configure dynamo
+&gt; runResourceT . runAWS e $ do
+&gt;     -- This S3 operation will communicate with remote AWS APIs.
+&gt;     x &lt;- send listBuckets
+&gt;
+&gt;     -- DynamoDB operations will communicate with localhost:8000.
+&gt;     y &lt;- send listTables
+&gt;
+&gt;     -- Any operations for services other than DynamoDB, are not affected.
+&gt;     ...
+
+You can also scope the 'Endpoint' modifications (or any other 'Service' configuration)
+to specific actions:
+
+&gt; e &lt;- newEnv Discover
+&gt; runResourceT . runAWS e $ do
+&gt;     -- Service operations here will communicate with AWS, even DynamoDB.
+&gt;     x &lt;- send listTables
+&gt;
+&gt;     reconfigure dynamo $ do
+&gt;        -- In here, DynamoDB operations will communicate with localhost:8000,
+&gt;        -- with operations for services not being affected.
+&gt;        ...
+
+Functions such as 'within', 'once', and 'timeout' likewise modify the underlying
+configuration for all service requests within their respective scope.
+-}</span><span>
+</span><a name="line-469"></a><span>
+</span><a name="line-470"></a><span class="hs-comment">{- $streaming
+Streaming comes in two flavours. 'HashedBody' represents a request
+that requires a precomputed 'SHA256' hash, or a 'ChunkedBody' type for those services
+that can perform incremental signing and do not require the entire payload to
+be hashed (such as 'S3'). The type signatures for request smart constructors
+advertise which respective body type is required, denoting the underlying signing
+capabilities.
+
+'ToHashedBody' and 'ToBody' typeclass instances are available to construct the
+streaming bodies, automatically calculating any hash or size as needed for types
+such as 'Text', 'ByteString', or Aeson's 'Value' type. To read files and other
+'IO' primitives, functions such as 'hashedFile', 'chunkedFile', or 'hashedBody'
+should be used.
+
+For responses that contain streaming bodies (such as 'GetObject'), you can use
+'sinkBody' to connect the response body to a &lt;http://hackage.haskell.org/package/conduit conduit&gt;
+compatible sink.
+-}</span><span>
+</span><a name="line-488"></a><span>
+</span><a name="line-489"></a><span class="hs-comment">{- $presigning
+Presigning requires the 'Service' signer to be an instance of 'AWSPresigner'.
+Not all signing algorithms support this.
+-}</span><span>
+</span><a name="line-493"></a><span>
+</span><a name="line-494"></a><span class="hs-comment">{- $metadata
+Metadata can be retrieved from the underlying host assuming that you're running
+the code on an EC2 instance or have a compatible @instance-data@ endpoint available.
+-}</span><span>
+</span><a name="line-498"></a><span>
+</span><a name="line-499"></a><span class="hs-comment">{- $async
+Requests can be sent asynchronously, but due to guarantees about resource closure
+require the use of &lt;http://hackage.haskell.org/package/lifted-async lifted-async&gt;.
+
+The following example demonstrates retrieving two objects from S3 concurrently:
+
+&gt; import Control.Concurrent.Async.Lifted
+&gt; import Control.Lens
+&gt; import Control.Monad.Trans.AWS
+&gt; import Network.AWS.S3
+&gt;
+&gt; do x   &lt;- async . send $ getObject &quot;bucket&quot; &quot;prefix/object-foo&quot;
+&gt;    y   &lt;- async . send $ getObject &quot;bucket&quot; &quot;prefix/object-bar&quot;
+&gt;    foo &lt;- wait x
+&gt;    bar &lt;- wait y
+&gt;    ...
+
+/See:/ &lt;http://hackage.haskell.org/package/lifted-async Control.Concurrent.Async.Lifted&gt;
+-}</span><span>
+</span><a name="line-518"></a><span>
+</span><a name="line-519"></a><span class="hs-comment">{- $errors
+Errors are thrown by the library using 'MonadThrow' (unless &quot;Control.Monad.Error.AWS&quot; is used).
+Sub-errors of the canonical 'Error' type can be caught using 'trying' or
+'catching' and the appropriate 'AsError' 'Prism':
+
+@
+trying '_Error'          (send $ ListObjects &quot;bucket-name&quot;) :: Either 'Error'          ListObjectsResponse
+trying '_TransportError' (send $ ListObjects &quot;bucket-name&quot;) :: Either 'HttpException'  ListObjectsResponse
+trying '_SerializeError' (send $ ListObjects &quot;bucket-name&quot;) :: Either 'SerializeError' ListObjectsResponse
+trying '_ServiceError'   (send $ ListObjects &quot;bucket-name&quot;) :: Either 'ServiceError'   ListObjectsResponse
+@
+
+Many of the individual @amazonka-*@ libraries export compatible 'Getter's for
+matching service specific error codes and messages in the style above.
+See the @Error Matchers@ heading in each respective library for details.
+-}</span><span>
+</span><a name="line-535"></a><span>
+</span><a name="line-536"></a><span class="hs-comment">{- $logging
+The exposed logging interface is a primitive 'Logger' function which gets
+threaded through service calls and serialisation routines. This allows the
+library to output useful information and diagnostics.
+
+The 'newLogger' function can be used to construct a simple logger which writes
+output to a 'Handle', but in most production code you should probably consider
+using a more robust logging library such as
+&lt;http://hackage.haskell.org/package/tiny-log tiny-log&gt; or
+&lt;http://hackage.haskell.org/package/fast-logger fast-logger&gt;.
+-}</span><span>
+</span><a name="line-547"></a></pre></body></html>
