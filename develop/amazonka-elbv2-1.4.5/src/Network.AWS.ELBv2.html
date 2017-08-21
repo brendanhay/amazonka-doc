@@ -1,0 +1,493 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.ELBv2</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __Elastic Load Balancing__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- A load balancer distributes incoming traffic across targets, such as your EC2 instances. This enables you to increase the availability of your application. The load balancer also monitors the health of its registered targets and ensures that it routes traffic only to healthy targets. You configure your load balancer to accept incoming traffic by specifying one or more listeners, which are configured with a protocol and port number for connections from clients to the load balancer. You configure a target group with a protocol and port number for connections from the load balancer to the targets, and with health check settings to be used when checking the health status of the targets.</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- Elastic Load Balancing supports two types of load balancers: Classic Load Balancers and Application Load Balancers. A Classic Load Balancer makes routing and load balancing decisions either at the transport layer (TCP/SSL) or the application layer (HTTP/HTTPS), and supports either EC2-Classic or a VPC. An Application Load Balancer makes routing and load balancing decisions at the application layer (HTTP/HTTPS), supports path-based routing, and can route requests to one or more ports on each EC2 instance or container instance in your virtual private cloud (VPC). For more information, see the &lt;http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/ Elastic Load Balancing User Guide&gt; .</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--</span><span>
+</span><a name="line-20"></a><span class="hs-comment">-- This reference covers the 2015-12-01 API, which supports Application Load Balancers. The 2012-06-01 API supports Classic Load Balancers.</span><span>
+</span><a name="line-21"></a><span class="hs-comment">--</span><span>
+</span><a name="line-22"></a><span class="hs-comment">-- To get started, complete the following tasks:</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--</span><span>
+</span><a name="line-24"></a><span class="hs-comment">--     * Create an Application Load Balancer using 'CreateLoadBalancer' .</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--     * Create a target group using 'CreateTargetGroup' .</span><span>
+</span><a name="line-27"></a><span class="hs-comment">--</span><span>
+</span><a name="line-28"></a><span class="hs-comment">--     * Register targets for the target group using 'RegisterTargets' .</span><span>
+</span><a name="line-29"></a><span class="hs-comment">--</span><span>
+</span><a name="line-30"></a><span class="hs-comment">--     * Create one or more listeners for your load balancer using 'CreateListener' .</span><span>
+</span><a name="line-31"></a><span class="hs-comment">--</span><span>
+</span><a name="line-32"></a><span class="hs-comment">--     * (Optional) Create one or more rules for content routing based on URL using 'CreateRule' .</span><span>
+</span><a name="line-33"></a><span class="hs-comment">--</span><span>
+</span><a name="line-34"></a><span class="hs-comment">--</span><span>
+</span><a name="line-35"></a><span class="hs-comment">--</span><span>
+</span><a name="line-36"></a><span class="hs-comment">-- To delete an Application Load Balancer and its related resources, complete the following tasks:</span><span>
+</span><a name="line-37"></a><span class="hs-comment">--</span><span>
+</span><a name="line-38"></a><span class="hs-comment">--     * Delete the load balancer using 'DeleteLoadBalancer' .</span><span>
+</span><a name="line-39"></a><span class="hs-comment">--</span><span>
+</span><a name="line-40"></a><span class="hs-comment">--     * Delete the target group using 'DeleteTargetGroup' .</span><span>
+</span><a name="line-41"></a><span class="hs-comment">--</span><span>
+</span><a name="line-42"></a><span class="hs-comment">--</span><span>
+</span><a name="line-43"></a><span class="hs-comment">--</span><span>
+</span><a name="line-44"></a><span class="hs-comment">-- All Elastic Load Balancing operations are idempotent, which means that they complete at most one time. If you repeat an operation, it succeeds.</span><span>
+</span><a name="line-45"></a><span class="hs-comment">--</span><span>
+</span><a name="line-46"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-49"></a><span>      </span><a href="Network.AWS.ELBv2.Types.html#eLBv2"><span class="hs-identifier hs-var">eLBv2</span></a><span>
+</span><a name="line-50"></a><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-53"></a><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-comment">-- ** InvalidConfigurationRequestException</span><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_InvalidConfigurationRequestException"><span class="hs-identifier hs-var">_InvalidConfigurationRequestException</span></a><span>
+</span><a name="line-56"></a><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-comment">-- ** SubnetNotFoundException</span><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_SubnetNotFoundException"><span class="hs-identifier hs-var">_SubnetNotFoundException</span></a><span>
+</span><a name="line-59"></a><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-comment">-- ** TooManyTargetsException</span><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyTargetsException"><span class="hs-identifier hs-var">_TooManyTargetsException</span></a><span>
+</span><a name="line-62"></a><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-comment">-- ** RuleNotFoundException</span><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_RuleNotFoundException"><span class="hs-identifier hs-var">_RuleNotFoundException</span></a><span>
+</span><a name="line-65"></a><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-comment">-- ** InvalidSubnetException</span><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_InvalidSubnetException"><span class="hs-identifier hs-var">_InvalidSubnetException</span></a><span>
+</span><a name="line-68"></a><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-comment">-- ** TooManyRulesException</span><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyRulesException"><span class="hs-identifier hs-var">_TooManyRulesException</span></a><span>
+</span><a name="line-71"></a><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-comment">-- ** TooManyTargetGroupsException</span><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyTargetGroupsException"><span class="hs-identifier hs-var">_TooManyTargetGroupsException</span></a><span>
+</span><a name="line-74"></a><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-comment">-- ** DuplicateLoadBalancerNameException</span><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_DuplicateLoadBalancerNameException"><span class="hs-identifier hs-var">_DuplicateLoadBalancerNameException</span></a><span>
+</span><a name="line-77"></a><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-comment">-- ** IncompatibleProtocolsException</span><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_IncompatibleProtocolsException"><span class="hs-identifier hs-var">_IncompatibleProtocolsException</span></a><span>
+</span><a name="line-80"></a><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-comment">-- ** TooManyCertificatesException</span><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyCertificatesException"><span class="hs-identifier hs-var">_TooManyCertificatesException</span></a><span>
+</span><a name="line-83"></a><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-comment">-- ** DuplicateTagKeysException</span><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_DuplicateTagKeysException"><span class="hs-identifier hs-var">_DuplicateTagKeysException</span></a><span>
+</span><a name="line-86"></a><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-comment">-- ** DuplicateListenerException</span><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_DuplicateListenerException"><span class="hs-identifier hs-var">_DuplicateListenerException</span></a><span>
+</span><a name="line-89"></a><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-comment">-- ** TooManyTagsException</span><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyTagsException"><span class="hs-identifier hs-var">_TooManyTagsException</span></a><span>
+</span><a name="line-92"></a><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-comment">-- ** DuplicateTargetGroupNameException</span><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_DuplicateTargetGroupNameException"><span class="hs-identifier hs-var">_DuplicateTargetGroupNameException</span></a><span>
+</span><a name="line-95"></a><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-comment">-- ** HealthUnavailableException</span><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_HealthUnavailableException"><span class="hs-identifier hs-var">_HealthUnavailableException</span></a><span>
+</span><a name="line-98"></a><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-comment">-- ** PriorityInUseException</span><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_PriorityInUseException"><span class="hs-identifier hs-var">_PriorityInUseException</span></a><span>
+</span><a name="line-101"></a><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-comment">-- ** TooManyLoadBalancersException</span><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyLoadBalancersException"><span class="hs-identifier hs-var">_TooManyLoadBalancersException</span></a><span>
+</span><a name="line-104"></a><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-comment">-- ** UnsupportedProtocolException</span><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_UnsupportedProtocolException"><span class="hs-identifier hs-var">_UnsupportedProtocolException</span></a><span>
+</span><a name="line-107"></a><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-comment">-- ** InvalidTargetException</span><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_InvalidTargetException"><span class="hs-identifier hs-var">_InvalidTargetException</span></a><span>
+</span><a name="line-110"></a><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-comment">-- ** InvalidSecurityGroupException</span><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_InvalidSecurityGroupException"><span class="hs-identifier hs-var">_InvalidSecurityGroupException</span></a><span>
+</span><a name="line-113"></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-comment">-- ** TargetGroupNotFoundException</span><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TargetGroupNotFoundException"><span class="hs-identifier hs-var">_TargetGroupNotFoundException</span></a><span>
+</span><a name="line-116"></a><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-comment">-- ** ListenerNotFoundException</span><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_ListenerNotFoundException"><span class="hs-identifier hs-var">_ListenerNotFoundException</span></a><span>
+</span><a name="line-119"></a><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-comment">-- ** TooManyRegistrationsForTargetIdException</span><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyRegistrationsForTargetIdException"><span class="hs-identifier hs-var">_TooManyRegistrationsForTargetIdException</span></a><span>
+</span><a name="line-122"></a><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-comment">-- ** TooManyListenersException</span><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TooManyListenersException"><span class="hs-identifier hs-var">_TooManyListenersException</span></a><span>
+</span><a name="line-125"></a><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-comment">-- ** TargetGroupAssociationLimitException</span><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_TargetGroupAssociationLimitException"><span class="hs-identifier hs-var">_TargetGroupAssociationLimitException</span></a><span>
+</span><a name="line-128"></a><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-comment">-- ** OperationNotPermittedException</span><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_OperationNotPermittedException"><span class="hs-identifier hs-var">_OperationNotPermittedException</span></a><span>
+</span><a name="line-131"></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-comment">-- ** SSLPolicyNotFoundException</span><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_SSLPolicyNotFoundException"><span class="hs-identifier hs-var">_SSLPolicyNotFoundException</span></a><span>
+</span><a name="line-134"></a><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-comment">-- ** InvalidSchemeException</span><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_InvalidSchemeException"><span class="hs-identifier hs-var">_InvalidSchemeException</span></a><span>
+</span><a name="line-137"></a><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-comment">-- ** LoadBalancerNotFoundException</span><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_LoadBalancerNotFoundException"><span class="hs-identifier hs-var">_LoadBalancerNotFoundException</span></a><span>
+</span><a name="line-140"></a><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-comment">-- ** ResourceInUseException</span><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_ResourceInUseException"><span class="hs-identifier hs-var">_ResourceInUseException</span></a><span>
+</span><a name="line-143"></a><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-comment">-- ** CertificateNotFoundException</span><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.html#_CertificateNotFoundException"><span class="hs-identifier hs-var">_CertificateNotFoundException</span></a><span>
+</span><a name="line-146"></a><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-149"></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-152"></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-comment">-- ** DescribeLoadBalancers (Paginated)</span><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLoadBalancers</span><span>
+</span><a name="line-155"></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-comment">-- ** DescribeTags</span><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTags</span><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- ** DeleteRule</span><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRule</span><span>
+</span><a name="line-161"></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-comment">-- ** RemoveTags</span><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTags</span><span>
+</span><a name="line-164"></a><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-comment">-- ** DeleteTargetGroup</span><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTargetGroup</span><span>
+</span><a name="line-167"></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-comment">-- ** SetSubnets</span><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetSubnets</span><span>
+</span><a name="line-170"></a><span>
+</span><a name="line-171"></a><span>    </span><span class="hs-comment">-- ** CreateRule</span><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateRule</span><span>
+</span><a name="line-173"></a><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-comment">-- ** SetSecurityGroups</span><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetSecurityGroups</span><span>
+</span><a name="line-176"></a><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-comment">-- ** SetRulePriorities</span><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetRulePriorities</span><span>
+</span><a name="line-179"></a><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-comment">-- ** DescribeTargetGroups (Paginated)</span><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTargetGroups</span><span>
+</span><a name="line-182"></a><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-comment">-- ** DescribeRules</span><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRules</span><span>
+</span><a name="line-185"></a><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-comment">-- ** DeleteLoadBalancer</span><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLoadBalancer</span><span>
+</span><a name="line-188"></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-comment">-- ** RegisterTargets</span><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterTargets</span><span>
+</span><a name="line-191"></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-comment">-- ** ModifyListener</span><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyListener</span><span>
+</span><a name="line-194"></a><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-comment">-- ** ModifyTargetGroup</span><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyTargetGroup</span><span>
+</span><a name="line-197"></a><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-comment">-- ** ModifyTargetGroupAttributes</span><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyTargetGroupAttributes</span><span>
+</span><a name="line-200"></a><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-comment">-- ** DescribeTargetGroupAttributes</span><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTargetGroupAttributes</span><span>
+</span><a name="line-203"></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-comment">-- ** DeleteListener</span><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteListener</span><span>
+</span><a name="line-206"></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-comment">-- ** DescribeSSLPolicies</span><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSSLPolicies</span><span>
+</span><a name="line-209"></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-comment">-- ** DescribeAccountLimits</span><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAccountLimits</span><span>
+</span><a name="line-212"></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-comment">-- ** DeregisterTargets</span><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterTargets</span><span>
+</span><a name="line-215"></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-comment">-- ** CreateListener</span><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateListener</span><span>
+</span><a name="line-218"></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-comment">-- ** CreateTargetGroup</span><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTargetGroup</span><span>
+</span><a name="line-221"></a><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-comment">-- ** ModifyLoadBalancerAttributes</span><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyLoadBalancerAttributes</span><span>
+</span><a name="line-224"></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-comment">-- ** SetIPAddressType</span><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetIPAddressType</span><span>
+</span><a name="line-227"></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-comment">-- ** AddTags</span><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">AddTags</span><span>
+</span><a name="line-230"></a><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-comment">-- ** DescribeLoadBalancerAttributes</span><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLoadBalancerAttributes</span><span>
+</span><a name="line-233"></a><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-comment">-- ** DescribeListeners (Paginated)</span><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeListeners</span><span>
+</span><a name="line-236"></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-comment">-- ** DescribeTargetHealth</span><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTargetHealth</span><span>
+</span><a name="line-239"></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-comment">-- ** CreateLoadBalancer</span><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLoadBalancer</span><span>
+</span><a name="line-242"></a><span>
+</span><a name="line-243"></a><span>    </span><span class="hs-comment">-- ** ModifyRule</span><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyRule</span><span>
+</span><a name="line-245"></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-247"></a><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-comment">-- ** ActionTypeEnum</span><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#ActionTypeEnum"><span class="hs-identifier hs-type">ActionTypeEnum</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-250"></a><span>
+</span><a name="line-251"></a><span>    </span><span class="hs-comment">-- ** IPAddressType</span><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#IPAddressType"><span class="hs-identifier hs-type">IPAddressType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-253"></a><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-comment">-- ** LoadBalancerSchemeEnum</span><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#LoadBalancerSchemeEnum"><span class="hs-identifier hs-type">LoadBalancerSchemeEnum</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-256"></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-comment">-- ** LoadBalancerStateEnum</span><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#LoadBalancerStateEnum"><span class="hs-identifier hs-type">LoadBalancerStateEnum</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-259"></a><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-comment">-- ** LoadBalancerTypeEnum</span><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#LoadBalancerTypeEnum"><span class="hs-identifier hs-type">LoadBalancerTypeEnum</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-262"></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-comment">-- ** ProtocolEnum</span><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#ProtocolEnum"><span class="hs-identifier hs-type">ProtocolEnum</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-265"></a><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-comment">-- ** TargetHealthReasonEnum</span><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#TargetHealthReasonEnum"><span class="hs-identifier hs-type">TargetHealthReasonEnum</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-268"></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-comment">-- ** TargetHealthStateEnum</span><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Sum.html#TargetHealthStateEnum"><span class="hs-identifier hs-type">TargetHealthStateEnum</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-271"></a><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-comment">-- ** Action</span><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Action"><span class="hs-identifier hs-type">Action</span></a><span>
+</span><a name="line-274"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#action"><span class="hs-identifier hs-var">action</span></a><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#aType"><span class="hs-identifier hs-var">aType</span></a><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#aTargetGroupARN"><span class="hs-identifier hs-var">aTargetGroupARN</span></a><span>
+</span><a name="line-277"></a><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-comment">-- ** AvailabilityZone</span><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#AvailabilityZone"><span class="hs-identifier hs-type">AvailabilityZone</span></a><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#availabilityZone"><span class="hs-identifier hs-var">availabilityZone</span></a><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#azSubnetId"><span class="hs-identifier hs-var">azSubnetId</span></a><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#azZoneName"><span class="hs-identifier hs-var">azZoneName</span></a><span>
+</span><a name="line-283"></a><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-comment">-- ** Certificate</span><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Certificate"><span class="hs-identifier hs-type">Certificate</span></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#certificate"><span class="hs-identifier hs-var">certificate</span></a><span>
+</span><a name="line-287"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#cCertificateARN"><span class="hs-identifier hs-var">cCertificateARN</span></a><span>
+</span><a name="line-288"></a><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-comment">-- ** Cipher</span><span>
+</span><a name="line-290"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Cipher"><span class="hs-identifier hs-type">Cipher</span></a><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#cipher"><span class="hs-identifier hs-var">cipher</span></a><span>
+</span><a name="line-292"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#cPriority"><span class="hs-identifier hs-var">cPriority</span></a><span>
+</span><a name="line-293"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#cName"><span class="hs-identifier hs-var">cName</span></a><span>
+</span><a name="line-294"></a><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-comment">-- ** Limit</span><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Limit"><span class="hs-identifier hs-type">Limit</span></a><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#limit"><span class="hs-identifier hs-var">limit</span></a><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lMax"><span class="hs-identifier hs-var">lMax</span></a><span>
+</span><a name="line-299"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lName"><span class="hs-identifier hs-var">lName</span></a><span>
+</span><a name="line-300"></a><span>
+</span><a name="line-301"></a><span>    </span><span class="hs-comment">-- ** Listener</span><span>
+</span><a name="line-302"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Listener"><span class="hs-identifier hs-type">Listener</span></a><span>
+</span><a name="line-303"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#listener"><span class="hs-identifier hs-var">listener</span></a><span>
+</span><a name="line-304"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lSSLPolicy"><span class="hs-identifier hs-var">lSSLPolicy</span></a><span>
+</span><a name="line-305"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lListenerARN"><span class="hs-identifier hs-var">lListenerARN</span></a><span>
+</span><a name="line-306"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lProtocol"><span class="hs-identifier hs-var">lProtocol</span></a><span>
+</span><a name="line-307"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lDefaultActions"><span class="hs-identifier hs-var">lDefaultActions</span></a><span>
+</span><a name="line-308"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lCertificates"><span class="hs-identifier hs-var">lCertificates</span></a><span>
+</span><a name="line-309"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lLoadBalancerARN"><span class="hs-identifier hs-var">lLoadBalancerARN</span></a><span>
+</span><a name="line-310"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lPort"><span class="hs-identifier hs-var">lPort</span></a><span>
+</span><a name="line-311"></a><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-comment">-- ** LoadBalancer</span><span>
+</span><a name="line-313"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#LoadBalancer"><span class="hs-identifier hs-type">LoadBalancer</span></a><span>
+</span><a name="line-314"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#loadBalancer"><span class="hs-identifier hs-var">loadBalancer</span></a><span>
+</span><a name="line-315"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbState"><span class="hs-identifier hs-var">lbState</span></a><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbSecurityGroups"><span class="hs-identifier hs-var">lbSecurityGroups</span></a><span>
+</span><a name="line-317"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbLoadBalancerName"><span class="hs-identifier hs-var">lbLoadBalancerName</span></a><span>
+</span><a name="line-318"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbCreatedTime"><span class="hs-identifier hs-var">lbCreatedTime</span></a><span>
+</span><a name="line-319"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbVPCId"><span class="hs-identifier hs-var">lbVPCId</span></a><span>
+</span><a name="line-320"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbCanonicalHostedZoneId"><span class="hs-identifier hs-var">lbCanonicalHostedZoneId</span></a><span>
+</span><a name="line-321"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbAvailabilityZones"><span class="hs-identifier hs-var">lbAvailabilityZones</span></a><span>
+</span><a name="line-322"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbLoadBalancerARN"><span class="hs-identifier hs-var">lbLoadBalancerARN</span></a><span>
+</span><a name="line-323"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbIPAddressType"><span class="hs-identifier hs-var">lbIPAddressType</span></a><span>
+</span><a name="line-324"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbScheme"><span class="hs-identifier hs-var">lbScheme</span></a><span>
+</span><a name="line-325"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbType"><span class="hs-identifier hs-var">lbType</span></a><span>
+</span><a name="line-326"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbDNSName"><span class="hs-identifier hs-var">lbDNSName</span></a><span>
+</span><a name="line-327"></a><span>
+</span><a name="line-328"></a><span>    </span><span class="hs-comment">-- ** LoadBalancerAttribute</span><span>
+</span><a name="line-329"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#LoadBalancerAttribute"><span class="hs-identifier hs-type">LoadBalancerAttribute</span></a><span>
+</span><a name="line-330"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#loadBalancerAttribute"><span class="hs-identifier hs-var">loadBalancerAttribute</span></a><span>
+</span><a name="line-331"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbaValue"><span class="hs-identifier hs-var">lbaValue</span></a><span>
+</span><a name="line-332"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbaKey"><span class="hs-identifier hs-var">lbaKey</span></a><span>
+</span><a name="line-333"></a><span>
+</span><a name="line-334"></a><span>    </span><span class="hs-comment">-- ** LoadBalancerState</span><span>
+</span><a name="line-335"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#LoadBalancerState"><span class="hs-identifier hs-type">LoadBalancerState</span></a><span>
+</span><a name="line-336"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#loadBalancerState"><span class="hs-identifier hs-var">loadBalancerState</span></a><span>
+</span><a name="line-337"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbsReason"><span class="hs-identifier hs-var">lbsReason</span></a><span>
+</span><a name="line-338"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#lbsCode"><span class="hs-identifier hs-var">lbsCode</span></a><span>
+</span><a name="line-339"></a><span>
+</span><a name="line-340"></a><span>    </span><span class="hs-comment">-- ** Matcher</span><span>
+</span><a name="line-341"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Matcher"><span class="hs-identifier hs-type">Matcher</span></a><span>
+</span><a name="line-342"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#matcher"><span class="hs-identifier hs-var">matcher</span></a><span>
+</span><a name="line-343"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#mHTTPCode"><span class="hs-identifier hs-var">mHTTPCode</span></a><span>
+</span><a name="line-344"></a><span>
+</span><a name="line-345"></a><span>    </span><span class="hs-comment">-- ** Rule</span><span>
+</span><a name="line-346"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Rule"><span class="hs-identifier hs-type">Rule</span></a><span>
+</span><a name="line-347"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rule"><span class="hs-identifier hs-var">rule</span></a><span>
+</span><a name="line-348"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rPriority"><span class="hs-identifier hs-var">rPriority</span></a><span>
+</span><a name="line-349"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rActions"><span class="hs-identifier hs-var">rActions</span></a><span>
+</span><a name="line-350"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rConditions"><span class="hs-identifier hs-var">rConditions</span></a><span>
+</span><a name="line-351"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rRuleARN"><span class="hs-identifier hs-var">rRuleARN</span></a><span>
+</span><a name="line-352"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rIsDefault"><span class="hs-identifier hs-var">rIsDefault</span></a><span>
+</span><a name="line-353"></a><span>
+</span><a name="line-354"></a><span>    </span><span class="hs-comment">-- ** RuleCondition</span><span>
+</span><a name="line-355"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#RuleCondition"><span class="hs-identifier hs-type">RuleCondition</span></a><span>
+</span><a name="line-356"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#ruleCondition"><span class="hs-identifier hs-var">ruleCondition</span></a><span>
+</span><a name="line-357"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rcField"><span class="hs-identifier hs-var">rcField</span></a><span>
+</span><a name="line-358"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rcValues"><span class="hs-identifier hs-var">rcValues</span></a><span>
+</span><a name="line-359"></a><span>
+</span><a name="line-360"></a><span>    </span><span class="hs-comment">-- ** RulePriorityPair</span><span>
+</span><a name="line-361"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#RulePriorityPair"><span class="hs-identifier hs-type">RulePriorityPair</span></a><span>
+</span><a name="line-362"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rulePriorityPair"><span class="hs-identifier hs-var">rulePriorityPair</span></a><span>
+</span><a name="line-363"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rppPriority"><span class="hs-identifier hs-var">rppPriority</span></a><span>
+</span><a name="line-364"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#rppRuleARN"><span class="hs-identifier hs-var">rppRuleARN</span></a><span>
+</span><a name="line-365"></a><span>
+</span><a name="line-366"></a><span>    </span><span class="hs-comment">-- ** SSLPolicy</span><span>
+</span><a name="line-367"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#SSLPolicy"><span class="hs-identifier hs-type">SSLPolicy</span></a><span>
+</span><a name="line-368"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#sslPolicy"><span class="hs-identifier hs-var">sslPolicy</span></a><span>
+</span><a name="line-369"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#spCiphers"><span class="hs-identifier hs-var">spCiphers</span></a><span>
+</span><a name="line-370"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#spName"><span class="hs-identifier hs-var">spName</span></a><span>
+</span><a name="line-371"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#spSSLProtocols"><span class="hs-identifier hs-var">spSSLProtocols</span></a><span>
+</span><a name="line-372"></a><span>
+</span><a name="line-373"></a><span>    </span><span class="hs-comment">-- ** Tag</span><span>
+</span><a name="line-374"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#Tag"><span class="hs-identifier hs-type">Tag</span></a><span>
+</span><a name="line-375"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tag"><span class="hs-identifier hs-var">tag</span></a><span>
+</span><a name="line-376"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tagValue"><span class="hs-identifier hs-var">tagValue</span></a><span>
+</span><a name="line-377"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tagKey"><span class="hs-identifier hs-var">tagKey</span></a><span>
+</span><a name="line-378"></a><span>
+</span><a name="line-379"></a><span>    </span><span class="hs-comment">-- ** TagDescription</span><span>
+</span><a name="line-380"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#TagDescription"><span class="hs-identifier hs-type">TagDescription</span></a><span>
+</span><a name="line-381"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tagDescription"><span class="hs-identifier hs-var">tagDescription</span></a><span>
+</span><a name="line-382"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tdResourceARN"><span class="hs-identifier hs-var">tdResourceARN</span></a><span>
+</span><a name="line-383"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tdTags"><span class="hs-identifier hs-var">tdTags</span></a><span>
+</span><a name="line-384"></a><span>
+</span><a name="line-385"></a><span>    </span><span class="hs-comment">-- ** TargetDescription</span><span>
+</span><a name="line-386"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#TargetDescription"><span class="hs-identifier hs-type">TargetDescription</span></a><span>
+</span><a name="line-387"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#targetDescription"><span class="hs-identifier hs-var">targetDescription</span></a><span>
+</span><a name="line-388"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tdPort"><span class="hs-identifier hs-var">tdPort</span></a><span>
+</span><a name="line-389"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tdId"><span class="hs-identifier hs-var">tdId</span></a><span>
+</span><a name="line-390"></a><span>
+</span><a name="line-391"></a><span>    </span><span class="hs-comment">-- ** TargetGroup</span><span>
+</span><a name="line-392"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#TargetGroup"><span class="hs-identifier hs-type">TargetGroup</span></a><span>
+</span><a name="line-393"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#targetGroup"><span class="hs-identifier hs-var">targetGroup</span></a><span>
+</span><a name="line-394"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgMatcher"><span class="hs-identifier hs-var">tgMatcher</span></a><span>
+</span><a name="line-395"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgHealthCheckPath"><span class="hs-identifier hs-var">tgHealthCheckPath</span></a><span>
+</span><a name="line-396"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgUnhealthyThresholdCount"><span class="hs-identifier hs-var">tgUnhealthyThresholdCount</span></a><span>
+</span><a name="line-397"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgVPCId"><span class="hs-identifier hs-var">tgVPCId</span></a><span>
+</span><a name="line-398"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgTargetGroupARN"><span class="hs-identifier hs-var">tgTargetGroupARN</span></a><span>
+</span><a name="line-399"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgProtocol"><span class="hs-identifier hs-var">tgProtocol</span></a><span>
+</span><a name="line-400"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgHealthCheckIntervalSeconds"><span class="hs-identifier hs-var">tgHealthCheckIntervalSeconds</span></a><span>
+</span><a name="line-401"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgHealthyThresholdCount"><span class="hs-identifier hs-var">tgHealthyThresholdCount</span></a><span>
+</span><a name="line-402"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgHealthCheckProtocol"><span class="hs-identifier hs-var">tgHealthCheckProtocol</span></a><span>
+</span><a name="line-403"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgLoadBalancerARNs"><span class="hs-identifier hs-var">tgLoadBalancerARNs</span></a><span>
+</span><a name="line-404"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgHealthCheckTimeoutSeconds"><span class="hs-identifier hs-var">tgHealthCheckTimeoutSeconds</span></a><span>
+</span><a name="line-405"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgHealthCheckPort"><span class="hs-identifier hs-var">tgHealthCheckPort</span></a><span>
+</span><a name="line-406"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgTargetGroupName"><span class="hs-identifier hs-var">tgTargetGroupName</span></a><span>
+</span><a name="line-407"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgPort"><span class="hs-identifier hs-var">tgPort</span></a><span>
+</span><a name="line-408"></a><span>
+</span><a name="line-409"></a><span>    </span><span class="hs-comment">-- ** TargetGroupAttribute</span><span>
+</span><a name="line-410"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#TargetGroupAttribute"><span class="hs-identifier hs-type">TargetGroupAttribute</span></a><span>
+</span><a name="line-411"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#targetGroupAttribute"><span class="hs-identifier hs-var">targetGroupAttribute</span></a><span>
+</span><a name="line-412"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgaValue"><span class="hs-identifier hs-var">tgaValue</span></a><span>
+</span><a name="line-413"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#tgaKey"><span class="hs-identifier hs-var">tgaKey</span></a><span>
+</span><a name="line-414"></a><span>
+</span><a name="line-415"></a><span>    </span><span class="hs-comment">-- ** TargetHealth</span><span>
+</span><a name="line-416"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#TargetHealth"><span class="hs-identifier hs-type">TargetHealth</span></a><span>
+</span><a name="line-417"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#targetHealth"><span class="hs-identifier hs-var">targetHealth</span></a><span>
+</span><a name="line-418"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#thState"><span class="hs-identifier hs-var">thState</span></a><span>
+</span><a name="line-419"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#thReason"><span class="hs-identifier hs-var">thReason</span></a><span>
+</span><a name="line-420"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#thDescription"><span class="hs-identifier hs-var">thDescription</span></a><span>
+</span><a name="line-421"></a><span>
+</span><a name="line-422"></a><span>    </span><span class="hs-comment">-- ** TargetHealthDescription</span><span>
+</span><a name="line-423"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#TargetHealthDescription"><span class="hs-identifier hs-type">TargetHealthDescription</span></a><span>
+</span><a name="line-424"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#targetHealthDescription"><span class="hs-identifier hs-var">targetHealthDescription</span></a><span>
+</span><a name="line-425"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#thdTargetHealth"><span class="hs-identifier hs-var">thdTargetHealth</span></a><span>
+</span><a name="line-426"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#thdHealthCheckPort"><span class="hs-identifier hs-var">thdHealthCheckPort</span></a><span>
+</span><a name="line-427"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ELBv2.Types.Product.html#thdTarget"><span class="hs-identifier hs-var">thdTarget</span></a><span>
+</span><a name="line-428"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-429"></a><span>
+</span><a name="line-430"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.AddTags.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">AddTags</span></a><span>
+</span><a name="line-431"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.CreateListener.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateListener</span></a><span>
+</span><a name="line-432"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.CreateLoadBalancer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLoadBalancer</span></a><span>
+</span><a name="line-433"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.CreateRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateRule</span></a><span>
+</span><a name="line-434"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.CreateTargetGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTargetGroup</span></a><span>
+</span><a name="line-435"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DeleteListener.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteListener</span></a><span>
+</span><a name="line-436"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DeleteLoadBalancer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLoadBalancer</span></a><span>
+</span><a name="line-437"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DeleteRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRule</span></a><span>
+</span><a name="line-438"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DeleteTargetGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTargetGroup</span></a><span>
+</span><a name="line-439"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DeregisterTargets.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterTargets</span></a><span>
+</span><a name="line-440"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeAccountLimits.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAccountLimits</span></a><span>
+</span><a name="line-441"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeListeners.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeListeners</span></a><span>
+</span><a name="line-442"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeLoadBalancerAttributes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLoadBalancerAttributes</span></a><span>
+</span><a name="line-443"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeLoadBalancers.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLoadBalancers</span></a><span>
+</span><a name="line-444"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeRules.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRules</span></a><span>
+</span><a name="line-445"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeSSLPolicies.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSSLPolicies</span></a><span>
+</span><a name="line-446"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeTags.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTags</span></a><span>
+</span><a name="line-447"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeTargetGroupAttributes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTargetGroupAttributes</span></a><span>
+</span><a name="line-448"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeTargetGroups.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTargetGroups</span></a><span>
+</span><a name="line-449"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.DescribeTargetHealth.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTargetHealth</span></a><span>
+</span><a name="line-450"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.ModifyListener.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyListener</span></a><span>
+</span><a name="line-451"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.ModifyLoadBalancerAttributes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyLoadBalancerAttributes</span></a><span>
+</span><a name="line-452"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.ModifyRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyRule</span></a><span>
+</span><a name="line-453"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.ModifyTargetGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyTargetGroup</span></a><span>
+</span><a name="line-454"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.ModifyTargetGroupAttributes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyTargetGroupAttributes</span></a><span>
+</span><a name="line-455"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.RegisterTargets.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterTargets</span></a><span>
+</span><a name="line-456"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.RemoveTags.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTags</span></a><span>
+</span><a name="line-457"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.SetIPAddressType.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetIPAddressType</span></a><span>
+</span><a name="line-458"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.SetRulePriorities.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetRulePriorities</span></a><span>
+</span><a name="line-459"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.SetSecurityGroups.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetSecurityGroups</span></a><span>
+</span><a name="line-460"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.SetSubnets.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">SetSubnets</span></a><span>
+</span><a name="line-461"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-462"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ELBv2.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ELBv2</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-463"></a><span>
+</span><a name="line-464"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'ELBv2'.
+-}</span><span>
+</span><a name="line-470"></a><span>
+</span><a name="line-471"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-487"></a><span>
+</span><a name="line-488"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-493"></a></pre></body></html>
