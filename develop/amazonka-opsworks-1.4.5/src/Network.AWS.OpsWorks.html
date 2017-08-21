@@ -1,0 +1,958 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.OpsWorks</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __AWS OpsWorks__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- Welcome to the /AWS OpsWorks Stacks API Reference/ . This guide provides descriptions, syntax, and usage examples for AWS OpsWorks Stacks actions and data types, including common parameters and error codes.</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- AWS OpsWorks Stacks is an application management service that provides an integrated experience for overseeing the complete application lifecycle. For information about this product, go to the &lt;http://aws.amazon.com/opsworks/ AWS OpsWorks&gt; details page.</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--</span><span>
+</span><a name="line-20"></a><span class="hs-comment">-- __SDKs and CLI__</span><span>
+</span><a name="line-21"></a><span class="hs-comment">--</span><span>
+</span><a name="line-22"></a><span class="hs-comment">-- The most common way to use the AWS OpsWorks Stacks API is by using the AWS Command Line Interface (CLI) or by using one of the AWS SDKs to implement applications in your preferred language. For more information, see:</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--</span><span>
+</span><a name="line-24"></a><span class="hs-comment">--     * &lt;http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html AWS CLI&gt;</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--     * &lt;http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/opsworks/AWSOpsWorksClient.html AWS SDK for Java&gt;</span><span>
+</span><a name="line-27"></a><span class="hs-comment">--</span><span>
+</span><a name="line-28"></a><span class="hs-comment">--     * &lt;http://docs.aws.amazon.com/sdkfornet/latest/apidocs/html/N_Amazon_OpsWorks.htm AWS SDK for .NET&gt;</span><span>
+</span><a name="line-29"></a><span class="hs-comment">--</span><span>
+</span><a name="line-30"></a><span class="hs-comment">--     * &lt;http://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.OpsWorks.OpsWorksClient.html AWS SDK for PHP 2&gt;</span><span>
+</span><a name="line-31"></a><span class="hs-comment">--</span><span>
+</span><a name="line-32"></a><span class="hs-comment">--     * &lt;http://docs.aws.amazon.com/sdkforruby/api/ AWS SDK for Ruby&gt;</span><span>
+</span><a name="line-33"></a><span class="hs-comment">--</span><span>
+</span><a name="line-34"></a><span class="hs-comment">--     * &lt;http://aws.amazon.com/documentation/sdkforjavascript/ AWS SDK for Node.js&gt;</span><span>
+</span><a name="line-35"></a><span class="hs-comment">--</span><span>
+</span><a name="line-36"></a><span class="hs-comment">--     * &lt;http://docs.pythonboto.org/en/latest/ref/opsworks.html AWS SDK for Python(Boto)&gt;</span><span>
+</span><a name="line-37"></a><span class="hs-comment">--</span><span>
+</span><a name="line-38"></a><span class="hs-comment">--</span><span>
+</span><a name="line-39"></a><span class="hs-comment">--</span><span>
+</span><a name="line-40"></a><span class="hs-comment">-- __Endpoints__</span><span>
+</span><a name="line-41"></a><span class="hs-comment">--</span><span>
+</span><a name="line-42"></a><span class="hs-comment">-- AWS OpsWorks Stacks supports the following endpoints, all HTTPS. You must connect to one of the following endpoints. Stacks can only be accessed or managed within the endpoint in which they are created.</span><span>
+</span><a name="line-43"></a><span class="hs-comment">--</span><span>
+</span><a name="line-44"></a><span class="hs-comment">--     * opsworks.us-east-1.amazonaws.com</span><span>
+</span><a name="line-45"></a><span class="hs-comment">--</span><span>
+</span><a name="line-46"></a><span class="hs-comment">--     * opsworks.us-east-2.amazonaws.com</span><span>
+</span><a name="line-47"></a><span class="hs-comment">--</span><span>
+</span><a name="line-48"></a><span class="hs-comment">--     * opsworks.us-west-1.amazonaws.com</span><span>
+</span><a name="line-49"></a><span class="hs-comment">--</span><span>
+</span><a name="line-50"></a><span class="hs-comment">--     * opsworks.us-west-2.amazonaws.com</span><span>
+</span><a name="line-51"></a><span class="hs-comment">--</span><span>
+</span><a name="line-52"></a><span class="hs-comment">--     * opsworks.eu-west-1.amazonaws.com</span><span>
+</span><a name="line-53"></a><span class="hs-comment">--</span><span>
+</span><a name="line-54"></a><span class="hs-comment">--     * opsworks.eu-west-2.amazonaws.com</span><span>
+</span><a name="line-55"></a><span class="hs-comment">--</span><span>
+</span><a name="line-56"></a><span class="hs-comment">--     * opsworks.eu-central-1.amazonaws.com</span><span>
+</span><a name="line-57"></a><span class="hs-comment">--</span><span>
+</span><a name="line-58"></a><span class="hs-comment">--     * opsworks.ap-northeast-1.amazonaws.com</span><span>
+</span><a name="line-59"></a><span class="hs-comment">--</span><span>
+</span><a name="line-60"></a><span class="hs-comment">--     * opsworks.ap-northeast-2.amazonaws.com</span><span>
+</span><a name="line-61"></a><span class="hs-comment">--</span><span>
+</span><a name="line-62"></a><span class="hs-comment">--     * opsworks.ap-south-1.amazonaws.com</span><span>
+</span><a name="line-63"></a><span class="hs-comment">--</span><span>
+</span><a name="line-64"></a><span class="hs-comment">--     * opsworks.ap-southeast-1.amazonaws.com</span><span>
+</span><a name="line-65"></a><span class="hs-comment">--</span><span>
+</span><a name="line-66"></a><span class="hs-comment">--     * opsworks.ap-southeast-2.amazonaws.com</span><span>
+</span><a name="line-67"></a><span class="hs-comment">--</span><span>
+</span><a name="line-68"></a><span class="hs-comment">--     * opsworks.sa-east-1.amazonaws.com</span><span>
+</span><a name="line-69"></a><span class="hs-comment">--</span><span>
+</span><a name="line-70"></a><span class="hs-comment">--</span><span>
+</span><a name="line-71"></a><span class="hs-comment">--</span><span>
+</span><a name="line-72"></a><span class="hs-comment">-- __Chef Versions__</span><span>
+</span><a name="line-73"></a><span class="hs-comment">--</span><span>
+</span><a name="line-74"></a><span class="hs-comment">-- When you call 'CreateStack' , 'CloneStack' , or 'UpdateStack' we recommend you use the @ConfigurationManager@ parameter to specify the Chef version. The recommended and default value for Linux stacks is currently 12. Windows stacks use Chef 12.2. For more information, see &lt;http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11.html Chef Versions&gt; .</span><span>
+</span><a name="line-75"></a><span class="hs-comment">--</span><span>
+</span><a name="line-76"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-79"></a><span>      </span><a href="Network.AWS.OpsWorks.Types.html#opsWorks"><span class="hs-identifier hs-var">opsWorks</span></a><span>
+</span><a name="line-80"></a><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-83"></a><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-comment">-- ** ValidationException</span><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.html#_ValidationException"><span class="hs-identifier hs-var">_ValidationException</span></a><span>
+</span><a name="line-86"></a><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-89"></a><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-92"></a><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-comment">-- ** InstanceTerminated</span><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Waiters.html#instanceTerminated"><span class="hs-identifier hs-var">instanceTerminated</span></a><span>
+</span><a name="line-95"></a><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-comment">-- ** DeploymentSuccessful</span><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Waiters.html#deploymentSuccessful"><span class="hs-identifier hs-var">deploymentSuccessful</span></a><span>
+</span><a name="line-98"></a><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-comment">-- ** InstanceStopped</span><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Waiters.html#instanceStopped"><span class="hs-identifier hs-var">instanceStopped</span></a><span>
+</span><a name="line-101"></a><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-comment">-- ** InstanceOnline</span><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Waiters.html#instanceOnline"><span class="hs-identifier hs-var">instanceOnline</span></a><span>
+</span><a name="line-104"></a><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-comment">-- ** AppExists</span><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Waiters.html#appExists"><span class="hs-identifier hs-var">appExists</span></a><span>
+</span><a name="line-107"></a><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-comment">-- ** InstanceRegistered</span><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Waiters.html#instanceRegistered"><span class="hs-identifier hs-var">instanceRegistered</span></a><span>
+</span><a name="line-110"></a><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-113"></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-comment">-- ** DescribeRDSDBInstances</span><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRDSDBInstances</span><span>
+</span><a name="line-116"></a><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-comment">-- ** DeleteStack</span><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteStack</span><span>
+</span><a name="line-119"></a><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-comment">-- ** UpdateStack</span><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateStack</span><span>
+</span><a name="line-122"></a><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-comment">-- ** CreateLayer</span><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLayer</span><span>
+</span><a name="line-125"></a><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-comment">-- ** SetLoadBasedAutoScaling</span><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">SetLoadBasedAutoScaling</span><span>
+</span><a name="line-128"></a><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-comment">-- ** DeregisterRDSDBInstance</span><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterRDSDBInstance</span><span>
+</span><a name="line-131"></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-comment">-- ** UnassignVolume</span><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UnassignVolume</span><span>
+</span><a name="line-134"></a><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-comment">-- ** CreateInstance</span><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateInstance</span><span>
+</span><a name="line-137"></a><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-comment">-- ** DescribeLayers</span><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLayers</span><span>
+</span><a name="line-140"></a><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-comment">-- ** RegisterElasticIP</span><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterElasticIP</span><span>
+</span><a name="line-143"></a><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-comment">-- ** DescribeAgentVersions</span><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAgentVersions</span><span>
+</span><a name="line-146"></a><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-comment">-- ** CreateDeployment</span><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateDeployment</span><span>
+</span><a name="line-149"></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-comment">-- ** AssignInstance</span><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AssignInstance</span><span>
+</span><a name="line-152"></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-comment">-- ** DescribeStacks</span><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStacks</span><span>
+</span><a name="line-155"></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-comment">-- ** DeleteInstance</span><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteInstance</span><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- ** UpdateInstance</span><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateInstance</span><span>
+</span><a name="line-161"></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-comment">-- ** DeregisterVolume</span><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterVolume</span><span>
+</span><a name="line-164"></a><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-comment">-- ** RebootInstance</span><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RebootInstance</span><span>
+</span><a name="line-167"></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-comment">-- ** DeleteApp</span><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteApp</span><span>
+</span><a name="line-170"></a><span>
+</span><a name="line-171"></a><span>    </span><span class="hs-comment">-- ** UpdateApp</span><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateApp</span><span>
+</span><a name="line-173"></a><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-comment">-- ** UpdateRDSDBInstance</span><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateRDSDBInstance</span><span>
+</span><a name="line-176"></a><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-comment">-- ** DescribeTimeBasedAutoScaling</span><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTimeBasedAutoScaling</span><span>
+</span><a name="line-179"></a><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-comment">-- ** StopStack</span><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StopStack</span><span>
+</span><a name="line-182"></a><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-comment">-- ** DescribeVolumes</span><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeVolumes</span><span>
+</span><a name="line-185"></a><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-comment">-- ** DisassociateElasticIP</span><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DisassociateElasticIP</span><span>
+</span><a name="line-188"></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-comment">-- ** RegisterEcsCluster</span><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterEcsCluster</span><span>
+</span><a name="line-191"></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-comment">-- ** StopInstance</span><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StopInstance</span><span>
+</span><a name="line-194"></a><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-comment">-- ** RegisterVolume</span><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterVolume</span><span>
+</span><a name="line-197"></a><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-comment">-- ** SetTimeBasedAutoScaling</span><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">SetTimeBasedAutoScaling</span><span>
+</span><a name="line-200"></a><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-comment">-- ** DescribeUserProfiles</span><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeUserProfiles</span><span>
+</span><a name="line-203"></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-comment">-- ** AttachElasticLoadBalancer</span><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AttachElasticLoadBalancer</span><span>
+</span><a name="line-206"></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-comment">-- ** DeregisterElasticIP</span><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterElasticIP</span><span>
+</span><a name="line-209"></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-comment">-- ** DeregisterEcsCluster</span><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterEcsCluster</span><span>
+</span><a name="line-212"></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-comment">-- ** DescribeApps</span><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeApps</span><span>
+</span><a name="line-215"></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-comment">-- ** UpdateMyUserProfile</span><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateMyUserProfile</span><span>
+</span><a name="line-218"></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-comment">-- ** DescribeStackSummary</span><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStackSummary</span><span>
+</span><a name="line-221"></a><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-comment">-- ** DescribeInstances</span><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeInstances</span><span>
+</span><a name="line-224"></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-comment">-- ** DescribeDeployments</span><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDeployments</span><span>
+</span><a name="line-227"></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-comment">-- ** DescribeElasticIPs</span><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeElasticIPs</span><span>
+</span><a name="line-230"></a><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-comment">-- ** GrantAccess</span><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">GrantAccess</span><span>
+</span><a name="line-233"></a><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-comment">-- ** DeleteLayer</span><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLayer</span><span>
+</span><a name="line-236"></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-comment">-- ** UpdateLayer</span><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateLayer</span><span>
+</span><a name="line-239"></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-comment">-- ** CreateStack</span><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateStack</span><span>
+</span><a name="line-242"></a><span>
+</span><a name="line-243"></a><span>    </span><span class="hs-comment">-- ** UpdateElasticIP</span><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateElasticIP</span><span>
+</span><a name="line-245"></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-comment">-- ** CreateApp</span><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateApp</span><span>
+</span><a name="line-248"></a><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-comment">-- ** GetHostnameSuggestion</span><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">GetHostnameSuggestion</span><span>
+</span><a name="line-251"></a><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-comment">-- ** CloneStack</span><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CloneStack</span><span>
+</span><a name="line-254"></a><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-comment">-- ** DescribePermissions</span><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribePermissions</span><span>
+</span><a name="line-257"></a><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-comment">-- ** DetachElasticLoadBalancer</span><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DetachElasticLoadBalancer</span><span>
+</span><a name="line-260"></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-comment">-- ** RegisterInstance</span><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterInstance</span><span>
+</span><a name="line-263"></a><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-comment">-- ** AssociateElasticIP</span><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AssociateElasticIP</span><span>
+</span><a name="line-266"></a><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-comment">-- ** DescribeLoadBasedAutoScaling</span><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLoadBasedAutoScaling</span><span>
+</span><a name="line-269"></a><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-comment">-- ** DescribeStackProvisioningParameters</span><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStackProvisioningParameters</span><span>
+</span><a name="line-272"></a><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-comment">-- ** TagResource</span><span>
+</span><a name="line-274"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">TagResource</span><span>
+</span><a name="line-275"></a><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-comment">-- ** ListTags</span><span>
+</span><a name="line-277"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">ListTags</span><span>
+</span><a name="line-278"></a><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-comment">-- ** UnassignInstance</span><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UnassignInstance</span><span>
+</span><a name="line-281"></a><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-comment">-- ** DescribeMyUserProfile</span><span>
+</span><a name="line-283"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMyUserProfile</span><span>
+</span><a name="line-284"></a><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-comment">-- ** DeleteUserProfile</span><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUserProfile</span><span>
+</span><a name="line-287"></a><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-comment">-- ** UpdateUserProfile</span><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateUserProfile</span><span>
+</span><a name="line-290"></a><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-comment">-- ** DescribeServiceErrors</span><span>
+</span><a name="line-292"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeServiceErrors</span><span>
+</span><a name="line-293"></a><span>
+</span><a name="line-294"></a><span>    </span><span class="hs-comment">-- ** RegisterRDSDBInstance</span><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterRDSDBInstance</span><span>
+</span><a name="line-296"></a><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-comment">-- ** UntagResource</span><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UntagResource</span><span>
+</span><a name="line-299"></a><span>
+</span><a name="line-300"></a><span>    </span><span class="hs-comment">-- ** StartStack</span><span>
+</span><a name="line-301"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StartStack</span><span>
+</span><a name="line-302"></a><span>
+</span><a name="line-303"></a><span>    </span><span class="hs-comment">-- ** CreateUserProfile</span><span>
+</span><a name="line-304"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateUserProfile</span><span>
+</span><a name="line-305"></a><span>
+</span><a name="line-306"></a><span>    </span><span class="hs-comment">-- ** DescribeCommands</span><span>
+</span><a name="line-307"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeCommands</span><span>
+</span><a name="line-308"></a><span>
+</span><a name="line-309"></a><span>    </span><span class="hs-comment">-- ** AssignVolume</span><span>
+</span><a name="line-310"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AssignVolume</span><span>
+</span><a name="line-311"></a><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-comment">-- ** DescribeElasticLoadBalancers</span><span>
+</span><a name="line-313"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeElasticLoadBalancers</span><span>
+</span><a name="line-314"></a><span>
+</span><a name="line-315"></a><span>    </span><span class="hs-comment">-- ** SetPermission</span><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">SetPermission</span><span>
+</span><a name="line-317"></a><span>
+</span><a name="line-318"></a><span>    </span><span class="hs-comment">-- ** DeregisterInstance</span><span>
+</span><a name="line-319"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterInstance</span><span>
+</span><a name="line-320"></a><span>
+</span><a name="line-321"></a><span>    </span><span class="hs-comment">-- ** DescribeEcsClusters (Paginated)</span><span>
+</span><a name="line-322"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeEcsClusters</span><span>
+</span><a name="line-323"></a><span>
+</span><a name="line-324"></a><span>    </span><span class="hs-comment">-- ** DescribeRAIdArrays</span><span>
+</span><a name="line-325"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRAIdArrays</span><span>
+</span><a name="line-326"></a><span>
+</span><a name="line-327"></a><span>    </span><span class="hs-comment">-- ** UpdateVolume</span><span>
+</span><a name="line-328"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateVolume</span><span>
+</span><a name="line-329"></a><span>
+</span><a name="line-330"></a><span>    </span><span class="hs-comment">-- ** StartInstance</span><span>
+</span><a name="line-331"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StartInstance</span><span>
+</span><a name="line-332"></a><span>
+</span><a name="line-333"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-334"></a><span>
+</span><a name="line-335"></a><span>    </span><span class="hs-comment">-- ** AppAttributesKeys</span><span>
+</span><a name="line-336"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#AppAttributesKeys"><span class="hs-identifier hs-type">AppAttributesKeys</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-337"></a><span>
+</span><a name="line-338"></a><span>    </span><span class="hs-comment">-- ** AppType</span><span>
+</span><a name="line-339"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#AppType"><span class="hs-identifier hs-type">AppType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-340"></a><span>
+</span><a name="line-341"></a><span>    </span><span class="hs-comment">-- ** Architecture</span><span>
+</span><a name="line-342"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#Architecture"><span class="hs-identifier hs-type">Architecture</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-343"></a><span>
+</span><a name="line-344"></a><span>    </span><span class="hs-comment">-- ** AutoScalingType</span><span>
+</span><a name="line-345"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#AutoScalingType"><span class="hs-identifier hs-type">AutoScalingType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-346"></a><span>
+</span><a name="line-347"></a><span>    </span><span class="hs-comment">-- ** CloudWatchLogsEncoding</span><span>
+</span><a name="line-348"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#CloudWatchLogsEncoding"><span class="hs-identifier hs-type">CloudWatchLogsEncoding</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-349"></a><span>
+</span><a name="line-350"></a><span>    </span><span class="hs-comment">-- ** CloudWatchLogsInitialPosition</span><span>
+</span><a name="line-351"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#CloudWatchLogsInitialPosition"><span class="hs-identifier hs-type">CloudWatchLogsInitialPosition</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-352"></a><span>
+</span><a name="line-353"></a><span>    </span><span class="hs-comment">-- ** CloudWatchLogsTimeZone</span><span>
+</span><a name="line-354"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#CloudWatchLogsTimeZone"><span class="hs-identifier hs-type">CloudWatchLogsTimeZone</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-355"></a><span>
+</span><a name="line-356"></a><span>    </span><span class="hs-comment">-- ** DeploymentCommandName</span><span>
+</span><a name="line-357"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#DeploymentCommandName"><span class="hs-identifier hs-type">DeploymentCommandName</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-358"></a><span>
+</span><a name="line-359"></a><span>    </span><span class="hs-comment">-- ** LayerAttributesKeys</span><span>
+</span><a name="line-360"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#LayerAttributesKeys"><span class="hs-identifier hs-type">LayerAttributesKeys</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-361"></a><span>
+</span><a name="line-362"></a><span>    </span><span class="hs-comment">-- ** LayerType</span><span>
+</span><a name="line-363"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#LayerType"><span class="hs-identifier hs-type">LayerType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-364"></a><span>
+</span><a name="line-365"></a><span>    </span><span class="hs-comment">-- ** RootDeviceType</span><span>
+</span><a name="line-366"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#RootDeviceType"><span class="hs-identifier hs-type">RootDeviceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-367"></a><span>
+</span><a name="line-368"></a><span>    </span><span class="hs-comment">-- ** SourceType</span><span>
+</span><a name="line-369"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#SourceType"><span class="hs-identifier hs-type">SourceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-370"></a><span>
+</span><a name="line-371"></a><span>    </span><span class="hs-comment">-- ** StackAttributesKeys</span><span>
+</span><a name="line-372"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#StackAttributesKeys"><span class="hs-identifier hs-type">StackAttributesKeys</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-373"></a><span>
+</span><a name="line-374"></a><span>    </span><span class="hs-comment">-- ** VirtualizationType</span><span>
+</span><a name="line-375"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#VirtualizationType"><span class="hs-identifier hs-type">VirtualizationType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-376"></a><span>
+</span><a name="line-377"></a><span>    </span><span class="hs-comment">-- ** VolumeType</span><span>
+</span><a name="line-378"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Sum.html#VolumeType"><span class="hs-identifier hs-type">VolumeType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-379"></a><span>
+</span><a name="line-380"></a><span>    </span><span class="hs-comment">-- ** AgentVersion</span><span>
+</span><a name="line-381"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#AgentVersion"><span class="hs-identifier hs-type">AgentVersion</span></a><span>
+</span><a name="line-382"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#agentVersion"><span class="hs-identifier hs-var">agentVersion</span></a><span>
+</span><a name="line-383"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#avVersion"><span class="hs-identifier hs-var">avVersion</span></a><span>
+</span><a name="line-384"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#avConfigurationManager"><span class="hs-identifier hs-var">avConfigurationManager</span></a><span>
+</span><a name="line-385"></a><span>
+</span><a name="line-386"></a><span>    </span><span class="hs-comment">-- ** App</span><span>
+</span><a name="line-387"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#App"><span class="hs-identifier hs-type">App</span></a><span>
+</span><a name="line-388"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#app"><span class="hs-identifier hs-var">app</span></a><span>
+</span><a name="line-389"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appSSLConfiguration"><span class="hs-identifier hs-var">appSSLConfiguration</span></a><span>
+</span><a name="line-390"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appEnvironment"><span class="hs-identifier hs-var">appEnvironment</span></a><span>
+</span><a name="line-391"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appEnableSSL"><span class="hs-identifier hs-var">appEnableSSL</span></a><span>
+</span><a name="line-392"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appCreatedAt"><span class="hs-identifier hs-var">appCreatedAt</span></a><span>
+</span><a name="line-393"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appShortname"><span class="hs-identifier hs-var">appShortname</span></a><span>
+</span><a name="line-394"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appDataSources"><span class="hs-identifier hs-var">appDataSources</span></a><span>
+</span><a name="line-395"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appAppSource"><span class="hs-identifier hs-var">appAppSource</span></a><span>
+</span><a name="line-396"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appAppId"><span class="hs-identifier hs-var">appAppId</span></a><span>
+</span><a name="line-397"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appAttributes"><span class="hs-identifier hs-var">appAttributes</span></a><span>
+</span><a name="line-398"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appName"><span class="hs-identifier hs-var">appName</span></a><span>
+</span><a name="line-399"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appType"><span class="hs-identifier hs-var">appType</span></a><span>
+</span><a name="line-400"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appStackId"><span class="hs-identifier hs-var">appStackId</span></a><span>
+</span><a name="line-401"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appDomains"><span class="hs-identifier hs-var">appDomains</span></a><span>
+</span><a name="line-402"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#appDescription"><span class="hs-identifier hs-var">appDescription</span></a><span>
+</span><a name="line-403"></a><span>
+</span><a name="line-404"></a><span>    </span><span class="hs-comment">-- ** AutoScalingThresholds</span><span>
+</span><a name="line-405"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#AutoScalingThresholds"><span class="hs-identifier hs-type">AutoScalingThresholds</span></a><span>
+</span><a name="line-406"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#autoScalingThresholds"><span class="hs-identifier hs-var">autoScalingThresholds</span></a><span>
+</span><a name="line-407"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#astInstanceCount"><span class="hs-identifier hs-var">astInstanceCount</span></a><span>
+</span><a name="line-408"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#astIgnoreMetricsTime"><span class="hs-identifier hs-var">astIgnoreMetricsTime</span></a><span>
+</span><a name="line-409"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#astLoadThreshold"><span class="hs-identifier hs-var">astLoadThreshold</span></a><span>
+</span><a name="line-410"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#astThresholdsWaitTime"><span class="hs-identifier hs-var">astThresholdsWaitTime</span></a><span>
+</span><a name="line-411"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#astAlarms"><span class="hs-identifier hs-var">astAlarms</span></a><span>
+</span><a name="line-412"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#astMemoryThreshold"><span class="hs-identifier hs-var">astMemoryThreshold</span></a><span>
+</span><a name="line-413"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#astCPUThreshold"><span class="hs-identifier hs-var">astCPUThreshold</span></a><span>
+</span><a name="line-414"></a><span>
+</span><a name="line-415"></a><span>    </span><span class="hs-comment">-- ** BlockDeviceMapping</span><span>
+</span><a name="line-416"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#BlockDeviceMapping"><span class="hs-identifier hs-type">BlockDeviceMapping</span></a><span>
+</span><a name="line-417"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#blockDeviceMapping"><span class="hs-identifier hs-var">blockDeviceMapping</span></a><span>
+</span><a name="line-418"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#bdmVirtualName"><span class="hs-identifier hs-var">bdmVirtualName</span></a><span>
+</span><a name="line-419"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#bdmNoDevice"><span class="hs-identifier hs-var">bdmNoDevice</span></a><span>
+</span><a name="line-420"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#bdmEBS"><span class="hs-identifier hs-var">bdmEBS</span></a><span>
+</span><a name="line-421"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#bdmDeviceName"><span class="hs-identifier hs-var">bdmDeviceName</span></a><span>
+</span><a name="line-422"></a><span>
+</span><a name="line-423"></a><span>    </span><span class="hs-comment">-- ** ChefConfiguration</span><span>
+</span><a name="line-424"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ChefConfiguration"><span class="hs-identifier hs-type">ChefConfiguration</span></a><span>
+</span><a name="line-425"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#chefConfiguration"><span class="hs-identifier hs-var">chefConfiguration</span></a><span>
+</span><a name="line-426"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ccBerkshelfVersion"><span class="hs-identifier hs-var">ccBerkshelfVersion</span></a><span>
+</span><a name="line-427"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ccManageBerkshelf"><span class="hs-identifier hs-var">ccManageBerkshelf</span></a><span>
+</span><a name="line-428"></a><span>
+</span><a name="line-429"></a><span>    </span><span class="hs-comment">-- ** CloudWatchLogsConfiguration</span><span>
+</span><a name="line-430"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#CloudWatchLogsConfiguration"><span class="hs-identifier hs-type">CloudWatchLogsConfiguration</span></a><span>
+</span><a name="line-431"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cloudWatchLogsConfiguration"><span class="hs-identifier hs-var">cloudWatchLogsConfiguration</span></a><span>
+</span><a name="line-432"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwlcEnabled"><span class="hs-identifier hs-var">cwlcEnabled</span></a><span>
+</span><a name="line-433"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwlcLogStreams"><span class="hs-identifier hs-var">cwlcLogStreams</span></a><span>
+</span><a name="line-434"></a><span>
+</span><a name="line-435"></a><span>    </span><span class="hs-comment">-- ** CloudWatchLogsLogStream</span><span>
+</span><a name="line-436"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#CloudWatchLogsLogStream"><span class="hs-identifier hs-type">CloudWatchLogsLogStream</span></a><span>
+</span><a name="line-437"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cloudWatchLogsLogStream"><span class="hs-identifier hs-var">cloudWatchLogsLogStream</span></a><span>
+</span><a name="line-438"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsBatchCount"><span class="hs-identifier hs-var">cwllsBatchCount</span></a><span>
+</span><a name="line-439"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsFileFingerprintLines"><span class="hs-identifier hs-var">cwllsFileFingerprintLines</span></a><span>
+</span><a name="line-440"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsBufferDuration"><span class="hs-identifier hs-var">cwllsBufferDuration</span></a><span>
+</span><a name="line-441"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsBatchSize"><span class="hs-identifier hs-var">cwllsBatchSize</span></a><span>
+</span><a name="line-442"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsLogGroupName"><span class="hs-identifier hs-var">cwllsLogGroupName</span></a><span>
+</span><a name="line-443"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsMultiLineStartPattern"><span class="hs-identifier hs-var">cwllsMultiLineStartPattern</span></a><span>
+</span><a name="line-444"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsInitialPosition"><span class="hs-identifier hs-var">cwllsInitialPosition</span></a><span>
+</span><a name="line-445"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsDatetimeFormat"><span class="hs-identifier hs-var">cwllsDatetimeFormat</span></a><span>
+</span><a name="line-446"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsEncoding"><span class="hs-identifier hs-var">cwllsEncoding</span></a><span>
+</span><a name="line-447"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsTimeZone"><span class="hs-identifier hs-var">cwllsTimeZone</span></a><span>
+</span><a name="line-448"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cwllsFile"><span class="hs-identifier hs-var">cwllsFile</span></a><span>
+</span><a name="line-449"></a><span>
+</span><a name="line-450"></a><span>    </span><span class="hs-comment">-- ** Command</span><span>
+</span><a name="line-451"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Command"><span class="hs-identifier hs-type">Command</span></a><span>
+</span><a name="line-452"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#command"><span class="hs-identifier hs-var">command</span></a><span>
+</span><a name="line-453"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cDeploymentId"><span class="hs-identifier hs-var">cDeploymentId</span></a><span>
+</span><a name="line-454"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cInstanceId"><span class="hs-identifier hs-var">cInstanceId</span></a><span>
+</span><a name="line-455"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cStatus"><span class="hs-identifier hs-var">cStatus</span></a><span>
+</span><a name="line-456"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cLogURL"><span class="hs-identifier hs-var">cLogURL</span></a><span>
+</span><a name="line-457"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cCreatedAt"><span class="hs-identifier hs-var">cCreatedAt</span></a><span>
+</span><a name="line-458"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cCommandId"><span class="hs-identifier hs-var">cCommandId</span></a><span>
+</span><a name="line-459"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cExitCode"><span class="hs-identifier hs-var">cExitCode</span></a><span>
+</span><a name="line-460"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cType"><span class="hs-identifier hs-var">cType</span></a><span>
+</span><a name="line-461"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cCompletedAt"><span class="hs-identifier hs-var">cCompletedAt</span></a><span>
+</span><a name="line-462"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#cAcknowledgedAt"><span class="hs-identifier hs-var">cAcknowledgedAt</span></a><span>
+</span><a name="line-463"></a><span>
+</span><a name="line-464"></a><span>    </span><span class="hs-comment">-- ** DataSource</span><span>
+</span><a name="line-465"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#DataSource"><span class="hs-identifier hs-type">DataSource</span></a><span>
+</span><a name="line-466"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dataSource"><span class="hs-identifier hs-var">dataSource</span></a><span>
+</span><a name="line-467"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dsARN"><span class="hs-identifier hs-var">dsARN</span></a><span>
+</span><a name="line-468"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dsDatabaseName"><span class="hs-identifier hs-var">dsDatabaseName</span></a><span>
+</span><a name="line-469"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dsType"><span class="hs-identifier hs-var">dsType</span></a><span>
+</span><a name="line-470"></a><span>
+</span><a name="line-471"></a><span>    </span><span class="hs-comment">-- ** Deployment</span><span>
+</span><a name="line-472"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Deployment"><span class="hs-identifier hs-type">Deployment</span></a><span>
+</span><a name="line-473"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#deployment"><span class="hs-identifier hs-var">deployment</span></a><span>
+</span><a name="line-474"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dDeploymentId"><span class="hs-identifier hs-var">dDeploymentId</span></a><span>
+</span><a name="line-475"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dStatus"><span class="hs-identifier hs-var">dStatus</span></a><span>
+</span><a name="line-476"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dCommand"><span class="hs-identifier hs-var">dCommand</span></a><span>
+</span><a name="line-477"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dCreatedAt"><span class="hs-identifier hs-var">dCreatedAt</span></a><span>
+</span><a name="line-478"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dCustomJSON"><span class="hs-identifier hs-var">dCustomJSON</span></a><span>
+</span><a name="line-479"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dIAMUserARN"><span class="hs-identifier hs-var">dIAMUserARN</span></a><span>
+</span><a name="line-480"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dAppId"><span class="hs-identifier hs-var">dAppId</span></a><span>
+</span><a name="line-481"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dInstanceIds"><span class="hs-identifier hs-var">dInstanceIds</span></a><span>
+</span><a name="line-482"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dCompletedAt"><span class="hs-identifier hs-var">dCompletedAt</span></a><span>
+</span><a name="line-483"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dStackId"><span class="hs-identifier hs-var">dStackId</span></a><span>
+</span><a name="line-484"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dComment"><span class="hs-identifier hs-var">dComment</span></a><span>
+</span><a name="line-485"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dDuration"><span class="hs-identifier hs-var">dDuration</span></a><span>
+</span><a name="line-486"></a><span>
+</span><a name="line-487"></a><span>    </span><span class="hs-comment">-- ** DeploymentCommand</span><span>
+</span><a name="line-488"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#DeploymentCommand"><span class="hs-identifier hs-type">DeploymentCommand</span></a><span>
+</span><a name="line-489"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#deploymentCommand"><span class="hs-identifier hs-var">deploymentCommand</span></a><span>
+</span><a name="line-490"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dcArgs"><span class="hs-identifier hs-var">dcArgs</span></a><span>
+</span><a name="line-491"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#dcName"><span class="hs-identifier hs-var">dcName</span></a><span>
+</span><a name="line-492"></a><span>
+</span><a name="line-493"></a><span>    </span><span class="hs-comment">-- ** EBSBlockDevice</span><span>
+</span><a name="line-494"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#EBSBlockDevice"><span class="hs-identifier hs-type">EBSBlockDevice</span></a><span>
+</span><a name="line-495"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ebsBlockDevice"><span class="hs-identifier hs-var">ebsBlockDevice</span></a><span>
+</span><a name="line-496"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ebdDeleteOnTermination"><span class="hs-identifier hs-var">ebdDeleteOnTermination</span></a><span>
+</span><a name="line-497"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ebdVolumeSize"><span class="hs-identifier hs-var">ebdVolumeSize</span></a><span>
+</span><a name="line-498"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ebdIOPS"><span class="hs-identifier hs-var">ebdIOPS</span></a><span>
+</span><a name="line-499"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ebdVolumeType"><span class="hs-identifier hs-var">ebdVolumeType</span></a><span>
+</span><a name="line-500"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ebdSnapshotId"><span class="hs-identifier hs-var">ebdSnapshotId</span></a><span>
+</span><a name="line-501"></a><span>
+</span><a name="line-502"></a><span>    </span><span class="hs-comment">-- ** EcsCluster</span><span>
+</span><a name="line-503"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#EcsCluster"><span class="hs-identifier hs-type">EcsCluster</span></a><span>
+</span><a name="line-504"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ecsCluster"><span class="hs-identifier hs-var">ecsCluster</span></a><span>
+</span><a name="line-505"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ecEcsClusterARN"><span class="hs-identifier hs-var">ecEcsClusterARN</span></a><span>
+</span><a name="line-506"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ecEcsClusterName"><span class="hs-identifier hs-var">ecEcsClusterName</span></a><span>
+</span><a name="line-507"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ecRegisteredAt"><span class="hs-identifier hs-var">ecRegisteredAt</span></a><span>
+</span><a name="line-508"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ecStackId"><span class="hs-identifier hs-var">ecStackId</span></a><span>
+</span><a name="line-509"></a><span>
+</span><a name="line-510"></a><span>    </span><span class="hs-comment">-- ** ElasticIP</span><span>
+</span><a name="line-511"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ElasticIP"><span class="hs-identifier hs-type">ElasticIP</span></a><span>
+</span><a name="line-512"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elasticIP"><span class="hs-identifier hs-var">elasticIP</span></a><span>
+</span><a name="line-513"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#eiInstanceId"><span class="hs-identifier hs-var">eiInstanceId</span></a><span>
+</span><a name="line-514"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#eiDomain"><span class="hs-identifier hs-var">eiDomain</span></a><span>
+</span><a name="line-515"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#eiIP"><span class="hs-identifier hs-var">eiIP</span></a><span>
+</span><a name="line-516"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#eiName"><span class="hs-identifier hs-var">eiName</span></a><span>
+</span><a name="line-517"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#eiRegion"><span class="hs-identifier hs-var">eiRegion</span></a><span>
+</span><a name="line-518"></a><span>
+</span><a name="line-519"></a><span>    </span><span class="hs-comment">-- ** ElasticLoadBalancer</span><span>
+</span><a name="line-520"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ElasticLoadBalancer"><span class="hs-identifier hs-type">ElasticLoadBalancer</span></a><span>
+</span><a name="line-521"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elasticLoadBalancer"><span class="hs-identifier hs-var">elasticLoadBalancer</span></a><span>
+</span><a name="line-522"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbSubnetIds"><span class="hs-identifier hs-var">elbSubnetIds</span></a><span>
+</span><a name="line-523"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbVPCId"><span class="hs-identifier hs-var">elbVPCId</span></a><span>
+</span><a name="line-524"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbAvailabilityZones"><span class="hs-identifier hs-var">elbAvailabilityZones</span></a><span>
+</span><a name="line-525"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbRegion"><span class="hs-identifier hs-var">elbRegion</span></a><span>
+</span><a name="line-526"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbElasticLoadBalancerName"><span class="hs-identifier hs-var">elbElasticLoadBalancerName</span></a><span>
+</span><a name="line-527"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbStackId"><span class="hs-identifier hs-var">elbStackId</span></a><span>
+</span><a name="line-528"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbEC2InstanceIds"><span class="hs-identifier hs-var">elbEC2InstanceIds</span></a><span>
+</span><a name="line-529"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbLayerId"><span class="hs-identifier hs-var">elbLayerId</span></a><span>
+</span><a name="line-530"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#elbDNSName"><span class="hs-identifier hs-var">elbDNSName</span></a><span>
+</span><a name="line-531"></a><span>
+</span><a name="line-532"></a><span>    </span><span class="hs-comment">-- ** EnvironmentVariable</span><span>
+</span><a name="line-533"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#EnvironmentVariable"><span class="hs-identifier hs-type">EnvironmentVariable</span></a><span>
+</span><a name="line-534"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#environmentVariable"><span class="hs-identifier hs-var">environmentVariable</span></a><span>
+</span><a name="line-535"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#evSecure"><span class="hs-identifier hs-var">evSecure</span></a><span>
+</span><a name="line-536"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#evKey"><span class="hs-identifier hs-var">evKey</span></a><span>
+</span><a name="line-537"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#evValue"><span class="hs-identifier hs-var">evValue</span></a><span>
+</span><a name="line-538"></a><span>
+</span><a name="line-539"></a><span>    </span><span class="hs-comment">-- ** Instance</span><span>
+</span><a name="line-540"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Instance"><span class="hs-identifier hs-type">Instance</span></a><span>
+</span><a name="line-541"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#instance%27"><span class="hs-identifier hs-var">instance'</span></a><span>
+</span><a name="line-542"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iPrivateDNS"><span class="hs-identifier hs-var">iPrivateDNS</span></a><span>
+</span><a name="line-543"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iReportedAgentVersion"><span class="hs-identifier hs-var">iReportedAgentVersion</span></a><span>
+</span><a name="line-544"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iInstanceId"><span class="hs-identifier hs-var">iInstanceId</span></a><span>
+</span><a name="line-545"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iStatus"><span class="hs-identifier hs-var">iStatus</span></a><span>
+</span><a name="line-546"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iPrivateIP"><span class="hs-identifier hs-var">iPrivateIP</span></a><span>
+</span><a name="line-547"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iInstallUpdatesOnBoot"><span class="hs-identifier hs-var">iInstallUpdatesOnBoot</span></a><span>
+</span><a name="line-548"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iVirtualizationType"><span class="hs-identifier hs-var">iVirtualizationType</span></a><span>
+</span><a name="line-549"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iInstanceProfileARN"><span class="hs-identifier hs-var">iInstanceProfileARN</span></a><span>
+</span><a name="line-550"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iPlatform"><span class="hs-identifier hs-var">iPlatform</span></a><span>
+</span><a name="line-551"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iHostname"><span class="hs-identifier hs-var">iHostname</span></a><span>
+</span><a name="line-552"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iSSHHostRsaKeyFingerprint"><span class="hs-identifier hs-var">iSSHHostRsaKeyFingerprint</span></a><span>
+</span><a name="line-553"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iSecurityGroupIds"><span class="hs-identifier hs-var">iSecurityGroupIds</span></a><span>
+</span><a name="line-554"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iEcsClusterARN"><span class="hs-identifier hs-var">iEcsClusterARN</span></a><span>
+</span><a name="line-555"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iARN"><span class="hs-identifier hs-var">iARN</span></a><span>
+</span><a name="line-556"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iCreatedAt"><span class="hs-identifier hs-var">iCreatedAt</span></a><span>
+</span><a name="line-557"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iEC2InstanceId"><span class="hs-identifier hs-var">iEC2InstanceId</span></a><span>
+</span><a name="line-558"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iSSHKeyName"><span class="hs-identifier hs-var">iSSHKeyName</span></a><span>
+</span><a name="line-559"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iAgentVersion"><span class="hs-identifier hs-var">iAgentVersion</span></a><span>
+</span><a name="line-560"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iRootDeviceVolumeId"><span class="hs-identifier hs-var">iRootDeviceVolumeId</span></a><span>
+</span><a name="line-561"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iSubnetId"><span class="hs-identifier hs-var">iSubnetId</span></a><span>
+</span><a name="line-562"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iInfrastructureClass"><span class="hs-identifier hs-var">iInfrastructureClass</span></a><span>
+</span><a name="line-563"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iSSHHostDsaKeyFingerprint"><span class="hs-identifier hs-var">iSSHHostDsaKeyFingerprint</span></a><span>
+</span><a name="line-564"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iInstanceType"><span class="hs-identifier hs-var">iInstanceType</span></a><span>
+</span><a name="line-565"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iEBSOptimized"><span class="hs-identifier hs-var">iEBSOptimized</span></a><span>
+</span><a name="line-566"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iElasticIP"><span class="hs-identifier hs-var">iElasticIP</span></a><span>
+</span><a name="line-567"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iOS"><span class="hs-identifier hs-var">iOS</span></a><span>
+</span><a name="line-568"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iAvailabilityZone"><span class="hs-identifier hs-var">iAvailabilityZone</span></a><span>
+</span><a name="line-569"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iLastServiceErrorId"><span class="hs-identifier hs-var">iLastServiceErrorId</span></a><span>
+</span><a name="line-570"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iTenancy"><span class="hs-identifier hs-var">iTenancy</span></a><span>
+</span><a name="line-571"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iAutoScalingType"><span class="hs-identifier hs-var">iAutoScalingType</span></a><span>
+</span><a name="line-572"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iLayerIds"><span class="hs-identifier hs-var">iLayerIds</span></a><span>
+</span><a name="line-573"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iArchitecture"><span class="hs-identifier hs-var">iArchitecture</span></a><span>
+</span><a name="line-574"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iPublicDNS"><span class="hs-identifier hs-var">iPublicDNS</span></a><span>
+</span><a name="line-575"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iAMIId"><span class="hs-identifier hs-var">iAMIId</span></a><span>
+</span><a name="line-576"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iPublicIP"><span class="hs-identifier hs-var">iPublicIP</span></a><span>
+</span><a name="line-577"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iReportedOS"><span class="hs-identifier hs-var">iReportedOS</span></a><span>
+</span><a name="line-578"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iRegisteredBy"><span class="hs-identifier hs-var">iRegisteredBy</span></a><span>
+</span><a name="line-579"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iStackId"><span class="hs-identifier hs-var">iStackId</span></a><span>
+</span><a name="line-580"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iRootDeviceType"><span class="hs-identifier hs-var">iRootDeviceType</span></a><span>
+</span><a name="line-581"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iEcsContainerInstanceARN"><span class="hs-identifier hs-var">iEcsContainerInstanceARN</span></a><span>
+</span><a name="line-582"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iBlockDeviceMappings"><span class="hs-identifier hs-var">iBlockDeviceMappings</span></a><span>
+</span><a name="line-583"></a><span>
+</span><a name="line-584"></a><span>    </span><span class="hs-comment">-- ** InstanceIdentity</span><span>
+</span><a name="line-585"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#InstanceIdentity"><span class="hs-identifier hs-type">InstanceIdentity</span></a><span>
+</span><a name="line-586"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#instanceIdentity"><span class="hs-identifier hs-var">instanceIdentity</span></a><span>
+</span><a name="line-587"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iiSignature"><span class="hs-identifier hs-var">iiSignature</span></a><span>
+</span><a name="line-588"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#iiDocument"><span class="hs-identifier hs-var">iiDocument</span></a><span>
+</span><a name="line-589"></a><span>
+</span><a name="line-590"></a><span>    </span><span class="hs-comment">-- ** InstancesCount</span><span>
+</span><a name="line-591"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#InstancesCount"><span class="hs-identifier hs-type">InstancesCount</span></a><span>
+</span><a name="line-592"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#instancesCount"><span class="hs-identifier hs-var">instancesCount</span></a><span>
+</span><a name="line-593"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icTerminating"><span class="hs-identifier hs-var">icTerminating</span></a><span>
+</span><a name="line-594"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icPending"><span class="hs-identifier hs-var">icPending</span></a><span>
+</span><a name="line-595"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icOnline"><span class="hs-identifier hs-var">icOnline</span></a><span>
+</span><a name="line-596"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icUnassigning"><span class="hs-identifier hs-var">icUnassigning</span></a><span>
+</span><a name="line-597"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icDeregistering"><span class="hs-identifier hs-var">icDeregistering</span></a><span>
+</span><a name="line-598"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icRunningSetup"><span class="hs-identifier hs-var">icRunningSetup</span></a><span>
+</span><a name="line-599"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icRequested"><span class="hs-identifier hs-var">icRequested</span></a><span>
+</span><a name="line-600"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icBooting"><span class="hs-identifier hs-var">icBooting</span></a><span>
+</span><a name="line-601"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icStopped"><span class="hs-identifier hs-var">icStopped</span></a><span>
+</span><a name="line-602"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icRebooting"><span class="hs-identifier hs-var">icRebooting</span></a><span>
+</span><a name="line-603"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icAssigning"><span class="hs-identifier hs-var">icAssigning</span></a><span>
+</span><a name="line-604"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icShuttingDown"><span class="hs-identifier hs-var">icShuttingDown</span></a><span>
+</span><a name="line-605"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icSetupFailed"><span class="hs-identifier hs-var">icSetupFailed</span></a><span>
+</span><a name="line-606"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icConnectionLost"><span class="hs-identifier hs-var">icConnectionLost</span></a><span>
+</span><a name="line-607"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icTerminated"><span class="hs-identifier hs-var">icTerminated</span></a><span>
+</span><a name="line-608"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icStopping"><span class="hs-identifier hs-var">icStopping</span></a><span>
+</span><a name="line-609"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icRegistered"><span class="hs-identifier hs-var">icRegistered</span></a><span>
+</span><a name="line-610"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icStartFailed"><span class="hs-identifier hs-var">icStartFailed</span></a><span>
+</span><a name="line-611"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#icRegistering"><span class="hs-identifier hs-var">icRegistering</span></a><span>
+</span><a name="line-612"></a><span>
+</span><a name="line-613"></a><span>    </span><span class="hs-comment">-- ** Layer</span><span>
+</span><a name="line-614"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Layer"><span class="hs-identifier hs-type">Layer</span></a><span>
+</span><a name="line-615"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#layer"><span class="hs-identifier hs-var">layer</span></a><span>
+</span><a name="line-616"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lCustomInstanceProfileARN"><span class="hs-identifier hs-var">lCustomInstanceProfileARN</span></a><span>
+</span><a name="line-617"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lCustomSecurityGroupIds"><span class="hs-identifier hs-var">lCustomSecurityGroupIds</span></a><span>
+</span><a name="line-618"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lInstallUpdatesOnBoot"><span class="hs-identifier hs-var">lInstallUpdatesOnBoot</span></a><span>
+</span><a name="line-619"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lCloudWatchLogsConfiguration"><span class="hs-identifier hs-var">lCloudWatchLogsConfiguration</span></a><span>
+</span><a name="line-620"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lLifecycleEventConfiguration"><span class="hs-identifier hs-var">lLifecycleEventConfiguration</span></a><span>
+</span><a name="line-621"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lARN"><span class="hs-identifier hs-var">lARN</span></a><span>
+</span><a name="line-622"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lCreatedAt"><span class="hs-identifier hs-var">lCreatedAt</span></a><span>
+</span><a name="line-623"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lShortname"><span class="hs-identifier hs-var">lShortname</span></a><span>
+</span><a name="line-624"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lDefaultRecipes"><span class="hs-identifier hs-var">lDefaultRecipes</span></a><span>
+</span><a name="line-625"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lCustomRecipes"><span class="hs-identifier hs-var">lCustomRecipes</span></a><span>
+</span><a name="line-626"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lCustomJSON"><span class="hs-identifier hs-var">lCustomJSON</span></a><span>
+</span><a name="line-627"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lVolumeConfigurations"><span class="hs-identifier hs-var">lVolumeConfigurations</span></a><span>
+</span><a name="line-628"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lEnableAutoHealing"><span class="hs-identifier hs-var">lEnableAutoHealing</span></a><span>
+</span><a name="line-629"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lPackages"><span class="hs-identifier hs-var">lPackages</span></a><span>
+</span><a name="line-630"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lAttributes"><span class="hs-identifier hs-var">lAttributes</span></a><span>
+</span><a name="line-631"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lName"><span class="hs-identifier hs-var">lName</span></a><span>
+</span><a name="line-632"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lAutoAssignPublicIPs"><span class="hs-identifier hs-var">lAutoAssignPublicIPs</span></a><span>
+</span><a name="line-633"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lType"><span class="hs-identifier hs-var">lType</span></a><span>
+</span><a name="line-634"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lUseEBSOptimizedInstances"><span class="hs-identifier hs-var">lUseEBSOptimizedInstances</span></a><span>
+</span><a name="line-635"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lStackId"><span class="hs-identifier hs-var">lStackId</span></a><span>
+</span><a name="line-636"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lLayerId"><span class="hs-identifier hs-var">lLayerId</span></a><span>
+</span><a name="line-637"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lDefaultSecurityGroupNames"><span class="hs-identifier hs-var">lDefaultSecurityGroupNames</span></a><span>
+</span><a name="line-638"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lAutoAssignElasticIPs"><span class="hs-identifier hs-var">lAutoAssignElasticIPs</span></a><span>
+</span><a name="line-639"></a><span>
+</span><a name="line-640"></a><span>    </span><span class="hs-comment">-- ** LifecycleEventConfiguration</span><span>
+</span><a name="line-641"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#LifecycleEventConfiguration"><span class="hs-identifier hs-type">LifecycleEventConfiguration</span></a><span>
+</span><a name="line-642"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lifecycleEventConfiguration"><span class="hs-identifier hs-var">lifecycleEventConfiguration</span></a><span>
+</span><a name="line-643"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lecShutdown"><span class="hs-identifier hs-var">lecShutdown</span></a><span>
+</span><a name="line-644"></a><span>
+</span><a name="line-645"></a><span>    </span><span class="hs-comment">-- ** LoadBasedAutoScalingConfiguration</span><span>
+</span><a name="line-646"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#LoadBasedAutoScalingConfiguration"><span class="hs-identifier hs-type">LoadBasedAutoScalingConfiguration</span></a><span>
+</span><a name="line-647"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#loadBasedAutoScalingConfiguration"><span class="hs-identifier hs-var">loadBasedAutoScalingConfiguration</span></a><span>
+</span><a name="line-648"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lbascUpScaling"><span class="hs-identifier hs-var">lbascUpScaling</span></a><span>
+</span><a name="line-649"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lbascEnable"><span class="hs-identifier hs-var">lbascEnable</span></a><span>
+</span><a name="line-650"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lbascDownScaling"><span class="hs-identifier hs-var">lbascDownScaling</span></a><span>
+</span><a name="line-651"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#lbascLayerId"><span class="hs-identifier hs-var">lbascLayerId</span></a><span>
+</span><a name="line-652"></a><span>
+</span><a name="line-653"></a><span>    </span><span class="hs-comment">-- ** Permission</span><span>
+</span><a name="line-654"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Permission"><span class="hs-identifier hs-type">Permission</span></a><span>
+</span><a name="line-655"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#permission"><span class="hs-identifier hs-var">permission</span></a><span>
+</span><a name="line-656"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#pIAMUserARN"><span class="hs-identifier hs-var">pIAMUserARN</span></a><span>
+</span><a name="line-657"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#pAllowSudo"><span class="hs-identifier hs-var">pAllowSudo</span></a><span>
+</span><a name="line-658"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#pStackId"><span class="hs-identifier hs-var">pStackId</span></a><span>
+</span><a name="line-659"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#pLevel"><span class="hs-identifier hs-var">pLevel</span></a><span>
+</span><a name="line-660"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#pAllowSSH"><span class="hs-identifier hs-var">pAllowSSH</span></a><span>
+</span><a name="line-661"></a><span>
+</span><a name="line-662"></a><span>    </span><span class="hs-comment">-- ** RAIdArray</span><span>
+</span><a name="line-663"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#RAIdArray"><span class="hs-identifier hs-type">RAIdArray</span></a><span>
+</span><a name="line-664"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rAIdArray"><span class="hs-identifier hs-var">rAIdArray</span></a><span>
+</span><a name="line-665"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaInstanceId"><span class="hs-identifier hs-var">raiaInstanceId</span></a><span>
+</span><a name="line-666"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaSize"><span class="hs-identifier hs-var">raiaSize</span></a><span>
+</span><a name="line-667"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaIOPS"><span class="hs-identifier hs-var">raiaIOPS</span></a><span>
+</span><a name="line-668"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaCreatedAt"><span class="hs-identifier hs-var">raiaCreatedAt</span></a><span>
+</span><a name="line-669"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaRAIdLevel"><span class="hs-identifier hs-var">raiaRAIdLevel</span></a><span>
+</span><a name="line-670"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaDevice"><span class="hs-identifier hs-var">raiaDevice</span></a><span>
+</span><a name="line-671"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaNumberOfDisks"><span class="hs-identifier hs-var">raiaNumberOfDisks</span></a><span>
+</span><a name="line-672"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaAvailabilityZone"><span class="hs-identifier hs-var">raiaAvailabilityZone</span></a><span>
+</span><a name="line-673"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaName"><span class="hs-identifier hs-var">raiaName</span></a><span>
+</span><a name="line-674"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaRAIdArrayId"><span class="hs-identifier hs-var">raiaRAIdArrayId</span></a><span>
+</span><a name="line-675"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaVolumeType"><span class="hs-identifier hs-var">raiaVolumeType</span></a><span>
+</span><a name="line-676"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaStackId"><span class="hs-identifier hs-var">raiaStackId</span></a><span>
+</span><a name="line-677"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#raiaMountPoint"><span class="hs-identifier hs-var">raiaMountPoint</span></a><span>
+</span><a name="line-678"></a><span>
+</span><a name="line-679"></a><span>    </span><span class="hs-comment">-- ** RDSDBInstance</span><span>
+</span><a name="line-680"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#RDSDBInstance"><span class="hs-identifier hs-type">RDSDBInstance</span></a><span>
+</span><a name="line-681"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdsDBInstance"><span class="hs-identifier hs-var">rdsDBInstance</span></a><span>
+</span><a name="line-682"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiRDSDBInstanceARN"><span class="hs-identifier hs-var">rdiRDSDBInstanceARN</span></a><span>
+</span><a name="line-683"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiDBUser"><span class="hs-identifier hs-var">rdiDBUser</span></a><span>
+</span><a name="line-684"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiMissingOnRDS"><span class="hs-identifier hs-var">rdiMissingOnRDS</span></a><span>
+</span><a name="line-685"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiEngine"><span class="hs-identifier hs-var">rdiEngine</span></a><span>
+</span><a name="line-686"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiAddress"><span class="hs-identifier hs-var">rdiAddress</span></a><span>
+</span><a name="line-687"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiDBInstanceIdentifier"><span class="hs-identifier hs-var">rdiDBInstanceIdentifier</span></a><span>
+</span><a name="line-688"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiRegion"><span class="hs-identifier hs-var">rdiRegion</span></a><span>
+</span><a name="line-689"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiStackId"><span class="hs-identifier hs-var">rdiStackId</span></a><span>
+</span><a name="line-690"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rdiDBPassword"><span class="hs-identifier hs-var">rdiDBPassword</span></a><span>
+</span><a name="line-691"></a><span>
+</span><a name="line-692"></a><span>    </span><span class="hs-comment">-- ** Recipes</span><span>
+</span><a name="line-693"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Recipes"><span class="hs-identifier hs-type">Recipes</span></a><span>
+</span><a name="line-694"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#recipes"><span class="hs-identifier hs-var">recipes</span></a><span>
+</span><a name="line-695"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rSetup"><span class="hs-identifier hs-var">rSetup</span></a><span>
+</span><a name="line-696"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rShutdown"><span class="hs-identifier hs-var">rShutdown</span></a><span>
+</span><a name="line-697"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rUndeploy"><span class="hs-identifier hs-var">rUndeploy</span></a><span>
+</span><a name="line-698"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rConfigure"><span class="hs-identifier hs-var">rConfigure</span></a><span>
+</span><a name="line-699"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#rDeploy"><span class="hs-identifier hs-var">rDeploy</span></a><span>
+</span><a name="line-700"></a><span>
+</span><a name="line-701"></a><span>    </span><span class="hs-comment">-- ** ReportedOS</span><span>
+</span><a name="line-702"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ReportedOS"><span class="hs-identifier hs-type">ReportedOS</span></a><span>
+</span><a name="line-703"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#reportedOS"><span class="hs-identifier hs-var">reportedOS</span></a><span>
+</span><a name="line-704"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#roFamily"><span class="hs-identifier hs-var">roFamily</span></a><span>
+</span><a name="line-705"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#roName"><span class="hs-identifier hs-var">roName</span></a><span>
+</span><a name="line-706"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#roVersion"><span class="hs-identifier hs-var">roVersion</span></a><span>
+</span><a name="line-707"></a><span>
+</span><a name="line-708"></a><span>    </span><span class="hs-comment">-- ** SSLConfiguration</span><span>
+</span><a name="line-709"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#SSLConfiguration"><span class="hs-identifier hs-type">SSLConfiguration</span></a><span>
+</span><a name="line-710"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sslConfiguration"><span class="hs-identifier hs-var">sslConfiguration</span></a><span>
+</span><a name="line-711"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#scChain"><span class="hs-identifier hs-var">scChain</span></a><span>
+</span><a name="line-712"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#scCertificate"><span class="hs-identifier hs-var">scCertificate</span></a><span>
+</span><a name="line-713"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#scPrivateKey"><span class="hs-identifier hs-var">scPrivateKey</span></a><span>
+</span><a name="line-714"></a><span>
+</span><a name="line-715"></a><span>    </span><span class="hs-comment">-- ** SelfUserProfile</span><span>
+</span><a name="line-716"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#SelfUserProfile"><span class="hs-identifier hs-type">SelfUserProfile</span></a><span>
+</span><a name="line-717"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#selfUserProfile"><span class="hs-identifier hs-var">selfUserProfile</span></a><span>
+</span><a name="line-718"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#supSSHPublicKey"><span class="hs-identifier hs-var">supSSHPublicKey</span></a><span>
+</span><a name="line-719"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#supSSHUsername"><span class="hs-identifier hs-var">supSSHUsername</span></a><span>
+</span><a name="line-720"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#supIAMUserARN"><span class="hs-identifier hs-var">supIAMUserARN</span></a><span>
+</span><a name="line-721"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#supName"><span class="hs-identifier hs-var">supName</span></a><span>
+</span><a name="line-722"></a><span>
+</span><a name="line-723"></a><span>    </span><span class="hs-comment">-- ** ServiceError'</span><span>
+</span><a name="line-724"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ServiceError%27"><span class="hs-identifier hs-type">ServiceError'</span></a><span>
+</span><a name="line-725"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#serviceError%27"><span class="hs-identifier hs-var">serviceError'</span></a><span>
+</span><a name="line-726"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#seInstanceId"><span class="hs-identifier hs-var">seInstanceId</span></a><span>
+</span><a name="line-727"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#seCreatedAt"><span class="hs-identifier hs-var">seCreatedAt</span></a><span>
+</span><a name="line-728"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#seServiceErrorId"><span class="hs-identifier hs-var">seServiceErrorId</span></a><span>
+</span><a name="line-729"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#seType"><span class="hs-identifier hs-var">seType</span></a><span>
+</span><a name="line-730"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#seStackId"><span class="hs-identifier hs-var">seStackId</span></a><span>
+</span><a name="line-731"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#seMessage"><span class="hs-identifier hs-var">seMessage</span></a><span>
+</span><a name="line-732"></a><span>
+</span><a name="line-733"></a><span>    </span><span class="hs-comment">-- ** ShutdownEventConfiguration</span><span>
+</span><a name="line-734"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ShutdownEventConfiguration"><span class="hs-identifier hs-type">ShutdownEventConfiguration</span></a><span>
+</span><a name="line-735"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#shutdownEventConfiguration"><span class="hs-identifier hs-var">shutdownEventConfiguration</span></a><span>
+</span><a name="line-736"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#secExecutionTimeout"><span class="hs-identifier hs-var">secExecutionTimeout</span></a><span>
+</span><a name="line-737"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#secDelayUntilElbConnectionsDrained"><span class="hs-identifier hs-var">secDelayUntilElbConnectionsDrained</span></a><span>
+</span><a name="line-738"></a><span>
+</span><a name="line-739"></a><span>    </span><span class="hs-comment">-- ** Source</span><span>
+</span><a name="line-740"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Source"><span class="hs-identifier hs-type">Source</span></a><span>
+</span><a name="line-741"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#source"><span class="hs-identifier hs-var">source</span></a><span>
+</span><a name="line-742"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sURL"><span class="hs-identifier hs-var">sURL</span></a><span>
+</span><a name="line-743"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sUsername"><span class="hs-identifier hs-var">sUsername</span></a><span>
+</span><a name="line-744"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sSSHKey"><span class="hs-identifier hs-var">sSSHKey</span></a><span>
+</span><a name="line-745"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sPassword"><span class="hs-identifier hs-var">sPassword</span></a><span>
+</span><a name="line-746"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sType"><span class="hs-identifier hs-var">sType</span></a><span>
+</span><a name="line-747"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sRevision"><span class="hs-identifier hs-var">sRevision</span></a><span>
+</span><a name="line-748"></a><span>
+</span><a name="line-749"></a><span>    </span><span class="hs-comment">-- ** Stack</span><span>
+</span><a name="line-750"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Stack"><span class="hs-identifier hs-type">Stack</span></a><span>
+</span><a name="line-751"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#stack"><span class="hs-identifier hs-var">stack</span></a><span>
+</span><a name="line-752"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sDefaultInstanceProfileARN"><span class="hs-identifier hs-var">sDefaultInstanceProfileARN</span></a><span>
+</span><a name="line-753"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sServiceRoleARN"><span class="hs-identifier hs-var">sServiceRoleARN</span></a><span>
+</span><a name="line-754"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sDefaultRootDeviceType"><span class="hs-identifier hs-var">sDefaultRootDeviceType</span></a><span>
+</span><a name="line-755"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sARN"><span class="hs-identifier hs-var">sARN</span></a><span>
+</span><a name="line-756"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sCreatedAt"><span class="hs-identifier hs-var">sCreatedAt</span></a><span>
+</span><a name="line-757"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sVPCId"><span class="hs-identifier hs-var">sVPCId</span></a><span>
+</span><a name="line-758"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sChefConfiguration"><span class="hs-identifier hs-var">sChefConfiguration</span></a><span>
+</span><a name="line-759"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sAgentVersion"><span class="hs-identifier hs-var">sAgentVersion</span></a><span>
+</span><a name="line-760"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sDefaultSSHKeyName"><span class="hs-identifier hs-var">sDefaultSSHKeyName</span></a><span>
+</span><a name="line-761"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sCustomJSON"><span class="hs-identifier hs-var">sCustomJSON</span></a><span>
+</span><a name="line-762"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sCustomCookbooksSource"><span class="hs-identifier hs-var">sCustomCookbooksSource</span></a><span>
+</span><a name="line-763"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sDefaultAvailabilityZone"><span class="hs-identifier hs-var">sDefaultAvailabilityZone</span></a><span>
+</span><a name="line-764"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sAttributes"><span class="hs-identifier hs-var">sAttributes</span></a><span>
+</span><a name="line-765"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sName"><span class="hs-identifier hs-var">sName</span></a><span>
+</span><a name="line-766"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sDefaultOS"><span class="hs-identifier hs-var">sDefaultOS</span></a><span>
+</span><a name="line-767"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sUseOpsworksSecurityGroups"><span class="hs-identifier hs-var">sUseOpsworksSecurityGroups</span></a><span>
+</span><a name="line-768"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sUseCustomCookbooks"><span class="hs-identifier hs-var">sUseCustomCookbooks</span></a><span>
+</span><a name="line-769"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sDefaultSubnetId"><span class="hs-identifier hs-var">sDefaultSubnetId</span></a><span>
+</span><a name="line-770"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sRegion"><span class="hs-identifier hs-var">sRegion</span></a><span>
+</span><a name="line-771"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sConfigurationManager"><span class="hs-identifier hs-var">sConfigurationManager</span></a><span>
+</span><a name="line-772"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sStackId"><span class="hs-identifier hs-var">sStackId</span></a><span>
+</span><a name="line-773"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#sHostnameTheme"><span class="hs-identifier hs-var">sHostnameTheme</span></a><span>
+</span><a name="line-774"></a><span>
+</span><a name="line-775"></a><span>    </span><span class="hs-comment">-- ** StackConfigurationManager</span><span>
+</span><a name="line-776"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#StackConfigurationManager"><span class="hs-identifier hs-type">StackConfigurationManager</span></a><span>
+</span><a name="line-777"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#stackConfigurationManager"><span class="hs-identifier hs-var">stackConfigurationManager</span></a><span>
+</span><a name="line-778"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#scmName"><span class="hs-identifier hs-var">scmName</span></a><span>
+</span><a name="line-779"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#scmVersion"><span class="hs-identifier hs-var">scmVersion</span></a><span>
+</span><a name="line-780"></a><span>
+</span><a name="line-781"></a><span>    </span><span class="hs-comment">-- ** StackSummary</span><span>
+</span><a name="line-782"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#StackSummary"><span class="hs-identifier hs-type">StackSummary</span></a><span>
+</span><a name="line-783"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#stackSummary"><span class="hs-identifier hs-var">stackSummary</span></a><span>
+</span><a name="line-784"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ssARN"><span class="hs-identifier hs-var">ssARN</span></a><span>
+</span><a name="line-785"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ssAppsCount"><span class="hs-identifier hs-var">ssAppsCount</span></a><span>
+</span><a name="line-786"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ssName"><span class="hs-identifier hs-var">ssName</span></a><span>
+</span><a name="line-787"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ssStackId"><span class="hs-identifier hs-var">ssStackId</span></a><span>
+</span><a name="line-788"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ssLayersCount"><span class="hs-identifier hs-var">ssLayersCount</span></a><span>
+</span><a name="line-789"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#ssInstancesCount"><span class="hs-identifier hs-var">ssInstancesCount</span></a><span>
+</span><a name="line-790"></a><span>
+</span><a name="line-791"></a><span>    </span><span class="hs-comment">-- ** TemporaryCredential</span><span>
+</span><a name="line-792"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#TemporaryCredential"><span class="hs-identifier hs-type">TemporaryCredential</span></a><span>
+</span><a name="line-793"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#temporaryCredential"><span class="hs-identifier hs-var">temporaryCredential</span></a><span>
+</span><a name="line-794"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#tcInstanceId"><span class="hs-identifier hs-var">tcInstanceId</span></a><span>
+</span><a name="line-795"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#tcUsername"><span class="hs-identifier hs-var">tcUsername</span></a><span>
+</span><a name="line-796"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#tcPassword"><span class="hs-identifier hs-var">tcPassword</span></a><span>
+</span><a name="line-797"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#tcValidForInMinutes"><span class="hs-identifier hs-var">tcValidForInMinutes</span></a><span>
+</span><a name="line-798"></a><span>
+</span><a name="line-799"></a><span>    </span><span class="hs-comment">-- ** TimeBasedAutoScalingConfiguration</span><span>
+</span><a name="line-800"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#TimeBasedAutoScalingConfiguration"><span class="hs-identifier hs-type">TimeBasedAutoScalingConfiguration</span></a><span>
+</span><a name="line-801"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#timeBasedAutoScalingConfiguration"><span class="hs-identifier hs-var">timeBasedAutoScalingConfiguration</span></a><span>
+</span><a name="line-802"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#tbascInstanceId"><span class="hs-identifier hs-var">tbascInstanceId</span></a><span>
+</span><a name="line-803"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#tbascAutoScalingSchedule"><span class="hs-identifier hs-var">tbascAutoScalingSchedule</span></a><span>
+</span><a name="line-804"></a><span>
+</span><a name="line-805"></a><span>    </span><span class="hs-comment">-- ** UserProfile</span><span>
+</span><a name="line-806"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#UserProfile"><span class="hs-identifier hs-type">UserProfile</span></a><span>
+</span><a name="line-807"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#userProfile"><span class="hs-identifier hs-var">userProfile</span></a><span>
+</span><a name="line-808"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#upAllowSelfManagement"><span class="hs-identifier hs-var">upAllowSelfManagement</span></a><span>
+</span><a name="line-809"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#upSSHPublicKey"><span class="hs-identifier hs-var">upSSHPublicKey</span></a><span>
+</span><a name="line-810"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#upSSHUsername"><span class="hs-identifier hs-var">upSSHUsername</span></a><span>
+</span><a name="line-811"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#upIAMUserARN"><span class="hs-identifier hs-var">upIAMUserARN</span></a><span>
+</span><a name="line-812"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#upName"><span class="hs-identifier hs-var">upName</span></a><span>
+</span><a name="line-813"></a><span>
+</span><a name="line-814"></a><span>    </span><span class="hs-comment">-- ** Volume</span><span>
+</span><a name="line-815"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#Volume"><span class="hs-identifier hs-type">Volume</span></a><span>
+</span><a name="line-816"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#volume"><span class="hs-identifier hs-var">volume</span></a><span>
+</span><a name="line-817"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vInstanceId"><span class="hs-identifier hs-var">vInstanceId</span></a><span>
+</span><a name="line-818"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vStatus"><span class="hs-identifier hs-var">vStatus</span></a><span>
+</span><a name="line-819"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vSize"><span class="hs-identifier hs-var">vSize</span></a><span>
+</span><a name="line-820"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vIOPS"><span class="hs-identifier hs-var">vIOPS</span></a><span>
+</span><a name="line-821"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vDevice"><span class="hs-identifier hs-var">vDevice</span></a><span>
+</span><a name="line-822"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vAvailabilityZone"><span class="hs-identifier hs-var">vAvailabilityZone</span></a><span>
+</span><a name="line-823"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vName"><span class="hs-identifier hs-var">vName</span></a><span>
+</span><a name="line-824"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vRAIdArrayId"><span class="hs-identifier hs-var">vRAIdArrayId</span></a><span>
+</span><a name="line-825"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vVolumeId"><span class="hs-identifier hs-var">vVolumeId</span></a><span>
+</span><a name="line-826"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vRegion"><span class="hs-identifier hs-var">vRegion</span></a><span>
+</span><a name="line-827"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vVolumeType"><span class="hs-identifier hs-var">vVolumeType</span></a><span>
+</span><a name="line-828"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vEC2VolumeId"><span class="hs-identifier hs-var">vEC2VolumeId</span></a><span>
+</span><a name="line-829"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vMountPoint"><span class="hs-identifier hs-var">vMountPoint</span></a><span>
+</span><a name="line-830"></a><span>
+</span><a name="line-831"></a><span>    </span><span class="hs-comment">-- ** VolumeConfiguration</span><span>
+</span><a name="line-832"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#VolumeConfiguration"><span class="hs-identifier hs-type">VolumeConfiguration</span></a><span>
+</span><a name="line-833"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#volumeConfiguration"><span class="hs-identifier hs-var">volumeConfiguration</span></a><span>
+</span><a name="line-834"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vcIOPS"><span class="hs-identifier hs-var">vcIOPS</span></a><span>
+</span><a name="line-835"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vcRAIdLevel"><span class="hs-identifier hs-var">vcRAIdLevel</span></a><span>
+</span><a name="line-836"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vcVolumeType"><span class="hs-identifier hs-var">vcVolumeType</span></a><span>
+</span><a name="line-837"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vcMountPoint"><span class="hs-identifier hs-var">vcMountPoint</span></a><span>
+</span><a name="line-838"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vcNumberOfDisks"><span class="hs-identifier hs-var">vcNumberOfDisks</span></a><span>
+</span><a name="line-839"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#vcSize"><span class="hs-identifier hs-var">vcSize</span></a><span>
+</span><a name="line-840"></a><span>
+</span><a name="line-841"></a><span>    </span><span class="hs-comment">-- ** WeeklyAutoScalingSchedule</span><span>
+</span><a name="line-842"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#WeeklyAutoScalingSchedule"><span class="hs-identifier hs-type">WeeklyAutoScalingSchedule</span></a><span>
+</span><a name="line-843"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#weeklyAutoScalingSchedule"><span class="hs-identifier hs-var">weeklyAutoScalingSchedule</span></a><span>
+</span><a name="line-844"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#wassThursday"><span class="hs-identifier hs-var">wassThursday</span></a><span>
+</span><a name="line-845"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#wassWednesday"><span class="hs-identifier hs-var">wassWednesday</span></a><span>
+</span><a name="line-846"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#wassSaturday"><span class="hs-identifier hs-var">wassSaturday</span></a><span>
+</span><a name="line-847"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#wassMonday"><span class="hs-identifier hs-var">wassMonday</span></a><span>
+</span><a name="line-848"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#wassFriday"><span class="hs-identifier hs-var">wassFriday</span></a><span>
+</span><a name="line-849"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#wassSunday"><span class="hs-identifier hs-var">wassSunday</span></a><span>
+</span><a name="line-850"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.OpsWorks.Types.Product.html#wassTuesday"><span class="hs-identifier hs-var">wassTuesday</span></a><span>
+</span><a name="line-851"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-852"></a><span>
+</span><a name="line-853"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.AssignInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AssignInstance</span></a><span>
+</span><a name="line-854"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.AssignVolume.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AssignVolume</span></a><span>
+</span><a name="line-855"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.AssociateElasticIP.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AssociateElasticIP</span></a><span>
+</span><a name="line-856"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.AttachElasticLoadBalancer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">AttachElasticLoadBalancer</span></a><span>
+</span><a name="line-857"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.CloneStack.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CloneStack</span></a><span>
+</span><a name="line-858"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.CreateApp.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateApp</span></a><span>
+</span><a name="line-859"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.CreateDeployment.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateDeployment</span></a><span>
+</span><a name="line-860"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.CreateInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateInstance</span></a><span>
+</span><a name="line-861"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.CreateLayer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLayer</span></a><span>
+</span><a name="line-862"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.CreateStack.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateStack</span></a><span>
+</span><a name="line-863"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.CreateUserProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">CreateUserProfile</span></a><span>
+</span><a name="line-864"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeleteApp.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteApp</span></a><span>
+</span><a name="line-865"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeleteInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteInstance</span></a><span>
+</span><a name="line-866"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeleteLayer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLayer</span></a><span>
+</span><a name="line-867"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeleteStack.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteStack</span></a><span>
+</span><a name="line-868"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeleteUserProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUserProfile</span></a><span>
+</span><a name="line-869"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeregisterEcsCluster.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterEcsCluster</span></a><span>
+</span><a name="line-870"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeregisterElasticIP.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterElasticIP</span></a><span>
+</span><a name="line-871"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeregisterInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterInstance</span></a><span>
+</span><a name="line-872"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeregisterRDSDBInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterRDSDBInstance</span></a><span>
+</span><a name="line-873"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DeregisterVolume.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DeregisterVolume</span></a><span>
+</span><a name="line-874"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeAgentVersions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAgentVersions</span></a><span>
+</span><a name="line-875"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeApps.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeApps</span></a><span>
+</span><a name="line-876"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeCommands.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeCommands</span></a><span>
+</span><a name="line-877"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeDeployments.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDeployments</span></a><span>
+</span><a name="line-878"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeEcsClusters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeEcsClusters</span></a><span>
+</span><a name="line-879"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeElasticIPs.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeElasticIPs</span></a><span>
+</span><a name="line-880"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeElasticLoadBalancers.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeElasticLoadBalancers</span></a><span>
+</span><a name="line-881"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeInstances.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeInstances</span></a><span>
+</span><a name="line-882"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeLayers.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLayers</span></a><span>
+</span><a name="line-883"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeLoadBasedAutoScaling.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLoadBasedAutoScaling</span></a><span>
+</span><a name="line-884"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeMyUserProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMyUserProfile</span></a><span>
+</span><a name="line-885"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribePermissions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribePermissions</span></a><span>
+</span><a name="line-886"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeRAIdArrays.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRAIdArrays</span></a><span>
+</span><a name="line-887"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeRDSDBInstances.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRDSDBInstances</span></a><span>
+</span><a name="line-888"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeServiceErrors.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeServiceErrors</span></a><span>
+</span><a name="line-889"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeStackProvisioningParameters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStackProvisioningParameters</span></a><span>
+</span><a name="line-890"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeStacks.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStacks</span></a><span>
+</span><a name="line-891"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeStackSummary.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStackSummary</span></a><span>
+</span><a name="line-892"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeTimeBasedAutoScaling.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTimeBasedAutoScaling</span></a><span>
+</span><a name="line-893"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeUserProfiles.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeUserProfiles</span></a><span>
+</span><a name="line-894"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DescribeVolumes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeVolumes</span></a><span>
+</span><a name="line-895"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DetachElasticLoadBalancer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DetachElasticLoadBalancer</span></a><span>
+</span><a name="line-896"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.DisassociateElasticIP.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">DisassociateElasticIP</span></a><span>
+</span><a name="line-897"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.GetHostnameSuggestion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">GetHostnameSuggestion</span></a><span>
+</span><a name="line-898"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.GrantAccess.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">GrantAccess</span></a><span>
+</span><a name="line-899"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.ListTags.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">ListTags</span></a><span>
+</span><a name="line-900"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.RebootInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RebootInstance</span></a><span>
+</span><a name="line-901"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.RegisterEcsCluster.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterEcsCluster</span></a><span>
+</span><a name="line-902"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.RegisterElasticIP.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterElasticIP</span></a><span>
+</span><a name="line-903"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.RegisterInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterInstance</span></a><span>
+</span><a name="line-904"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.RegisterRDSDBInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterRDSDBInstance</span></a><span>
+</span><a name="line-905"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.RegisterVolume.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">RegisterVolume</span></a><span>
+</span><a name="line-906"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.SetLoadBasedAutoScaling.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">SetLoadBasedAutoScaling</span></a><span>
+</span><a name="line-907"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.SetPermission.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">SetPermission</span></a><span>
+</span><a name="line-908"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.SetTimeBasedAutoScaling.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">SetTimeBasedAutoScaling</span></a><span>
+</span><a name="line-909"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.StartInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StartInstance</span></a><span>
+</span><a name="line-910"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.StartStack.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StartStack</span></a><span>
+</span><a name="line-911"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.StopInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StopInstance</span></a><span>
+</span><a name="line-912"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.StopStack.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">StopStack</span></a><span>
+</span><a name="line-913"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.TagResource.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">TagResource</span></a><span>
+</span><a name="line-914"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-915"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UnassignInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UnassignInstance</span></a><span>
+</span><a name="line-916"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UnassignVolume.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UnassignVolume</span></a><span>
+</span><a name="line-917"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UntagResource.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UntagResource</span></a><span>
+</span><a name="line-918"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateApp.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateApp</span></a><span>
+</span><a name="line-919"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateElasticIP.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateElasticIP</span></a><span>
+</span><a name="line-920"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateInstance</span></a><span>
+</span><a name="line-921"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateLayer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateLayer</span></a><span>
+</span><a name="line-922"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateMyUserProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateMyUserProfile</span></a><span>
+</span><a name="line-923"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateRDSDBInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateRDSDBInstance</span></a><span>
+</span><a name="line-924"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateStack.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateStack</span></a><span>
+</span><a name="line-925"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateUserProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateUserProfile</span></a><span>
+</span><a name="line-926"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.UpdateVolume.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateVolume</span></a><span>
+</span><a name="line-927"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.OpsWorks.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">OpsWorks</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-928"></a><span>
+</span><a name="line-929"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'OpsWorks'.
+-}</span><span>
+</span><a name="line-935"></a><span>
+</span><a name="line-936"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-952"></a><span>
+</span><a name="line-953"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-958"></a></pre></body></html>
