@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.CloudSearch</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __Amazon CloudSearch Configuration Service__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- You use the Amazon CloudSearch configuration service to create, configure, and manage search domains. Configuration service requests are submitted using the AWS Query protocol. AWS Query requests are HTTP or HTTPS requests submitted via HTTP GET or POST with a query parameter named Action.</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- The endpoint for configuration service requests is region-specific: cloudsearch./region/ .amazonaws.com. For example, cloudsearch.us-east-1.amazonaws.com. For a current list of supported regions and endpoints, see &lt;http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region Regions and Endpoints&gt; .</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--</span><span>
+</span><a name="line-20"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span>
+</span><a name="line-21"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-22"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-23"></a><span>      </span><a href="Network.AWS.CloudSearch.Types.html#cloudSearch"><span class="hs-identifier hs-var">cloudSearch</span></a><span>
+</span><a name="line-24"></a><span>
+</span><a name="line-25"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-27"></a><span>
+</span><a name="line-28"></a><span>    </span><span class="hs-comment">-- ** BaseException</span><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.html#_BaseException"><span class="hs-identifier hs-var">_BaseException</span></a><span>
+</span><a name="line-30"></a><span>
+</span><a name="line-31"></a><span>    </span><span class="hs-comment">-- ** DisabledOperationException</span><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.html#_DisabledOperationException"><span class="hs-identifier hs-var">_DisabledOperationException</span></a><span>
+</span><a name="line-33"></a><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-comment">-- ** InternalException</span><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.html#_InternalException"><span class="hs-identifier hs-var">_InternalException</span></a><span>
+</span><a name="line-36"></a><span>
+</span><a name="line-37"></a><span>    </span><span class="hs-comment">-- ** InvalidTypeException</span><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.html#_InvalidTypeException"><span class="hs-identifier hs-var">_InvalidTypeException</span></a><span>
+</span><a name="line-39"></a><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-42"></a><span>
+</span><a name="line-43"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-45"></a><span>
+</span><a name="line-46"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-48"></a><span>
+</span><a name="line-49"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-51"></a><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-comment">-- ** DescribeAvailabilityOptions</span><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAvailabilityOptions</span><span>
+</span><a name="line-54"></a><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-comment">-- ** DescribeExpressions</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeExpressions</span><span>
+</span><a name="line-57"></a><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-comment">-- ** DefineExpression</span><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineExpression</span><span>
+</span><a name="line-60"></a><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-comment">-- ** DescribeScalingParameters</span><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeScalingParameters</span><span>
+</span><a name="line-63"></a><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-comment">-- ** DescribeServiceAccessPolicies</span><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeServiceAccessPolicies</span><span>
+</span><a name="line-66"></a><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-comment">-- ** DescribeSuggesters</span><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSuggesters</span><span>
+</span><a name="line-69"></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-comment">-- ** UpdateAvailabilityOptions</span><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateAvailabilityOptions</span><span>
+</span><a name="line-72"></a><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- ** DeleteExpression</span><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteExpression</span><span>
+</span><a name="line-75"></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-comment">-- ** ListDomainNames</span><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">ListDomainNames</span><span>
+</span><a name="line-78"></a><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- ** DefineSuggester</span><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineSuggester</span><span>
+</span><a name="line-81"></a><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-comment">-- ** DescribeDomains</span><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDomains</span><span>
+</span><a name="line-84"></a><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-comment">-- ** DeleteAnalysisScheme</span><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteAnalysisScheme</span><span>
+</span><a name="line-87"></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-comment">-- ** DescribeAnalysisSchemes</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAnalysisSchemes</span><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- ** CreateDomain</span><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">CreateDomain</span><span>
+</span><a name="line-93"></a><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-comment">-- ** DescribeIndexFields</span><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeIndexFields</span><span>
+</span><a name="line-96"></a><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-comment">-- ** DeleteSuggester</span><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSuggester</span><span>
+</span><a name="line-99"></a><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-comment">-- ** DefineAnalysisScheme</span><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineAnalysisScheme</span><span>
+</span><a name="line-102"></a><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-comment">-- ** IndexDocuments</span><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">IndexDocuments</span><span>
+</span><a name="line-105"></a><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-comment">-- ** DeleteIndexField</span><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteIndexField</span><span>
+</span><a name="line-108"></a><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-comment">-- ** UpdateServiceAccessPolicies</span><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateServiceAccessPolicies</span><span>
+</span><a name="line-111"></a><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-comment">-- ** UpdateScalingParameters</span><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateScalingParameters</span><span>
+</span><a name="line-114"></a><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-comment">-- ** BuildSuggesters</span><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">BuildSuggesters</span><span>
+</span><a name="line-117"></a><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-comment">-- ** DeleteDomain</span><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDomain</span><span>
+</span><a name="line-120"></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-comment">-- ** DefineIndexField</span><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineIndexField</span><span>
+</span><a name="line-123"></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-125"></a><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-comment">-- ** AlgorithmicStemming</span><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Sum.html#AlgorithmicStemming"><span class="hs-identifier hs-type">AlgorithmicStemming</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-128"></a><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-comment">-- ** AnalysisSchemeLanguage</span><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Sum.html#AnalysisSchemeLanguage"><span class="hs-identifier hs-type">AnalysisSchemeLanguage</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-131"></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-comment">-- ** IndexFieldType</span><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Sum.html#IndexFieldType"><span class="hs-identifier hs-type">IndexFieldType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-134"></a><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-comment">-- ** OptionState</span><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Sum.html#OptionState"><span class="hs-identifier hs-type">OptionState</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-137"></a><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-comment">-- ** PartitionInstanceType</span><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Sum.html#PartitionInstanceType"><span class="hs-identifier hs-type">PartitionInstanceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-140"></a><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-comment">-- ** SuggesterFuzzyMatching</span><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Sum.html#SuggesterFuzzyMatching"><span class="hs-identifier hs-type">SuggesterFuzzyMatching</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-143"></a><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-comment">-- ** AccessPoliciesStatus</span><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#AccessPoliciesStatus"><span class="hs-identifier hs-type">AccessPoliciesStatus</span></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#accessPoliciesStatus"><span class="hs-identifier hs-var">accessPoliciesStatus</span></a><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#apsOptions"><span class="hs-identifier hs-var">apsOptions</span></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#apsStatus"><span class="hs-identifier hs-var">apsStatus</span></a><span>
+</span><a name="line-149"></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-comment">-- ** AnalysisOptions</span><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#AnalysisOptions"><span class="hs-identifier hs-type">AnalysisOptions</span></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#analysisOptions"><span class="hs-identifier hs-var">analysisOptions</span></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#aoAlgorithmicStemming"><span class="hs-identifier hs-var">aoAlgorithmicStemming</span></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#aoStopwords"><span class="hs-identifier hs-var">aoStopwords</span></a><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#aoJapaneseTokenizationDictionary"><span class="hs-identifier hs-var">aoJapaneseTokenizationDictionary</span></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#aoSynonyms"><span class="hs-identifier hs-var">aoSynonyms</span></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#aoStemmingDictionary"><span class="hs-identifier hs-var">aoStemmingDictionary</span></a><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- ** AnalysisScheme</span><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#AnalysisScheme"><span class="hs-identifier hs-type">AnalysisScheme</span></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#analysisScheme"><span class="hs-identifier hs-var">analysisScheme</span></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#asAnalysisOptions"><span class="hs-identifier hs-var">asAnalysisOptions</span></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#asAnalysisSchemeName"><span class="hs-identifier hs-var">asAnalysisSchemeName</span></a><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#asAnalysisSchemeLanguage"><span class="hs-identifier hs-var">asAnalysisSchemeLanguage</span></a><span>
+</span><a name="line-165"></a><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-comment">-- ** AnalysisSchemeStatus</span><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#AnalysisSchemeStatus"><span class="hs-identifier hs-type">AnalysisSchemeStatus</span></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#analysisSchemeStatus"><span class="hs-identifier hs-var">analysisSchemeStatus</span></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#assOptions"><span class="hs-identifier hs-var">assOptions</span></a><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#assStatus"><span class="hs-identifier hs-var">assStatus</span></a><span>
+</span><a name="line-171"></a><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-comment">-- ** AvailabilityOptionsStatus</span><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#AvailabilityOptionsStatus"><span class="hs-identifier hs-type">AvailabilityOptionsStatus</span></a><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#availabilityOptionsStatus"><span class="hs-identifier hs-var">availabilityOptionsStatus</span></a><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#aosOptions"><span class="hs-identifier hs-var">aosOptions</span></a><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#aosStatus"><span class="hs-identifier hs-var">aosStatus</span></a><span>
+</span><a name="line-177"></a><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-comment">-- ** DateArrayOptions</span><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#DateArrayOptions"><span class="hs-identifier hs-type">DateArrayOptions</span></a><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dateArrayOptions"><span class="hs-identifier hs-var">dateArrayOptions</span></a><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daosSourceFields"><span class="hs-identifier hs-var">daosSourceFields</span></a><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daosReturnEnabled"><span class="hs-identifier hs-var">daosReturnEnabled</span></a><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daosFacetEnabled"><span class="hs-identifier hs-var">daosFacetEnabled</span></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daosSearchEnabled"><span class="hs-identifier hs-var">daosSearchEnabled</span></a><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daosDefaultValue"><span class="hs-identifier hs-var">daosDefaultValue</span></a><span>
+</span><a name="line-186"></a><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-comment">-- ** DateOptions</span><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#DateOptions"><span class="hs-identifier hs-type">DateOptions</span></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dateOptions"><span class="hs-identifier hs-var">dateOptions</span></a><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doSourceField"><span class="hs-identifier hs-var">doSourceField</span></a><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doReturnEnabled"><span class="hs-identifier hs-var">doReturnEnabled</span></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doFacetEnabled"><span class="hs-identifier hs-var">doFacetEnabled</span></a><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doSearchEnabled"><span class="hs-identifier hs-var">doSearchEnabled</span></a><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doSortEnabled"><span class="hs-identifier hs-var">doSortEnabled</span></a><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doDefaultValue"><span class="hs-identifier hs-var">doDefaultValue</span></a><span>
+</span><a name="line-196"></a><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-comment">-- ** DocumentSuggesterOptions</span><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#DocumentSuggesterOptions"><span class="hs-identifier hs-type">DocumentSuggesterOptions</span></a><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#documentSuggesterOptions"><span class="hs-identifier hs-var">documentSuggesterOptions</span></a><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsoSortExpression"><span class="hs-identifier hs-var">dsoSortExpression</span></a><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsoFuzzyMatching"><span class="hs-identifier hs-var">dsoFuzzyMatching</span></a><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsoSourceField"><span class="hs-identifier hs-var">dsoSourceField</span></a><span>
+</span><a name="line-203"></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-comment">-- ** DomainStatus</span><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#DomainStatus"><span class="hs-identifier hs-type">DomainStatus</span></a><span>
+</span><a name="line-206"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#domainStatus"><span class="hs-identifier hs-var">domainStatus</span></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsSearchInstanceCount"><span class="hs-identifier hs-var">dsSearchInstanceCount</span></a><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsSearchInstanceType"><span class="hs-identifier hs-var">dsSearchInstanceType</span></a><span>
+</span><a name="line-209"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsDocService"><span class="hs-identifier hs-var">dsDocService</span></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsARN"><span class="hs-identifier hs-var">dsARN</span></a><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsCreated"><span class="hs-identifier hs-var">dsCreated</span></a><span>
+</span><a name="line-212"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsSearchService"><span class="hs-identifier hs-var">dsSearchService</span></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsLimits"><span class="hs-identifier hs-var">dsLimits</span></a><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsSearchPartitionCount"><span class="hs-identifier hs-var">dsSearchPartitionCount</span></a><span>
+</span><a name="line-215"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsDeleted"><span class="hs-identifier hs-var">dsDeleted</span></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsProcessing"><span class="hs-identifier hs-var">dsProcessing</span></a><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsDomainId"><span class="hs-identifier hs-var">dsDomainId</span></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsDomainName"><span class="hs-identifier hs-var">dsDomainName</span></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dsRequiresIndexDocuments"><span class="hs-identifier hs-var">dsRequiresIndexDocuments</span></a><span>
+</span><a name="line-220"></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-comment">-- ** DoubleArrayOptions</span><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#DoubleArrayOptions"><span class="hs-identifier hs-type">DoubleArrayOptions</span></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doubleArrayOptions"><span class="hs-identifier hs-var">doubleArrayOptions</span></a><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daoSourceFields"><span class="hs-identifier hs-var">daoSourceFields</span></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daoReturnEnabled"><span class="hs-identifier hs-var">daoReturnEnabled</span></a><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daoFacetEnabled"><span class="hs-identifier hs-var">daoFacetEnabled</span></a><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daoSearchEnabled"><span class="hs-identifier hs-var">daoSearchEnabled</span></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#daoDefaultValue"><span class="hs-identifier hs-var">daoDefaultValue</span></a><span>
+</span><a name="line-229"></a><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-comment">-- ** DoubleOptions</span><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#DoubleOptions"><span class="hs-identifier hs-type">DoubleOptions</span></a><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#doubleOptions"><span class="hs-identifier hs-var">doubleOptions</span></a><span>
+</span><a name="line-233"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dSourceField"><span class="hs-identifier hs-var">dSourceField</span></a><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dReturnEnabled"><span class="hs-identifier hs-var">dReturnEnabled</span></a><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dFacetEnabled"><span class="hs-identifier hs-var">dFacetEnabled</span></a><span>
+</span><a name="line-236"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dSearchEnabled"><span class="hs-identifier hs-var">dSearchEnabled</span></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dSortEnabled"><span class="hs-identifier hs-var">dSortEnabled</span></a><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#dDefaultValue"><span class="hs-identifier hs-var">dDefaultValue</span></a><span>
+</span><a name="line-239"></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-comment">-- ** Expression</span><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#Expression"><span class="hs-identifier hs-type">Expression</span></a><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#expression"><span class="hs-identifier hs-var">expression</span></a><span>
+</span><a name="line-243"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#eExpressionName"><span class="hs-identifier hs-var">eExpressionName</span></a><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#eExpressionValue"><span class="hs-identifier hs-var">eExpressionValue</span></a><span>
+</span><a name="line-245"></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-comment">-- ** ExpressionStatus</span><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ExpressionStatus"><span class="hs-identifier hs-type">ExpressionStatus</span></a><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#expressionStatus"><span class="hs-identifier hs-var">expressionStatus</span></a><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#esOptions"><span class="hs-identifier hs-var">esOptions</span></a><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#esStatus"><span class="hs-identifier hs-var">esStatus</span></a><span>
+</span><a name="line-251"></a><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-comment">-- ** IndexField</span><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#IndexField"><span class="hs-identifier hs-type">IndexField</span></a><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#indexField"><span class="hs-identifier hs-var">indexField</span></a><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifDoubleArrayOptions"><span class="hs-identifier hs-var">ifDoubleArrayOptions</span></a><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifDateOptions"><span class="hs-identifier hs-var">ifDateOptions</span></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifTextArrayOptions"><span class="hs-identifier hs-var">ifTextArrayOptions</span></a><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifDoubleOptions"><span class="hs-identifier hs-var">ifDoubleOptions</span></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifTextOptions"><span class="hs-identifier hs-var">ifTextOptions</span></a><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifLatLonOptions"><span class="hs-identifier hs-var">ifLatLonOptions</span></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifLiteralArrayOptions"><span class="hs-identifier hs-var">ifLiteralArrayOptions</span></a><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifIntArrayOptions"><span class="hs-identifier hs-var">ifIntArrayOptions</span></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifDateArrayOptions"><span class="hs-identifier hs-var">ifDateArrayOptions</span></a><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifIntOptions"><span class="hs-identifier hs-var">ifIntOptions</span></a><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifLiteralOptions"><span class="hs-identifier hs-var">ifLiteralOptions</span></a><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifIndexFieldName"><span class="hs-identifier hs-var">ifIndexFieldName</span></a><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifIndexFieldType"><span class="hs-identifier hs-var">ifIndexFieldType</span></a><span>
+</span><a name="line-268"></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-comment">-- ** IndexFieldStatus</span><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#IndexFieldStatus"><span class="hs-identifier hs-type">IndexFieldStatus</span></a><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#indexFieldStatus"><span class="hs-identifier hs-var">indexFieldStatus</span></a><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifsOptions"><span class="hs-identifier hs-var">ifsOptions</span></a><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ifsStatus"><span class="hs-identifier hs-var">ifsStatus</span></a><span>
+</span><a name="line-274"></a><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-comment">-- ** IntArrayOptions</span><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#IntArrayOptions"><span class="hs-identifier hs-type">IntArrayOptions</span></a><span>
+</span><a name="line-277"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#intArrayOptions"><span class="hs-identifier hs-var">intArrayOptions</span></a><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#iaoSourceFields"><span class="hs-identifier hs-var">iaoSourceFields</span></a><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#iaoReturnEnabled"><span class="hs-identifier hs-var">iaoReturnEnabled</span></a><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#iaoFacetEnabled"><span class="hs-identifier hs-var">iaoFacetEnabled</span></a><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#iaoSearchEnabled"><span class="hs-identifier hs-var">iaoSearchEnabled</span></a><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#iaoDefaultValue"><span class="hs-identifier hs-var">iaoDefaultValue</span></a><span>
+</span><a name="line-283"></a><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-comment">-- ** IntOptions</span><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#IntOptions"><span class="hs-identifier hs-type">IntOptions</span></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#intOptions"><span class="hs-identifier hs-var">intOptions</span></a><span>
+</span><a name="line-287"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ioSourceField"><span class="hs-identifier hs-var">ioSourceField</span></a><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ioReturnEnabled"><span class="hs-identifier hs-var">ioReturnEnabled</span></a><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ioFacetEnabled"><span class="hs-identifier hs-var">ioFacetEnabled</span></a><span>
+</span><a name="line-290"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ioSearchEnabled"><span class="hs-identifier hs-var">ioSearchEnabled</span></a><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ioSortEnabled"><span class="hs-identifier hs-var">ioSortEnabled</span></a><span>
+</span><a name="line-292"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ioDefaultValue"><span class="hs-identifier hs-var">ioDefaultValue</span></a><span>
+</span><a name="line-293"></a><span>
+</span><a name="line-294"></a><span>    </span><span class="hs-comment">-- ** LatLonOptions</span><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#LatLonOptions"><span class="hs-identifier hs-type">LatLonOptions</span></a><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#latLonOptions"><span class="hs-identifier hs-var">latLonOptions</span></a><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lloSourceField"><span class="hs-identifier hs-var">lloSourceField</span></a><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lloReturnEnabled"><span class="hs-identifier hs-var">lloReturnEnabled</span></a><span>
+</span><a name="line-299"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lloFacetEnabled"><span class="hs-identifier hs-var">lloFacetEnabled</span></a><span>
+</span><a name="line-300"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lloSearchEnabled"><span class="hs-identifier hs-var">lloSearchEnabled</span></a><span>
+</span><a name="line-301"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lloSortEnabled"><span class="hs-identifier hs-var">lloSortEnabled</span></a><span>
+</span><a name="line-302"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lloDefaultValue"><span class="hs-identifier hs-var">lloDefaultValue</span></a><span>
+</span><a name="line-303"></a><span>
+</span><a name="line-304"></a><span>    </span><span class="hs-comment">-- ** Limits</span><span>
+</span><a name="line-305"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#Limits"><span class="hs-identifier hs-type">Limits</span></a><span>
+</span><a name="line-306"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#limits"><span class="hs-identifier hs-var">limits</span></a><span>
+</span><a name="line-307"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lMaximumReplicationCount"><span class="hs-identifier hs-var">lMaximumReplicationCount</span></a><span>
+</span><a name="line-308"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#lMaximumPartitionCount"><span class="hs-identifier hs-var">lMaximumPartitionCount</span></a><span>
+</span><a name="line-309"></a><span>
+</span><a name="line-310"></a><span>    </span><span class="hs-comment">-- ** LiteralArrayOptions</span><span>
+</span><a name="line-311"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#LiteralArrayOptions"><span class="hs-identifier hs-type">LiteralArrayOptions</span></a><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#literalArrayOptions"><span class="hs-identifier hs-var">literalArrayOptions</span></a><span>
+</span><a name="line-313"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#laoSourceFields"><span class="hs-identifier hs-var">laoSourceFields</span></a><span>
+</span><a name="line-314"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#laoReturnEnabled"><span class="hs-identifier hs-var">laoReturnEnabled</span></a><span>
+</span><a name="line-315"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#laoFacetEnabled"><span class="hs-identifier hs-var">laoFacetEnabled</span></a><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#laoSearchEnabled"><span class="hs-identifier hs-var">laoSearchEnabled</span></a><span>
+</span><a name="line-317"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#laoDefaultValue"><span class="hs-identifier hs-var">laoDefaultValue</span></a><span>
+</span><a name="line-318"></a><span>
+</span><a name="line-319"></a><span>    </span><span class="hs-comment">-- ** LiteralOptions</span><span>
+</span><a name="line-320"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#LiteralOptions"><span class="hs-identifier hs-type">LiteralOptions</span></a><span>
+</span><a name="line-321"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#literalOptions"><span class="hs-identifier hs-var">literalOptions</span></a><span>
+</span><a name="line-322"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#loSourceField"><span class="hs-identifier hs-var">loSourceField</span></a><span>
+</span><a name="line-323"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#loReturnEnabled"><span class="hs-identifier hs-var">loReturnEnabled</span></a><span>
+</span><a name="line-324"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#loFacetEnabled"><span class="hs-identifier hs-var">loFacetEnabled</span></a><span>
+</span><a name="line-325"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#loSearchEnabled"><span class="hs-identifier hs-var">loSearchEnabled</span></a><span>
+</span><a name="line-326"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#loSortEnabled"><span class="hs-identifier hs-var">loSortEnabled</span></a><span>
+</span><a name="line-327"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#loDefaultValue"><span class="hs-identifier hs-var">loDefaultValue</span></a><span>
+</span><a name="line-328"></a><span>
+</span><a name="line-329"></a><span>    </span><span class="hs-comment">-- ** OptionStatus</span><span>
+</span><a name="line-330"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#OptionStatus"><span class="hs-identifier hs-type">OptionStatus</span></a><span>
+</span><a name="line-331"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#optionStatus"><span class="hs-identifier hs-var">optionStatus</span></a><span>
+</span><a name="line-332"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#osPendingDeletion"><span class="hs-identifier hs-var">osPendingDeletion</span></a><span>
+</span><a name="line-333"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#osUpdateVersion"><span class="hs-identifier hs-var">osUpdateVersion</span></a><span>
+</span><a name="line-334"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#osCreationDate"><span class="hs-identifier hs-var">osCreationDate</span></a><span>
+</span><a name="line-335"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#osUpdateDate"><span class="hs-identifier hs-var">osUpdateDate</span></a><span>
+</span><a name="line-336"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#osState"><span class="hs-identifier hs-var">osState</span></a><span>
+</span><a name="line-337"></a><span>
+</span><a name="line-338"></a><span>    </span><span class="hs-comment">-- ** ScalingParameters</span><span>
+</span><a name="line-339"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ScalingParameters"><span class="hs-identifier hs-type">ScalingParameters</span></a><span>
+</span><a name="line-340"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#scalingParameters"><span class="hs-identifier hs-var">scalingParameters</span></a><span>
+</span><a name="line-341"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#spDesiredInstanceType"><span class="hs-identifier hs-var">spDesiredInstanceType</span></a><span>
+</span><a name="line-342"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#spDesiredReplicationCount"><span class="hs-identifier hs-var">spDesiredReplicationCount</span></a><span>
+</span><a name="line-343"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#spDesiredPartitionCount"><span class="hs-identifier hs-var">spDesiredPartitionCount</span></a><span>
+</span><a name="line-344"></a><span>
+</span><a name="line-345"></a><span>    </span><span class="hs-comment">-- ** ScalingParametersStatus</span><span>
+</span><a name="line-346"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ScalingParametersStatus"><span class="hs-identifier hs-type">ScalingParametersStatus</span></a><span>
+</span><a name="line-347"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#scalingParametersStatus"><span class="hs-identifier hs-var">scalingParametersStatus</span></a><span>
+</span><a name="line-348"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#spsOptions"><span class="hs-identifier hs-var">spsOptions</span></a><span>
+</span><a name="line-349"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#spsStatus"><span class="hs-identifier hs-var">spsStatus</span></a><span>
+</span><a name="line-350"></a><span>
+</span><a name="line-351"></a><span>    </span><span class="hs-comment">-- ** ServiceEndpoint</span><span>
+</span><a name="line-352"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ServiceEndpoint"><span class="hs-identifier hs-type">ServiceEndpoint</span></a><span>
+</span><a name="line-353"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#serviceEndpoint"><span class="hs-identifier hs-var">serviceEndpoint</span></a><span>
+</span><a name="line-354"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#seEndpoint"><span class="hs-identifier hs-var">seEndpoint</span></a><span>
+</span><a name="line-355"></a><span>
+</span><a name="line-356"></a><span>    </span><span class="hs-comment">-- ** Suggester</span><span>
+</span><a name="line-357"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#Suggester"><span class="hs-identifier hs-type">Suggester</span></a><span>
+</span><a name="line-358"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#suggester"><span class="hs-identifier hs-var">suggester</span></a><span>
+</span><a name="line-359"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#sSuggesterName"><span class="hs-identifier hs-var">sSuggesterName</span></a><span>
+</span><a name="line-360"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#sDocumentSuggesterOptions"><span class="hs-identifier hs-var">sDocumentSuggesterOptions</span></a><span>
+</span><a name="line-361"></a><span>
+</span><a name="line-362"></a><span>    </span><span class="hs-comment">-- ** SuggesterStatus</span><span>
+</span><a name="line-363"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#SuggesterStatus"><span class="hs-identifier hs-type">SuggesterStatus</span></a><span>
+</span><a name="line-364"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#suggesterStatus"><span class="hs-identifier hs-var">suggesterStatus</span></a><span>
+</span><a name="line-365"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ssOptions"><span class="hs-identifier hs-var">ssOptions</span></a><span>
+</span><a name="line-366"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#ssStatus"><span class="hs-identifier hs-var">ssStatus</span></a><span>
+</span><a name="line-367"></a><span>
+</span><a name="line-368"></a><span>    </span><span class="hs-comment">-- ** TextArrayOptions</span><span>
+</span><a name="line-369"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#TextArrayOptions"><span class="hs-identifier hs-type">TextArrayOptions</span></a><span>
+</span><a name="line-370"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#textArrayOptions"><span class="hs-identifier hs-var">textArrayOptions</span></a><span>
+</span><a name="line-371"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#taoSourceFields"><span class="hs-identifier hs-var">taoSourceFields</span></a><span>
+</span><a name="line-372"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#taoReturnEnabled"><span class="hs-identifier hs-var">taoReturnEnabled</span></a><span>
+</span><a name="line-373"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#taoAnalysisScheme"><span class="hs-identifier hs-var">taoAnalysisScheme</span></a><span>
+</span><a name="line-374"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#taoHighlightEnabled"><span class="hs-identifier hs-var">taoHighlightEnabled</span></a><span>
+</span><a name="line-375"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#taoDefaultValue"><span class="hs-identifier hs-var">taoDefaultValue</span></a><span>
+</span><a name="line-376"></a><span>
+</span><a name="line-377"></a><span>    </span><span class="hs-comment">-- ** TextOptions</span><span>
+</span><a name="line-378"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#TextOptions"><span class="hs-identifier hs-type">TextOptions</span></a><span>
+</span><a name="line-379"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#textOptions"><span class="hs-identifier hs-var">textOptions</span></a><span>
+</span><a name="line-380"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#toSourceField"><span class="hs-identifier hs-var">toSourceField</span></a><span>
+</span><a name="line-381"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#toReturnEnabled"><span class="hs-identifier hs-var">toReturnEnabled</span></a><span>
+</span><a name="line-382"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#toAnalysisScheme"><span class="hs-identifier hs-var">toAnalysisScheme</span></a><span>
+</span><a name="line-383"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#toHighlightEnabled"><span class="hs-identifier hs-var">toHighlightEnabled</span></a><span>
+</span><a name="line-384"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#toSortEnabled"><span class="hs-identifier hs-var">toSortEnabled</span></a><span>
+</span><a name="line-385"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudSearch.Types.Product.html#toDefaultValue"><span class="hs-identifier hs-var">toDefaultValue</span></a><span>
+</span><a name="line-386"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-387"></a><span>
+</span><a name="line-388"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.BuildSuggesters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">BuildSuggesters</span></a><span>
+</span><a name="line-389"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.CreateDomain.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">CreateDomain</span></a><span>
+</span><a name="line-390"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DefineAnalysisScheme.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineAnalysisScheme</span></a><span>
+</span><a name="line-391"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DefineExpression.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineExpression</span></a><span>
+</span><a name="line-392"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DefineIndexField.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineIndexField</span></a><span>
+</span><a name="line-393"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DefineSuggester.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DefineSuggester</span></a><span>
+</span><a name="line-394"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DeleteAnalysisScheme.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteAnalysisScheme</span></a><span>
+</span><a name="line-395"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DeleteDomain.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDomain</span></a><span>
+</span><a name="line-396"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DeleteExpression.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteExpression</span></a><span>
+</span><a name="line-397"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DeleteIndexField.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteIndexField</span></a><span>
+</span><a name="line-398"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DeleteSuggester.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSuggester</span></a><span>
+</span><a name="line-399"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeAnalysisSchemes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAnalysisSchemes</span></a><span>
+</span><a name="line-400"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeAvailabilityOptions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAvailabilityOptions</span></a><span>
+</span><a name="line-401"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeDomains.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDomains</span></a><span>
+</span><a name="line-402"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeExpressions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeExpressions</span></a><span>
+</span><a name="line-403"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeIndexFields.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeIndexFields</span></a><span>
+</span><a name="line-404"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeScalingParameters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeScalingParameters</span></a><span>
+</span><a name="line-405"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeServiceAccessPolicies.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeServiceAccessPolicies</span></a><span>
+</span><a name="line-406"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.DescribeSuggesters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSuggesters</span></a><span>
+</span><a name="line-407"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.IndexDocuments.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">IndexDocuments</span></a><span>
+</span><a name="line-408"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.ListDomainNames.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">ListDomainNames</span></a><span>
+</span><a name="line-409"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-410"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.UpdateAvailabilityOptions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateAvailabilityOptions</span></a><span>
+</span><a name="line-411"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.UpdateScalingParameters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateScalingParameters</span></a><span>
+</span><a name="line-412"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.UpdateServiceAccessPolicies.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateServiceAccessPolicies</span></a><span>
+</span><a name="line-413"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudSearch.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudSearch</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-414"></a><span>
+</span><a name="line-415"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'CloudSearch'.
+-}</span><span>
+</span><a name="line-421"></a><span>
+</span><a name="line-422"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-438"></a><span>
+</span><a name="line-439"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-444"></a></pre></body></html>
