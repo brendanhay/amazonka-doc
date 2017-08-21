@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.Config</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __AWS Config__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- AWS Config provides a way to keep track of the configurations of all the AWS resources associated with your AWS account. You can use AWS Config to get the current and historical configurations of each AWS resource and also to get information about the relationship between the resources. An AWS resource can be an Amazon Compute Cloud (Amazon EC2) instance, an Elastic Block Store (EBS) volume, an Elastic network Interface (ENI), or a security group. For a complete list of resources currently supported by AWS Config, see &lt;http://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources Supported AWS Resources&gt; .</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- You can access and manage AWS Config through the AWS Management Console, the AWS Command Line Interface (AWS CLI), the AWS Config API, or the AWS SDKs for AWS Config</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--</span><span>
+</span><a name="line-20"></a><span class="hs-comment">-- This reference guide contains documentation for the AWS Config API and the AWS CLI commands that you can use to manage AWS Config.</span><span>
+</span><a name="line-21"></a><span class="hs-comment">--</span><span>
+</span><a name="line-22"></a><span class="hs-comment">-- The AWS Config API uses the Signature Version 4 protocol for signing requests. For more information about how to sign a request with this protocol, see &lt;http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 Signing Process&gt; .</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--</span><span>
+</span><a name="line-24"></a><span class="hs-comment">-- For detailed information about AWS Config features and their associated actions or commands, as well as how to work with AWS Management Console, see &lt;http://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html What Is AWS Config?&gt; in the /AWS Config Developer Guide/ .</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--</span><span>
+</span><a name="line-26"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-28"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-29"></a><span>      </span><a href="Network.AWS.Config.Types.html#config"><span class="hs-identifier hs-var">config</span></a><span>
+</span><a name="line-30"></a><span>
+</span><a name="line-31"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-33"></a><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-comment">-- ** InvalidTimeRangeException</span><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidTimeRangeException"><span class="hs-identifier hs-var">_InvalidTimeRangeException</span></a><span>
+</span><a name="line-36"></a><span>
+</span><a name="line-37"></a><span>    </span><span class="hs-comment">-- ** InvalidSNSTopicARNException</span><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidSNSTopicARNException"><span class="hs-identifier hs-var">_InvalidSNSTopicARNException</span></a><span>
+</span><a name="line-39"></a><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-comment">-- ** InvalidRecordingGroupException</span><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidRecordingGroupException"><span class="hs-identifier hs-var">_InvalidRecordingGroupException</span></a><span>
+</span><a name="line-42"></a><span>
+</span><a name="line-43"></a><span>    </span><span class="hs-comment">-- ** ValidationException</span><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_ValidationException"><span class="hs-identifier hs-var">_ValidationException</span></a><span>
+</span><a name="line-45"></a><span>
+</span><a name="line-46"></a><span>    </span><span class="hs-comment">-- ** InvalidRoleException</span><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidRoleException"><span class="hs-identifier hs-var">_InvalidRoleException</span></a><span>
+</span><a name="line-48"></a><span>
+</span><a name="line-49"></a><span>    </span><span class="hs-comment">-- ** LastDeliveryChannelDeleteFailedException</span><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_LastDeliveryChannelDeleteFailedException"><span class="hs-identifier hs-var">_LastDeliveryChannelDeleteFailedException</span></a><span>
+</span><a name="line-51"></a><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-comment">-- ** InvalidLimitException</span><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidLimitException"><span class="hs-identifier hs-var">_InvalidLimitException</span></a><span>
+</span><a name="line-54"></a><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-comment">-- ** InvalidDeliveryChannelNameException</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidDeliveryChannelNameException"><span class="hs-identifier hs-var">_InvalidDeliveryChannelNameException</span></a><span>
+</span><a name="line-57"></a><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-comment">-- ** InvalidParameterValueException</span><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidParameterValueException"><span class="hs-identifier hs-var">_InvalidParameterValueException</span></a><span>
+</span><a name="line-60"></a><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-comment">-- ** InvalidResultTokenException</span><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidResultTokenException"><span class="hs-identifier hs-var">_InvalidResultTokenException</span></a><span>
+</span><a name="line-63"></a><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-comment">-- ** NoSuchDeliveryChannelException</span><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_NoSuchDeliveryChannelException"><span class="hs-identifier hs-var">_NoSuchDeliveryChannelException</span></a><span>
+</span><a name="line-66"></a><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-comment">-- ** NoSuchConfigRuleException</span><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_NoSuchConfigRuleException"><span class="hs-identifier hs-var">_NoSuchConfigRuleException</span></a><span>
+</span><a name="line-69"></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-comment">-- ** InsufficientPermissionsException</span><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InsufficientPermissionsException"><span class="hs-identifier hs-var">_InsufficientPermissionsException</span></a><span>
+</span><a name="line-72"></a><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- ** ResourceNotDiscoveredException</span><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_ResourceNotDiscoveredException"><span class="hs-identifier hs-var">_ResourceNotDiscoveredException</span></a><span>
+</span><a name="line-75"></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-comment">-- ** InvalidNextTokenException</span><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidNextTokenException"><span class="hs-identifier hs-var">_InvalidNextTokenException</span></a><span>
+</span><a name="line-78"></a><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- ** MaxNumberOfConfigRulesExceededException</span><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_MaxNumberOfConfigRulesExceededException"><span class="hs-identifier hs-var">_MaxNumberOfConfigRulesExceededException</span></a><span>
+</span><a name="line-81"></a><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-comment">-- ** NoAvailableConfigurationRecorderException</span><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_NoAvailableConfigurationRecorderException"><span class="hs-identifier hs-var">_NoAvailableConfigurationRecorderException</span></a><span>
+</span><a name="line-84"></a><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-comment">-- ** NoSuchBucketException</span><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_NoSuchBucketException"><span class="hs-identifier hs-var">_NoSuchBucketException</span></a><span>
+</span><a name="line-87"></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-comment">-- ** NoAvailableDeliveryChannelException</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_NoAvailableDeliveryChannelException"><span class="hs-identifier hs-var">_NoAvailableDeliveryChannelException</span></a><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- ** InvalidConfigurationRecorderNameException</span><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidConfigurationRecorderNameException"><span class="hs-identifier hs-var">_InvalidConfigurationRecorderNameException</span></a><span>
+</span><a name="line-93"></a><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-comment">-- ** NoRunningConfigurationRecorderException</span><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_NoRunningConfigurationRecorderException"><span class="hs-identifier hs-var">_NoRunningConfigurationRecorderException</span></a><span>
+</span><a name="line-96"></a><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-comment">-- ** MaxNumberOfConfigurationRecordersExceededException</span><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_MaxNumberOfConfigurationRecordersExceededException"><span class="hs-identifier hs-var">_MaxNumberOfConfigurationRecordersExceededException</span></a><span>
+</span><a name="line-99"></a><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-comment">-- ** InsufficientDeliveryPolicyException</span><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InsufficientDeliveryPolicyException"><span class="hs-identifier hs-var">_InsufficientDeliveryPolicyException</span></a><span>
+</span><a name="line-102"></a><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-comment">-- ** MaxNumberOfDeliveryChannelsExceededException</span><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_MaxNumberOfDeliveryChannelsExceededException"><span class="hs-identifier hs-var">_MaxNumberOfDeliveryChannelsExceededException</span></a><span>
+</span><a name="line-105"></a><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-comment">-- ** NoSuchConfigurationRecorderException</span><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_NoSuchConfigurationRecorderException"><span class="hs-identifier hs-var">_NoSuchConfigurationRecorderException</span></a><span>
+</span><a name="line-108"></a><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-comment">-- ** InvalidS3KeyPrefixException</span><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_InvalidS3KeyPrefixException"><span class="hs-identifier hs-var">_InvalidS3KeyPrefixException</span></a><span>
+</span><a name="line-111"></a><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-114"></a><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-comment">-- ** ResourceInUseException</span><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.html#_ResourceInUseException"><span class="hs-identifier hs-var">_ResourceInUseException</span></a><span>
+</span><a name="line-117"></a><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-120"></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-123"></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-comment">-- ** GetResourceConfigHistory (Paginated)</span><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetResourceConfigHistory</span><span>
+</span><a name="line-126"></a><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-comment">-- ** DescribeComplianceByConfigRule (Paginated)</span><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeComplianceByConfigRule</span><span>
+</span><a name="line-129"></a><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-comment">-- ** StopConfigurationRecorder</span><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">StopConfigurationRecorder</span><span>
+</span><a name="line-132"></a><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-comment">-- ** DescribeConfigRules (Paginated)</span><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigRules</span><span>
+</span><a name="line-135"></a><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-comment">-- ** DeleteEvaluationResults</span><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteEvaluationResults</span><span>
+</span><a name="line-138"></a><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-comment">-- ** PutConfigRule</span><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutConfigRule</span><span>
+</span><a name="line-141"></a><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-comment">-- ** DeleteConfigRule</span><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteConfigRule</span><span>
+</span><a name="line-144"></a><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-comment">-- ** GetComplianceDetailsByResource (Paginated)</span><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceDetailsByResource</span><span>
+</span><a name="line-147"></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-comment">-- ** DeliverConfigSnapshot</span><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeliverConfigSnapshot</span><span>
+</span><a name="line-150"></a><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-comment">-- ** DescribeConfigRuleEvaluationStatus</span><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigRuleEvaluationStatus</span><span>
+</span><a name="line-153"></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-comment">-- ** GetDiscoveredResourceCounts</span><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetDiscoveredResourceCounts</span><span>
+</span><a name="line-156"></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-comment">-- ** StartConfigRulesEvaluation</span><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">StartConfigRulesEvaluation</span><span>
+</span><a name="line-159"></a><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-comment">-- ** DescribeComplianceByResource (Paginated)</span><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeComplianceByResource</span><span>
+</span><a name="line-162"></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-comment">-- ** PutEvaluations</span><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutEvaluations</span><span>
+</span><a name="line-165"></a><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-comment">-- ** DescribeConfigurationRecorders</span><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigurationRecorders</span><span>
+</span><a name="line-168"></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-comment">-- ** StartConfigurationRecorder</span><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">StartConfigurationRecorder</span><span>
+</span><a name="line-171"></a><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-comment">-- ** GetComplianceSummaryByConfigRule</span><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceSummaryByConfigRule</span><span>
+</span><a name="line-174"></a><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-comment">-- ** DescribeConfigurationRecorderStatus</span><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigurationRecorderStatus</span><span>
+</span><a name="line-177"></a><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-comment">-- ** PutConfigurationRecorder</span><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutConfigurationRecorder</span><span>
+</span><a name="line-180"></a><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-comment">-- ** DeleteConfigurationRecorder</span><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteConfigurationRecorder</span><span>
+</span><a name="line-183"></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-comment">-- ** GetComplianceSummaryByResourceType</span><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceSummaryByResourceType</span><span>
+</span><a name="line-186"></a><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-comment">-- ** DescribeDeliveryChannelStatus</span><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDeliveryChannelStatus</span><span>
+</span><a name="line-189"></a><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-comment">-- ** PutDeliveryChannel</span><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutDeliveryChannel</span><span>
+</span><a name="line-192"></a><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-comment">-- ** GetComplianceDetailsByConfigRule (Paginated)</span><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceDetailsByConfigRule</span><span>
+</span><a name="line-195"></a><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-comment">-- ** DeleteDeliveryChannel</span><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDeliveryChannel</span><span>
+</span><a name="line-198"></a><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-comment">-- ** ListDiscoveredResources (Paginated)</span><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">ListDiscoveredResources</span><span>
+</span><a name="line-201"></a><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-comment">-- ** DescribeDeliveryChannels</span><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDeliveryChannels</span><span>
+</span><a name="line-204"></a><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-206"></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-comment">-- ** ChronologicalOrder</span><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#ChronologicalOrder"><span class="hs-identifier hs-type">ChronologicalOrder</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-209"></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-comment">-- ** ComplianceType</span><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#ComplianceType"><span class="hs-identifier hs-type">ComplianceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-212"></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-comment">-- ** ConfigRuleState</span><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#ConfigRuleState"><span class="hs-identifier hs-type">ConfigRuleState</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-215"></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-comment">-- ** ConfigurationItemStatus</span><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#ConfigurationItemStatus"><span class="hs-identifier hs-type">ConfigurationItemStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-218"></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-comment">-- ** DeliveryStatus</span><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#DeliveryStatus"><span class="hs-identifier hs-type">DeliveryStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-221"></a><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-comment">-- ** EventSource</span><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#EventSource"><span class="hs-identifier hs-type">EventSource</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-224"></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-comment">-- ** MaximumExecutionFrequency</span><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#MaximumExecutionFrequency"><span class="hs-identifier hs-type">MaximumExecutionFrequency</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-227"></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-comment">-- ** MessageType</span><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#MessageType"><span class="hs-identifier hs-type">MessageType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-230"></a><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-comment">-- ** Owner</span><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#Owner"><span class="hs-identifier hs-type">Owner</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-233"></a><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-comment">-- ** RecorderStatus</span><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#RecorderStatus"><span class="hs-identifier hs-type">RecorderStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-236"></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-comment">-- ** ResourceType</span><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Sum.html#ResourceType"><span class="hs-identifier hs-type">ResourceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-239"></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-comment">-- ** Compliance</span><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#Compliance"><span class="hs-identifier hs-type">Compliance</span></a><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#compliance"><span class="hs-identifier hs-var">compliance</span></a><span>
+</span><a name="line-243"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cComplianceContributorCount"><span class="hs-identifier hs-var">cComplianceContributorCount</span></a><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cComplianceType"><span class="hs-identifier hs-var">cComplianceType</span></a><span>
+</span><a name="line-245"></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-comment">-- ** ComplianceByConfigRule</span><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ComplianceByConfigRule"><span class="hs-identifier hs-type">ComplianceByConfigRule</span></a><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#complianceByConfigRule"><span class="hs-identifier hs-var">complianceByConfigRule</span></a><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cbcrCompliance"><span class="hs-identifier hs-var">cbcrCompliance</span></a><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cbcrConfigRuleName"><span class="hs-identifier hs-var">cbcrConfigRuleName</span></a><span>
+</span><a name="line-251"></a><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-comment">-- ** ComplianceByResource</span><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ComplianceByResource"><span class="hs-identifier hs-type">ComplianceByResource</span></a><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#complianceByResource"><span class="hs-identifier hs-var">complianceByResource</span></a><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cbrResourceId"><span class="hs-identifier hs-var">cbrResourceId</span></a><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cbrResourceType"><span class="hs-identifier hs-var">cbrResourceType</span></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cbrCompliance"><span class="hs-identifier hs-var">cbrCompliance</span></a><span>
+</span><a name="line-258"></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-comment">-- ** ComplianceContributorCount</span><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ComplianceContributorCount"><span class="hs-identifier hs-type">ComplianceContributorCount</span></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#complianceContributorCount"><span class="hs-identifier hs-var">complianceContributorCount</span></a><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cccCappedCount"><span class="hs-identifier hs-var">cccCappedCount</span></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cccCapExceeded"><span class="hs-identifier hs-var">cccCapExceeded</span></a><span>
+</span><a name="line-264"></a><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-comment">-- ** ComplianceSummary</span><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ComplianceSummary"><span class="hs-identifier hs-type">ComplianceSummary</span></a><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#complianceSummary"><span class="hs-identifier hs-var">complianceSummary</span></a><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csComplianceSummaryTimestamp"><span class="hs-identifier hs-var">csComplianceSummaryTimestamp</span></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csCompliantResourceCount"><span class="hs-identifier hs-var">csCompliantResourceCount</span></a><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csNonCompliantResourceCount"><span class="hs-identifier hs-var">csNonCompliantResourceCount</span></a><span>
+</span><a name="line-271"></a><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-comment">-- ** ComplianceSummaryByResourceType</span><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ComplianceSummaryByResourceType"><span class="hs-identifier hs-type">ComplianceSummaryByResourceType</span></a><span>
+</span><a name="line-274"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#complianceSummaryByResourceType"><span class="hs-identifier hs-var">complianceSummaryByResourceType</span></a><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csbrtResourceType"><span class="hs-identifier hs-var">csbrtResourceType</span></a><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csbrtComplianceSummary"><span class="hs-identifier hs-var">csbrtComplianceSummary</span></a><span>
+</span><a name="line-277"></a><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-comment">-- ** ConfigExportDeliveryInfo</span><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigExportDeliveryInfo"><span class="hs-identifier hs-type">ConfigExportDeliveryInfo</span></a><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configExportDeliveryInfo"><span class="hs-identifier hs-var">configExportDeliveryInfo</span></a><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cediLastErrorCode"><span class="hs-identifier hs-var">cediLastErrorCode</span></a><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cediLastAttemptTime"><span class="hs-identifier hs-var">cediLastAttemptTime</span></a><span>
+</span><a name="line-283"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cediLastSuccessfulTime"><span class="hs-identifier hs-var">cediLastSuccessfulTime</span></a><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cediLastStatus"><span class="hs-identifier hs-var">cediLastStatus</span></a><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cediLastErrorMessage"><span class="hs-identifier hs-var">cediLastErrorMessage</span></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cediNextDeliveryTime"><span class="hs-identifier hs-var">cediNextDeliveryTime</span></a><span>
+</span><a name="line-287"></a><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-comment">-- ** ConfigRule</span><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigRule"><span class="hs-identifier hs-type">ConfigRule</span></a><span>
+</span><a name="line-290"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configRule"><span class="hs-identifier hs-var">configRule</span></a><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crInputParameters"><span class="hs-identifier hs-var">crInputParameters</span></a><span>
+</span><a name="line-292"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crConfigRuleName"><span class="hs-identifier hs-var">crConfigRuleName</span></a><span>
+</span><a name="line-293"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crMaximumExecutionFrequency"><span class="hs-identifier hs-var">crMaximumExecutionFrequency</span></a><span>
+</span><a name="line-294"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crConfigRuleId"><span class="hs-identifier hs-var">crConfigRuleId</span></a><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crScope"><span class="hs-identifier hs-var">crScope</span></a><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crConfigRuleState"><span class="hs-identifier hs-var">crConfigRuleState</span></a><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crDescription"><span class="hs-identifier hs-var">crDescription</span></a><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crConfigRuleARN"><span class="hs-identifier hs-var">crConfigRuleARN</span></a><span>
+</span><a name="line-299"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crSource"><span class="hs-identifier hs-var">crSource</span></a><span>
+</span><a name="line-300"></a><span>
+</span><a name="line-301"></a><span>    </span><span class="hs-comment">-- ** ConfigRuleEvaluationStatus</span><span>
+</span><a name="line-302"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigRuleEvaluationStatus"><span class="hs-identifier hs-type">ConfigRuleEvaluationStatus</span></a><span>
+</span><a name="line-303"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configRuleEvaluationStatus"><span class="hs-identifier hs-var">configRuleEvaluationStatus</span></a><span>
+</span><a name="line-304"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresLastErrorCode"><span class="hs-identifier hs-var">cresLastErrorCode</span></a><span>
+</span><a name="line-305"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresLastFailedEvaluationTime"><span class="hs-identifier hs-var">cresLastFailedEvaluationTime</span></a><span>
+</span><a name="line-306"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresFirstActivatedTime"><span class="hs-identifier hs-var">cresFirstActivatedTime</span></a><span>
+</span><a name="line-307"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresLastSuccessfulEvaluationTime"><span class="hs-identifier hs-var">cresLastSuccessfulEvaluationTime</span></a><span>
+</span><a name="line-308"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresConfigRuleName"><span class="hs-identifier hs-var">cresConfigRuleName</span></a><span>
+</span><a name="line-309"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresLastErrorMessage"><span class="hs-identifier hs-var">cresLastErrorMessage</span></a><span>
+</span><a name="line-310"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresConfigRuleId"><span class="hs-identifier hs-var">cresConfigRuleId</span></a><span>
+</span><a name="line-311"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresLastFailedInvocationTime"><span class="hs-identifier hs-var">cresLastFailedInvocationTime</span></a><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresFirstEvaluationStarted"><span class="hs-identifier hs-var">cresFirstEvaluationStarted</span></a><span>
+</span><a name="line-313"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresLastSuccessfulInvocationTime"><span class="hs-identifier hs-var">cresLastSuccessfulInvocationTime</span></a><span>
+</span><a name="line-314"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#cresConfigRuleARN"><span class="hs-identifier hs-var">cresConfigRuleARN</span></a><span>
+</span><a name="line-315"></a><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-comment">-- ** ConfigSnapshotDeliveryProperties</span><span>
+</span><a name="line-317"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigSnapshotDeliveryProperties"><span class="hs-identifier hs-type">ConfigSnapshotDeliveryProperties</span></a><span>
+</span><a name="line-318"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configSnapshotDeliveryProperties"><span class="hs-identifier hs-var">configSnapshotDeliveryProperties</span></a><span>
+</span><a name="line-319"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csdpDeliveryFrequency"><span class="hs-identifier hs-var">csdpDeliveryFrequency</span></a><span>
+</span><a name="line-320"></a><span>
+</span><a name="line-321"></a><span>    </span><span class="hs-comment">-- ** ConfigStreamDeliveryInfo</span><span>
+</span><a name="line-322"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigStreamDeliveryInfo"><span class="hs-identifier hs-type">ConfigStreamDeliveryInfo</span></a><span>
+</span><a name="line-323"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configStreamDeliveryInfo"><span class="hs-identifier hs-var">configStreamDeliveryInfo</span></a><span>
+</span><a name="line-324"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csdiLastErrorCode"><span class="hs-identifier hs-var">csdiLastErrorCode</span></a><span>
+</span><a name="line-325"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csdiLastStatusChangeTime"><span class="hs-identifier hs-var">csdiLastStatusChangeTime</span></a><span>
+</span><a name="line-326"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csdiLastStatus"><span class="hs-identifier hs-var">csdiLastStatus</span></a><span>
+</span><a name="line-327"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#csdiLastErrorMessage"><span class="hs-identifier hs-var">csdiLastErrorMessage</span></a><span>
+</span><a name="line-328"></a><span>
+</span><a name="line-329"></a><span>    </span><span class="hs-comment">-- ** ConfigurationItem</span><span>
+</span><a name="line-330"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigurationItem"><span class="hs-identifier hs-type">ConfigurationItem</span></a><span>
+</span><a name="line-331"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configurationItem"><span class="hs-identifier hs-var">configurationItem</span></a><span>
+</span><a name="line-332"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciResourceId"><span class="hs-identifier hs-var">ciResourceId</span></a><span>
+</span><a name="line-333"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciResourceType"><span class="hs-identifier hs-var">ciResourceType</span></a><span>
+</span><a name="line-334"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciConfigurationStateId"><span class="hs-identifier hs-var">ciConfigurationStateId</span></a><span>
+</span><a name="line-335"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciArn"><span class="hs-identifier hs-var">ciArn</span></a><span>
+</span><a name="line-336"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciResourceName"><span class="hs-identifier hs-var">ciResourceName</span></a><span>
+</span><a name="line-337"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciResourceCreationTime"><span class="hs-identifier hs-var">ciResourceCreationTime</span></a><span>
+</span><a name="line-338"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciConfigurationItemStatus"><span class="hs-identifier hs-var">ciConfigurationItemStatus</span></a><span>
+</span><a name="line-339"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciConfigurationItemCaptureTime"><span class="hs-identifier hs-var">ciConfigurationItemCaptureTime</span></a><span>
+</span><a name="line-340"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciAccountId"><span class="hs-identifier hs-var">ciAccountId</span></a><span>
+</span><a name="line-341"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciSupplementaryConfiguration"><span class="hs-identifier hs-var">ciSupplementaryConfiguration</span></a><span>
+</span><a name="line-342"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciAvailabilityZone"><span class="hs-identifier hs-var">ciAvailabilityZone</span></a><span>
+</span><a name="line-343"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciRelationships"><span class="hs-identifier hs-var">ciRelationships</span></a><span>
+</span><a name="line-344"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciVersion"><span class="hs-identifier hs-var">ciVersion</span></a><span>
+</span><a name="line-345"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciAwsRegion"><span class="hs-identifier hs-var">ciAwsRegion</span></a><span>
+</span><a name="line-346"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciRelatedEvents"><span class="hs-identifier hs-var">ciRelatedEvents</span></a><span>
+</span><a name="line-347"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciConfiguration"><span class="hs-identifier hs-var">ciConfiguration</span></a><span>
+</span><a name="line-348"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciConfigurationItemMD5Hash"><span class="hs-identifier hs-var">ciConfigurationItemMD5Hash</span></a><span>
+</span><a name="line-349"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ciTags"><span class="hs-identifier hs-var">ciTags</span></a><span>
+</span><a name="line-350"></a><span>
+</span><a name="line-351"></a><span>    </span><span class="hs-comment">-- ** ConfigurationRecorder</span><span>
+</span><a name="line-352"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigurationRecorder"><span class="hs-identifier hs-type">ConfigurationRecorder</span></a><span>
+</span><a name="line-353"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configurationRecorder"><span class="hs-identifier hs-var">configurationRecorder</span></a><span>
+</span><a name="line-354"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crName"><span class="hs-identifier hs-var">crName</span></a><span>
+</span><a name="line-355"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crRecordingGroup"><span class="hs-identifier hs-var">crRecordingGroup</span></a><span>
+</span><a name="line-356"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crRoleARN"><span class="hs-identifier hs-var">crRoleARN</span></a><span>
+</span><a name="line-357"></a><span>
+</span><a name="line-358"></a><span>    </span><span class="hs-comment">-- ** ConfigurationRecorderStatus</span><span>
+</span><a name="line-359"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ConfigurationRecorderStatus"><span class="hs-identifier hs-type">ConfigurationRecorderStatus</span></a><span>
+</span><a name="line-360"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#configurationRecorderStatus"><span class="hs-identifier hs-var">configurationRecorderStatus</span></a><span>
+</span><a name="line-361"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsLastErrorCode"><span class="hs-identifier hs-var">crsLastErrorCode</span></a><span>
+</span><a name="line-362"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsLastStopTime"><span class="hs-identifier hs-var">crsLastStopTime</span></a><span>
+</span><a name="line-363"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsLastStatusChangeTime"><span class="hs-identifier hs-var">crsLastStatusChangeTime</span></a><span>
+</span><a name="line-364"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsRecording"><span class="hs-identifier hs-var">crsRecording</span></a><span>
+</span><a name="line-365"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsLastStatus"><span class="hs-identifier hs-var">crsLastStatus</span></a><span>
+</span><a name="line-366"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsLastErrorMessage"><span class="hs-identifier hs-var">crsLastErrorMessage</span></a><span>
+</span><a name="line-367"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsName"><span class="hs-identifier hs-var">crsName</span></a><span>
+</span><a name="line-368"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#crsLastStartTime"><span class="hs-identifier hs-var">crsLastStartTime</span></a><span>
+</span><a name="line-369"></a><span>
+</span><a name="line-370"></a><span>    </span><span class="hs-comment">-- ** DeliveryChannel</span><span>
+</span><a name="line-371"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#DeliveryChannel"><span class="hs-identifier hs-type">DeliveryChannel</span></a><span>
+</span><a name="line-372"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#deliveryChannel"><span class="hs-identifier hs-var">deliveryChannel</span></a><span>
+</span><a name="line-373"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcS3KeyPrefix"><span class="hs-identifier hs-var">dcS3KeyPrefix</span></a><span>
+</span><a name="line-374"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcSnsTopicARN"><span class="hs-identifier hs-var">dcSnsTopicARN</span></a><span>
+</span><a name="line-375"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcName"><span class="hs-identifier hs-var">dcName</span></a><span>
+</span><a name="line-376"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcConfigSnapshotDeliveryProperties"><span class="hs-identifier hs-var">dcConfigSnapshotDeliveryProperties</span></a><span>
+</span><a name="line-377"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcS3BucketName"><span class="hs-identifier hs-var">dcS3BucketName</span></a><span>
+</span><a name="line-378"></a><span>
+</span><a name="line-379"></a><span>    </span><span class="hs-comment">-- ** DeliveryChannelStatus</span><span>
+</span><a name="line-380"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#DeliveryChannelStatus"><span class="hs-identifier hs-type">DeliveryChannelStatus</span></a><span>
+</span><a name="line-381"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#deliveryChannelStatus"><span class="hs-identifier hs-var">deliveryChannelStatus</span></a><span>
+</span><a name="line-382"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcsConfigSnapshotDeliveryInfo"><span class="hs-identifier hs-var">dcsConfigSnapshotDeliveryInfo</span></a><span>
+</span><a name="line-383"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcsConfigStreamDeliveryInfo"><span class="hs-identifier hs-var">dcsConfigStreamDeliveryInfo</span></a><span>
+</span><a name="line-384"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcsConfigHistoryDeliveryInfo"><span class="hs-identifier hs-var">dcsConfigHistoryDeliveryInfo</span></a><span>
+</span><a name="line-385"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#dcsName"><span class="hs-identifier hs-var">dcsName</span></a><span>
+</span><a name="line-386"></a><span>
+</span><a name="line-387"></a><span>    </span><span class="hs-comment">-- ** Evaluation</span><span>
+</span><a name="line-388"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#Evaluation"><span class="hs-identifier hs-type">Evaluation</span></a><span>
+</span><a name="line-389"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#evaluation"><span class="hs-identifier hs-var">evaluation</span></a><span>
+</span><a name="line-390"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#eAnnotation"><span class="hs-identifier hs-var">eAnnotation</span></a><span>
+</span><a name="line-391"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#eComplianceResourceType"><span class="hs-identifier hs-var">eComplianceResourceType</span></a><span>
+</span><a name="line-392"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#eComplianceResourceId"><span class="hs-identifier hs-var">eComplianceResourceId</span></a><span>
+</span><a name="line-393"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#eComplianceType"><span class="hs-identifier hs-var">eComplianceType</span></a><span>
+</span><a name="line-394"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#eOrderingTimestamp"><span class="hs-identifier hs-var">eOrderingTimestamp</span></a><span>
+</span><a name="line-395"></a><span>
+</span><a name="line-396"></a><span>    </span><span class="hs-comment">-- ** EvaluationResult</span><span>
+</span><a name="line-397"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#EvaluationResult"><span class="hs-identifier hs-type">EvaluationResult</span></a><span>
+</span><a name="line-398"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#evaluationResult"><span class="hs-identifier hs-var">evaluationResult</span></a><span>
+</span><a name="line-399"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erEvaluationResultIdentifier"><span class="hs-identifier hs-var">erEvaluationResultIdentifier</span></a><span>
+</span><a name="line-400"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erAnnotation"><span class="hs-identifier hs-var">erAnnotation</span></a><span>
+</span><a name="line-401"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erConfigRuleInvokedTime"><span class="hs-identifier hs-var">erConfigRuleInvokedTime</span></a><span>
+</span><a name="line-402"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erResultRecordedTime"><span class="hs-identifier hs-var">erResultRecordedTime</span></a><span>
+</span><a name="line-403"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erResultToken"><span class="hs-identifier hs-var">erResultToken</span></a><span>
+</span><a name="line-404"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erComplianceType"><span class="hs-identifier hs-var">erComplianceType</span></a><span>
+</span><a name="line-405"></a><span>
+</span><a name="line-406"></a><span>    </span><span class="hs-comment">-- ** EvaluationResultIdentifier</span><span>
+</span><a name="line-407"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#EvaluationResultIdentifier"><span class="hs-identifier hs-type">EvaluationResultIdentifier</span></a><span>
+</span><a name="line-408"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#evaluationResultIdentifier"><span class="hs-identifier hs-var">evaluationResultIdentifier</span></a><span>
+</span><a name="line-409"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#eriEvaluationResultQualifier"><span class="hs-identifier hs-var">eriEvaluationResultQualifier</span></a><span>
+</span><a name="line-410"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#eriOrderingTimestamp"><span class="hs-identifier hs-var">eriOrderingTimestamp</span></a><span>
+</span><a name="line-411"></a><span>
+</span><a name="line-412"></a><span>    </span><span class="hs-comment">-- ** EvaluationResultQualifier</span><span>
+</span><a name="line-413"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#EvaluationResultQualifier"><span class="hs-identifier hs-type">EvaluationResultQualifier</span></a><span>
+</span><a name="line-414"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#evaluationResultQualifier"><span class="hs-identifier hs-var">evaluationResultQualifier</span></a><span>
+</span><a name="line-415"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erqResourceId"><span class="hs-identifier hs-var">erqResourceId</span></a><span>
+</span><a name="line-416"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erqResourceType"><span class="hs-identifier hs-var">erqResourceType</span></a><span>
+</span><a name="line-417"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#erqConfigRuleName"><span class="hs-identifier hs-var">erqConfigRuleName</span></a><span>
+</span><a name="line-418"></a><span>
+</span><a name="line-419"></a><span>    </span><span class="hs-comment">-- ** RecordingGroup</span><span>
+</span><a name="line-420"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#RecordingGroup"><span class="hs-identifier hs-type">RecordingGroup</span></a><span>
+</span><a name="line-421"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#recordingGroup"><span class="hs-identifier hs-var">recordingGroup</span></a><span>
+</span><a name="line-422"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rgAllSupported"><span class="hs-identifier hs-var">rgAllSupported</span></a><span>
+</span><a name="line-423"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rgIncludeGlobalResourceTypes"><span class="hs-identifier hs-var">rgIncludeGlobalResourceTypes</span></a><span>
+</span><a name="line-424"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rgResourceTypes"><span class="hs-identifier hs-var">rgResourceTypes</span></a><span>
+</span><a name="line-425"></a><span>
+</span><a name="line-426"></a><span>    </span><span class="hs-comment">-- ** Relationship</span><span>
+</span><a name="line-427"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#Relationship"><span class="hs-identifier hs-type">Relationship</span></a><span>
+</span><a name="line-428"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#relationship"><span class="hs-identifier hs-var">relationship</span></a><span>
+</span><a name="line-429"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rResourceId"><span class="hs-identifier hs-var">rResourceId</span></a><span>
+</span><a name="line-430"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rResourceType"><span class="hs-identifier hs-var">rResourceType</span></a><span>
+</span><a name="line-431"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rResourceName"><span class="hs-identifier hs-var">rResourceName</span></a><span>
+</span><a name="line-432"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rRelationshipName"><span class="hs-identifier hs-var">rRelationshipName</span></a><span>
+</span><a name="line-433"></a><span>
+</span><a name="line-434"></a><span>    </span><span class="hs-comment">-- ** ResourceCount</span><span>
+</span><a name="line-435"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ResourceCount"><span class="hs-identifier hs-type">ResourceCount</span></a><span>
+</span><a name="line-436"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#resourceCount"><span class="hs-identifier hs-var">resourceCount</span></a><span>
+</span><a name="line-437"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rcResourceType"><span class="hs-identifier hs-var">rcResourceType</span></a><span>
+</span><a name="line-438"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#rcCount"><span class="hs-identifier hs-var">rcCount</span></a><span>
+</span><a name="line-439"></a><span>
+</span><a name="line-440"></a><span>    </span><span class="hs-comment">-- ** ResourceIdentifier</span><span>
+</span><a name="line-441"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#ResourceIdentifier"><span class="hs-identifier hs-type">ResourceIdentifier</span></a><span>
+</span><a name="line-442"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#resourceIdentifier"><span class="hs-identifier hs-var">resourceIdentifier</span></a><span>
+</span><a name="line-443"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#riResourceId"><span class="hs-identifier hs-var">riResourceId</span></a><span>
+</span><a name="line-444"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#riResourceType"><span class="hs-identifier hs-var">riResourceType</span></a><span>
+</span><a name="line-445"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#riResourceName"><span class="hs-identifier hs-var">riResourceName</span></a><span>
+</span><a name="line-446"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#riResourceDeletionTime"><span class="hs-identifier hs-var">riResourceDeletionTime</span></a><span>
+</span><a name="line-447"></a><span>
+</span><a name="line-448"></a><span>    </span><span class="hs-comment">-- ** Scope</span><span>
+</span><a name="line-449"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#Scope"><span class="hs-identifier hs-type">Scope</span></a><span>
+</span><a name="line-450"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#scope"><span class="hs-identifier hs-var">scope</span></a><span>
+</span><a name="line-451"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sComplianceResourceTypes"><span class="hs-identifier hs-var">sComplianceResourceTypes</span></a><span>
+</span><a name="line-452"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sComplianceResourceId"><span class="hs-identifier hs-var">sComplianceResourceId</span></a><span>
+</span><a name="line-453"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sTagValue"><span class="hs-identifier hs-var">sTagValue</span></a><span>
+</span><a name="line-454"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sTagKey"><span class="hs-identifier hs-var">sTagKey</span></a><span>
+</span><a name="line-455"></a><span>
+</span><a name="line-456"></a><span>    </span><span class="hs-comment">-- ** Source</span><span>
+</span><a name="line-457"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#Source"><span class="hs-identifier hs-type">Source</span></a><span>
+</span><a name="line-458"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#source"><span class="hs-identifier hs-var">source</span></a><span>
+</span><a name="line-459"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sSourceDetails"><span class="hs-identifier hs-var">sSourceDetails</span></a><span>
+</span><a name="line-460"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sOwner"><span class="hs-identifier hs-var">sOwner</span></a><span>
+</span><a name="line-461"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sSourceIdentifier"><span class="hs-identifier hs-var">sSourceIdentifier</span></a><span>
+</span><a name="line-462"></a><span>
+</span><a name="line-463"></a><span>    </span><span class="hs-comment">-- ** SourceDetail</span><span>
+</span><a name="line-464"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#SourceDetail"><span class="hs-identifier hs-type">SourceDetail</span></a><span>
+</span><a name="line-465"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sourceDetail"><span class="hs-identifier hs-var">sourceDetail</span></a><span>
+</span><a name="line-466"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sdMessageType"><span class="hs-identifier hs-var">sdMessageType</span></a><span>
+</span><a name="line-467"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sdMaximumExecutionFrequency"><span class="hs-identifier hs-var">sdMaximumExecutionFrequency</span></a><span>
+</span><a name="line-468"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Config.Types.Product.html#sdEventSource"><span class="hs-identifier hs-var">sdEventSource</span></a><span>
+</span><a name="line-469"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-470"></a><span>
+</span><a name="line-471"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DeleteConfigRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteConfigRule</span></a><span>
+</span><a name="line-472"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DeleteConfigurationRecorder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteConfigurationRecorder</span></a><span>
+</span><a name="line-473"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DeleteDeliveryChannel.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDeliveryChannel</span></a><span>
+</span><a name="line-474"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DeleteEvaluationResults.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteEvaluationResults</span></a><span>
+</span><a name="line-475"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DeliverConfigSnapshot.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DeliverConfigSnapshot</span></a><span>
+</span><a name="line-476"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeComplianceByConfigRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeComplianceByConfigRule</span></a><span>
+</span><a name="line-477"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeComplianceByResource.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeComplianceByResource</span></a><span>
+</span><a name="line-478"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeConfigRuleEvaluationStatus.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigRuleEvaluationStatus</span></a><span>
+</span><a name="line-479"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeConfigRules.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigRules</span></a><span>
+</span><a name="line-480"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeConfigurationRecorders.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigurationRecorders</span></a><span>
+</span><a name="line-481"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeConfigurationRecorderStatus.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeConfigurationRecorderStatus</span></a><span>
+</span><a name="line-482"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeDeliveryChannels.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDeliveryChannels</span></a><span>
+</span><a name="line-483"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.DescribeDeliveryChannelStatus.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDeliveryChannelStatus</span></a><span>
+</span><a name="line-484"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.GetComplianceDetailsByConfigRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceDetailsByConfigRule</span></a><span>
+</span><a name="line-485"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.GetComplianceDetailsByResource.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceDetailsByResource</span></a><span>
+</span><a name="line-486"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.GetComplianceSummaryByConfigRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceSummaryByConfigRule</span></a><span>
+</span><a name="line-487"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.GetComplianceSummaryByResourceType.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetComplianceSummaryByResourceType</span></a><span>
+</span><a name="line-488"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.GetDiscoveredResourceCounts.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetDiscoveredResourceCounts</span></a><span>
+</span><a name="line-489"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.GetResourceConfigHistory.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">GetResourceConfigHistory</span></a><span>
+</span><a name="line-490"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.ListDiscoveredResources.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">ListDiscoveredResources</span></a><span>
+</span><a name="line-491"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.PutConfigRule.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutConfigRule</span></a><span>
+</span><a name="line-492"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.PutConfigurationRecorder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutConfigurationRecorder</span></a><span>
+</span><a name="line-493"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.PutDeliveryChannel.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutDeliveryChannel</span></a><span>
+</span><a name="line-494"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.PutEvaluations.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">PutEvaluations</span></a><span>
+</span><a name="line-495"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.StartConfigRulesEvaluation.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">StartConfigRulesEvaluation</span></a><span>
+</span><a name="line-496"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.StartConfigurationRecorder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">StartConfigurationRecorder</span></a><span>
+</span><a name="line-497"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.StopConfigurationRecorder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">StopConfigurationRecorder</span></a><span>
+</span><a name="line-498"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-499"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Config.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Config</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-500"></a><span>
+</span><a name="line-501"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'Config'.
+-}</span><span>
+</span><a name="line-507"></a><span>
+</span><a name="line-508"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-524"></a><span>
+</span><a name="line-525"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-530"></a></pre></body></html>
