@@ -1,0 +1,643 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.Route53</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- Amazon Route 53 is a scalable Domain Name System (DNS) web service. It provides secure and reliable routing to your infrastructure that uses Amazon Web Services (AWS) products, such as Amazon Elastic Compute Cloud (Amazon EC2), Elastic Load Balancing, or Amazon Simple Storage Service (Amazon S3). You can also use Amazon Route 53 to route users to your infrastructure outside of AWS.</span><span>
+</span><a name="line-15"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span>
+</span><a name="line-16"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-17"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-18"></a><span>      </span><a href="Network.AWS.Route53.Types.html#route53"><span class="hs-identifier hs-var">route53</span></a><span>
+</span><a name="line-19"></a><span>
+</span><a name="line-20"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-21"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-22"></a><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- ** HealthCheckVersionMismatch</span><span>
+</span><a name="line-24"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_HealthCheckVersionMismatch"><span class="hs-identifier hs-var">_HealthCheckVersionMismatch</span></a><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- ** InvalidInput</span><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_InvalidInput"><span class="hs-identifier hs-var">_InvalidInput</span></a><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- ** HostedZoneNotEmpty</span><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_HostedZoneNotEmpty"><span class="hs-identifier hs-var">_HostedZoneNotEmpty</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- ** InvalidArgument</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_InvalidArgument"><span class="hs-identifier hs-var">_InvalidArgument</span></a><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** TrafficPolicyInstanceAlreadyExists</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TrafficPolicyInstanceAlreadyExists"><span class="hs-identifier hs-var">_TrafficPolicyInstanceAlreadyExists</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** ConflictingTypes</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_ConflictingTypes"><span class="hs-identifier hs-var">_ConflictingTypes</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** ConcurrentModification</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_ConcurrentModification"><span class="hs-identifier hs-var">_ConcurrentModification</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** DelegationSetAlreadyReusable</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_DelegationSetAlreadyReusable"><span class="hs-identifier hs-var">_DelegationSetAlreadyReusable</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** NotAuthorizedException</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NotAuthorizedException"><span class="hs-identifier hs-var">_NotAuthorizedException</span></a><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- ** PriorRequestNotComplete</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_PriorRequestNotComplete"><span class="hs-identifier hs-var">_PriorRequestNotComplete</span></a><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- ** InvalidChangeBatch</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_InvalidChangeBatch"><span class="hs-identifier hs-var">_InvalidChangeBatch</span></a><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- ** TooManyVPCAssociationAuthorizations</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TooManyVPCAssociationAuthorizations"><span class="hs-identifier hs-var">_TooManyVPCAssociationAuthorizations</span></a><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** TrafficPolicyAlreadyExists</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TrafficPolicyAlreadyExists"><span class="hs-identifier hs-var">_TrafficPolicyAlreadyExists</span></a><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- ** InvalidTrafficPolicyDocument</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_InvalidTrafficPolicyDocument"><span class="hs-identifier hs-var">_InvalidTrafficPolicyDocument</span></a><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** InvalidPaginationToken</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_InvalidPaginationToken"><span class="hs-identifier hs-var">_InvalidPaginationToken</span></a><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** DelegationSetNotReusable</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_DelegationSetNotReusable"><span class="hs-identifier hs-var">_DelegationSetNotReusable</span></a><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- ** InvalidDomainName</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_InvalidDomainName"><span class="hs-identifier hs-var">_InvalidDomainName</span></a><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** NoSuchTrafficPolicy</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NoSuchTrafficPolicy"><span class="hs-identifier hs-var">_NoSuchTrafficPolicy</span></a><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** HostedZoneNotFound</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_HostedZoneNotFound"><span class="hs-identifier hs-var">_HostedZoneNotFound</span></a><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- ** DelegationSetInUse</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_DelegationSetInUse"><span class="hs-identifier hs-var">_DelegationSetInUse</span></a><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- ** NoSuchDelegationSet</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NoSuchDelegationSet"><span class="hs-identifier hs-var">_NoSuchDelegationSet</span></a><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- ** HealthCheckAlreadyExists</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_HealthCheckAlreadyExists"><span class="hs-identifier hs-var">_HealthCheckAlreadyExists</span></a><span>
+</span><a name="line-88"></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- ** TooManyTrafficPolicies</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TooManyTrafficPolicies"><span class="hs-identifier hs-var">_TooManyTrafficPolicies</span></a><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- ** VPCAssociationAuthorizationNotFound</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_VPCAssociationAuthorizationNotFound"><span class="hs-identifier hs-var">_VPCAssociationAuthorizationNotFound</span></a><span>
+</span><a name="line-94"></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- ** NoSuchGeoLocation</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NoSuchGeoLocation"><span class="hs-identifier hs-var">_NoSuchGeoLocation</span></a><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-comment">-- ** DelegationSetNotAvailable</span><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_DelegationSetNotAvailable"><span class="hs-identifier hs-var">_DelegationSetNotAvailable</span></a><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- ** VPCAssociationNotFound</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_VPCAssociationNotFound"><span class="hs-identifier hs-var">_VPCAssociationNotFound</span></a><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-comment">-- ** ThrottlingException</span><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_ThrottlingException"><span class="hs-identifier hs-var">_ThrottlingException</span></a><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- ** NoSuchChange</span><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NoSuchChange"><span class="hs-identifier hs-var">_NoSuchChange</span></a><span>
+</span><a name="line-109"></a><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-comment">-- ** LimitsExceeded</span><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_LimitsExceeded"><span class="hs-identifier hs-var">_LimitsExceeded</span></a><span>
+</span><a name="line-112"></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-comment">-- ** TooManyTrafficPolicyInstances</span><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TooManyTrafficPolicyInstances"><span class="hs-identifier hs-var">_TooManyTrafficPolicyInstances</span></a><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-comment">-- ** NoSuchTrafficPolicyInstance</span><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NoSuchTrafficPolicyInstance"><span class="hs-identifier hs-var">_NoSuchTrafficPolicyInstance</span></a><span>
+</span><a name="line-118"></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- ** IncompatibleVersion</span><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_IncompatibleVersion"><span class="hs-identifier hs-var">_IncompatibleVersion</span></a><span>
+</span><a name="line-121"></a><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-comment">-- ** PublicZoneVPCAssociation</span><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_PublicZoneVPCAssociation"><span class="hs-identifier hs-var">_PublicZoneVPCAssociation</span></a><span>
+</span><a name="line-124"></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-comment">-- ** NoSuchHostedZone</span><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NoSuchHostedZone"><span class="hs-identifier hs-var">_NoSuchHostedZone</span></a><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-comment">-- ** TooManyHostedZones</span><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TooManyHostedZones"><span class="hs-identifier hs-var">_TooManyHostedZones</span></a><span>
+</span><a name="line-130"></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-comment">-- ** HealthCheckInUse</span><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_HealthCheckInUse"><span class="hs-identifier hs-var">_HealthCheckInUse</span></a><span>
+</span><a name="line-133"></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-comment">-- ** DelegationSetAlreadyCreated</span><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_DelegationSetAlreadyCreated"><span class="hs-identifier hs-var">_DelegationSetAlreadyCreated</span></a><span>
+</span><a name="line-136"></a><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-comment">-- ** ConflictingDomainExists</span><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_ConflictingDomainExists"><span class="hs-identifier hs-var">_ConflictingDomainExists</span></a><span>
+</span><a name="line-139"></a><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-comment">-- ** LastVPCAssociation</span><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_LastVPCAssociation"><span class="hs-identifier hs-var">_LastVPCAssociation</span></a><span>
+</span><a name="line-142"></a><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-comment">-- ** TooManyHealthChecks</span><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TooManyHealthChecks"><span class="hs-identifier hs-var">_TooManyHealthChecks</span></a><span>
+</span><a name="line-145"></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-comment">-- ** NoSuchHealthCheck</span><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_NoSuchHealthCheck"><span class="hs-identifier hs-var">_NoSuchHealthCheck</span></a><span>
+</span><a name="line-148"></a><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-comment">-- ** TrafficPolicyInUse</span><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_TrafficPolicyInUse"><span class="hs-identifier hs-var">_TrafficPolicyInUse</span></a><span>
+</span><a name="line-151"></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-comment">-- ** InvalidVPCId</span><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_InvalidVPCId"><span class="hs-identifier hs-var">_InvalidVPCId</span></a><span>
+</span><a name="line-154"></a><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-comment">-- ** HostedZoneAlreadyExists</span><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.html#_HostedZoneAlreadyExists"><span class="hs-identifier hs-var">_HostedZoneAlreadyExists</span></a><span>
+</span><a name="line-157"></a><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-160"></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-comment">-- ** ResourceRecordSetsChanged</span><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Waiters.html#resourceRecordSetsChanged"><span class="hs-identifier hs-var">resourceRecordSetsChanged</span></a><span>
+</span><a name="line-163"></a><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-166"></a><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-comment">-- ** AssociateVPCWithHostedZone</span><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">AssociateVPCWithHostedZone</span><span>
+</span><a name="line-169"></a><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-comment">-- ** DeleteTrafficPolicy</span><span>
+</span><a name="line-171"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTrafficPolicy</span><span>
+</span><a name="line-172"></a><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-comment">-- ** GetCheckerIPRanges</span><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetCheckerIPRanges</span><span>
+</span><a name="line-175"></a><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-comment">-- ** GetTrafficPolicyInstance</span><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetTrafficPolicyInstance</span><span>
+</span><a name="line-178"></a><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-comment">-- ** GetHealthCheckLastFailureReason</span><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheckLastFailureReason</span><span>
+</span><a name="line-181"></a><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-comment">-- ** DeleteReusableDelegationSet</span><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteReusableDelegationSet</span><span>
+</span><a name="line-184"></a><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-comment">-- ** ListHostedZonesByName</span><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListHostedZonesByName</span><span>
+</span><a name="line-187"></a><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-comment">-- ** ListReusableDelegationSets</span><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListReusableDelegationSets</span><span>
+</span><a name="line-190"></a><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-comment">-- ** ListTagsForResource</span><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForResource</span><span>
+</span><a name="line-193"></a><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-comment">-- ** ListTrafficPolicyInstances</span><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyInstances</span><span>
+</span><a name="line-196"></a><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-comment">-- ** CreateTrafficPolicyInstance</span><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTrafficPolicyInstance</span><span>
+</span><a name="line-199"></a><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-comment">-- ** GetChange</span><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetChange</span><span>
+</span><a name="line-202"></a><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-comment">-- ** ChangeResourceRecordSets</span><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ChangeResourceRecordSets</span><span>
+</span><a name="line-205"></a><span>
+</span><a name="line-206"></a><span>    </span><span class="hs-comment">-- ** DeleteHealthCheck</span><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteHealthCheck</span><span>
+</span><a name="line-208"></a><span>
+</span><a name="line-209"></a><span>    </span><span class="hs-comment">-- ** UpdateHealthCheck</span><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateHealthCheck</span><span>
+</span><a name="line-211"></a><span>
+</span><a name="line-212"></a><span>    </span><span class="hs-comment">-- ** CreateHostedZone</span><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateHostedZone</span><span>
+</span><a name="line-214"></a><span>
+</span><a name="line-215"></a><span>    </span><span class="hs-comment">-- ** CreateVPCAssociationAuthorization</span><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateVPCAssociationAuthorization</span><span>
+</span><a name="line-217"></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-comment">-- ** ListVPCAssociationAuthorizations</span><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListVPCAssociationAuthorizations</span><span>
+</span><a name="line-220"></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-comment">-- ** ListTrafficPolicyInstancesByPolicy</span><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyInstancesByPolicy</span><span>
+</span><a name="line-223"></a><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-comment">-- ** DisassociateVPCFromHostedZone</span><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DisassociateVPCFromHostedZone</span><span>
+</span><a name="line-226"></a><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-comment">-- ** CreateHealthCheck</span><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateHealthCheck</span><span>
+</span><a name="line-229"></a><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-comment">-- ** DeleteVPCAssociationAuthorization</span><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVPCAssociationAuthorization</span><span>
+</span><a name="line-232"></a><span>
+</span><a name="line-233"></a><span>    </span><span class="hs-comment">-- ** ChangeTagsForResource</span><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ChangeTagsForResource</span><span>
+</span><a name="line-235"></a><span>
+</span><a name="line-236"></a><span>    </span><span class="hs-comment">-- ** ListHostedZones (Paginated)</span><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListHostedZones</span><span>
+</span><a name="line-238"></a><span>
+</span><a name="line-239"></a><span>    </span><span class="hs-comment">-- ** GetTrafficPolicyInstanceCount</span><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetTrafficPolicyInstanceCount</span><span>
+</span><a name="line-241"></a><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-comment">-- ** ListGeoLocations</span><span>
+</span><a name="line-243"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListGeoLocations</span><span>
+</span><a name="line-244"></a><span>
+</span><a name="line-245"></a><span>    </span><span class="hs-comment">-- ** GetHostedZone</span><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHostedZone</span><span>
+</span><a name="line-247"></a><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-comment">-- ** GetHealthCheck</span><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheck</span><span>
+</span><a name="line-250"></a><span>
+</span><a name="line-251"></a><span>    </span><span class="hs-comment">-- ** ListResourceRecordSets (Paginated)</span><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListResourceRecordSets</span><span>
+</span><a name="line-253"></a><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-comment">-- ** CreateReusableDelegationSet</span><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateReusableDelegationSet</span><span>
+</span><a name="line-256"></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-comment">-- ** GetHealthCheckCount</span><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheckCount</span><span>
+</span><a name="line-259"></a><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-comment">-- ** UpdateTrafficPolicyComment</span><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateTrafficPolicyComment</span><span>
+</span><a name="line-262"></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-comment">-- ** GetHostedZoneCount</span><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHostedZoneCount</span><span>
+</span><a name="line-265"></a><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-comment">-- ** GetReusableDelegationSet</span><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetReusableDelegationSet</span><span>
+</span><a name="line-268"></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-comment">-- ** DeleteTrafficPolicyInstance</span><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTrafficPolicyInstance</span><span>
+</span><a name="line-271"></a><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-comment">-- ** UpdateTrafficPolicyInstance</span><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateTrafficPolicyInstance</span><span>
+</span><a name="line-274"></a><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-comment">-- ** UpdateHostedZoneComment</span><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateHostedZoneComment</span><span>
+</span><a name="line-277"></a><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-comment">-- ** GetHealthCheckStatus</span><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheckStatus</span><span>
+</span><a name="line-280"></a><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-comment">-- ** CreateTrafficPolicyVersion</span><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTrafficPolicyVersion</span><span>
+</span><a name="line-283"></a><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-comment">-- ** TestDNSAnswer</span><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">TestDNSAnswer</span><span>
+</span><a name="line-286"></a><span>
+</span><a name="line-287"></a><span>    </span><span class="hs-comment">-- ** ListHealthChecks (Paginated)</span><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListHealthChecks</span><span>
+</span><a name="line-289"></a><span>
+</span><a name="line-290"></a><span>    </span><span class="hs-comment">-- ** GetTrafficPolicy</span><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetTrafficPolicy</span><span>
+</span><a name="line-292"></a><span>
+</span><a name="line-293"></a><span>    </span><span class="hs-comment">-- ** ListTrafficPolicyVersions</span><span>
+</span><a name="line-294"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyVersions</span><span>
+</span><a name="line-295"></a><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-comment">-- ** DeleteHostedZone</span><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteHostedZone</span><span>
+</span><a name="line-298"></a><span>
+</span><a name="line-299"></a><span>    </span><span class="hs-comment">-- ** GetGeoLocation</span><span>
+</span><a name="line-300"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetGeoLocation</span><span>
+</span><a name="line-301"></a><span>
+</span><a name="line-302"></a><span>    </span><span class="hs-comment">-- ** ListTagsForResources</span><span>
+</span><a name="line-303"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForResources</span><span>
+</span><a name="line-304"></a><span>
+</span><a name="line-305"></a><span>    </span><span class="hs-comment">-- ** CreateTrafficPolicy</span><span>
+</span><a name="line-306"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTrafficPolicy</span><span>
+</span><a name="line-307"></a><span>
+</span><a name="line-308"></a><span>    </span><span class="hs-comment">-- ** ListTrafficPolicyInstancesByHostedZone</span><span>
+</span><a name="line-309"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyInstancesByHostedZone</span><span>
+</span><a name="line-310"></a><span>
+</span><a name="line-311"></a><span>    </span><span class="hs-comment">-- ** ListTrafficPolicies</span><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicies</span><span>
+</span><a name="line-313"></a><span>
+</span><a name="line-314"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-315"></a><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-comment">-- ** Common</span><span>
+</span><a name="line-317"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">Internal</span><span>
+</span><a name="line-318"></a><span>
+</span><a name="line-319"></a><span>    </span><span class="hs-comment">-- ** ChangeAction</span><span>
+</span><a name="line-320"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#ChangeAction"><span class="hs-identifier hs-type">ChangeAction</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-321"></a><span>
+</span><a name="line-322"></a><span>    </span><span class="hs-comment">-- ** ChangeStatus</span><span>
+</span><a name="line-323"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#ChangeStatus"><span class="hs-identifier hs-type">ChangeStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-324"></a><span>
+</span><a name="line-325"></a><span>    </span><span class="hs-comment">-- ** CloudWatchRegion</span><span>
+</span><a name="line-326"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#CloudWatchRegion"><span class="hs-identifier hs-type">CloudWatchRegion</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-327"></a><span>
+</span><a name="line-328"></a><span>    </span><span class="hs-comment">-- ** ComparisonOperator</span><span>
+</span><a name="line-329"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#ComparisonOperator"><span class="hs-identifier hs-type">ComparisonOperator</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-330"></a><span>
+</span><a name="line-331"></a><span>    </span><span class="hs-comment">-- ** Failover</span><span>
+</span><a name="line-332"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#Failover"><span class="hs-identifier hs-type">Failover</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-333"></a><span>
+</span><a name="line-334"></a><span>    </span><span class="hs-comment">-- ** HealthCheckRegion</span><span>
+</span><a name="line-335"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#HealthCheckRegion"><span class="hs-identifier hs-type">HealthCheckRegion</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-336"></a><span>
+</span><a name="line-337"></a><span>    </span><span class="hs-comment">-- ** HealthCheckType</span><span>
+</span><a name="line-338"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#HealthCheckType"><span class="hs-identifier hs-type">HealthCheckType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-339"></a><span>
+</span><a name="line-340"></a><span>    </span><span class="hs-comment">-- ** InsufficientDataHealthStatus</span><span>
+</span><a name="line-341"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#InsufficientDataHealthStatus"><span class="hs-identifier hs-type">InsufficientDataHealthStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-342"></a><span>
+</span><a name="line-343"></a><span>    </span><span class="hs-comment">-- ** RecordType</span><span>
+</span><a name="line-344"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#RecordType"><span class="hs-identifier hs-type">RecordType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-345"></a><span>
+</span><a name="line-346"></a><span>    </span><span class="hs-comment">-- ** Statistic</span><span>
+</span><a name="line-347"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#Statistic"><span class="hs-identifier hs-type">Statistic</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-348"></a><span>
+</span><a name="line-349"></a><span>    </span><span class="hs-comment">-- ** TagResourceType</span><span>
+</span><a name="line-350"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#TagResourceType"><span class="hs-identifier hs-type">TagResourceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-351"></a><span>
+</span><a name="line-352"></a><span>    </span><span class="hs-comment">-- ** VPCRegion</span><span>
+</span><a name="line-353"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Sum.html#VPCRegion"><span class="hs-identifier hs-type">VPCRegion</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-354"></a><span>
+</span><a name="line-355"></a><span>    </span><span class="hs-comment">-- ** AlarmIdentifier</span><span>
+</span><a name="line-356"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#AlarmIdentifier"><span class="hs-identifier hs-type">AlarmIdentifier</span></a><span>
+</span><a name="line-357"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#alarmIdentifier"><span class="hs-identifier hs-var">alarmIdentifier</span></a><span>
+</span><a name="line-358"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#aiRegion"><span class="hs-identifier hs-var">aiRegion</span></a><span>
+</span><a name="line-359"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#aiName"><span class="hs-identifier hs-var">aiName</span></a><span>
+</span><a name="line-360"></a><span>
+</span><a name="line-361"></a><span>    </span><span class="hs-comment">-- ** AliasTarget</span><span>
+</span><a name="line-362"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#AliasTarget"><span class="hs-identifier hs-type">AliasTarget</span></a><span>
+</span><a name="line-363"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#aliasTarget"><span class="hs-identifier hs-var">aliasTarget</span></a><span>
+</span><a name="line-364"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#atHostedZoneId"><span class="hs-identifier hs-var">atHostedZoneId</span></a><span>
+</span><a name="line-365"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#atDNSName"><span class="hs-identifier hs-var">atDNSName</span></a><span>
+</span><a name="line-366"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#atEvaluateTargetHealth"><span class="hs-identifier hs-var">atEvaluateTargetHealth</span></a><span>
+</span><a name="line-367"></a><span>
+</span><a name="line-368"></a><span>    </span><span class="hs-comment">-- ** Change</span><span>
+</span><a name="line-369"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#Change"><span class="hs-identifier hs-type">Change</span></a><span>
+</span><a name="line-370"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#change"><span class="hs-identifier hs-var">change</span></a><span>
+</span><a name="line-371"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cAction"><span class="hs-identifier hs-var">cAction</span></a><span>
+</span><a name="line-372"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cResourceRecordSet"><span class="hs-identifier hs-var">cResourceRecordSet</span></a><span>
+</span><a name="line-373"></a><span>
+</span><a name="line-374"></a><span>    </span><span class="hs-comment">-- ** ChangeBatch</span><span>
+</span><a name="line-375"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ChangeBatch"><span class="hs-identifier hs-type">ChangeBatch</span></a><span>
+</span><a name="line-376"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#changeBatch"><span class="hs-identifier hs-var">changeBatch</span></a><span>
+</span><a name="line-377"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cbComment"><span class="hs-identifier hs-var">cbComment</span></a><span>
+</span><a name="line-378"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cbChanges"><span class="hs-identifier hs-var">cbChanges</span></a><span>
+</span><a name="line-379"></a><span>
+</span><a name="line-380"></a><span>    </span><span class="hs-comment">-- ** ChangeInfo</span><span>
+</span><a name="line-381"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ChangeInfo"><span class="hs-identifier hs-type">ChangeInfo</span></a><span>
+</span><a name="line-382"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#changeInfo"><span class="hs-identifier hs-var">changeInfo</span></a><span>
+</span><a name="line-383"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ciComment"><span class="hs-identifier hs-var">ciComment</span></a><span>
+</span><a name="line-384"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ciId"><span class="hs-identifier hs-var">ciId</span></a><span>
+</span><a name="line-385"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ciStatus"><span class="hs-identifier hs-var">ciStatus</span></a><span>
+</span><a name="line-386"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ciSubmittedAt"><span class="hs-identifier hs-var">ciSubmittedAt</span></a><span>
+</span><a name="line-387"></a><span>
+</span><a name="line-388"></a><span>    </span><span class="hs-comment">-- ** CloudWatchAlarmConfiguration</span><span>
+</span><a name="line-389"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#CloudWatchAlarmConfiguration"><span class="hs-identifier hs-type">CloudWatchAlarmConfiguration</span></a><span>
+</span><a name="line-390"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cloudWatchAlarmConfiguration"><span class="hs-identifier hs-var">cloudWatchAlarmConfiguration</span></a><span>
+</span><a name="line-391"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacDimensions"><span class="hs-identifier hs-var">cwacDimensions</span></a><span>
+</span><a name="line-392"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacEvaluationPeriods"><span class="hs-identifier hs-var">cwacEvaluationPeriods</span></a><span>
+</span><a name="line-393"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacThreshold"><span class="hs-identifier hs-var">cwacThreshold</span></a><span>
+</span><a name="line-394"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacComparisonOperator"><span class="hs-identifier hs-var">cwacComparisonOperator</span></a><span>
+</span><a name="line-395"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacPeriod"><span class="hs-identifier hs-var">cwacPeriod</span></a><span>
+</span><a name="line-396"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacMetricName"><span class="hs-identifier hs-var">cwacMetricName</span></a><span>
+</span><a name="line-397"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacNamespace"><span class="hs-identifier hs-var">cwacNamespace</span></a><span>
+</span><a name="line-398"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#cwacStatistic"><span class="hs-identifier hs-var">cwacStatistic</span></a><span>
+</span><a name="line-399"></a><span>
+</span><a name="line-400"></a><span>    </span><span class="hs-comment">-- ** DelegationSet</span><span>
+</span><a name="line-401"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#DelegationSet"><span class="hs-identifier hs-type">DelegationSet</span></a><span>
+</span><a name="line-402"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#delegationSet"><span class="hs-identifier hs-var">delegationSet</span></a><span>
+</span><a name="line-403"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#dsId"><span class="hs-identifier hs-var">dsId</span></a><span>
+</span><a name="line-404"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#dsCallerReference"><span class="hs-identifier hs-var">dsCallerReference</span></a><span>
+</span><a name="line-405"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#dsNameServers"><span class="hs-identifier hs-var">dsNameServers</span></a><span>
+</span><a name="line-406"></a><span>
+</span><a name="line-407"></a><span>    </span><span class="hs-comment">-- ** Dimension</span><span>
+</span><a name="line-408"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#Dimension"><span class="hs-identifier hs-type">Dimension</span></a><span>
+</span><a name="line-409"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#dimension"><span class="hs-identifier hs-var">dimension</span></a><span>
+</span><a name="line-410"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#dName"><span class="hs-identifier hs-var">dName</span></a><span>
+</span><a name="line-411"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#dValue"><span class="hs-identifier hs-var">dValue</span></a><span>
+</span><a name="line-412"></a><span>
+</span><a name="line-413"></a><span>    </span><span class="hs-comment">-- ** GeoLocation</span><span>
+</span><a name="line-414"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#GeoLocation"><span class="hs-identifier hs-type">GeoLocation</span></a><span>
+</span><a name="line-415"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#geoLocation"><span class="hs-identifier hs-var">geoLocation</span></a><span>
+</span><a name="line-416"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#glSubdivisionCode"><span class="hs-identifier hs-var">glSubdivisionCode</span></a><span>
+</span><a name="line-417"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#glCountryCode"><span class="hs-identifier hs-var">glCountryCode</span></a><span>
+</span><a name="line-418"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#glContinentCode"><span class="hs-identifier hs-var">glContinentCode</span></a><span>
+</span><a name="line-419"></a><span>
+</span><a name="line-420"></a><span>    </span><span class="hs-comment">-- ** GeoLocationDetails</span><span>
+</span><a name="line-421"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#GeoLocationDetails"><span class="hs-identifier hs-type">GeoLocationDetails</span></a><span>
+</span><a name="line-422"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#geoLocationDetails"><span class="hs-identifier hs-var">geoLocationDetails</span></a><span>
+</span><a name="line-423"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#gldSubdivisionName"><span class="hs-identifier hs-var">gldSubdivisionName</span></a><span>
+</span><a name="line-424"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#gldSubdivisionCode"><span class="hs-identifier hs-var">gldSubdivisionCode</span></a><span>
+</span><a name="line-425"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#gldCountryName"><span class="hs-identifier hs-var">gldCountryName</span></a><span>
+</span><a name="line-426"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#gldCountryCode"><span class="hs-identifier hs-var">gldCountryCode</span></a><span>
+</span><a name="line-427"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#gldContinentCode"><span class="hs-identifier hs-var">gldContinentCode</span></a><span>
+</span><a name="line-428"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#gldContinentName"><span class="hs-identifier hs-var">gldContinentName</span></a><span>
+</span><a name="line-429"></a><span>
+</span><a name="line-430"></a><span>    </span><span class="hs-comment">-- ** HealthCheck</span><span>
+</span><a name="line-431"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#HealthCheck"><span class="hs-identifier hs-type">HealthCheck</span></a><span>
+</span><a name="line-432"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#healthCheck"><span class="hs-identifier hs-var">healthCheck</span></a><span>
+</span><a name="line-433"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcCloudWatchAlarmConfiguration"><span class="hs-identifier hs-var">hcCloudWatchAlarmConfiguration</span></a><span>
+</span><a name="line-434"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcId"><span class="hs-identifier hs-var">hcId</span></a><span>
+</span><a name="line-435"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcCallerReference"><span class="hs-identifier hs-var">hcCallerReference</span></a><span>
+</span><a name="line-436"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcHealthCheckConfig"><span class="hs-identifier hs-var">hcHealthCheckConfig</span></a><span>
+</span><a name="line-437"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcHealthCheckVersion"><span class="hs-identifier hs-var">hcHealthCheckVersion</span></a><span>
+</span><a name="line-438"></a><span>
+</span><a name="line-439"></a><span>    </span><span class="hs-comment">-- ** HealthCheckConfig</span><span>
+</span><a name="line-440"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#HealthCheckConfig"><span class="hs-identifier hs-type">HealthCheckConfig</span></a><span>
+</span><a name="line-441"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#healthCheckConfig"><span class="hs-identifier hs-var">healthCheckConfig</span></a><span>
+</span><a name="line-442"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccFailureThreshold"><span class="hs-identifier hs-var">hccFailureThreshold</span></a><span>
+</span><a name="line-443"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccIPAddress"><span class="hs-identifier hs-var">hccIPAddress</span></a><span>
+</span><a name="line-444"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccEnableSNI"><span class="hs-identifier hs-var">hccEnableSNI</span></a><span>
+</span><a name="line-445"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccSearchString"><span class="hs-identifier hs-var">hccSearchString</span></a><span>
+</span><a name="line-446"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccHealthThreshold"><span class="hs-identifier hs-var">hccHealthThreshold</span></a><span>
+</span><a name="line-447"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccRegions"><span class="hs-identifier hs-var">hccRegions</span></a><span>
+</span><a name="line-448"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccResourcePath"><span class="hs-identifier hs-var">hccResourcePath</span></a><span>
+</span><a name="line-449"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccInsufficientDataHealthStatus"><span class="hs-identifier hs-var">hccInsufficientDataHealthStatus</span></a><span>
+</span><a name="line-450"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccAlarmIdentifier"><span class="hs-identifier hs-var">hccAlarmIdentifier</span></a><span>
+</span><a name="line-451"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccMeasureLatency"><span class="hs-identifier hs-var">hccMeasureLatency</span></a><span>
+</span><a name="line-452"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccInverted"><span class="hs-identifier hs-var">hccInverted</span></a><span>
+</span><a name="line-453"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccFullyQualifiedDomainName"><span class="hs-identifier hs-var">hccFullyQualifiedDomainName</span></a><span>
+</span><a name="line-454"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccChildHealthChecks"><span class="hs-identifier hs-var">hccChildHealthChecks</span></a><span>
+</span><a name="line-455"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccRequestInterval"><span class="hs-identifier hs-var">hccRequestInterval</span></a><span>
+</span><a name="line-456"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccPort"><span class="hs-identifier hs-var">hccPort</span></a><span>
+</span><a name="line-457"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hccType"><span class="hs-identifier hs-var">hccType</span></a><span>
+</span><a name="line-458"></a><span>
+</span><a name="line-459"></a><span>    </span><span class="hs-comment">-- ** HealthCheckObservation</span><span>
+</span><a name="line-460"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#HealthCheckObservation"><span class="hs-identifier hs-type">HealthCheckObservation</span></a><span>
+</span><a name="line-461"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#healthCheckObservation"><span class="hs-identifier hs-var">healthCheckObservation</span></a><span>
+</span><a name="line-462"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcoIPAddress"><span class="hs-identifier hs-var">hcoIPAddress</span></a><span>
+</span><a name="line-463"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcoStatusReport"><span class="hs-identifier hs-var">hcoStatusReport</span></a><span>
+</span><a name="line-464"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hcoRegion"><span class="hs-identifier hs-var">hcoRegion</span></a><span>
+</span><a name="line-465"></a><span>
+</span><a name="line-466"></a><span>    </span><span class="hs-comment">-- ** HostedZone</span><span>
+</span><a name="line-467"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#HostedZone"><span class="hs-identifier hs-type">HostedZone</span></a><span>
+</span><a name="line-468"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hostedZone"><span class="hs-identifier hs-var">hostedZone</span></a><span>
+</span><a name="line-469"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hzConfig"><span class="hs-identifier hs-var">hzConfig</span></a><span>
+</span><a name="line-470"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hzResourceRecordSetCount"><span class="hs-identifier hs-var">hzResourceRecordSetCount</span></a><span>
+</span><a name="line-471"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hzId"><span class="hs-identifier hs-var">hzId</span></a><span>
+</span><a name="line-472"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hzName"><span class="hs-identifier hs-var">hzName</span></a><span>
+</span><a name="line-473"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hzCallerReference"><span class="hs-identifier hs-var">hzCallerReference</span></a><span>
+</span><a name="line-474"></a><span>
+</span><a name="line-475"></a><span>    </span><span class="hs-comment">-- ** HostedZoneConfig</span><span>
+</span><a name="line-476"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#HostedZoneConfig"><span class="hs-identifier hs-type">HostedZoneConfig</span></a><span>
+</span><a name="line-477"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hostedZoneConfig"><span class="hs-identifier hs-var">hostedZoneConfig</span></a><span>
+</span><a name="line-478"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hzcPrivateZone"><span class="hs-identifier hs-var">hzcPrivateZone</span></a><span>
+</span><a name="line-479"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#hzcComment"><span class="hs-identifier hs-var">hzcComment</span></a><span>
+</span><a name="line-480"></a><span>
+</span><a name="line-481"></a><span>    </span><span class="hs-comment">-- ** ResourceRecord</span><span>
+</span><a name="line-482"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ResourceRecord"><span class="hs-identifier hs-type">ResourceRecord</span></a><span>
+</span><a name="line-483"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#resourceRecord"><span class="hs-identifier hs-var">resourceRecord</span></a><span>
+</span><a name="line-484"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrValue"><span class="hs-identifier hs-var">rrValue</span></a><span>
+</span><a name="line-485"></a><span>
+</span><a name="line-486"></a><span>    </span><span class="hs-comment">-- ** ResourceRecordSet</span><span>
+</span><a name="line-487"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ResourceRecordSet"><span class="hs-identifier hs-type">ResourceRecordSet</span></a><span>
+</span><a name="line-488"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#resourceRecordSet"><span class="hs-identifier hs-var">resourceRecordSet</span></a><span>
+</span><a name="line-489"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsTTL"><span class="hs-identifier hs-var">rrsTTL</span></a><span>
+</span><a name="line-490"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsResourceRecords"><span class="hs-identifier hs-var">rrsResourceRecords</span></a><span>
+</span><a name="line-491"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsAliasTarget"><span class="hs-identifier hs-var">rrsAliasTarget</span></a><span>
+</span><a name="line-492"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsWeight"><span class="hs-identifier hs-var">rrsWeight</span></a><span>
+</span><a name="line-493"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsTrafficPolicyInstanceId"><span class="hs-identifier hs-var">rrsTrafficPolicyInstanceId</span></a><span>
+</span><a name="line-494"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsSetIdentifier"><span class="hs-identifier hs-var">rrsSetIdentifier</span></a><span>
+</span><a name="line-495"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsFailover"><span class="hs-identifier hs-var">rrsFailover</span></a><span>
+</span><a name="line-496"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsHealthCheckId"><span class="hs-identifier hs-var">rrsHealthCheckId</span></a><span>
+</span><a name="line-497"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsRegion"><span class="hs-identifier hs-var">rrsRegion</span></a><span>
+</span><a name="line-498"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsGeoLocation"><span class="hs-identifier hs-var">rrsGeoLocation</span></a><span>
+</span><a name="line-499"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsMultiValueAnswer"><span class="hs-identifier hs-var">rrsMultiValueAnswer</span></a><span>
+</span><a name="line-500"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsName"><span class="hs-identifier hs-var">rrsName</span></a><span>
+</span><a name="line-501"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rrsType"><span class="hs-identifier hs-var">rrsType</span></a><span>
+</span><a name="line-502"></a><span>
+</span><a name="line-503"></a><span>    </span><span class="hs-comment">-- ** ResourceTagSet</span><span>
+</span><a name="line-504"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#ResourceTagSet"><span class="hs-identifier hs-type">ResourceTagSet</span></a><span>
+</span><a name="line-505"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#resourceTagSet"><span class="hs-identifier hs-var">resourceTagSet</span></a><span>
+</span><a name="line-506"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rtsResourceId"><span class="hs-identifier hs-var">rtsResourceId</span></a><span>
+</span><a name="line-507"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rtsResourceType"><span class="hs-identifier hs-var">rtsResourceType</span></a><span>
+</span><a name="line-508"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#rtsTags"><span class="hs-identifier hs-var">rtsTags</span></a><span>
+</span><a name="line-509"></a><span>
+</span><a name="line-510"></a><span>    </span><span class="hs-comment">-- ** StatusReport</span><span>
+</span><a name="line-511"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#StatusReport"><span class="hs-identifier hs-type">StatusReport</span></a><span>
+</span><a name="line-512"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#statusReport"><span class="hs-identifier hs-var">statusReport</span></a><span>
+</span><a name="line-513"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#srStatus"><span class="hs-identifier hs-var">srStatus</span></a><span>
+</span><a name="line-514"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#srCheckedTime"><span class="hs-identifier hs-var">srCheckedTime</span></a><span>
+</span><a name="line-515"></a><span>
+</span><a name="line-516"></a><span>    </span><span class="hs-comment">-- ** Tag</span><span>
+</span><a name="line-517"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#Tag"><span class="hs-identifier hs-type">Tag</span></a><span>
+</span><a name="line-518"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tag"><span class="hs-identifier hs-var">tag</span></a><span>
+</span><a name="line-519"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tagValue"><span class="hs-identifier hs-var">tagValue</span></a><span>
+</span><a name="line-520"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tagKey"><span class="hs-identifier hs-var">tagKey</span></a><span>
+</span><a name="line-521"></a><span>
+</span><a name="line-522"></a><span>    </span><span class="hs-comment">-- ** TrafficPolicy</span><span>
+</span><a name="line-523"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#TrafficPolicy"><span class="hs-identifier hs-type">TrafficPolicy</span></a><span>
+</span><a name="line-524"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#trafficPolicy"><span class="hs-identifier hs-var">trafficPolicy</span></a><span>
+</span><a name="line-525"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpComment"><span class="hs-identifier hs-var">tpComment</span></a><span>
+</span><a name="line-526"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpId"><span class="hs-identifier hs-var">tpId</span></a><span>
+</span><a name="line-527"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpVersion"><span class="hs-identifier hs-var">tpVersion</span></a><span>
+</span><a name="line-528"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpName"><span class="hs-identifier hs-var">tpName</span></a><span>
+</span><a name="line-529"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpType"><span class="hs-identifier hs-var">tpType</span></a><span>
+</span><a name="line-530"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpDocument"><span class="hs-identifier hs-var">tpDocument</span></a><span>
+</span><a name="line-531"></a><span>
+</span><a name="line-532"></a><span>    </span><span class="hs-comment">-- ** TrafficPolicyInstance</span><span>
+</span><a name="line-533"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#TrafficPolicyInstance"><span class="hs-identifier hs-type">TrafficPolicyInstance</span></a><span>
+</span><a name="line-534"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#trafficPolicyInstance"><span class="hs-identifier hs-var">trafficPolicyInstance</span></a><span>
+</span><a name="line-535"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiId"><span class="hs-identifier hs-var">tpiId</span></a><span>
+</span><a name="line-536"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiHostedZoneId"><span class="hs-identifier hs-var">tpiHostedZoneId</span></a><span>
+</span><a name="line-537"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiName"><span class="hs-identifier hs-var">tpiName</span></a><span>
+</span><a name="line-538"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiTTL"><span class="hs-identifier hs-var">tpiTTL</span></a><span>
+</span><a name="line-539"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiState"><span class="hs-identifier hs-var">tpiState</span></a><span>
+</span><a name="line-540"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiMessage"><span class="hs-identifier hs-var">tpiMessage</span></a><span>
+</span><a name="line-541"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiTrafficPolicyId"><span class="hs-identifier hs-var">tpiTrafficPolicyId</span></a><span>
+</span><a name="line-542"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiTrafficPolicyVersion"><span class="hs-identifier hs-var">tpiTrafficPolicyVersion</span></a><span>
+</span><a name="line-543"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpiTrafficPolicyType"><span class="hs-identifier hs-var">tpiTrafficPolicyType</span></a><span>
+</span><a name="line-544"></a><span>
+</span><a name="line-545"></a><span>    </span><span class="hs-comment">-- ** TrafficPolicySummary</span><span>
+</span><a name="line-546"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#TrafficPolicySummary"><span class="hs-identifier hs-type">TrafficPolicySummary</span></a><span>
+</span><a name="line-547"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#trafficPolicySummary"><span class="hs-identifier hs-var">trafficPolicySummary</span></a><span>
+</span><a name="line-548"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpsId"><span class="hs-identifier hs-var">tpsId</span></a><span>
+</span><a name="line-549"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpsName"><span class="hs-identifier hs-var">tpsName</span></a><span>
+</span><a name="line-550"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpsType"><span class="hs-identifier hs-var">tpsType</span></a><span>
+</span><a name="line-551"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpsLatestVersion"><span class="hs-identifier hs-var">tpsLatestVersion</span></a><span>
+</span><a name="line-552"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#tpsTrafficPolicyCount"><span class="hs-identifier hs-var">tpsTrafficPolicyCount</span></a><span>
+</span><a name="line-553"></a><span>
+</span><a name="line-554"></a><span>    </span><span class="hs-comment">-- ** VPC</span><span>
+</span><a name="line-555"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#VPC"><span class="hs-identifier hs-type">VPC</span></a><span>
+</span><a name="line-556"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#vpc"><span class="hs-identifier hs-var">vpc</span></a><span>
+</span><a name="line-557"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#vpcVPCRegion"><span class="hs-identifier hs-var">vpcVPCRegion</span></a><span>
+</span><a name="line-558"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Route53.Types.Product.html#vpcVPCId"><span class="hs-identifier hs-var">vpcVPCId</span></a><span>
+</span><a name="line-559"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-560"></a><span>
+</span><a name="line-561"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.AssociateVPCWithHostedZone.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">AssociateVPCWithHostedZone</span></a><span>
+</span><a name="line-562"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ChangeResourceRecordSets.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ChangeResourceRecordSets</span></a><span>
+</span><a name="line-563"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ChangeTagsForResource.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ChangeTagsForResource</span></a><span>
+</span><a name="line-564"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.CreateHealthCheck.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateHealthCheck</span></a><span>
+</span><a name="line-565"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.CreateHostedZone.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateHostedZone</span></a><span>
+</span><a name="line-566"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.CreateReusableDelegationSet.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateReusableDelegationSet</span></a><span>
+</span><a name="line-567"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.CreateTrafficPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTrafficPolicy</span></a><span>
+</span><a name="line-568"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.CreateTrafficPolicyInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTrafficPolicyInstance</span></a><span>
+</span><a name="line-569"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.CreateTrafficPolicyVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTrafficPolicyVersion</span></a><span>
+</span><a name="line-570"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.CreateVPCAssociationAuthorization.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">CreateVPCAssociationAuthorization</span></a><span>
+</span><a name="line-571"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.DeleteHealthCheck.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteHealthCheck</span></a><span>
+</span><a name="line-572"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.DeleteHostedZone.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteHostedZone</span></a><span>
+</span><a name="line-573"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.DeleteReusableDelegationSet.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteReusableDelegationSet</span></a><span>
+</span><a name="line-574"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.DeleteTrafficPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTrafficPolicy</span></a><span>
+</span><a name="line-575"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.DeleteTrafficPolicyInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTrafficPolicyInstance</span></a><span>
+</span><a name="line-576"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.DeleteVPCAssociationAuthorization.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVPCAssociationAuthorization</span></a><span>
+</span><a name="line-577"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.DisassociateVPCFromHostedZone.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">DisassociateVPCFromHostedZone</span></a><span>
+</span><a name="line-578"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetChange.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetChange</span></a><span>
+</span><a name="line-579"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetCheckerIPRanges.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetCheckerIPRanges</span></a><span>
+</span><a name="line-580"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetGeoLocation.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetGeoLocation</span></a><span>
+</span><a name="line-581"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetHealthCheck.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheck</span></a><span>
+</span><a name="line-582"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetHealthCheckCount.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheckCount</span></a><span>
+</span><a name="line-583"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetHealthCheckLastFailureReason.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheckLastFailureReason</span></a><span>
+</span><a name="line-584"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetHealthCheckStatus.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHealthCheckStatus</span></a><span>
+</span><a name="line-585"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetHostedZone.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHostedZone</span></a><span>
+</span><a name="line-586"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetHostedZoneCount.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetHostedZoneCount</span></a><span>
+</span><a name="line-587"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetReusableDelegationSet.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetReusableDelegationSet</span></a><span>
+</span><a name="line-588"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetTrafficPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetTrafficPolicy</span></a><span>
+</span><a name="line-589"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetTrafficPolicyInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetTrafficPolicyInstance</span></a><span>
+</span><a name="line-590"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.GetTrafficPolicyInstanceCount.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">GetTrafficPolicyInstanceCount</span></a><span>
+</span><a name="line-591"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.Internal.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">Internal</span></a><span>
+</span><a name="line-592"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListGeoLocations.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListGeoLocations</span></a><span>
+</span><a name="line-593"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListHealthChecks.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListHealthChecks</span></a><span>
+</span><a name="line-594"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListHostedZones.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListHostedZones</span></a><span>
+</span><a name="line-595"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListHostedZonesByName.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListHostedZonesByName</span></a><span>
+</span><a name="line-596"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListResourceRecordSets.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListResourceRecordSets</span></a><span>
+</span><a name="line-597"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListReusableDelegationSets.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListReusableDelegationSets</span></a><span>
+</span><a name="line-598"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListTagsForResource.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForResource</span></a><span>
+</span><a name="line-599"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListTagsForResources.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForResources</span></a><span>
+</span><a name="line-600"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListTrafficPolicies.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicies</span></a><span>
+</span><a name="line-601"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListTrafficPolicyInstances.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyInstances</span></a><span>
+</span><a name="line-602"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListTrafficPolicyInstancesByHostedZone.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyInstancesByHostedZone</span></a><span>
+</span><a name="line-603"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListTrafficPolicyInstancesByPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyInstancesByPolicy</span></a><span>
+</span><a name="line-604"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListTrafficPolicyVersions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListTrafficPolicyVersions</span></a><span>
+</span><a name="line-605"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.ListVPCAssociationAuthorizations.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">ListVPCAssociationAuthorizations</span></a><span>
+</span><a name="line-606"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.TestDNSAnswer.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">TestDNSAnswer</span></a><span>
+</span><a name="line-607"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-608"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.UpdateHealthCheck.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateHealthCheck</span></a><span>
+</span><a name="line-609"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.UpdateHostedZoneComment.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateHostedZoneComment</span></a><span>
+</span><a name="line-610"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.UpdateTrafficPolicyComment.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateTrafficPolicyComment</span></a><span>
+</span><a name="line-611"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.UpdateTrafficPolicyInstance.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateTrafficPolicyInstance</span></a><span>
+</span><a name="line-612"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Route53.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Route53</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-613"></a><span>
+</span><a name="line-614"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'Route53'.
+-}</span><span>
+</span><a name="line-620"></a><span>
+</span><a name="line-621"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-637"></a><span>
+</span><a name="line-638"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-643"></a></pre></body></html>
