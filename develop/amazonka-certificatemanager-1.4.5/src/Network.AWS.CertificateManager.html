@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.CertificateManager</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __AWS Certificate Manager__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- Welcome to the AWS Certificate Manager (ACM) API documentation.</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- You can use ACM to manage SSL/TLS certificates for your AWS-based websites and applications. For general information about using ACM, see the &lt;http://docs.aws.amazon.com/acm/latest/userguide/ /AWS Certificate Manager User Guide/ &gt; .</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--</span><span>
+</span><a name="line-20"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span>
+</span><a name="line-21"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-22"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-23"></a><span>      </span><a href="Network.AWS.CertificateManager.Types.html#certificateManager"><span class="hs-identifier hs-var">certificateManager</span></a><span>
+</span><a name="line-24"></a><span>
+</span><a name="line-25"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-27"></a><span>
+</span><a name="line-28"></a><span>    </span><span class="hs-comment">-- ** InvalidTagException</span><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_InvalidTagException"><span class="hs-identifier hs-var">_InvalidTagException</span></a><span>
+</span><a name="line-30"></a><span>
+</span><a name="line-31"></a><span>    </span><span class="hs-comment">-- ** InvalidDomainValidationOptionsException</span><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_InvalidDomainValidationOptionsException"><span class="hs-identifier hs-var">_InvalidDomainValidationOptionsException</span></a><span>
+</span><a name="line-33"></a><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-comment">-- ** TooManyTagsException</span><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_TooManyTagsException"><span class="hs-identifier hs-var">_TooManyTagsException</span></a><span>
+</span><a name="line-36"></a><span>
+</span><a name="line-37"></a><span>    </span><span class="hs-comment">-- ** RequestInProgressException</span><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_RequestInProgressException"><span class="hs-identifier hs-var">_RequestInProgressException</span></a><span>
+</span><a name="line-39"></a><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-comment">-- ** InvalidARNException</span><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_InvalidARNException"><span class="hs-identifier hs-var">_InvalidARNException</span></a><span>
+</span><a name="line-42"></a><span>
+</span><a name="line-43"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-45"></a><span>
+</span><a name="line-46"></a><span>    </span><span class="hs-comment">-- ** InvalidStateException</span><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_InvalidStateException"><span class="hs-identifier hs-var">_InvalidStateException</span></a><span>
+</span><a name="line-48"></a><span>
+</span><a name="line-49"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-51"></a><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-comment">-- ** ResourceInUseException</span><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.html#_ResourceInUseException"><span class="hs-identifier hs-var">_ResourceInUseException</span></a><span>
+</span><a name="line-54"></a><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-57"></a><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-60"></a><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-comment">-- ** ResendValidationEmail</span><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ResendValidationEmail</span><span>
+</span><a name="line-63"></a><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-comment">-- ** ListTagsForCertificate</span><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForCertificate</span><span>
+</span><a name="line-66"></a><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-comment">-- ** GetCertificate</span><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">GetCertificate</span><span>
+</span><a name="line-69"></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-comment">-- ** AddTagsToCertificate</span><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">AddTagsToCertificate</span><span>
+</span><a name="line-72"></a><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- ** RequestCertificate</span><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">RequestCertificate</span><span>
+</span><a name="line-75"></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-comment">-- ** ListCertificates (Paginated)</span><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ListCertificates</span><span>
+</span><a name="line-78"></a><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- ** DeleteCertificate</span><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteCertificate</span><span>
+</span><a name="line-81"></a><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-comment">-- ** RemoveTagsFromCertificate</span><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTagsFromCertificate</span><span>
+</span><a name="line-84"></a><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-comment">-- ** ImportCertificate</span><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ImportCertificate</span><span>
+</span><a name="line-87"></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-comment">-- ** DescribeCertificate</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeCertificate</span><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-92"></a><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-comment">-- ** CertificateStatus</span><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Sum.html#CertificateStatus"><span class="hs-identifier hs-type">CertificateStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-95"></a><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-comment">-- ** CertificateType</span><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Sum.html#CertificateType"><span class="hs-identifier hs-type">CertificateType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-98"></a><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-comment">-- ** DomainStatus</span><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Sum.html#DomainStatus"><span class="hs-identifier hs-type">DomainStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-101"></a><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-comment">-- ** FailureReason</span><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Sum.html#FailureReason"><span class="hs-identifier hs-type">FailureReason</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-104"></a><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-comment">-- ** KeyAlgorithm</span><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Sum.html#KeyAlgorithm"><span class="hs-identifier hs-type">KeyAlgorithm</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-107"></a><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-comment">-- ** RenewalStatus</span><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Sum.html#RenewalStatus"><span class="hs-identifier hs-type">RenewalStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-110"></a><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-comment">-- ** RevocationReason</span><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Sum.html#RevocationReason"><span class="hs-identifier hs-type">RevocationReason</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-113"></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-comment">-- ** CertificateDetail</span><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#CertificateDetail"><span class="hs-identifier hs-type">CertificateDetail</span></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#certificateDetail"><span class="hs-identifier hs-var">certificateDetail</span></a><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdSubject"><span class="hs-identifier hs-var">cdSubject</span></a><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdStatus"><span class="hs-identifier hs-var">cdStatus</span></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdFailureReason"><span class="hs-identifier hs-var">cdFailureReason</span></a><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdSubjectAlternativeNames"><span class="hs-identifier hs-var">cdSubjectAlternativeNames</span></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdInUseBy"><span class="hs-identifier hs-var">cdInUseBy</span></a><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdCreatedAt"><span class="hs-identifier hs-var">cdCreatedAt</span></a><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdCertificateARN"><span class="hs-identifier hs-var">cdCertificateARN</span></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdSerial"><span class="hs-identifier hs-var">cdSerial</span></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdImportedAt"><span class="hs-identifier hs-var">cdImportedAt</span></a><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdRevokedAt"><span class="hs-identifier hs-var">cdRevokedAt</span></a><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdNotBefore"><span class="hs-identifier hs-var">cdNotBefore</span></a><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdRevocationReason"><span class="hs-identifier hs-var">cdRevocationReason</span></a><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdDomainName"><span class="hs-identifier hs-var">cdDomainName</span></a><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdRenewalSummary"><span class="hs-identifier hs-var">cdRenewalSummary</span></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdKeyAlgorithm"><span class="hs-identifier hs-var">cdKeyAlgorithm</span></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdType"><span class="hs-identifier hs-var">cdType</span></a><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdIssuedAt"><span class="hs-identifier hs-var">cdIssuedAt</span></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdSignatureAlgorithm"><span class="hs-identifier hs-var">cdSignatureAlgorithm</span></a><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdDomainValidationOptions"><span class="hs-identifier hs-var">cdDomainValidationOptions</span></a><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdIssuer"><span class="hs-identifier hs-var">cdIssuer</span></a><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#cdNotAfter"><span class="hs-identifier hs-var">cdNotAfter</span></a><span>
+</span><a name="line-138"></a><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-comment">-- ** CertificateSummary</span><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#CertificateSummary"><span class="hs-identifier hs-type">CertificateSummary</span></a><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#certificateSummary"><span class="hs-identifier hs-var">certificateSummary</span></a><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#csCertificateARN"><span class="hs-identifier hs-var">csCertificateARN</span></a><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#csDomainName"><span class="hs-identifier hs-var">csDomainName</span></a><span>
+</span><a name="line-144"></a><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-comment">-- ** DomainValidation</span><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#DomainValidation"><span class="hs-identifier hs-type">DomainValidation</span></a><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#domainValidation"><span class="hs-identifier hs-var">domainValidation</span></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#dvValidationEmails"><span class="hs-identifier hs-var">dvValidationEmails</span></a><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#dvValidationStatus"><span class="hs-identifier hs-var">dvValidationStatus</span></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#dvValidationDomain"><span class="hs-identifier hs-var">dvValidationDomain</span></a><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#dvDomainName"><span class="hs-identifier hs-var">dvDomainName</span></a><span>
+</span><a name="line-152"></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-comment">-- ** DomainValidationOption</span><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#DomainValidationOption"><span class="hs-identifier hs-type">DomainValidationOption</span></a><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#domainValidationOption"><span class="hs-identifier hs-var">domainValidationOption</span></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#dvoDomainName"><span class="hs-identifier hs-var">dvoDomainName</span></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#dvoValidationDomain"><span class="hs-identifier hs-var">dvoValidationDomain</span></a><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- ** RenewalSummary</span><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#RenewalSummary"><span class="hs-identifier hs-type">RenewalSummary</span></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#renewalSummary"><span class="hs-identifier hs-var">renewalSummary</span></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#rsRenewalStatus"><span class="hs-identifier hs-var">rsRenewalStatus</span></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#rsDomainValidationOptions"><span class="hs-identifier hs-var">rsDomainValidationOptions</span></a><span>
+</span><a name="line-164"></a><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-comment">-- ** Tag</span><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#Tag"><span class="hs-identifier hs-type">Tag</span></a><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#tag"><span class="hs-identifier hs-var">tag</span></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#tagValue"><span class="hs-identifier hs-var">tagValue</span></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CertificateManager.Types.Product.html#tagKey"><span class="hs-identifier hs-var">tagKey</span></a><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-171"></a><span>
+</span><a name="line-172"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.AddTagsToCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">AddTagsToCertificate</span></a><span>
+</span><a name="line-173"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.DeleteCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteCertificate</span></a><span>
+</span><a name="line-174"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.DescribeCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeCertificate</span></a><span>
+</span><a name="line-175"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.GetCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">GetCertificate</span></a><span>
+</span><a name="line-176"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.ImportCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ImportCertificate</span></a><span>
+</span><a name="line-177"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.ListCertificates.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ListCertificates</span></a><span>
+</span><a name="line-178"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.ListTagsForCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForCertificate</span></a><span>
+</span><a name="line-179"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.RemoveTagsFromCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTagsFromCertificate</span></a><span>
+</span><a name="line-180"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.RequestCertificate.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">RequestCertificate</span></a><span>
+</span><a name="line-181"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.ResendValidationEmail.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">ResendValidationEmail</span></a><span>
+</span><a name="line-182"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-183"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CertificateManager.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CertificateManager</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-184"></a><span>
+</span><a name="line-185"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'CertificateManager'.
+-}</span><span>
+</span><a name="line-191"></a><span>
+</span><a name="line-192"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-208"></a><span>
+</span><a name="line-209"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-214"></a></pre></body></html>
