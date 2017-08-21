@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.ImportExport</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __AWS Import/Export Service__</span><span>
+</span><a name="line-15"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span>
+</span><a name="line-16"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-17"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-18"></a><span>      </span><a href="Network.AWS.ImportExport.Types.html#importExport"><span class="hs-identifier hs-var">importExport</span></a><span>
+</span><a name="line-19"></a><span>
+</span><a name="line-20"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-21"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-22"></a><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- ** InvalidJobIdException</span><span>
+</span><a name="line-24"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidJobIdException"><span class="hs-identifier hs-var">_InvalidJobIdException</span></a><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- ** InvalidParameterException</span><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidParameterException"><span class="hs-identifier hs-var">_InvalidParameterException</span></a><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- ** ExpiredJobIdException</span><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_ExpiredJobIdException"><span class="hs-identifier hs-var">_ExpiredJobIdException</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- ** InvalidFileSystemException</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidFileSystemException"><span class="hs-identifier hs-var">_InvalidFileSystemException</span></a><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** InvalidAccessKeyIdException</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidAccessKeyIdException"><span class="hs-identifier hs-var">_InvalidAccessKeyIdException</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** UnableToUpdateJobIdException</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_UnableToUpdateJobIdException"><span class="hs-identifier hs-var">_UnableToUpdateJobIdException</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** UnableToCancelJobIdException</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_UnableToCancelJobIdException"><span class="hs-identifier hs-var">_UnableToCancelJobIdException</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** MultipleRegionsException</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_MultipleRegionsException"><span class="hs-identifier hs-var">_MultipleRegionsException</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** InvalidVersionException</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidVersionException"><span class="hs-identifier hs-var">_InvalidVersionException</span></a><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- ** MalformedManifestException</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_MalformedManifestException"><span class="hs-identifier hs-var">_MalformedManifestException</span></a><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- ** MissingParameterException</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_MissingParameterException"><span class="hs-identifier hs-var">_MissingParameterException</span></a><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- ** CanceledJobIdException</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_CanceledJobIdException"><span class="hs-identifier hs-var">_CanceledJobIdException</span></a><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** BucketPermissionException</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_BucketPermissionException"><span class="hs-identifier hs-var">_BucketPermissionException</span></a><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- ** NoSuchBucketException</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_NoSuchBucketException"><span class="hs-identifier hs-var">_NoSuchBucketException</span></a><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** InvalidAddressException</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidAddressException"><span class="hs-identifier hs-var">_InvalidAddressException</span></a><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** MissingCustomsException</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_MissingCustomsException"><span class="hs-identifier hs-var">_MissingCustomsException</span></a><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- ** InvalidManifestFieldException</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidManifestFieldException"><span class="hs-identifier hs-var">_InvalidManifestFieldException</span></a><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** InvalidCustomsException</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_InvalidCustomsException"><span class="hs-identifier hs-var">_InvalidCustomsException</span></a><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** MissingManifestFieldException</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_MissingManifestFieldException"><span class="hs-identifier hs-var">_MissingManifestFieldException</span></a><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- ** CreateJobQuotaExceededException</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.html#_CreateJobQuotaExceededException"><span class="hs-identifier hs-var">_CreateJobQuotaExceededException</span></a><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-88"></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- ** GetShippingLabel</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">GetShippingLabel</span><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- ** CreateJob</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">CreateJob</span><span>
+</span><a name="line-94"></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- ** ListJobs (Paginated)</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">ListJobs</span><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-comment">-- ** UpdateJob</span><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateJob</span><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- ** GetStatus</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">GetStatus</span><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-comment">-- ** CancelJob</span><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">CancelJob</span><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-108"></a><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-comment">-- ** JobType</span><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Sum.html#JobType"><span class="hs-identifier hs-type">JobType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-111"></a><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-comment">-- ** Artifact</span><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#Artifact"><span class="hs-identifier hs-type">Artifact</span></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#artifact"><span class="hs-identifier hs-var">artifact</span></a><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#aURL"><span class="hs-identifier hs-var">aURL</span></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#aDescription"><span class="hs-identifier hs-var">aDescription</span></a><span>
+</span><a name="line-117"></a><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-comment">-- ** Job</span><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#Job"><span class="hs-identifier hs-type">Job</span></a><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#job"><span class="hs-identifier hs-var">job</span></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#jobJobType"><span class="hs-identifier hs-var">jobJobType</span></a><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#jobJobId"><span class="hs-identifier hs-var">jobJobId</span></a><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#jobIsCanceled"><span class="hs-identifier hs-var">jobIsCanceled</span></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.ImportExport.Types.Product.html#jobCreationDate"><span class="hs-identifier hs-var">jobCreationDate</span></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-126"></a><span>
+</span><a name="line-127"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.CancelJob.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">CancelJob</span></a><span>
+</span><a name="line-128"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.CreateJob.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">CreateJob</span></a><span>
+</span><a name="line-129"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.GetShippingLabel.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">GetShippingLabel</span></a><span>
+</span><a name="line-130"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.GetStatus.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">GetStatus</span></a><span>
+</span><a name="line-131"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.ListJobs.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">ListJobs</span></a><span>
+</span><a name="line-132"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-133"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.UpdateJob.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateJob</span></a><span>
+</span><a name="line-134"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.ImportExport.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">ImportExport</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-135"></a><span>
+</span><a name="line-136"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'ImportExport'.
+-}</span><span>
+</span><a name="line-142"></a><span>
+</span><a name="line-143"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-159"></a><span>
+</span><a name="line-160"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-165"></a></pre></body></html>
