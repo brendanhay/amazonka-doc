@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.LexModels</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __Amazon Lex Build-Time Actions__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- Amazon Lex is an AWS service for building conversational voice and text interfaces. Use these actions to create, update, and delete conversational bots for new and existing client applications.</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span>
+</span><a name="line-19"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-20"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-21"></a><span>      </span><a href="Network.AWS.LexModels.Types.html#lexModels"><span class="hs-identifier hs-var">lexModels</span></a><span>
+</span><a name="line-22"></a><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-24"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- ** PreconditionFailedException</span><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.html#_PreconditionFailedException"><span class="hs-identifier hs-var">_PreconditionFailedException</span></a><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- ** ConflictException</span><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.html#_ConflictException"><span class="hs-identifier hs-var">_ConflictException</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- ** NotFoundException</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.html#_NotFoundException"><span class="hs-identifier hs-var">_NotFoundException</span></a><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** InternalFailureException</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.html#_InternalFailureException"><span class="hs-identifier hs-var">_InternalFailureException</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** BadRequestException</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.html#_BadRequestException"><span class="hs-identifier hs-var">_BadRequestException</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** ResourceInUseException</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.html#_ResourceInUseException"><span class="hs-identifier hs-var">_ResourceInUseException</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- ** DeleteIntentVersion</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteIntentVersion</span><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- ** GetBotAliases</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotAliases</span><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** DeleteBotChannelAssociation</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBotChannelAssociation</span><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- ** CreateSlotTypeVersion</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">CreateSlotTypeVersion</span><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** GetIntent</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetIntent</span><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** PutIntent</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutIntent</span><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- ** DeleteIntent</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteIntent</span><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** GetBuiltinIntents</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBuiltinIntents</span><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** PutBot</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutBot</span><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- ** DeleteBot</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBot</span><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- ** GetIntentVersions</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetIntentVersions</span><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- ** GetBuiltinIntent</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBuiltinIntent</span><span>
+</span><a name="line-88"></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- ** PutBotAlias</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutBotAlias</span><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- ** GetBotVersions</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotVersions</span><span>
+</span><a name="line-94"></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- ** GetBotChannelAssociations</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotChannelAssociations</span><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-comment">-- ** DeleteBotAlias</span><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBotAlias</span><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- ** GetSlotTypes</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetSlotTypes</span><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-comment">-- ** DeleteUtterances</span><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUtterances</span><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- ** GetBots</span><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBots</span><span>
+</span><a name="line-109"></a><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-comment">-- ** GetBot</span><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBot</span><span>
+</span><a name="line-112"></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-comment">-- ** CreateBotVersion</span><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">CreateBotVersion</span><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-comment">-- ** DeleteSlotTypeVersion</span><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSlotTypeVersion</span><span>
+</span><a name="line-118"></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- ** DeleteBotVersion</span><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBotVersion</span><span>
+</span><a name="line-121"></a><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-comment">-- ** GetSlotType</span><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetSlotType</span><span>
+</span><a name="line-124"></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-comment">-- ** CreateIntentVersion</span><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">CreateIntentVersion</span><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-comment">-- ** DeleteSlotType</span><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSlotType</span><span>
+</span><a name="line-130"></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-comment">-- ** GetBotChannelAssociation</span><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotChannelAssociation</span><span>
+</span><a name="line-133"></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-comment">-- ** PutSlotType</span><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutSlotType</span><span>
+</span><a name="line-136"></a><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-comment">-- ** GetBuiltinSlotTypes</span><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBuiltinSlotTypes</span><span>
+</span><a name="line-139"></a><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-comment">-- ** GetUtterancesView</span><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetUtterancesView</span><span>
+</span><a name="line-142"></a><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-comment">-- ** GetSlotTypeVersions</span><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetSlotTypeVersions</span><span>
+</span><a name="line-145"></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-comment">-- ** GetIntents</span><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetIntents</span><span>
+</span><a name="line-148"></a><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-comment">-- ** GetBotAlias</span><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotAlias</span><span>
+</span><a name="line-151"></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-153"></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-comment">-- ** ChannelType</span><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#ChannelType"><span class="hs-identifier hs-type">ChannelType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-156"></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-comment">-- ** ContentType</span><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#ContentType"><span class="hs-identifier hs-type">ContentType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-159"></a><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-comment">-- ** FulfillmentActivityType</span><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#FulfillmentActivityType"><span class="hs-identifier hs-type">FulfillmentActivityType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-162"></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-comment">-- ** LexStatus</span><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#LexStatus"><span class="hs-identifier hs-type">LexStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-165"></a><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-comment">-- ** Locale</span><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#Locale"><span class="hs-identifier hs-type">Locale</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-168"></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-comment">-- ** ProcessBehavior</span><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#ProcessBehavior"><span class="hs-identifier hs-type">ProcessBehavior</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-171"></a><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-comment">-- ** SlotConstraint</span><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#SlotConstraint"><span class="hs-identifier hs-type">SlotConstraint</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-174"></a><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-comment">-- ** StatusType</span><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Sum.html#StatusType"><span class="hs-identifier hs-type">StatusType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-177"></a><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-comment">-- ** BotAliasMetadata</span><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#BotAliasMetadata"><span class="hs-identifier hs-type">BotAliasMetadata</span></a><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#botAliasMetadata"><span class="hs-identifier hs-var">botAliasMetadata</span></a><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bamChecksum"><span class="hs-identifier hs-var">bamChecksum</span></a><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bamBotVersion"><span class="hs-identifier hs-var">bamBotVersion</span></a><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bamBotName"><span class="hs-identifier hs-var">bamBotName</span></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bamCreatedDate"><span class="hs-identifier hs-var">bamCreatedDate</span></a><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bamName"><span class="hs-identifier hs-var">bamName</span></a><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bamLastUpdatedDate"><span class="hs-identifier hs-var">bamLastUpdatedDate</span></a><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bamDescription"><span class="hs-identifier hs-var">bamDescription</span></a><span>
+</span><a name="line-188"></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-comment">-- ** BotChannelAssociation</span><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#BotChannelAssociation"><span class="hs-identifier hs-type">BotChannelAssociation</span></a><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#botChannelAssociation"><span class="hs-identifier hs-var">botChannelAssociation</span></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bcaBotAlias"><span class="hs-identifier hs-var">bcaBotAlias</span></a><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bcaBotName"><span class="hs-identifier hs-var">bcaBotName</span></a><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bcaBotConfiguration"><span class="hs-identifier hs-var">bcaBotConfiguration</span></a><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bcaCreatedDate"><span class="hs-identifier hs-var">bcaCreatedDate</span></a><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bcaName"><span class="hs-identifier hs-var">bcaName</span></a><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bcaType"><span class="hs-identifier hs-var">bcaType</span></a><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bcaDescription"><span class="hs-identifier hs-var">bcaDescription</span></a><span>
+</span><a name="line-199"></a><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-comment">-- ** BotMetadata</span><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#BotMetadata"><span class="hs-identifier hs-type">BotMetadata</span></a><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#botMetadata"><span class="hs-identifier hs-var">botMetadata</span></a><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bmStatus"><span class="hs-identifier hs-var">bmStatus</span></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bmCreatedDate"><span class="hs-identifier hs-var">bmCreatedDate</span></a><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bmName"><span class="hs-identifier hs-var">bmName</span></a><span>
+</span><a name="line-206"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bmVersion"><span class="hs-identifier hs-var">bmVersion</span></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bmLastUpdatedDate"><span class="hs-identifier hs-var">bmLastUpdatedDate</span></a><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bmDescription"><span class="hs-identifier hs-var">bmDescription</span></a><span>
+</span><a name="line-209"></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-comment">-- ** BuiltinIntentMetadata</span><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#BuiltinIntentMetadata"><span class="hs-identifier hs-type">BuiltinIntentMetadata</span></a><span>
+</span><a name="line-212"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#builtinIntentMetadata"><span class="hs-identifier hs-var">builtinIntentMetadata</span></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bimSignature"><span class="hs-identifier hs-var">bimSignature</span></a><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bimSupportedLocales"><span class="hs-identifier hs-var">bimSupportedLocales</span></a><span>
+</span><a name="line-215"></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-comment">-- ** BuiltinIntentSlot</span><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#BuiltinIntentSlot"><span class="hs-identifier hs-type">BuiltinIntentSlot</span></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#builtinIntentSlot"><span class="hs-identifier hs-var">builtinIntentSlot</span></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bisName"><span class="hs-identifier hs-var">bisName</span></a><span>
+</span><a name="line-220"></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-comment">-- ** BuiltinSlotTypeMetadata</span><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#BuiltinSlotTypeMetadata"><span class="hs-identifier hs-type">BuiltinSlotTypeMetadata</span></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#builtinSlotTypeMetadata"><span class="hs-identifier hs-var">builtinSlotTypeMetadata</span></a><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bstmSignature"><span class="hs-identifier hs-var">bstmSignature</span></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#bstmSupportedLocales"><span class="hs-identifier hs-var">bstmSupportedLocales</span></a><span>
+</span><a name="line-226"></a><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-comment">-- ** CodeHook</span><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#CodeHook"><span class="hs-identifier hs-type">CodeHook</span></a><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#codeHook"><span class="hs-identifier hs-var">codeHook</span></a><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#chUri"><span class="hs-identifier hs-var">chUri</span></a><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#chMessageVersion"><span class="hs-identifier hs-var">chMessageVersion</span></a><span>
+</span><a name="line-232"></a><span>
+</span><a name="line-233"></a><span>    </span><span class="hs-comment">-- ** EnumerationValue</span><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#EnumerationValue"><span class="hs-identifier hs-type">EnumerationValue</span></a><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#enumerationValue"><span class="hs-identifier hs-var">enumerationValue</span></a><span>
+</span><a name="line-236"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#evValue"><span class="hs-identifier hs-var">evValue</span></a><span>
+</span><a name="line-237"></a><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-comment">-- ** FollowUpPrompt</span><span>
+</span><a name="line-239"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#FollowUpPrompt"><span class="hs-identifier hs-type">FollowUpPrompt</span></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#followUpPrompt"><span class="hs-identifier hs-var">followUpPrompt</span></a><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#fupPrompt"><span class="hs-identifier hs-var">fupPrompt</span></a><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#fupRejectionStatement"><span class="hs-identifier hs-var">fupRejectionStatement</span></a><span>
+</span><a name="line-243"></a><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-comment">-- ** FulfillmentActivity</span><span>
+</span><a name="line-245"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#FulfillmentActivity"><span class="hs-identifier hs-type">FulfillmentActivity</span></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#fulfillmentActivity"><span class="hs-identifier hs-var">fulfillmentActivity</span></a><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#faCodeHook"><span class="hs-identifier hs-var">faCodeHook</span></a><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#faType"><span class="hs-identifier hs-var">faType</span></a><span>
+</span><a name="line-249"></a><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-comment">-- ** Intent</span><span>
+</span><a name="line-251"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#Intent"><span class="hs-identifier hs-type">Intent</span></a><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#intent"><span class="hs-identifier hs-var">intent</span></a><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#iIntentName"><span class="hs-identifier hs-var">iIntentName</span></a><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#iIntentVersion"><span class="hs-identifier hs-var">iIntentVersion</span></a><span>
+</span><a name="line-255"></a><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-comment">-- ** IntentMetadata</span><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#IntentMetadata"><span class="hs-identifier hs-type">IntentMetadata</span></a><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#intentMetadata"><span class="hs-identifier hs-var">intentMetadata</span></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#imCreatedDate"><span class="hs-identifier hs-var">imCreatedDate</span></a><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#imName"><span class="hs-identifier hs-var">imName</span></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#imVersion"><span class="hs-identifier hs-var">imVersion</span></a><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#imLastUpdatedDate"><span class="hs-identifier hs-var">imLastUpdatedDate</span></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#imDescription"><span class="hs-identifier hs-var">imDescription</span></a><span>
+</span><a name="line-264"></a><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-comment">-- ** Message</span><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#Message"><span class="hs-identifier hs-type">Message</span></a><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#message"><span class="hs-identifier hs-var">message</span></a><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#mContentType"><span class="hs-identifier hs-var">mContentType</span></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#mContent"><span class="hs-identifier hs-var">mContent</span></a><span>
+</span><a name="line-270"></a><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-comment">-- ** Prompt</span><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#Prompt"><span class="hs-identifier hs-type">Prompt</span></a><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#prompt"><span class="hs-identifier hs-var">prompt</span></a><span>
+</span><a name="line-274"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#pResponseCard"><span class="hs-identifier hs-var">pResponseCard</span></a><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#pMessages"><span class="hs-identifier hs-var">pMessages</span></a><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#pMaxAttempts"><span class="hs-identifier hs-var">pMaxAttempts</span></a><span>
+</span><a name="line-277"></a><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-comment">-- ** Slot</span><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#Slot"><span class="hs-identifier hs-type">Slot</span></a><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#slot"><span class="hs-identifier hs-var">slot</span></a><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sSlotType"><span class="hs-identifier hs-var">sSlotType</span></a><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sValueElicitationPrompt"><span class="hs-identifier hs-var">sValueElicitationPrompt</span></a><span>
+</span><a name="line-283"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sResponseCard"><span class="hs-identifier hs-var">sResponseCard</span></a><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sPriority"><span class="hs-identifier hs-var">sPriority</span></a><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sSlotTypeVersion"><span class="hs-identifier hs-var">sSlotTypeVersion</span></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sSampleUtterances"><span class="hs-identifier hs-var">sSampleUtterances</span></a><span>
+</span><a name="line-287"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sDescription"><span class="hs-identifier hs-var">sDescription</span></a><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sName"><span class="hs-identifier hs-var">sName</span></a><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#sSlotConstraint"><span class="hs-identifier hs-var">sSlotConstraint</span></a><span>
+</span><a name="line-290"></a><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-comment">-- ** SlotTypeMetadata</span><span>
+</span><a name="line-292"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#SlotTypeMetadata"><span class="hs-identifier hs-type">SlotTypeMetadata</span></a><span>
+</span><a name="line-293"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#slotTypeMetadata"><span class="hs-identifier hs-var">slotTypeMetadata</span></a><span>
+</span><a name="line-294"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#stmCreatedDate"><span class="hs-identifier hs-var">stmCreatedDate</span></a><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#stmName"><span class="hs-identifier hs-var">stmName</span></a><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#stmVersion"><span class="hs-identifier hs-var">stmVersion</span></a><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#stmLastUpdatedDate"><span class="hs-identifier hs-var">stmLastUpdatedDate</span></a><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#stmDescription"><span class="hs-identifier hs-var">stmDescription</span></a><span>
+</span><a name="line-299"></a><span>
+</span><a name="line-300"></a><span>    </span><span class="hs-comment">-- ** Statement</span><span>
+</span><a name="line-301"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#Statement"><span class="hs-identifier hs-type">Statement</span></a><span>
+</span><a name="line-302"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#statement"><span class="hs-identifier hs-var">statement</span></a><span>
+</span><a name="line-303"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#staResponseCard"><span class="hs-identifier hs-var">staResponseCard</span></a><span>
+</span><a name="line-304"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#staMessages"><span class="hs-identifier hs-var">staMessages</span></a><span>
+</span><a name="line-305"></a><span>
+</span><a name="line-306"></a><span>    </span><span class="hs-comment">-- ** UtteranceData</span><span>
+</span><a name="line-307"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#UtteranceData"><span class="hs-identifier hs-type">UtteranceData</span></a><span>
+</span><a name="line-308"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#utteranceData"><span class="hs-identifier hs-var">utteranceData</span></a><span>
+</span><a name="line-309"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#udFirstUtteredDate"><span class="hs-identifier hs-var">udFirstUtteredDate</span></a><span>
+</span><a name="line-310"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#udCount"><span class="hs-identifier hs-var">udCount</span></a><span>
+</span><a name="line-311"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#udUtteranceString"><span class="hs-identifier hs-var">udUtteranceString</span></a><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#udLastUtteredDate"><span class="hs-identifier hs-var">udLastUtteredDate</span></a><span>
+</span><a name="line-313"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#udDistinctUsers"><span class="hs-identifier hs-var">udDistinctUsers</span></a><span>
+</span><a name="line-314"></a><span>
+</span><a name="line-315"></a><span>    </span><span class="hs-comment">-- ** UtteranceList</span><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#UtteranceList"><span class="hs-identifier hs-type">UtteranceList</span></a><span>
+</span><a name="line-317"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#utteranceList"><span class="hs-identifier hs-var">utteranceList</span></a><span>
+</span><a name="line-318"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#ulBotVersion"><span class="hs-identifier hs-var">ulBotVersion</span></a><span>
+</span><a name="line-319"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.LexModels.Types.Product.html#ulUtterances"><span class="hs-identifier hs-var">ulUtterances</span></a><span>
+</span><a name="line-320"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-321"></a><span>
+</span><a name="line-322"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.CreateBotVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">CreateBotVersion</span></a><span>
+</span><a name="line-323"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.CreateIntentVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">CreateIntentVersion</span></a><span>
+</span><a name="line-324"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.CreateSlotTypeVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">CreateSlotTypeVersion</span></a><span>
+</span><a name="line-325"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteBot.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBot</span></a><span>
+</span><a name="line-326"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteBotAlias.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBotAlias</span></a><span>
+</span><a name="line-327"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteBotChannelAssociation.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBotChannelAssociation</span></a><span>
+</span><a name="line-328"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteBotVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteBotVersion</span></a><span>
+</span><a name="line-329"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteIntent.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteIntent</span></a><span>
+</span><a name="line-330"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteIntentVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteIntentVersion</span></a><span>
+</span><a name="line-331"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteSlotType.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSlotType</span></a><span>
+</span><a name="line-332"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteSlotTypeVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSlotTypeVersion</span></a><span>
+</span><a name="line-333"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.DeleteUtterances.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUtterances</span></a><span>
+</span><a name="line-334"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBot.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBot</span></a><span>
+</span><a name="line-335"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBotAlias.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotAlias</span></a><span>
+</span><a name="line-336"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBotAliases.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotAliases</span></a><span>
+</span><a name="line-337"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBotChannelAssociation.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotChannelAssociation</span></a><span>
+</span><a name="line-338"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBotChannelAssociations.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotChannelAssociations</span></a><span>
+</span><a name="line-339"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBots.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBots</span></a><span>
+</span><a name="line-340"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBotVersions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBotVersions</span></a><span>
+</span><a name="line-341"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBuiltinIntent.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBuiltinIntent</span></a><span>
+</span><a name="line-342"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBuiltinIntents.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBuiltinIntents</span></a><span>
+</span><a name="line-343"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetBuiltinSlotTypes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetBuiltinSlotTypes</span></a><span>
+</span><a name="line-344"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetIntent.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetIntent</span></a><span>
+</span><a name="line-345"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetIntents.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetIntents</span></a><span>
+</span><a name="line-346"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetIntentVersions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetIntentVersions</span></a><span>
+</span><a name="line-347"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetSlotType.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetSlotType</span></a><span>
+</span><a name="line-348"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetSlotTypes.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetSlotTypes</span></a><span>
+</span><a name="line-349"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetSlotTypeVersions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetSlotTypeVersions</span></a><span>
+</span><a name="line-350"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.GetUtterancesView.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">GetUtterancesView</span></a><span>
+</span><a name="line-351"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.PutBot.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutBot</span></a><span>
+</span><a name="line-352"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.PutBotAlias.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutBotAlias</span></a><span>
+</span><a name="line-353"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.PutIntent.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutIntent</span></a><span>
+</span><a name="line-354"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.PutSlotType.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">PutSlotType</span></a><span>
+</span><a name="line-355"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-356"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.LexModels.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">LexModels</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-357"></a><span>
+</span><a name="line-358"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'LexModels'.
+-}</span><span>
+</span><a name="line-364"></a><span>
+</span><a name="line-365"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-381"></a><span>
+</span><a name="line-382"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-387"></a></pre></body></html>
