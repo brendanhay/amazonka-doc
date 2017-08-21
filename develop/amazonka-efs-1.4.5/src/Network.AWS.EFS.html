@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.EFS</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __Amazon Elastic File System__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- Amazon Elastic File System (Amazon EFS) provides simple, scalable file storage for use with Amazon EC2 instances in the AWS Cloud. With Amazon EFS, storage capacity is elastic, growing and shrinking automatically as you add and remove files, so your applications have the storage they need, when they need it. For more information, see the &lt;http://docs.aws.amazon.com/efs/latest/ug/api-reference.html User Guide&gt; .</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span>
+</span><a name="line-19"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-20"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-21"></a><span>      </span><a href="Network.AWS.EFS.Types.html#efs"><span class="hs-identifier hs-var">efs</span></a><span>
+</span><a name="line-22"></a><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-24"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- ** MountTargetNotFound</span><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_MountTargetNotFound"><span class="hs-identifier hs-var">_MountTargetNotFound</span></a><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- ** SecurityGroupLimitExceeded</span><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_SecurityGroupLimitExceeded"><span class="hs-identifier hs-var">_SecurityGroupLimitExceeded</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- ** SecurityGroupNotFound</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_SecurityGroupNotFound"><span class="hs-identifier hs-var">_SecurityGroupNotFound</span></a><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** MountTargetConflict</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_MountTargetConflict"><span class="hs-identifier hs-var">_MountTargetConflict</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** UnsupportedAvailabilityZone</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_UnsupportedAvailabilityZone"><span class="hs-identifier hs-var">_UnsupportedAvailabilityZone</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** FileSystemLimitExceeded</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_FileSystemLimitExceeded"><span class="hs-identifier hs-var">_FileSystemLimitExceeded</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** NetworkInterfaceLimitExceeded</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_NetworkInterfaceLimitExceeded"><span class="hs-identifier hs-var">_NetworkInterfaceLimitExceeded</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** FileSystemAlreadyExists</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_FileSystemAlreadyExists"><span class="hs-identifier hs-var">_FileSystemAlreadyExists</span></a><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- ** SubnetNotFound</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_SubnetNotFound"><span class="hs-identifier hs-var">_SubnetNotFound</span></a><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- ** FileSystemNotFound</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_FileSystemNotFound"><span class="hs-identifier hs-var">_FileSystemNotFound</span></a><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- ** IncorrectFileSystemLifeCycleState</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_IncorrectFileSystemLifeCycleState"><span class="hs-identifier hs-var">_IncorrectFileSystemLifeCycleState</span></a><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** BadRequest</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_BadRequest"><span class="hs-identifier hs-var">_BadRequest</span></a><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- ** NoFreeAddressesInSubnet</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_NoFreeAddressesInSubnet"><span class="hs-identifier hs-var">_NoFreeAddressesInSubnet</span></a><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** DependencyTimeout</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_DependencyTimeout"><span class="hs-identifier hs-var">_DependencyTimeout</span></a><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** FileSystemInUse</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_FileSystemInUse"><span class="hs-identifier hs-var">_FileSystemInUse</span></a><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- ** IncorrectMountTargetState</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_IncorrectMountTargetState"><span class="hs-identifier hs-var">_IncorrectMountTargetState</span></a><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** InternalServerError</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_InternalServerError"><span class="hs-identifier hs-var">_InternalServerError</span></a><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** IPAddressInUse</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.html#_IPAddressInUse"><span class="hs-identifier hs-var">_IPAddressInUse</span></a><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- ** DescribeTags (Paginated)</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTags</span><span>
+</span><a name="line-88"></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- ** DescribeMountTargets (Paginated)</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMountTargets</span><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- ** DescribeFileSystems (Paginated)</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeFileSystems</span><span>
+</span><a name="line-94"></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- ** DeleteMountTarget</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteMountTarget</span><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-comment">-- ** CreateTags</span><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTags</span><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- ** DeleteTags</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTags</span><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-comment">-- ** DescribeMountTargetSecurityGroups</span><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMountTargetSecurityGroups</span><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- ** ModifyMountTargetSecurityGroups</span><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyMountTargetSecurityGroups</span><span>
+</span><a name="line-109"></a><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-comment">-- ** CreateFileSystem</span><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">CreateFileSystem</span><span>
+</span><a name="line-112"></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-comment">-- ** DeleteFileSystem</span><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteFileSystem</span><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-comment">-- ** CreateMountTarget</span><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">CreateMountTarget</span><span>
+</span><a name="line-118"></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-120"></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-comment">-- ** LifeCycleState</span><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Sum.html#LifeCycleState"><span class="hs-identifier hs-type">LifeCycleState</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-123"></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-comment">-- ** PerformanceMode</span><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Sum.html#PerformanceMode"><span class="hs-identifier hs-type">PerformanceMode</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-126"></a><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-comment">-- ** FileSystemDescription</span><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#FileSystemDescription"><span class="hs-identifier hs-type">FileSystemDescription</span></a><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fileSystemDescription"><span class="hs-identifier hs-var">fileSystemDescription</span></a><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdEncrypted"><span class="hs-identifier hs-var">fsdEncrypted</span></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdKMSKeyId"><span class="hs-identifier hs-var">fsdKMSKeyId</span></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdName"><span class="hs-identifier hs-var">fsdName</span></a><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdOwnerId"><span class="hs-identifier hs-var">fsdOwnerId</span></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdCreationToken"><span class="hs-identifier hs-var">fsdCreationToken</span></a><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdFileSystemId"><span class="hs-identifier hs-var">fsdFileSystemId</span></a><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdCreationTime"><span class="hs-identifier hs-var">fsdCreationTime</span></a><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdLifeCycleState"><span class="hs-identifier hs-var">fsdLifeCycleState</span></a><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdNumberOfMountTargets"><span class="hs-identifier hs-var">fsdNumberOfMountTargets</span></a><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdSizeInBytes"><span class="hs-identifier hs-var">fsdSizeInBytes</span></a><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fsdPerformanceMode"><span class="hs-identifier hs-var">fsdPerformanceMode</span></a><span>
+</span><a name="line-141"></a><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-comment">-- ** FileSystemSize</span><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#FileSystemSize"><span class="hs-identifier hs-type">FileSystemSize</span></a><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fileSystemSize"><span class="hs-identifier hs-var">fileSystemSize</span></a><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fssTimestamp"><span class="hs-identifier hs-var">fssTimestamp</span></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#fssValue"><span class="hs-identifier hs-var">fssValue</span></a><span>
+</span><a name="line-147"></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-comment">-- ** MountTargetDescription</span><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#MountTargetDescription"><span class="hs-identifier hs-type">MountTargetDescription</span></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mountTargetDescription"><span class="hs-identifier hs-var">mountTargetDescription</span></a><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mtdIPAddress"><span class="hs-identifier hs-var">mtdIPAddress</span></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mtdNetworkInterfaceId"><span class="hs-identifier hs-var">mtdNetworkInterfaceId</span></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mtdOwnerId"><span class="hs-identifier hs-var">mtdOwnerId</span></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mtdMountTargetId"><span class="hs-identifier hs-var">mtdMountTargetId</span></a><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mtdFileSystemId"><span class="hs-identifier hs-var">mtdFileSystemId</span></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mtdSubnetId"><span class="hs-identifier hs-var">mtdSubnetId</span></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#mtdLifeCycleState"><span class="hs-identifier hs-var">mtdLifeCycleState</span></a><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- ** Tag</span><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#Tag"><span class="hs-identifier hs-type">Tag</span></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#tag"><span class="hs-identifier hs-var">tag</span></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#tagKey"><span class="hs-identifier hs-var">tagKey</span></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.EFS.Types.Product.html#tagValue"><span class="hs-identifier hs-var">tagValue</span></a><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-165"></a><span>
+</span><a name="line-166"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.CreateFileSystem.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">CreateFileSystem</span></a><span>
+</span><a name="line-167"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.CreateMountTarget.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">CreateMountTarget</span></a><span>
+</span><a name="line-168"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.CreateTags.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">CreateTags</span></a><span>
+</span><a name="line-169"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.DeleteFileSystem.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteFileSystem</span></a><span>
+</span><a name="line-170"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.DeleteMountTarget.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteMountTarget</span></a><span>
+</span><a name="line-171"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.DeleteTags.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteTags</span></a><span>
+</span><a name="line-172"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.DescribeFileSystems.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeFileSystems</span></a><span>
+</span><a name="line-173"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.DescribeMountTargets.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMountTargets</span></a><span>
+</span><a name="line-174"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.DescribeMountTargetSecurityGroups.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMountTargetSecurityGroups</span></a><span>
+</span><a name="line-175"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.DescribeTags.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeTags</span></a><span>
+</span><a name="line-176"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.ModifyMountTargetSecurityGroups.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">ModifyMountTargetSecurityGroups</span></a><span>
+</span><a name="line-177"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-178"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.EFS.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">EFS</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-179"></a><span>
+</span><a name="line-180"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'EFS'.
+-}</span><span>
+</span><a name="line-186"></a><span>
+</span><a name="line-187"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-203"></a><span>
+</span><a name="line-204"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-209"></a></pre></body></html>
