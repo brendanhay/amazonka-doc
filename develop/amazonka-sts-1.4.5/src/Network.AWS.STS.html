@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.STS</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __AWS Security Token Service__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- The AWS Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users that you authenticate (federated users). This guide provides descriptions of the STS API. For more detailed information about using this service, go to &lt;http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html Temporary Security Credentials&gt; .</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- For information about setting up signatures and authorization through the API, go to &lt;http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html Signing AWS API Requests&gt; in the /AWS General Reference/ . For general information about the Query API, go to &lt;http://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html Making Query Requests&gt; in /Using IAM/ . For information about using security tokens with other AWS products, go to &lt;http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html AWS Services That Work with IAM&gt; in the /IAM User Guide/ .</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--</span><span>
+</span><a name="line-20"></a><span class="hs-comment">-- If you're new to AWS and need additional technical information about a specific AWS product, you can find the product's technical documentation at &lt;http://aws.amazon.com/documentation/ http://aws.amazon.com/documentation/&gt; .</span><span>
+</span><a name="line-21"></a><span class="hs-comment">--</span><span>
+</span><a name="line-22"></a><span class="hs-comment">-- __Endpoints__</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--</span><span>
+</span><a name="line-24"></a><span class="hs-comment">-- The AWS Security Token Service (STS) has a default endpoint of https://sts.amazonaws.com that maps to the US East (N. Virginia) region. Additional regions are available and are activated by default. For more information, see &lt;http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html Activating and Deactivating AWS STS in an AWS Region&gt; in the /IAM User Guide/ .</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--</span><span>
+</span><a name="line-26"></a><span class="hs-comment">-- For information about STS endpoints, see &lt;http://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region Regions and Endpoints&gt; in the /AWS General Reference/ .</span><span>
+</span><a name="line-27"></a><span class="hs-comment">--</span><span>
+</span><a name="line-28"></a><span class="hs-comment">-- __Recording API requests__</span><span>
+</span><a name="line-29"></a><span class="hs-comment">--</span><span>
+</span><a name="line-30"></a><span class="hs-comment">-- STS supports AWS CloudTrail, which is a service that records AWS calls for your AWS account and delivers log files to an Amazon S3 bucket. By using information collected by CloudTrail, you can determine what requests were successfully made to STS, who made the request, when it was made, and so on. To learn more about CloudTrail, including how to turn it on and find your log files, see the &lt;http://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html AWS CloudTrail User Guide&gt; .</span><span>
+</span><a name="line-31"></a><span class="hs-comment">--</span><span>
+</span><a name="line-32"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-35"></a><span>      </span><a href="Network.AWS.STS.Types.html#sts"><span class="hs-identifier hs-var">sts</span></a><span>
+</span><a name="line-36"></a><span>
+</span><a name="line-37"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-39"></a><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-comment">-- ** MalformedPolicyDocumentException</span><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_MalformedPolicyDocumentException"><span class="hs-identifier hs-var">_MalformedPolicyDocumentException</span></a><span>
+</span><a name="line-42"></a><span>
+</span><a name="line-43"></a><span>    </span><span class="hs-comment">-- ** InvalidAuthorizationMessageException</span><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_InvalidAuthorizationMessageException"><span class="hs-identifier hs-var">_InvalidAuthorizationMessageException</span></a><span>
+</span><a name="line-45"></a><span>
+</span><a name="line-46"></a><span>    </span><span class="hs-comment">-- ** PackedPolicyTooLargeException</span><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_PackedPolicyTooLargeException"><span class="hs-identifier hs-var">_PackedPolicyTooLargeException</span></a><span>
+</span><a name="line-48"></a><span>
+</span><a name="line-49"></a><span>    </span><span class="hs-comment">-- ** RegionDisabledException</span><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_RegionDisabledException"><span class="hs-identifier hs-var">_RegionDisabledException</span></a><span>
+</span><a name="line-51"></a><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-comment">-- ** IdPCommunicationErrorException</span><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_IdPCommunicationErrorException"><span class="hs-identifier hs-var">_IdPCommunicationErrorException</span></a><span>
+</span><a name="line-54"></a><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-comment">-- ** InvalidIdentityTokenException</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_InvalidIdentityTokenException"><span class="hs-identifier hs-var">_InvalidIdentityTokenException</span></a><span>
+</span><a name="line-57"></a><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-comment">-- ** ExpiredTokenException</span><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_ExpiredTokenException"><span class="hs-identifier hs-var">_ExpiredTokenException</span></a><span>
+</span><a name="line-60"></a><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-comment">-- ** IdPRejectedClaimException</span><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.html#_IdPRejectedClaimException"><span class="hs-identifier hs-var">_IdPRejectedClaimException</span></a><span>
+</span><a name="line-63"></a><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-66"></a><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-69"></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-comment">-- ** GetCallerIdentity</span><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">GetCallerIdentity</span><span>
+</span><a name="line-72"></a><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- ** AssumeRole</span><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">AssumeRole</span><span>
+</span><a name="line-75"></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-comment">-- ** DecodeAuthorizationMessage</span><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">DecodeAuthorizationMessage</span><span>
+</span><a name="line-78"></a><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- ** AssumeRoleWithWebIdentity</span><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">AssumeRoleWithWebIdentity</span><span>
+</span><a name="line-81"></a><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-comment">-- ** GetFederationToken</span><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">GetFederationToken</span><span>
+</span><a name="line-84"></a><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-comment">-- ** GetSessionToken</span><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">GetSessionToken</span><span>
+</span><a name="line-87"></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-comment">-- ** AssumeRoleWithSAML</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">AssumeRoleWithSAML</span><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-92"></a><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-comment">-- ** AssumedRoleUser</span><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#AssumedRoleUser"><span class="hs-identifier hs-type">AssumedRoleUser</span></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#assumedRoleUser"><span class="hs-identifier hs-var">assumedRoleUser</span></a><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#aruAssumedRoleId"><span class="hs-identifier hs-var">aruAssumedRoleId</span></a><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#aruARN"><span class="hs-identifier hs-var">aruARN</span></a><span>
+</span><a name="line-98"></a><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-comment">-- ** FederatedUser</span><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#FederatedUser"><span class="hs-identifier hs-type">FederatedUser</span></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#federatedUser"><span class="hs-identifier hs-var">federatedUser</span></a><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#fuFederatedUserId"><span class="hs-identifier hs-var">fuFederatedUserId</span></a><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.STS.Types.Product.html#fuARN"><span class="hs-identifier hs-var">fuARN</span></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-105"></a><span>
+</span><a name="line-106"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.AssumeRole.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">AssumeRole</span></a><span>
+</span><a name="line-107"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.AssumeRoleWithSAML.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">AssumeRoleWithSAML</span></a><span>
+</span><a name="line-108"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.AssumeRoleWithWebIdentity.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">AssumeRoleWithWebIdentity</span></a><span>
+</span><a name="line-109"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.DecodeAuthorizationMessage.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">DecodeAuthorizationMessage</span></a><span>
+</span><a name="line-110"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.GetCallerIdentity.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">GetCallerIdentity</span></a><span>
+</span><a name="line-111"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.GetFederationToken.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">GetFederationToken</span></a><span>
+</span><a name="line-112"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.GetSessionToken.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">GetSessionToken</span></a><span>
+</span><a name="line-113"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-114"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.STS.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">STS</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'STS'.
+-}</span><span>
+</span><a name="line-122"></a><span>
+</span><a name="line-123"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-139"></a><span>
+</span><a name="line-140"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-145"></a></pre></body></html>
