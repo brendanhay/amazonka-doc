@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.Glacier</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- Amazon Glacier is a storage solution for &quot;cold data.&quot;</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">--</span><span>
+</span><a name="line-17"></a><span class="hs-comment">-- Amazon Glacier is an extremely low-cost storage service that provides secure, durable, and easy-to-use storage for data backup and archival. With Amazon Glacier, customers can store their data cost effectively for months, years, or decades. Amazon Glacier also enables customers to offload the administrative burdens of operating and scaling storage to AWS, so they don't have to worry about capacity planning, hardware provisioning, data replication, hardware failure and recovery, or time-consuming hardware migrations.</span><span>
+</span><a name="line-18"></a><span class="hs-comment">--</span><span>
+</span><a name="line-19"></a><span class="hs-comment">-- Amazon Glacier is a great storage choice when low storage cost is paramount, your data is rarely retrieved, and retrieval latency of several hours is acceptable. If your application requires fast or frequent access to your data, consider using Amazon S3. For more information, see &lt;http://aws.amazon.com/s3/ Amazon Simple Storage Service (Amazon S3)&gt; .</span><span>
+</span><a name="line-20"></a><span class="hs-comment">--</span><span>
+</span><a name="line-21"></a><span class="hs-comment">-- You can store any kind of data in any format. There is no maximum limit on the total amount of data you can store in Amazon Glacier.</span><span>
+</span><a name="line-22"></a><span class="hs-comment">--</span><span>
+</span><a name="line-23"></a><span class="hs-comment">-- If you are a first-time user of Amazon Glacier, we recommend that you begin by reading the following sections in the /Amazon Glacier Developer Guide/ :</span><span>
+</span><a name="line-24"></a><span class="hs-comment">--</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--     * &lt;http://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html What is Amazon Glacier&gt; - This section of the Developer Guide describes the underlying data model, the operations it supports, and the AWS SDKs that you can use to interact with the service.</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--</span><span>
+</span><a name="line-27"></a><span class="hs-comment">--     * &lt;http://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-getting-started.html Getting Started with Amazon Glacier&gt; - The Getting Started section walks you through the process of creating a vault, uploading archives, creating jobs to download archives, retrieving the job output, and deleting archives.</span><span>
+</span><a name="line-28"></a><span class="hs-comment">--</span><span>
+</span><a name="line-29"></a><span class="hs-comment">--</span><span>
+</span><a name="line-30"></a><span class="hs-comment">--</span><span>
+</span><a name="line-31"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-34"></a><span>      </span><a href="Network.AWS.Glacier.Types.html#glacier"><span class="hs-identifier hs-var">glacier</span></a><span>
+</span><a name="line-35"></a><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-37"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-38"></a><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-comment">-- ** PolicyEnforcedException</span><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_PolicyEnforcedException"><span class="hs-identifier hs-var">_PolicyEnforcedException</span></a><span>
+</span><a name="line-41"></a><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-comment">-- ** InvalidParameterValueException</span><span>
+</span><a name="line-43"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_InvalidParameterValueException"><span class="hs-identifier hs-var">_InvalidParameterValueException</span></a><span>
+</span><a name="line-44"></a><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-comment">-- ** RequestTimeoutException</span><span>
+</span><a name="line-46"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_RequestTimeoutException"><span class="hs-identifier hs-var">_RequestTimeoutException</span></a><span>
+</span><a name="line-47"></a><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-comment">-- ** ServiceUnavailableException</span><span>
+</span><a name="line-49"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_ServiceUnavailableException"><span class="hs-identifier hs-var">_ServiceUnavailableException</span></a><span>
+</span><a name="line-50"></a><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-comment">-- ** InsufficientCapacityException</span><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_InsufficientCapacityException"><span class="hs-identifier hs-var">_InsufficientCapacityException</span></a><span>
+</span><a name="line-53"></a><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-56"></a><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-59"></a><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-comment">-- ** MissingParameterValueException</span><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.html#_MissingParameterValueException"><span class="hs-identifier hs-var">_MissingParameterValueException</span></a><span>
+</span><a name="line-62"></a><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-65"></a><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-comment">-- ** VaultNotExists</span><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Waiters.html#vaultNotExists"><span class="hs-identifier hs-var">vaultNotExists</span></a><span>
+</span><a name="line-68"></a><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-comment">-- ** VaultExists</span><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Waiters.html#vaultExists"><span class="hs-identifier hs-var">vaultExists</span></a><span>
+</span><a name="line-71"></a><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-74"></a><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-comment">-- ** SetVaultAccessPolicy</span><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">SetVaultAccessPolicy</span><span>
+</span><a name="line-77"></a><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-comment">-- ** InitiateJob</span><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateJob</span><span>
+</span><a name="line-80"></a><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-comment">-- ** SetDataRetrievalPolicy</span><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">SetDataRetrievalPolicy</span><span>
+</span><a name="line-83"></a><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-comment">-- ** DeleteVaultAccessPolicy</span><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVaultAccessPolicy</span><span>
+</span><a name="line-86"></a><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-comment">-- ** GetVaultNotifications</span><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetVaultNotifications</span><span>
+</span><a name="line-89"></a><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-comment">-- ** ListTagsForVault</span><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForVault</span><span>
+</span><a name="line-92"></a><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-comment">-- ** UploadMultipartPart</span><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">UploadMultipartPart</span><span>
+</span><a name="line-95"></a><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-comment">-- ** DeleteVaultNotifications</span><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVaultNotifications</span><span>
+</span><a name="line-98"></a><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-comment">-- ** CompleteVaultLock</span><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">CompleteVaultLock</span><span>
+</span><a name="line-101"></a><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-comment">-- ** AbortVaultLock</span><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">AbortVaultLock</span><span>
+</span><a name="line-104"></a><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-comment">-- ** ListVaults (Paginated)</span><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListVaults</span><span>
+</span><a name="line-107"></a><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-comment">-- ** ListProvisionedCapacity</span><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListProvisionedCapacity</span><span>
+</span><a name="line-110"></a><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-comment">-- ** ListJobs (Paginated)</span><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListJobs</span><span>
+</span><a name="line-113"></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-comment">-- ** SetVaultNotifications</span><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">SetVaultNotifications</span><span>
+</span><a name="line-116"></a><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-comment">-- ** GetJobOutput</span><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetJobOutput</span><span>
+</span><a name="line-119"></a><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-comment">-- ** CompleteMultipartUpload</span><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">CompleteMultipartUpload</span><span>
+</span><a name="line-122"></a><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-comment">-- ** ListMultipartUploads (Paginated)</span><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListMultipartUploads</span><span>
+</span><a name="line-125"></a><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-comment">-- ** AbortMultipartUpload</span><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">AbortMultipartUpload</span><span>
+</span><a name="line-128"></a><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-comment">-- ** PurchaseProvisionedCapacity</span><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">PurchaseProvisionedCapacity</span><span>
+</span><a name="line-131"></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-comment">-- ** DescribeVault</span><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeVault</span><span>
+</span><a name="line-134"></a><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-comment">-- ** GetVaultLock</span><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetVaultLock</span><span>
+</span><a name="line-137"></a><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-comment">-- ** DescribeJob</span><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeJob</span><span>
+</span><a name="line-140"></a><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-comment">-- ** InitiateVaultLock</span><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateVaultLock</span><span>
+</span><a name="line-143"></a><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-comment">-- ** GetVaultAccessPolicy</span><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetVaultAccessPolicy</span><span>
+</span><a name="line-146"></a><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-comment">-- ** GetDataRetrievalPolicy</span><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetDataRetrievalPolicy</span><span>
+</span><a name="line-149"></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-comment">-- ** RemoveTagsFromVault</span><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTagsFromVault</span><span>
+</span><a name="line-152"></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-comment">-- ** DeleteVault</span><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVault</span><span>
+</span><a name="line-155"></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-comment">-- ** DeleteArchive</span><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteArchive</span><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- ** CreateVault</span><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">CreateVault</span><span>
+</span><a name="line-161"></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-comment">-- ** InitiateMultipartUpload</span><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateMultipartUpload</span><span>
+</span><a name="line-164"></a><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-comment">-- ** ListParts (Paginated)</span><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListParts</span><span>
+</span><a name="line-167"></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-comment">-- ** AddTagsToVault</span><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">AddTagsToVault</span><span>
+</span><a name="line-170"></a><span>
+</span><a name="line-171"></a><span>    </span><span class="hs-comment">-- ** UploadArchive</span><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">UploadArchive</span><span>
+</span><a name="line-173"></a><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-175"></a><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-comment">-- ** ActionCode</span><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Sum.html#ActionCode"><span class="hs-identifier hs-type">ActionCode</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-178"></a><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-comment">-- ** StatusCode</span><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Sum.html#StatusCode"><span class="hs-identifier hs-type">StatusCode</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-181"></a><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-comment">-- ** ArchiveCreationOutput</span><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#ArchiveCreationOutput"><span class="hs-identifier hs-type">ArchiveCreationOutput</span></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#archiveCreationOutput"><span class="hs-identifier hs-var">archiveCreationOutput</span></a><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#acoArchiveId"><span class="hs-identifier hs-var">acoArchiveId</span></a><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#acoChecksum"><span class="hs-identifier hs-var">acoChecksum</span></a><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#acoLocation"><span class="hs-identifier hs-var">acoLocation</span></a><span>
+</span><a name="line-188"></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-comment">-- ** DataRetrievalPolicy</span><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#DataRetrievalPolicy"><span class="hs-identifier hs-type">DataRetrievalPolicy</span></a><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dataRetrievalPolicy"><span class="hs-identifier hs-var">dataRetrievalPolicy</span></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#drpRules"><span class="hs-identifier hs-var">drpRules</span></a><span>
+</span><a name="line-193"></a><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-comment">-- ** DataRetrievalRule</span><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#DataRetrievalRule"><span class="hs-identifier hs-type">DataRetrievalRule</span></a><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dataRetrievalRule"><span class="hs-identifier hs-var">dataRetrievalRule</span></a><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#drrStrategy"><span class="hs-identifier hs-var">drrStrategy</span></a><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#drrBytesPerHour"><span class="hs-identifier hs-var">drrBytesPerHour</span></a><span>
+</span><a name="line-199"></a><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-comment">-- ** DescribeVaultOutput</span><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#DescribeVaultOutput"><span class="hs-identifier hs-type">DescribeVaultOutput</span></a><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#describeVaultOutput"><span class="hs-identifier hs-var">describeVaultOutput</span></a><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dvoVaultName"><span class="hs-identifier hs-var">dvoVaultName</span></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dvoSizeInBytes"><span class="hs-identifier hs-var">dvoSizeInBytes</span></a><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dvoLastInventoryDate"><span class="hs-identifier hs-var">dvoLastInventoryDate</span></a><span>
+</span><a name="line-206"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dvoVaultARN"><span class="hs-identifier hs-var">dvoVaultARN</span></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dvoCreationDate"><span class="hs-identifier hs-var">dvoCreationDate</span></a><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#dvoNumberOfArchives"><span class="hs-identifier hs-var">dvoNumberOfArchives</span></a><span>
+</span><a name="line-209"></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-comment">-- ** GlacierJobDescription</span><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#GlacierJobDescription"><span class="hs-identifier hs-type">GlacierJobDescription</span></a><span>
+</span><a name="line-212"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#glacierJobDescription"><span class="hs-identifier hs-var">glacierJobDescription</span></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdSHA256TreeHash"><span class="hs-identifier hs-var">gjdSHA256TreeHash</span></a><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdArchiveId"><span class="hs-identifier hs-var">gjdArchiveId</span></a><span>
+</span><a name="line-215"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdJobId"><span class="hs-identifier hs-var">gjdJobId</span></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdRetrievalByteRange"><span class="hs-identifier hs-var">gjdRetrievalByteRange</span></a><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdInventoryRetrievalParameters"><span class="hs-identifier hs-var">gjdInventoryRetrievalParameters</span></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdAction"><span class="hs-identifier hs-var">gjdAction</span></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdJobDescription"><span class="hs-identifier hs-var">gjdJobDescription</span></a><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdSNSTopic"><span class="hs-identifier hs-var">gjdSNSTopic</span></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdStatusMessage"><span class="hs-identifier hs-var">gjdStatusMessage</span></a><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdVaultARN"><span class="hs-identifier hs-var">gjdVaultARN</span></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdTier"><span class="hs-identifier hs-var">gjdTier</span></a><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdArchiveSHA256TreeHash"><span class="hs-identifier hs-var">gjdArchiveSHA256TreeHash</span></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdCreationDate"><span class="hs-identifier hs-var">gjdCreationDate</span></a><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdCompleted"><span class="hs-identifier hs-var">gjdCompleted</span></a><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdCompletionDate"><span class="hs-identifier hs-var">gjdCompletionDate</span></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdInventorySizeInBytes"><span class="hs-identifier hs-var">gjdInventorySizeInBytes</span></a><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdArchiveSizeInBytes"><span class="hs-identifier hs-var">gjdArchiveSizeInBytes</span></a><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#gjdStatusCode"><span class="hs-identifier hs-var">gjdStatusCode</span></a><span>
+</span><a name="line-231"></a><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-comment">-- ** InventoryRetrievalJobDescription</span><span>
+</span><a name="line-233"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#InventoryRetrievalJobDescription"><span class="hs-identifier hs-type">InventoryRetrievalJobDescription</span></a><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#inventoryRetrievalJobDescription"><span class="hs-identifier hs-var">inventoryRetrievalJobDescription</span></a><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjdFormat"><span class="hs-identifier hs-var">irjdFormat</span></a><span>
+</span><a name="line-236"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjdEndDate"><span class="hs-identifier hs-var">irjdEndDate</span></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjdStartDate"><span class="hs-identifier hs-var">irjdStartDate</span></a><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjdMarker"><span class="hs-identifier hs-var">irjdMarker</span></a><span>
+</span><a name="line-239"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjdLimit"><span class="hs-identifier hs-var">irjdLimit</span></a><span>
+</span><a name="line-240"></a><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-comment">-- ** InventoryRetrievalJobInput</span><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#InventoryRetrievalJobInput"><span class="hs-identifier hs-type">InventoryRetrievalJobInput</span></a><span>
+</span><a name="line-243"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#inventoryRetrievalJobInput"><span class="hs-identifier hs-var">inventoryRetrievalJobInput</span></a><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjiEndDate"><span class="hs-identifier hs-var">irjiEndDate</span></a><span>
+</span><a name="line-245"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjiStartDate"><span class="hs-identifier hs-var">irjiStartDate</span></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjiMarker"><span class="hs-identifier hs-var">irjiMarker</span></a><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#irjiLimit"><span class="hs-identifier hs-var">irjiLimit</span></a><span>
+</span><a name="line-248"></a><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-comment">-- ** JobParameters</span><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#JobParameters"><span class="hs-identifier hs-type">JobParameters</span></a><span>
+</span><a name="line-251"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jobParameters"><span class="hs-identifier hs-var">jobParameters</span></a><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpArchiveId"><span class="hs-identifier hs-var">jpArchiveId</span></a><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpFormat"><span class="hs-identifier hs-var">jpFormat</span></a><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpRetrievalByteRange"><span class="hs-identifier hs-var">jpRetrievalByteRange</span></a><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpInventoryRetrievalParameters"><span class="hs-identifier hs-var">jpInventoryRetrievalParameters</span></a><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpSNSTopic"><span class="hs-identifier hs-var">jpSNSTopic</span></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpTier"><span class="hs-identifier hs-var">jpTier</span></a><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpType"><span class="hs-identifier hs-var">jpType</span></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#jpDescription"><span class="hs-identifier hs-var">jpDescription</span></a><span>
+</span><a name="line-260"></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-comment">-- ** PartListElement</span><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#PartListElement"><span class="hs-identifier hs-type">PartListElement</span></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#partListElement"><span class="hs-identifier hs-var">partListElement</span></a><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#pleSHA256TreeHash"><span class="hs-identifier hs-var">pleSHA256TreeHash</span></a><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#pleRangeInBytes"><span class="hs-identifier hs-var">pleRangeInBytes</span></a><span>
+</span><a name="line-266"></a><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-comment">-- ** ProvisionedCapacityDescription</span><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#ProvisionedCapacityDescription"><span class="hs-identifier hs-type">ProvisionedCapacityDescription</span></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#provisionedCapacityDescription"><span class="hs-identifier hs-var">provisionedCapacityDescription</span></a><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#pcdCapacityId"><span class="hs-identifier hs-var">pcdCapacityId</span></a><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#pcdStartDate"><span class="hs-identifier hs-var">pcdStartDate</span></a><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#pcdExpirationDate"><span class="hs-identifier hs-var">pcdExpirationDate</span></a><span>
+</span><a name="line-273"></a><span>
+</span><a name="line-274"></a><span>    </span><span class="hs-comment">-- ** UploadListElement</span><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#UploadListElement"><span class="hs-identifier hs-type">UploadListElement</span></a><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#uploadListElement"><span class="hs-identifier hs-var">uploadListElement</span></a><span>
+</span><a name="line-277"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#uleMultipartUploadId"><span class="hs-identifier hs-var">uleMultipartUploadId</span></a><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#ulePartSizeInBytes"><span class="hs-identifier hs-var">ulePartSizeInBytes</span></a><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#uleArchiveDescription"><span class="hs-identifier hs-var">uleArchiveDescription</span></a><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#uleVaultARN"><span class="hs-identifier hs-var">uleVaultARN</span></a><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#uleCreationDate"><span class="hs-identifier hs-var">uleCreationDate</span></a><span>
+</span><a name="line-282"></a><span>
+</span><a name="line-283"></a><span>    </span><span class="hs-comment">-- ** VaultAccessPolicy</span><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#VaultAccessPolicy"><span class="hs-identifier hs-type">VaultAccessPolicy</span></a><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#vaultAccessPolicy"><span class="hs-identifier hs-var">vaultAccessPolicy</span></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#vapPolicy"><span class="hs-identifier hs-var">vapPolicy</span></a><span>
+</span><a name="line-287"></a><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-comment">-- ** VaultLockPolicy</span><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#VaultLockPolicy"><span class="hs-identifier hs-type">VaultLockPolicy</span></a><span>
+</span><a name="line-290"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#vaultLockPolicy"><span class="hs-identifier hs-var">vaultLockPolicy</span></a><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#vlpPolicy"><span class="hs-identifier hs-var">vlpPolicy</span></a><span>
+</span><a name="line-292"></a><span>
+</span><a name="line-293"></a><span>    </span><span class="hs-comment">-- ** VaultNotificationConfig</span><span>
+</span><a name="line-294"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#VaultNotificationConfig"><span class="hs-identifier hs-type">VaultNotificationConfig</span></a><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#vaultNotificationConfig"><span class="hs-identifier hs-var">vaultNotificationConfig</span></a><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#vncSNSTopic"><span class="hs-identifier hs-var">vncSNSTopic</span></a><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Glacier.Types.Product.html#vncEvents"><span class="hs-identifier hs-var">vncEvents</span></a><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-299"></a><span>
+</span><a name="line-300"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.AbortMultipartUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">AbortMultipartUpload</span></a><span>
+</span><a name="line-301"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.AbortVaultLock.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">AbortVaultLock</span></a><span>
+</span><a name="line-302"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.AddTagsToVault.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">AddTagsToVault</span></a><span>
+</span><a name="line-303"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.CompleteMultipartUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">CompleteMultipartUpload</span></a><span>
+</span><a name="line-304"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.CompleteVaultLock.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">CompleteVaultLock</span></a><span>
+</span><a name="line-305"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.CreateVault.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">CreateVault</span></a><span>
+</span><a name="line-306"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.DeleteArchive.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteArchive</span></a><span>
+</span><a name="line-307"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.DeleteVault.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVault</span></a><span>
+</span><a name="line-308"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.DeleteVaultAccessPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVaultAccessPolicy</span></a><span>
+</span><a name="line-309"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.DeleteVaultNotifications.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteVaultNotifications</span></a><span>
+</span><a name="line-310"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.DescribeJob.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeJob</span></a><span>
+</span><a name="line-311"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.DescribeVault.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeVault</span></a><span>
+</span><a name="line-312"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.GetDataRetrievalPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetDataRetrievalPolicy</span></a><span>
+</span><a name="line-313"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.GetJobOutput.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetJobOutput</span></a><span>
+</span><a name="line-314"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.GetVaultAccessPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetVaultAccessPolicy</span></a><span>
+</span><a name="line-315"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.GetVaultLock.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetVaultLock</span></a><span>
+</span><a name="line-316"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.GetVaultNotifications.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">GetVaultNotifications</span></a><span>
+</span><a name="line-317"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.InitiateJob.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateJob</span></a><span>
+</span><a name="line-318"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.InitiateMultipartUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateMultipartUpload</span></a><span>
+</span><a name="line-319"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.InitiateVaultLock.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateVaultLock</span></a><span>
+</span><a name="line-320"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.ListJobs.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListJobs</span></a><span>
+</span><a name="line-321"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.ListMultipartUploads.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListMultipartUploads</span></a><span>
+</span><a name="line-322"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.ListParts.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListParts</span></a><span>
+</span><a name="line-323"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.ListProvisionedCapacity.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListProvisionedCapacity</span></a><span>
+</span><a name="line-324"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.ListTagsForVault.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForVault</span></a><span>
+</span><a name="line-325"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.ListVaults.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">ListVaults</span></a><span>
+</span><a name="line-326"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.PurchaseProvisionedCapacity.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">PurchaseProvisionedCapacity</span></a><span>
+</span><a name="line-327"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.RemoveTagsFromVault.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTagsFromVault</span></a><span>
+</span><a name="line-328"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.SetDataRetrievalPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">SetDataRetrievalPolicy</span></a><span>
+</span><a name="line-329"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.SetVaultAccessPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">SetVaultAccessPolicy</span></a><span>
+</span><a name="line-330"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.SetVaultNotifications.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">SetVaultNotifications</span></a><span>
+</span><a name="line-331"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-332"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.UploadArchive.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">UploadArchive</span></a><span>
+</span><a name="line-333"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.UploadMultipartPart.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">UploadMultipartPart</span></a><span>
+</span><a name="line-334"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Glacier.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Glacier</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-335"></a><span>
+</span><a name="line-336"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'Glacier'.
+-}</span><span>
+</span><a name="line-342"></a><span>
+</span><a name="line-343"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-359"></a><span>
+</span><a name="line-360"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-365"></a></pre></body></html>
