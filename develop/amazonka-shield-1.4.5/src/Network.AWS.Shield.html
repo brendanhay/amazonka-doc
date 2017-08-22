@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.Shield</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __AWS Shield Advanced__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- This is the /AWS Shield Advanced API Reference/ . This guide is for developers who need detailed information about the AWS Shield Advanced API actions, data types, and errors. For detailed information about AWS WAF and AWS Shield Advanced features and an overview of how to use the AWS WAF and AWS Shield Advanced APIs, see the &lt;http://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF and AWS Shield Developer Guide&gt; .</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span>
+</span><a name="line-19"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-20"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-21"></a><span>      </span><a href="Network.AWS.Shield.Types.html#shield"><span class="hs-identifier hs-var">shield</span></a><span>
+</span><a name="line-22"></a><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-24"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- ** InvalidResourceException</span><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_InvalidResourceException"><span class="hs-identifier hs-var">_InvalidResourceException</span></a><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- ** InvalidParameterException</span><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_InvalidParameterException"><span class="hs-identifier hs-var">_InvalidParameterException</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- ** LimitsExceededException</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_LimitsExceededException"><span class="hs-identifier hs-var">_LimitsExceededException</span></a><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** InternalErrorException</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_InternalErrorException"><span class="hs-identifier hs-var">_InternalErrorException</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** ResourceAlreadyExistsException</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_ResourceAlreadyExistsException"><span class="hs-identifier hs-var">_ResourceAlreadyExistsException</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** OptimisticLockException</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_OptimisticLockException"><span class="hs-identifier hs-var">_OptimisticLockException</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** InvalidOperationException</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_InvalidOperationException"><span class="hs-identifier hs-var">_InvalidOperationException</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** LockedSubscriptionException</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_LockedSubscriptionException"><span class="hs-identifier hs-var">_LockedSubscriptionException</span></a><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** CreateSubscription</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">CreateSubscription</span><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- ** ListProtections</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">ListProtections</span><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** DeleteSubscription</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSubscription</span><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** DescribeAttack</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAttack</span><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- ** DescribeProtection</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeProtection</span><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** ListAttacks</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">ListAttacks</span><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** CreateProtection</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">CreateProtection</span><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- ** DeleteProtection</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteProtection</span><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- ** DescribeSubscription</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSubscription</span><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-87"></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-comment">-- ** SubResourceType</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Sum.html#SubResourceType"><span class="hs-identifier hs-type">SubResourceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- ** AttackDetail</span><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#AttackDetail"><span class="hs-identifier hs-type">AttackDetail</span></a><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#attackDetail"><span class="hs-identifier hs-var">attackDetail</span></a><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#adAttackId"><span class="hs-identifier hs-var">adAttackId</span></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#adStartTime"><span class="hs-identifier hs-var">adStartTime</span></a><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#adSubResources"><span class="hs-identifier hs-var">adSubResources</span></a><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#adMitigations"><span class="hs-identifier hs-var">adMitigations</span></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#adAttackCounters"><span class="hs-identifier hs-var">adAttackCounters</span></a><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#adResourceARN"><span class="hs-identifier hs-var">adResourceARN</span></a><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#adEndTime"><span class="hs-identifier hs-var">adEndTime</span></a><span>
+</span><a name="line-101"></a><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-comment">-- ** AttackSummary</span><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#AttackSummary"><span class="hs-identifier hs-type">AttackSummary</span></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#attackSummary"><span class="hs-identifier hs-var">attackSummary</span></a><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#asAttackVectors"><span class="hs-identifier hs-var">asAttackVectors</span></a><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#asAttackId"><span class="hs-identifier hs-var">asAttackId</span></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#asStartTime"><span class="hs-identifier hs-var">asStartTime</span></a><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#asResourceARN"><span class="hs-identifier hs-var">asResourceARN</span></a><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#asEndTime"><span class="hs-identifier hs-var">asEndTime</span></a><span>
+</span><a name="line-110"></a><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-comment">-- ** AttackVectorDescription</span><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#AttackVectorDescription"><span class="hs-identifier hs-type">AttackVectorDescription</span></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#attackVectorDescription"><span class="hs-identifier hs-var">attackVectorDescription</span></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#avdVectorType"><span class="hs-identifier hs-var">avdVectorType</span></a><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-comment">-- ** Mitigation</span><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#Mitigation"><span class="hs-identifier hs-type">Mitigation</span></a><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#mitigation"><span class="hs-identifier hs-var">mitigation</span></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#mMitigationName"><span class="hs-identifier hs-var">mMitigationName</span></a><span>
+</span><a name="line-120"></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-comment">-- ** Protection</span><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#Protection"><span class="hs-identifier hs-type">Protection</span></a><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#protection"><span class="hs-identifier hs-var">protection</span></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#pResourceARN"><span class="hs-identifier hs-var">pResourceARN</span></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#pName"><span class="hs-identifier hs-var">pName</span></a><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#pId"><span class="hs-identifier hs-var">pId</span></a><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-comment">-- ** SubResourceSummary</span><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#SubResourceSummary"><span class="hs-identifier hs-type">SubResourceSummary</span></a><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#subResourceSummary"><span class="hs-identifier hs-var">subResourceSummary</span></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#srsCounters"><span class="hs-identifier hs-var">srsCounters</span></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#srsAttackVectors"><span class="hs-identifier hs-var">srsAttackVectors</span></a><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#srsId"><span class="hs-identifier hs-var">srsId</span></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#srsType"><span class="hs-identifier hs-var">srsType</span></a><span>
+</span><a name="line-135"></a><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-comment">-- ** Subscription</span><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#Subscription"><span class="hs-identifier hs-type">Subscription</span></a><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#subscription"><span class="hs-identifier hs-var">subscription</span></a><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#sTimeCommitmentInSeconds"><span class="hs-identifier hs-var">sTimeCommitmentInSeconds</span></a><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#sStartTime"><span class="hs-identifier hs-var">sStartTime</span></a><span>
+</span><a name="line-141"></a><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-comment">-- ** SummarizedAttackVector</span><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#SummarizedAttackVector"><span class="hs-identifier hs-type">SummarizedAttackVector</span></a><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#summarizedAttackVector"><span class="hs-identifier hs-var">summarizedAttackVector</span></a><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#savVectorCounters"><span class="hs-identifier hs-var">savVectorCounters</span></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#savVectorType"><span class="hs-identifier hs-var">savVectorType</span></a><span>
+</span><a name="line-147"></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-comment">-- ** SummarizedCounter</span><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#SummarizedCounter"><span class="hs-identifier hs-type">SummarizedCounter</span></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#summarizedCounter"><span class="hs-identifier hs-var">summarizedCounter</span></a><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#scMax"><span class="hs-identifier hs-var">scMax</span></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#scAverage"><span class="hs-identifier hs-var">scAverage</span></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#scN"><span class="hs-identifier hs-var">scN</span></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#scName"><span class="hs-identifier hs-var">scName</span></a><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#scSum"><span class="hs-identifier hs-var">scSum</span></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#scUnit"><span class="hs-identifier hs-var">scUnit</span></a><span>
+</span><a name="line-157"></a><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-comment">-- ** TimeRange</span><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#TimeRange"><span class="hs-identifier hs-type">TimeRange</span></a><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#timeRange"><span class="hs-identifier hs-var">timeRange</span></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#trFromInclusive"><span class="hs-identifier hs-var">trFromInclusive</span></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Shield.Types.Product.html#trToExclusive"><span class="hs-identifier hs-var">trToExclusive</span></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-164"></a><span>
+</span><a name="line-165"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.CreateProtection.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">CreateProtection</span></a><span>
+</span><a name="line-166"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.CreateSubscription.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">CreateSubscription</span></a><span>
+</span><a name="line-167"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.DeleteProtection.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteProtection</span></a><span>
+</span><a name="line-168"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.DeleteSubscription.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSubscription</span></a><span>
+</span><a name="line-169"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.DescribeAttack.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeAttack</span></a><span>
+</span><a name="line-170"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.DescribeProtection.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeProtection</span></a><span>
+</span><a name="line-171"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.DescribeSubscription.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSubscription</span></a><span>
+</span><a name="line-172"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.ListAttacks.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">ListAttacks</span></a><span>
+</span><a name="line-173"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.ListProtections.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">ListProtections</span></a><span>
+</span><a name="line-174"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-175"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Shield.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Shield</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-176"></a><span>
+</span><a name="line-177"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'Shield'.
+-}</span><span>
+</span><a name="line-183"></a><span>
+</span><a name="line-184"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-200"></a><span>
+</span><a name="line-201"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-206"></a></pre></body></html>
