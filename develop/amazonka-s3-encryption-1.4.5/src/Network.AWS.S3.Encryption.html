@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE OverloadedStrings #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# LANGUAGE TypeFamilies      #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-5"></a><span class="hs-comment">-- Module      : Network.AWS.S3.Encryption</span><span>
+</span><a name="line-6"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- Stability   : provisional</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-11"></a><span class="hs-comment">--</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Addons for &lt;http://hackage.haskell.org/package/amazonka-s3 amazonka-s3&gt; to</span><span>
+</span><a name="line-13"></a><span class="hs-comment">-- support client-side encryption.</span><span>
+</span><a name="line-14"></a><span class="hs-comment">--</span><span>
+</span><a name="line-15"></a><span class="hs-comment">-- Your client-side master keys and your unencrypted data are never sent to AWS;</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- therefore, it is important that you safely manage your encryption keys. If</span><span>
+</span><a name="line-17"></a><span class="hs-comment">-- you lose them, you won't be able to decrypt your data.</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- When generating a symmetric key, you should ensure</span><span>
+</span><a name="line-19"></a><span class="hs-comment">-- that the key length is compatible with the underlying 'AES256' cipher.</span><span>
+</span><a name="line-20"></a><span class="hs-comment">--</span><span>
+</span><a name="line-21"></a><span class="hs-comment">-- The encryption procedure is:</span><span>
+</span><a name="line-22"></a><span class="hs-comment">--</span><span>
+</span><a name="line-23"></a><span class="hs-comment">-- * A one-time-use symmetric key a.k.a. a data encryption key (or data key) and</span><span>
+</span><a name="line-24"></a><span class="hs-comment">-- initialisation vector (IV) are generated locally. This data key and IV are used</span><span>
+</span><a name="line-25"></a><span class="hs-comment">-- to encrypt the data of a single S3 object using an AES256 cipher in CBC mode,</span><span>
+</span><a name="line-26"></a><span class="hs-comment">-- with PKCS5 padding. (For each object sent, a completely separate data key and IV are generated.)</span><span>
+</span><a name="line-27"></a><span class="hs-comment">--</span><span>
+</span><a name="line-28"></a><span class="hs-comment">-- * The generated data encryption key used above is encrypted using a symmetric</span><span>
+</span><a name="line-29"></a><span class="hs-comment">-- AES256 cipher in ECB mode, asymmetric RSA, or KMS facilities, depending on the</span><span>
+</span><a name="line-30"></a><span class="hs-comment">-- client-side master key you provide.</span><span>
+</span><a name="line-31"></a><span class="hs-comment">--</span><span>
+</span><a name="line-32"></a><span class="hs-comment">-- * The encrypted data is uploaded and the encrypted data key and material description</span><span>
+</span><a name="line-33"></a><span class="hs-comment">-- are attached as object metadata (either headers or a separate instruction file).</span><span>
+</span><a name="line-34"></a><span class="hs-comment">-- If KMS is used, the material description helps determine which client-side master</span><span>
+</span><a name="line-35"></a><span class="hs-comment">-- key to later use for decryption, otherwise the configured client-side key at</span><span>
+</span><a name="line-36"></a><span class="hs-comment">-- time of decryption is used.</span><span>
+</span><a name="line-37"></a><span class="hs-comment">--</span><span>
+</span><a name="line-38"></a><span class="hs-comment">-- For decryption:</span><span>
+</span><a name="line-39"></a><span class="hs-comment">--</span><span>
+</span><a name="line-40"></a><span class="hs-comment">-- The encrypted object is downloaded from Amazon S3 along with any metadata.</span><span>
+</span><a name="line-41"></a><span class="hs-comment">-- If KMS was used to encrypt the data then the master key id is taken from the</span><span>
+</span><a name="line-42"></a><span class="hs-comment">-- metadata material description, otherwise the client-side master key in the</span><span>
+</span><a name="line-43"></a><span class="hs-comment">-- current environment is used to decrypt the data key, which in turn is used</span><span>
+</span><a name="line-44"></a><span class="hs-comment">-- to decrypt the object data.</span><span>
+</span><a name="line-45"></a><span class="hs-comment">--</span><span>
+</span><a name="line-46"></a><span class="hs-comment">-- The client-side master key you provide can be either a symmetric key, an</span><span>
+</span><a name="line-47"></a><span class="hs-comment">-- asymmetric public/private key pair, or a KMS master key.</span><span>
+</span><a name="line-48"></a><span class="hs-comment">--</span><span>
+</span><a name="line-49"></a><span class="hs-comment">-- The stored metadata format is designed to be compatible with the official Java</span><span>
+</span><a name="line-50"></a><span class="hs-comment">-- AWS SDK (both V1 and V2 envelopes), but only a limited set of the possible</span><span>
+</span><a name="line-51"></a><span class="hs-comment">-- encryption options are supported. Therefore assuming defaults, objects stored</span><span>
+</span><a name="line-52"></a><span class="hs-comment">-- with this library should be retrievable by any of the other official SDKs, and</span><span>
+</span><a name="line-53"></a><span class="hs-comment">-- vice versa.</span><span>
+</span><a name="line-54"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">S3</span><span class="hs-operator">.</span><span class="hs-identifier">Encryption</span><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- * Usage</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-comment">-- $usage</span><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- * Specifying Master Keys</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-comment">-- $master-key</span><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>      </span><a href="Network.AWS.S3.Encryption.Types.html#KeyEnv"><span class="hs-identifier hs-type">KeyEnv</span></a><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Key"><span class="hs-identifier hs-type">Key</span></a><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#kmsKey"><span class="hs-identifier hs-var">kmsKey</span></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#asymmetricKey"><span class="hs-identifier hs-var">asymmetricKey</span></a><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#symmetricKey"><span class="hs-identifier hs-var">symmetricKey</span></a><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#newSecret"><span class="hs-identifier hs-var">newSecret</span></a><span>
+</span><a name="line-68"></a><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#master"><span class="hs-identifier hs-var">master</span></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#material"><span class="hs-identifier hs-var">material</span></a><span>
+</span><a name="line-71"></a><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-comment">-- * Request Encryption/Decryption</span><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- $requests</span><span>
+</span><a name="line-74"></a><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#encrypt"><span class="hs-identifier hs-var">encrypt</span></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#decrypt"><span class="hs-identifier hs-var">decrypt</span></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#initiate"><span class="hs-identifier hs-var">initiate</span></a><span>
+</span><a name="line-78"></a><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- ** Instruction Files</span><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- $instructions</span><span>
+</span><a name="line-81"></a><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#encryptInstructions"><span class="hs-identifier hs-var">encryptInstructions</span></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#decryptInstructions"><span class="hs-identifier hs-var">decryptInstructions</span></a><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#initiateInstructions"><span class="hs-identifier hs-var">initiateInstructions</span></a><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.html#cleanupInstructions"><span class="hs-identifier hs-var">cleanupInstructions</span></a><span>
+</span><a name="line-86"></a><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-comment">-- *** Default Instruction Extension</span><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Ext"><span class="hs-identifier hs-type">Ext</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#defaultExtension"><span class="hs-identifier hs-var">defaultExtension</span></a><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- * Handling Errors</span><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-93"></a><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#EncryptionError"><span class="hs-identifier hs-type">EncryptionError</span></a><span>   </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#AsEncryptionError"><span class="hs-identifier hs-type">AsEncryptionError</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-99"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Catch</span><span>
+</span><a name="line-100"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Reader</span><span>
+</span><a name="line-101"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Monad</span><span class="hs-operator">.</span><span class="hs-identifier">Trans</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span>                </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">AWST</span><span>
+</span><a name="line-102"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Crypto</span><span class="hs-operator">.</span><span class="hs-identifier">PubKey</span><span class="hs-operator">.</span><span class="hs-identifier">RSA</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span><span>                </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">RSA</span><span>
+</span><a name="line-103"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Crypto</span><span class="hs-operator">.</span><span class="hs-identifier">Random</span><span>
+</span><a name="line-104"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">ByteString</span><span>                        </span><span class="hs-special">(</span><span class="hs-identifier hs-type">ByteString</span><span class="hs-special">)</span><span>
+</span><a name="line-105"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Text</span><span>                              </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Text</span><span class="hs-special">)</span><span>
+</span><a name="line-106"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">S3</span><span>
+</span><a name="line-107"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.S3.Encryption.Decrypt.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">S3</span><span class="hs-operator">.</span><span class="hs-identifier">Encryption</span><span class="hs-operator">.</span><span class="hs-identifier">Decrypt</span></a><span>
+</span><a name="line-108"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.S3.Encryption.Encrypt.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">S3</span><span class="hs-operator">.</span><span class="hs-identifier">Encryption</span><span class="hs-operator">.</span><span class="hs-identifier">Encrypt</span></a><span>
+</span><a name="line-109"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.S3.Encryption.Envelope.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">S3</span><span class="hs-operator">.</span><span class="hs-identifier">Encryption</span><span class="hs-operator">.</span><span class="hs-identifier">Envelope</span></a><span>
+</span><a name="line-110"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.S3.Encryption.Instructions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">S3</span><span class="hs-operator">.</span><span class="hs-identifier">Encryption</span><span class="hs-operator">.</span><span class="hs-identifier">Instructions</span></a><span>
+</span><a name="line-111"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.S3.Encryption.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">S3</span><span class="hs-operator">.</span><span class="hs-identifier">Encryption</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-112"></a><span>
+</span><a name="line-113"></a><span class="hs-comment">-- | Set (using 'local') the client-side master key used to encrypt/decrypt</span><span>
+</span><a name="line-114"></a><span class="hs-comment">-- a block of actions.</span><span>
+</span><a name="line-115"></a><span class="hs-identifier">master</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679201592"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201593"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201592"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Key"><span class="hs-identifier hs-type">Key</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201593"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679201594"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201593"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679201594"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-116"></a><a name="master"><a href="Network.AWS.S3.Encryption.html#master"><span class="hs-identifier">master</span></a></a><span> </span><a name="local-6989586621679201595"><a href="#local-6989586621679201595"><span class="hs-identifier">k</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">local</span><span> </span><span class="hs-special">(</span><a href="Network.AWS.S3.Encryption.Types.html#envKey"><span class="hs-identifier hs-var">envKey</span></a><span> </span><span class="hs-operator hs-var">.~</span><span> </span><a href="#local-6989586621679201595"><span class="hs-identifier hs-var">k</span></a><span class="hs-special">)</span><span>
+</span><a name="line-117"></a><span>
+</span><a name="line-118"></a><span class="hs-comment">-- | Set (using 'local') any additional material description to be used.</span><span>
+</span><a name="line-119"></a><span class="hs-comment">--</span><span>
+</span><a name="line-120"></a><span class="hs-comment">-- For encryption, this provides audit and logging information and is logged</span><span>
+</span><a name="line-121"></a><span class="hs-comment">-- by CloudTrail, if enabled.</span><span>
+</span><a name="line-122"></a><span class="hs-comment">--</span><span>
+</span><a name="line-123"></a><span class="hs-comment">-- For decryption when using KMS, this is merged with whatever material description</span><span>
+</span><a name="line-124"></a><span class="hs-comment">-- is stored on the envelope and supplied to KMS as a decryption context.</span><span>
+</span><a name="line-125"></a><span class="hs-identifier">material</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadReader</span><span> </span><a href="#local-6989586621679201589"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201590"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201589"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Description"><span class="hs-identifier hs-type">Description</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201590"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679201591"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201590"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="#local-6989586621679201591"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-126"></a><a name="material"><a href="Network.AWS.S3.Encryption.html#material"><span class="hs-identifier">material</span></a></a><span> </span><a name="local-6989586621679201596"><a href="#local-6989586621679201596"><span class="hs-identifier">d</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">local</span><span> </span><span class="hs-special">(</span><a href="Network.AWS.S3.Encryption.Types.html#envKey"><span class="hs-identifier hs-var">envKey</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#description"><span class="hs-identifier hs-var">description</span></a><span> </span><span class="hs-operator hs-var">.~</span><span> </span><a href="#local-6989586621679201596"><span class="hs-identifier hs-var">d</span></a><span class="hs-special">)</span><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span class="hs-comment">-- | Specify a KMS master key to use, with an initially empty material description.</span><span>
+</span><a name="line-129"></a><span class="hs-comment">--</span><span>
+</span><a name="line-130"></a><span class="hs-comment">-- /See:/ 'description', 'material'.</span><span>
+</span><a name="line-131"></a><span class="hs-identifier">kmsKey</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Text</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Key"><span class="hs-identifier hs-type">Key</span></a><span>
+</span><a name="line-132"></a><a name="kmsKey"><a href="Network.AWS.S3.Encryption.html#kmsKey"><span class="hs-identifier">kmsKey</span></a></a><span> </span><a name="local-6989586621679201597"><a href="#local-6989586621679201597"><span class="hs-identifier">k</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#KMS"><span class="hs-identifier hs-var">KMS</span></a><span> </span><a href="#local-6989586621679201597"><span class="hs-identifier hs-var">k</span></a><span> </span><span class="hs-identifier hs-var">mempty</span><span>
+</span><a name="line-133"></a><span>
+</span><a name="line-134"></a><span class="hs-comment">-- | Specify the asymmetric key used for RSA encryption.</span><span>
+</span><a name="line-135"></a><span class="hs-comment">--</span><span>
+</span><a name="line-136"></a><span class="hs-comment">-- /See:/ 'description', 'material'.</span><span>
+</span><a name="line-137"></a><span class="hs-identifier">asymmetricKey</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">PrivateKey</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Key"><span class="hs-identifier hs-type">Key</span></a><span>
+</span><a name="line-138"></a><a name="asymmetricKey"><a href="Network.AWS.S3.Encryption.html#asymmetricKey"><span class="hs-identifier">asymmetricKey</span></a></a><span> </span><a name="local-6989586621679201598"><a href="#local-6989586621679201598"><span class="hs-identifier">k</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Asymmetric"><span class="hs-identifier hs-var">Asymmetric</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">KeyPair</span><span> </span><a href="#local-6989586621679201598"><span class="hs-identifier hs-var">k</span></a><span class="hs-special">)</span><span> </span><span class="hs-identifier hs-var">mempty</span><span>
+</span><a name="line-139"></a><span>
+</span><a name="line-140"></a><span class="hs-comment">-- | Specify the shared secret to use for symmetric key encryption.</span><span>
+</span><a name="line-141"></a><span class="hs-comment">-- This must be compatible with the AES256 key size, 32 bytes.</span><span>
+</span><a name="line-142"></a><span class="hs-comment">--</span><span>
+</span><a name="line-143"></a><span class="hs-comment">-- Throws 'EncryptionError', specifically 'CipherFailure'.</span><span>
+</span><a name="line-144"></a><span class="hs-comment">--</span><span>
+</span><a name="line-145"></a><span class="hs-comment">-- /See:/ 'newSecret', 'description', 'material'.</span><span>
+</span><a name="line-146"></a><span class="hs-identifier">symmetricKey</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">MonadThrow</span><span> </span><a href="#local-6989586621679201588"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">ByteString</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201588"><span class="hs-identifier hs-type">m</span></a><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Key"><span class="hs-identifier hs-type">Key</span></a><span>
+</span><a name="line-147"></a><a name="symmetricKey"><a href="Network.AWS.S3.Encryption.html#symmetricKey"><span class="hs-identifier">symmetricKey</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">fmap</span><span> </span><span class="hs-special">(</span><span class="hs-special">`</span><a href="Network.AWS.S3.Encryption.Types.html#Symmetric"><span class="hs-identifier hs-var">Symmetric</span></a><span class="hs-special">`</span><span> </span><span class="hs-identifier hs-var">mempty</span><span class="hs-special">)</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><a href="Network.AWS.S3.Encryption.Envelope.html#createCipher"><span class="hs-identifier hs-var">createCipher</span></a><span>
+</span><a name="line-148"></a><span>
+</span><a name="line-149"></a><span class="hs-comment">-- | Generate a random shared secret that is of the correct length to use with</span><span>
+</span><a name="line-150"></a><span class="hs-comment">-- 'symmetricKey'. This will need to be stored securely to enable decryption</span><span>
+</span><a name="line-151"></a><span class="hs-comment">-- of any requests that are encrypted using this secret.</span><span>
+</span><a name="line-152"></a><span class="hs-identifier">newSecret</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">MonadThrow</span><span> </span><a href="#local-6989586621679201587"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">MonadRandom</span><span> </span><a href="#local-6989586621679201587"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679201587"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">ByteString</span><span>
+</span><a name="line-153"></a><a name="newSecret"><a href="Network.AWS.S3.Encryption.html#newSecret"><span class="hs-identifier">newSecret</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">getRandomBytes</span><span> </span><a href="Network.AWS.S3.Encryption.Envelope.html#aesKeySize"><span class="hs-identifier hs-var">aesKeySize</span></a><span>
+</span><a name="line-154"></a><span>
+</span><a name="line-155"></a><span class="hs-comment">-- | Encrypt an object, storing the encryption envelope in @x-amz-meta-*@</span><span>
+</span><a name="line-156"></a><span class="hs-comment">-- headers.</span><span>
+</span><a name="line-157"></a><span class="hs-comment">--</span><span>
+</span><a name="line-158"></a><span class="hs-comment">-- Throws 'EncryptionError', 'AWST.Error'.</span><span>
+</span><a name="line-159"></a><span class="hs-identifier">encrypt</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSConstraint</span><span> </span><a href="#local-6989586621679201585"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201586"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201585"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-160"></a><span>        </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">PutObject</span><span>
+</span><a name="line-161"></a><span>        </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201586"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">PutObjectResponse</span><span>
+</span><a name="line-162"></a><a name="encrypt"><a href="Network.AWS.S3.Encryption.html#encrypt"><span class="hs-identifier">encrypt</span></a></a><span> </span><a name="local-6989586621679201599"><a href="#local-6989586621679201599"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">(</span><a name="local-6989586621679201600"><a href="#local-6989586621679201600"><span class="hs-identifier">a</span></a></a><span class="hs-special">,</span><span> </span><span class="hs-identifier">_</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#encrypted"><span class="hs-identifier hs-var">encrypted</span></a><span> </span><a href="#local-6989586621679201599"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-identifier hs-var">send</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">set</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#location"><span class="hs-identifier hs-var">location</span></a><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Metadata"><span class="hs-identifier hs-var">Metadata</span></a><span> </span><a href="#local-6989586621679201600"><span class="hs-identifier hs-var">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-165"></a><span>
+</span><a name="line-166"></a><span class="hs-comment">-- | Encrypt an object, storing the encryption envelope in an adjacent instruction</span><span>
+</span><a name="line-167"></a><span class="hs-comment">-- file with the same 'ObjectKey' and 'defaultExtension'.</span><span>
+</span><a name="line-168"></a><span class="hs-comment">-- This makes two HTTP requests, storing the instruction file first and upon success,</span><span>
+</span><a name="line-169"></a><span class="hs-comment">-- storing the actual object.</span><span>
+</span><a name="line-170"></a><span class="hs-comment">--</span><span>
+</span><a name="line-171"></a><span class="hs-comment">-- Throws 'EncryptionError', 'AWST.Error'.</span><span>
+</span><a name="line-172"></a><span class="hs-identifier">encryptInstructions</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSConstraint</span><span> </span><a href="#local-6989586621679201583"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201584"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201583"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-173"></a><span>                    </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">PutObject</span><span>
+</span><a name="line-174"></a><span>                    </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201584"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">PutObjectResponse</span><span>
+</span><a name="line-175"></a><a name="encryptInstructions"><a href="Network.AWS.S3.Encryption.html#encryptInstructions"><span class="hs-identifier">encryptInstructions</span></a></a><span> </span><a name="local-6989586621679201601"><a href="#local-6989586621679201601"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">(</span><a name="local-6989586621679201602"><a href="#local-6989586621679201602"><span class="hs-identifier">a</span></a></a><span class="hs-special">,</span><span> </span><a name="local-6989586621679201603"><a href="#local-6989586621679201603"><span class="hs-identifier">b</span></a></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#encrypted"><span class="hs-identifier hs-var">encrypted</span></a><span> </span><a href="#local-6989586621679201601"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-identifier">_</span><span>      </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201603"><span class="hs-identifier hs-var">b</span></a><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201602"><span class="hs-identifier hs-var">a</span></a><span>
+</span><a name="line-179"></a><span>
+</span><a name="line-180"></a><span class="hs-comment">-- | Initiate an encrypted multipart upload, storing the encryption envelope</span><span>
+</span><a name="line-181"></a><span class="hs-comment">-- in the @x-amz-meta-*@ headers.</span><span>
+</span><a name="line-182"></a><span class="hs-comment">--</span><span>
+</span><a name="line-183"></a><span class="hs-comment">-- The returned 'UploadPart' @-&gt;@ 'Encrypted' 'UploadPart' function is used to encrypt</span><span>
+</span><a name="line-184"></a><span class="hs-comment">-- each part of the object. The same caveats for multipart upload apply, it is</span><span>
+</span><a name="line-185"></a><span class="hs-comment">-- assumed that each part is uploaded in order and each part needs to be</span><span>
+</span><a name="line-186"></a><span class="hs-comment">-- individually encrypted.</span><span>
+</span><a name="line-187"></a><span class="hs-comment">--</span><span>
+</span><a name="line-188"></a><span class="hs-comment">-- For example:</span><span>
+</span><a name="line-189"></a><span class="hs-comment">--</span><span>
+</span><a name="line-190"></a><span class="hs-comment">-- @</span><span>
+</span><a name="line-191"></a><span class="hs-comment">-- (a', f) &lt;- initiate (a :: CreateMultipartUpload)</span><span>
+</span><a name="line-192"></a><span class="hs-comment">-- b'      &lt;- send (f b :: Encrypted UploadPart)</span><span>
+</span><a name="line-193"></a><span class="hs-comment">-- @</span><span>
+</span><a name="line-194"></a><span class="hs-comment">--</span><span>
+</span><a name="line-195"></a><span class="hs-comment">-- Throws 'EncryptionError', 'AWST.Error'.</span><span>
+</span><a name="line-196"></a><span class="hs-identifier">initiate</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSConstraint</span><span> </span><a href="#local-6989586621679201581"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201582"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201581"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-197"></a><span>         </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">CreateMultipartUpload</span><span>
+</span><a name="line-198"></a><span>         </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201582"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-special">(</span><span> </span><span class="hs-identifier hs-type">CreateMultipartUploadResponse</span><span>
+</span><a name="line-199"></a><span>              </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">UploadPart</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#Encrypted"><span class="hs-identifier hs-type">Encrypted</span></a><span> </span><span class="hs-identifier hs-type">UploadPart</span><span>
+</span><a name="line-200"></a><span>              </span><span class="hs-special">)</span><span>
+</span><a name="line-201"></a><a name="initiate"><a href="Network.AWS.S3.Encryption.html#initiate"><span class="hs-identifier">initiate</span></a></a><span> </span><a name="local-6989586621679201604"><a href="#local-6989586621679201604"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">(</span><a name="local-6989586621679201605"><a href="#local-6989586621679201605"><span class="hs-identifier">a</span></a></a><span class="hs-special">,</span><span> </span><span class="hs-identifier">_</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#encrypted"><span class="hs-identifier hs-var">encrypted</span></a><span> </span><a href="#local-6989586621679201604"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-203"></a><span>    </span><a name="local-6989586621679201606"><a href="#local-6989586621679201606"><span class="hs-identifier">rs</span></a></a><span>     </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">set</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#location"><span class="hs-identifier hs-var">location</span></a><span> </span><a href="Network.AWS.S3.Encryption.Types.html#Metadata"><span class="hs-identifier hs-var">Metadata</span></a><span> </span><a href="#local-6989586621679201605"><span class="hs-identifier hs-var">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-identifier hs-var">return</span><span> </span><span class="hs-special">(</span><a href="#local-6989586621679201606"><span class="hs-identifier hs-var">rs</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#encryptPart"><span class="hs-identifier hs-var">encryptPart</span></a><span> </span><a href="#local-6989586621679201605"><span class="hs-identifier hs-var">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-205"></a><span>
+</span><a name="line-206"></a><span class="hs-comment">-- | Initiate an encrypted multipart upload, storing the encryption envelope</span><span>
+</span><a name="line-207"></a><span class="hs-comment">-- in an adjacent instruction file with the same 'ObjectKey' and 'defaultExtension'.</span><span>
+</span><a name="line-208"></a><span class="hs-comment">--</span><span>
+</span><a name="line-209"></a><span class="hs-comment">-- The returned 'UploadPart' @-&gt;@ 'Encrypted' 'UploadPart' function is used to encrypt</span><span>
+</span><a name="line-210"></a><span class="hs-comment">-- each part of the object. The same caveats for multipart upload apply, it is</span><span>
+</span><a name="line-211"></a><span class="hs-comment">-- assumed that each part is uploaded in order and each part needs to be</span><span>
+</span><a name="line-212"></a><span class="hs-comment">-- individually encrypted.</span><span>
+</span><a name="line-213"></a><span class="hs-comment">--</span><span>
+</span><a name="line-214"></a><span class="hs-comment">-- Throws 'EncryptionError', 'AWST.Error'.</span><span>
+</span><a name="line-215"></a><span class="hs-identifier">initiateInstructions</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSConstraint</span><span> </span><a href="#local-6989586621679201579"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201580"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201579"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-216"></a><span>                     </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">CreateMultipartUpload</span><span>
+</span><a name="line-217"></a><span>                     </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201580"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-special">(</span><span> </span><span class="hs-identifier hs-type">CreateMultipartUploadResponse</span><span>
+</span><a name="line-218"></a><span>                          </span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">UploadPart</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#Encrypted"><span class="hs-identifier hs-type">Encrypted</span></a><span> </span><span class="hs-identifier hs-type">UploadPart</span><span>
+</span><a name="line-219"></a><span>                          </span><span class="hs-special">)</span><span>
+</span><a name="line-220"></a><a name="initiateInstructions"><a href="Network.AWS.S3.Encryption.html#initiateInstructions"><span class="hs-identifier">initiateInstructions</span></a></a><span> </span><a name="local-6989586621679201607"><a href="#local-6989586621679201607"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-special">(</span><a name="local-6989586621679201608"><a href="#local-6989586621679201608"><span class="hs-identifier">a</span></a></a><span class="hs-special">,</span><span> </span><a name="local-6989586621679201609"><a href="#local-6989586621679201609"><span class="hs-identifier">b</span></a></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#encrypted"><span class="hs-identifier hs-var">encrypted</span></a><span> </span><a href="#local-6989586621679201607"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-222"></a><span>    </span><a name="local-6989586621679201610"><a href="#local-6989586621679201610"><span class="hs-identifier">rs</span></a></a><span>     </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201608"><span class="hs-identifier hs-var">a</span></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-identifier">_</span><span>      </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201609"><span class="hs-identifier hs-var">b</span></a><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-identifier hs-var">return</span><span> </span><span class="hs-special">(</span><a href="#local-6989586621679201610"><span class="hs-identifier hs-var">rs</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Encrypt.html#encryptPart"><span class="hs-identifier hs-var">encryptPart</span></a><span> </span><a href="#local-6989586621679201608"><span class="hs-identifier hs-var">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-225"></a><span>
+</span><a name="line-226"></a><span class="hs-comment">-- | Retrieve an object, parsing the envelope from any @x-amz-meta-*@ headers</span><span>
+</span><a name="line-227"></a><span class="hs-comment">-- and decrypting the response body.</span><span>
+</span><a name="line-228"></a><span class="hs-comment">--</span><span>
+</span><a name="line-229"></a><span class="hs-comment">-- Throws 'EncryptionError', 'AWST.Error'.</span><span>
+</span><a name="line-230"></a><span class="hs-identifier">decrypt</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSConstraint</span><span> </span><a href="#local-6989586621679201577"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201578"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201577"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-231"></a><span>        </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">GetObject</span><span>
+</span><a name="line-232"></a><span>        </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201578"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">GetObjectResponse</span><span>
+</span><a name="line-233"></a><a name="decrypt"><a href="Network.AWS.S3.Encryption.html#decrypt"><span class="hs-identifier">decrypt</span></a></a><span> </span><a name="local-6989586621679201611"><a href="#local-6989586621679201611"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-keyword">let</span><span> </span><span class="hs-special">(</span><a name="local-6989586621679201612"><a href="#local-6989586621679201612"><span class="hs-identifier">a</span></a></a><span class="hs-special">,</span><span> </span><span class="hs-identifier">_</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><a href="Network.AWS.S3.Encryption.Decrypt.html#decrypted"><span class="hs-identifier hs-var">decrypted</span></a><span> </span><a href="#local-6989586621679201611"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-235"></a><span>    </span><a href="Network.AWS.S3.Encryption.Decrypt.html#Decrypted"><span class="hs-identifier hs-var">Decrypted</span></a><span> </span><a name="local-6989586621679201613"><a href="#local-6989586621679201613"><span class="hs-identifier">f</span></a></a><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201612"><span class="hs-identifier hs-var">a</span></a><span>
+</span><a name="line-236"></a><span>    </span><a href="#local-6989586621679201613"><span class="hs-identifier hs-var">f</span></a><span> </span><span class="hs-identifier hs-var">Nothing</span><span>
+</span><a name="line-237"></a><span>
+</span><a name="line-238"></a><span class="hs-comment">-- | Retrieve an object and its adjacent instruction file. The instruction</span><span>
+</span><a name="line-239"></a><span class="hs-comment">-- are retrieved and parsed first.</span><span>
+</span><a name="line-240"></a><span class="hs-comment">-- Performs two HTTP requests.</span><span>
+</span><a name="line-241"></a><span class="hs-comment">--</span><span>
+</span><a name="line-242"></a><span class="hs-comment">-- Throws 'EncryptionError', 'AWST.Error'.</span><span>
+</span><a name="line-243"></a><span class="hs-identifier">decryptInstructions</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSConstraint</span><span> </span><a href="#local-6989586621679201575"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201576"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Types.html#HasKeyEnv"><span class="hs-identifier hs-type">HasKeyEnv</span></a><span> </span><a href="#local-6989586621679201575"><span class="hs-identifier hs-type">r</span></a><span class="hs-special">)</span><span>
+</span><a name="line-244"></a><span>                    </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier hs-type">GetObject</span><span>
+</span><a name="line-245"></a><span>                    </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201576"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-identifier hs-type">GetObjectResponse</span><span>
+</span><a name="line-246"></a><a name="decryptInstructions"><a href="Network.AWS.S3.Encryption.html#decryptInstructions"><span class="hs-identifier">decryptInstructions</span></a></a><span> </span><a name="local-6989586621679201614"><a href="#local-6989586621679201614"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-keyword">let</span><span> </span><span class="hs-special">(</span><a name="local-6989586621679201615"><a href="#local-6989586621679201615"><span class="hs-identifier">a</span></a></a><span class="hs-special">,</span><span> </span><a name="local-6989586621679201616"><a href="#local-6989586621679201616"><span class="hs-identifier">b</span></a></a><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><a href="Network.AWS.S3.Encryption.Decrypt.html#decrypted"><span class="hs-identifier hs-var">decrypted</span></a><span> </span><a href="#local-6989586621679201614"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-248"></a><span>    </span><a href="Network.AWS.S3.Encryption.Instructions.html#Instructions"><span class="hs-identifier hs-var">Instructions</span></a><span> </span><a name="local-6989586621679201617"><a href="#local-6989586621679201617"><span class="hs-identifier">g</span></a></a><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201616"><span class="hs-identifier hs-var">b</span></a><span>
+</span><a name="line-249"></a><span>    </span><a href="Network.AWS.S3.Encryption.Decrypt.html#Decrypted"><span class="hs-identifier hs-var">Decrypted</span></a><span>    </span><a name="local-6989586621679201618"><a href="#local-6989586621679201618"><span class="hs-identifier">f</span></a></a><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201615"><span class="hs-identifier hs-var">a</span></a><span>
+</span><a name="line-250"></a><span>    </span><a href="#local-6989586621679201617"><span class="hs-identifier hs-var">g</span></a><span> </span><span class="hs-operator hs-var">&gt;&gt;=</span><span> </span><a href="#local-6989586621679201618"><span class="hs-identifier hs-var">f</span></a><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">Just</span><span>
+</span><a name="line-251"></a><span>
+</span><a name="line-252"></a><span class="hs-comment">-- | Given a request to execute, such as 'AbortMultipartUpload' or 'DeleteObject',</span><span>
+</span><a name="line-253"></a><span class="hs-comment">-- remove the adjacent instruction file, if it exists with the 'defaultExtension'.</span><span>
+</span><a name="line-254"></a><span class="hs-comment">-- Performs two HTTP requests.</span><span>
+</span><a name="line-255"></a><span class="hs-comment">--</span><span>
+</span><a name="line-256"></a><span class="hs-comment">-- Throws 'EncryptionError', 'AWST.Error'.</span><span>
+</span><a name="line-257"></a><span class="hs-identifier">cleanupInstructions</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">AWSConstraint</span><span> </span><a href="#local-6989586621679201572"><span class="hs-identifier hs-type">r</span></a><span> </span><a href="#local-6989586621679201573"><span class="hs-identifier hs-type">m</span></a><span class="hs-special">,</span><span> </span><a href="Network.AWS.S3.Encryption.Instructions.html#RemoveInstructions"><span class="hs-identifier hs-type">RemoveInstructions</span></a><span> </span><a href="#local-6989586621679201574"><span class="hs-identifier hs-type">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-258"></a><span>                    </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679201574"><span class="hs-identifier hs-type">a</span></a><span>
+</span><a name="line-259"></a><span>                    </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679201573"><span class="hs-identifier hs-type">m</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Rs</span><span> </span><a href="#local-6989586621679201574"><span class="hs-identifier hs-type">a</span></a><span class="hs-special">)</span><span>
+</span><a name="line-260"></a><a name="cleanupInstructions"><a href="Network.AWS.S3.Encryption.html#cleanupInstructions"><span class="hs-identifier">cleanupInstructions</span></a></a><span> </span><a name="local-6989586621679201619"><a href="#local-6989586621679201619"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><a name="line-261"></a><span>    </span><a name="local-6989586621679201620"><a href="#local-6989586621679201620"><span class="hs-identifier">rs</span></a></a><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><a href="#local-6989586621679201619"><span class="hs-identifier hs-var">x</span></a><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-identifier">_</span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-identifier hs-var">send</span><span> </span><span class="hs-special">(</span><a href="Network.AWS.S3.Encryption.Instructions.html#deleteInstructions"><span class="hs-identifier hs-var">deleteInstructions</span></a><span> </span><a href="#local-6989586621679201619"><span class="hs-identifier hs-var">x</span></a><span class="hs-special">)</span><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-identifier hs-var">return</span><span> </span><a href="#local-6989586621679201620"><span class="hs-identifier hs-var">rs</span></a><span>
+</span><a name="line-264"></a><span>
+</span><a name="line-265"></a><span class="hs-comment">{- $usage
+When sending requests that make use of a master key, an extension to the underlying
+'AWS' environment is required. You can specify this environment as follows:
+
+@
+import Network.AWS
+import Network.AWS.S3
+import Network.AWS.S3.Encryption
+import System.IO
+
+example :: Key -&gt; IO GetObjectResponse
+example k = do
+    -- A standard AWS environment with credentials is created using 'newEnv':
+    e &lt;- newEnv Frankfurt Discover
+
+    -- The environment needed for encryption is then extended using a 'Key':
+    runAWS (KeyEnv e (kmsKey &quot;alias/master-key&quot;)) $ do
+        -- To store an encrypted object, 'encrypt' is used inplace of where you would
+        -- typically use 'AWST.send':
+        _  &lt;- encrypt (putObject &quot;bucket-name&quot; &quot;object-key&quot; body)
+
+        -- To retrieve a previously encrypted object, 'decrypt' is used, again similarly to
+        -- how you'd use 'AWST.send':
+        rs &lt;- decrypt (getObject &quot;bucket-name&quot; &quot;object-key&quot;)
+
+        -- The 'GetObjectResponse' here contains a 'gorsBody' that is decrypted during read:
+        return rs
+@
+-}</span><span>
+</span><a name="line-294"></a><span>
+</span><a name="line-295"></a><span class="hs-comment">{- $master-key
+You master key should be stored and secured by you alone (or KMS). The specific
+key that is used to encrypt an object is required to decrypt the same object.
+If you lose this key, you will not be able to decrypt the related objects.
+-}</span><span>
+</span><a name="line-300"></a><span>
+</span><a name="line-301"></a><span class="hs-comment">{- $errors
+Errors are thrown by the library using 'MonadThrow' and will consist of one of
+the branches from 'EncryptionError' for anything crypto related, or a disparate
+'AWST.Error' anything related to the underlying 'AWS' service calls.
+
+You can catch errors and sub-errors via 'trying' etc. from &quot;Control.Exception.Lens&quot;,
+and the appropriate 'AsEncryptionError' 'Prism':
+
+@
+trying '_EncryptionError' (encrypt (putObject &quot;bkt&quot; &quot;key&quot;)) :: Either 'EncryptionError' PutObjectResponse
+@
+-}</span><span>
+</span><a name="line-313"></a><span>
+</span><a name="line-314"></a><span class="hs-comment">{- $requests
+Only a small number of S3 operations actually utilise encryption/decryption
+behaviour, namely 'PutObject', 'GetObject', and the related multipart upload
+operations. The following functions store the encryption envelope in object
+metadata (headers).
+-}</span><span>
+</span><a name="line-320"></a><span>
+</span><a name="line-321"></a><span class="hs-comment">{- $instructions
+An alternative method of storing the encryption envelope in an adjacent S3
+object is provided for the case when metadata headers are reserved for other
+data. This method removes the metadata overhead at the expense of an additional
+HTTP request to perform encryption/decryption.
+The provided @*Instruction@ functions make the convenient assumption that
+the 'defaultExtension' is desired. If you wish to override the suffix\/extension,
+you can simply call the underlying plumbing to modify the
+'PutInstructions' or 'GetInstructions' suffix before sending.
+
+An example of encryption with a non-default instruction extension:
+
+@
+(a, b) &lt;- 'encrypted' (x :: 'PutObject')
+_      &lt;- 'AWST.send' (b &amp; 'piExtension' .~ &quot;.envelope&quot;) -- Store the custom instruction file.
+'AWST.send' a -- Store the actual encrypted object.
+@
+-}</span><span>
+</span><a name="line-339"></a></pre></body></html>
