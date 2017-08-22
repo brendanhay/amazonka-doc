@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.CodeBuild</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __AWS CodeBuild__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- AWS CodeBuild is a fully managed build service in the cloud. AWS CodeBuild compiles your source code, runs unit tests, and produces artifacts that are ready to deploy. AWS CodeBuild eliminates the need to provision, manage, and scale your own build servers. It provides prepackaged build environments for the most popular programming languages and build tools, such as Apach Maven, Gradle, and more. You can also fully customize build environments in AWS CodeBuild to use your own build tools. AWS CodeBuild scales automatically to meet peak build requests, and you pay only for the build time you consume. For more information about AWS CodeBuild, see the /AWS CodeBuild User Guide/ .</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- AWS CodeBuild supports these operations:</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--</span><span>
+</span><a name="line-20"></a><span class="hs-comment">--     * @BatchGetProjects@ : Gets information about one or more build projects. A /build project/ defines how AWS CodeBuild will run a build. This includes information such as where to get the source code to build, the build environment to use, the build commands to run, and where to store the build output. A /build environment/ represents a combination of operating system, programming language runtime, and tools that AWS CodeBuild will use to run a build. Also, you can add tags to build projects to help manage your resources and costs.</span><span>
+</span><a name="line-21"></a><span class="hs-comment">--</span><span>
+</span><a name="line-22"></a><span class="hs-comment">--     * @CreateProject@ : Creates a build project.</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--</span><span>
+</span><a name="line-24"></a><span class="hs-comment">--     * @DeleteProject@ : Deletes a build project.</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--     * @ListProjects@ : Gets a list of build project names, with each build project name representing a single build project.</span><span>
+</span><a name="line-27"></a><span class="hs-comment">--</span><span>
+</span><a name="line-28"></a><span class="hs-comment">--     * @UpdateProject@ : Changes the settings of an existing build project.</span><span>
+</span><a name="line-29"></a><span class="hs-comment">--</span><span>
+</span><a name="line-30"></a><span class="hs-comment">--     * @BatchGetBuilds@ : Gets information about one or more builds.</span><span>
+</span><a name="line-31"></a><span class="hs-comment">--</span><span>
+</span><a name="line-32"></a><span class="hs-comment">--     * @ListBuilds@ : Gets a list of build IDs, with each build ID representing a single build.</span><span>
+</span><a name="line-33"></a><span class="hs-comment">--</span><span>
+</span><a name="line-34"></a><span class="hs-comment">--     * @ListBuildsForProject@ : Gets a list of build IDs for the specified build project, with each build ID representing a single build.</span><span>
+</span><a name="line-35"></a><span class="hs-comment">--</span><span>
+</span><a name="line-36"></a><span class="hs-comment">--     * @StartBuild@ : Starts running a build.</span><span>
+</span><a name="line-37"></a><span class="hs-comment">--</span><span>
+</span><a name="line-38"></a><span class="hs-comment">--     * @StopBuild@ : Attempts to stop running a build.</span><span>
+</span><a name="line-39"></a><span class="hs-comment">--</span><span>
+</span><a name="line-40"></a><span class="hs-comment">--     * @ListCuratedEnvironmentImages@ : Gets information about Docker images that are managed by AWS CodeBuild.</span><span>
+</span><a name="line-41"></a><span class="hs-comment">--</span><span>
+</span><a name="line-42"></a><span class="hs-comment">--</span><span>
+</span><a name="line-43"></a><span class="hs-comment">--</span><span>
+</span><a name="line-44"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-46"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-47"></a><span>      </span><a href="Network.AWS.CodeBuild.Types.html#codeBuild"><span class="hs-identifier hs-var">codeBuild</span></a><span>
+</span><a name="line-48"></a><span>
+</span><a name="line-49"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-51"></a><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-comment">-- ** ResourceAlreadyExistsException</span><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.html#_ResourceAlreadyExistsException"><span class="hs-identifier hs-var">_ResourceAlreadyExistsException</span></a><span>
+</span><a name="line-54"></a><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-comment">-- ** AccountLimitExceededException</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.html#_AccountLimitExceededException"><span class="hs-identifier hs-var">_AccountLimitExceededException</span></a><span>
+</span><a name="line-57"></a><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-comment">-- ** InvalidInputException</span><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.html#_InvalidInputException"><span class="hs-identifier hs-var">_InvalidInputException</span></a><span>
+</span><a name="line-60"></a><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-63"></a><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-66"></a><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-69"></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-comment">-- ** ListProjects</span><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListProjects</span><span>
+</span><a name="line-72"></a><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- ** DeleteProject</span><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteProject</span><span>
+</span><a name="line-75"></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-comment">-- ** UpdateProject</span><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateProject</span><span>
+</span><a name="line-78"></a><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- ** ListBuilds</span><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListBuilds</span><span>
+</span><a name="line-81"></a><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-comment">-- ** StartBuild</span><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">StartBuild</span><span>
+</span><a name="line-84"></a><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-comment">-- ** ListBuildsForProject</span><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListBuildsForProject</span><span>
+</span><a name="line-87"></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-comment">-- ** BatchGetProjects</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">BatchGetProjects</span><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- ** BatchGetBuilds</span><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">BatchGetBuilds</span><span>
+</span><a name="line-93"></a><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-comment">-- ** ListCuratedEnvironmentImages</span><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListCuratedEnvironmentImages</span><span>
+</span><a name="line-96"></a><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-comment">-- ** StopBuild</span><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">StopBuild</span><span>
+</span><a name="line-99"></a><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-comment">-- ** CreateProject</span><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">CreateProject</span><span>
+</span><a name="line-102"></a><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-104"></a><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-comment">-- ** ArtifactNamespace</span><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#ArtifactNamespace"><span class="hs-identifier hs-type">ArtifactNamespace</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-107"></a><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-comment">-- ** ArtifactPackaging</span><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#ArtifactPackaging"><span class="hs-identifier hs-type">ArtifactPackaging</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-110"></a><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-comment">-- ** ArtifactsType</span><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#ArtifactsType"><span class="hs-identifier hs-type">ArtifactsType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-113"></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-comment">-- ** BuildPhaseType</span><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#BuildPhaseType"><span class="hs-identifier hs-type">BuildPhaseType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-116"></a><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-comment">-- ** ComputeType</span><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#ComputeType"><span class="hs-identifier hs-type">ComputeType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-119"></a><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-comment">-- ** EnvironmentType</span><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#EnvironmentType"><span class="hs-identifier hs-type">EnvironmentType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-122"></a><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-comment">-- ** LanguageType</span><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#LanguageType"><span class="hs-identifier hs-type">LanguageType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-125"></a><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-comment">-- ** PlatformType</span><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#PlatformType"><span class="hs-identifier hs-type">PlatformType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-128"></a><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-comment">-- ** ProjectSortByType</span><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#ProjectSortByType"><span class="hs-identifier hs-type">ProjectSortByType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-131"></a><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-comment">-- ** SortOrderType</span><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#SortOrderType"><span class="hs-identifier hs-type">SortOrderType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-134"></a><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-comment">-- ** SourceAuthType</span><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#SourceAuthType"><span class="hs-identifier hs-type">SourceAuthType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-137"></a><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-comment">-- ** SourceType</span><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#SourceType"><span class="hs-identifier hs-type">SourceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-140"></a><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-comment">-- ** StatusType</span><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Sum.html#StatusType"><span class="hs-identifier hs-type">StatusType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-143"></a><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-comment">-- ** Build</span><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#Build"><span class="hs-identifier hs-type">Build</span></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#build"><span class="hs-identifier hs-var">build</span></a><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bPhases"><span class="hs-identifier hs-var">bPhases</span></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bBuildComplete"><span class="hs-identifier hs-var">bBuildComplete</span></a><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bArn"><span class="hs-identifier hs-var">bArn</span></a><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bStartTime"><span class="hs-identifier hs-var">bStartTime</span></a><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bArtifacts"><span class="hs-identifier hs-var">bArtifacts</span></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bEnvironment"><span class="hs-identifier hs-var">bEnvironment</span></a><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bInitiator"><span class="hs-identifier hs-var">bInitiator</span></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bCurrentPhase"><span class="hs-identifier hs-var">bCurrentPhase</span></a><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bSourceVersion"><span class="hs-identifier hs-var">bSourceVersion</span></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bLogs"><span class="hs-identifier hs-var">bLogs</span></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bEndTime"><span class="hs-identifier hs-var">bEndTime</span></a><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bProjectName"><span class="hs-identifier hs-var">bProjectName</span></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bBuildStatus"><span class="hs-identifier hs-var">bBuildStatus</span></a><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bSource"><span class="hs-identifier hs-var">bSource</span></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bId"><span class="hs-identifier hs-var">bId</span></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bTimeoutInMinutes"><span class="hs-identifier hs-var">bTimeoutInMinutes</span></a><span>
+</span><a name="line-163"></a><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-comment">-- ** BuildArtifacts</span><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#BuildArtifacts"><span class="hs-identifier hs-type">BuildArtifacts</span></a><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#buildArtifacts"><span class="hs-identifier hs-var">buildArtifacts</span></a><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#baLocation"><span class="hs-identifier hs-var">baLocation</span></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#baMd5sum"><span class="hs-identifier hs-var">baMd5sum</span></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#baSha256sum"><span class="hs-identifier hs-var">baSha256sum</span></a><span>
+</span><a name="line-170"></a><span>
+</span><a name="line-171"></a><span>    </span><span class="hs-comment">-- ** BuildPhase</span><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#BuildPhase"><span class="hs-identifier hs-type">BuildPhase</span></a><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#buildPhase"><span class="hs-identifier hs-var">buildPhase</span></a><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bpContexts"><span class="hs-identifier hs-var">bpContexts</span></a><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bpStartTime"><span class="hs-identifier hs-var">bpStartTime</span></a><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bpPhaseStatus"><span class="hs-identifier hs-var">bpPhaseStatus</span></a><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bpPhaseType"><span class="hs-identifier hs-var">bpPhaseType</span></a><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bpEndTime"><span class="hs-identifier hs-var">bpEndTime</span></a><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#bpDurationInSeconds"><span class="hs-identifier hs-var">bpDurationInSeconds</span></a><span>
+</span><a name="line-180"></a><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-comment">-- ** EnvironmentImage</span><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#EnvironmentImage"><span class="hs-identifier hs-type">EnvironmentImage</span></a><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#environmentImage"><span class="hs-identifier hs-var">environmentImage</span></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#eiName"><span class="hs-identifier hs-var">eiName</span></a><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#eiDescription"><span class="hs-identifier hs-var">eiDescription</span></a><span>
+</span><a name="line-186"></a><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-comment">-- ** EnvironmentLanguage</span><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#EnvironmentLanguage"><span class="hs-identifier hs-type">EnvironmentLanguage</span></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#environmentLanguage"><span class="hs-identifier hs-var">environmentLanguage</span></a><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#elImages"><span class="hs-identifier hs-var">elImages</span></a><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#elLanguage"><span class="hs-identifier hs-var">elLanguage</span></a><span>
+</span><a name="line-192"></a><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-comment">-- ** EnvironmentPlatform</span><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#EnvironmentPlatform"><span class="hs-identifier hs-type">EnvironmentPlatform</span></a><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#environmentPlatform"><span class="hs-identifier hs-var">environmentPlatform</span></a><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#epPlatform"><span class="hs-identifier hs-var">epPlatform</span></a><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#epLanguages"><span class="hs-identifier hs-var">epLanguages</span></a><span>
+</span><a name="line-198"></a><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-comment">-- ** EnvironmentVariable</span><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#EnvironmentVariable"><span class="hs-identifier hs-type">EnvironmentVariable</span></a><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#environmentVariable"><span class="hs-identifier hs-var">environmentVariable</span></a><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#evName"><span class="hs-identifier hs-var">evName</span></a><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#evValue"><span class="hs-identifier hs-var">evValue</span></a><span>
+</span><a name="line-204"></a><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-comment">-- ** LogsLocation</span><span>
+</span><a name="line-206"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#LogsLocation"><span class="hs-identifier hs-type">LogsLocation</span></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#logsLocation"><span class="hs-identifier hs-var">logsLocation</span></a><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#llDeepLink"><span class="hs-identifier hs-var">llDeepLink</span></a><span>
+</span><a name="line-209"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#llGroupName"><span class="hs-identifier hs-var">llGroupName</span></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#llStreamName"><span class="hs-identifier hs-var">llStreamName</span></a><span>
+</span><a name="line-211"></a><span>
+</span><a name="line-212"></a><span>    </span><span class="hs-comment">-- ** PhaseContext</span><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#PhaseContext"><span class="hs-identifier hs-type">PhaseContext</span></a><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#phaseContext"><span class="hs-identifier hs-var">phaseContext</span></a><span>
+</span><a name="line-215"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pcMessage"><span class="hs-identifier hs-var">pcMessage</span></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pcStatusCode"><span class="hs-identifier hs-var">pcStatusCode</span></a><span>
+</span><a name="line-217"></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-comment">-- ** Project</span><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#Project"><span class="hs-identifier hs-type">Project</span></a><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#project"><span class="hs-identifier hs-var">project</span></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pArn"><span class="hs-identifier hs-var">pArn</span></a><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pArtifacts"><span class="hs-identifier hs-var">pArtifacts</span></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pEnvironment"><span class="hs-identifier hs-var">pEnvironment</span></a><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pCreated"><span class="hs-identifier hs-var">pCreated</span></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pName"><span class="hs-identifier hs-var">pName</span></a><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pSource"><span class="hs-identifier hs-var">pSource</span></a><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pEncryptionKey"><span class="hs-identifier hs-var">pEncryptionKey</span></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pLastModified"><span class="hs-identifier hs-var">pLastModified</span></a><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pDescription"><span class="hs-identifier hs-var">pDescription</span></a><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pServiceRole"><span class="hs-identifier hs-var">pServiceRole</span></a><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pTags"><span class="hs-identifier hs-var">pTags</span></a><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pTimeoutInMinutes"><span class="hs-identifier hs-var">pTimeoutInMinutes</span></a><span>
+</span><a name="line-233"></a><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-comment">-- ** ProjectArtifacts</span><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#ProjectArtifacts"><span class="hs-identifier hs-type">ProjectArtifacts</span></a><span>
+</span><a name="line-236"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#projectArtifacts"><span class="hs-identifier hs-var">projectArtifacts</span></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#paPackaging"><span class="hs-identifier hs-var">paPackaging</span></a><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#paPath"><span class="hs-identifier hs-var">paPath</span></a><span>
+</span><a name="line-239"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#paLocation"><span class="hs-identifier hs-var">paLocation</span></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#paName"><span class="hs-identifier hs-var">paName</span></a><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#paNamespaceType"><span class="hs-identifier hs-var">paNamespaceType</span></a><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#paType"><span class="hs-identifier hs-var">paType</span></a><span>
+</span><a name="line-243"></a><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-comment">-- ** ProjectEnvironment</span><span>
+</span><a name="line-245"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#ProjectEnvironment"><span class="hs-identifier hs-type">ProjectEnvironment</span></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#projectEnvironment"><span class="hs-identifier hs-var">projectEnvironment</span></a><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#pePrivilegedMode"><span class="hs-identifier hs-var">pePrivilegedMode</span></a><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#peEnvironmentVariables"><span class="hs-identifier hs-var">peEnvironmentVariables</span></a><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#peType"><span class="hs-identifier hs-var">peType</span></a><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#peImage"><span class="hs-identifier hs-var">peImage</span></a><span>
+</span><a name="line-251"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#peComputeType"><span class="hs-identifier hs-var">peComputeType</span></a><span>
+</span><a name="line-252"></a><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-comment">-- ** ProjectSource</span><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#ProjectSource"><span class="hs-identifier hs-type">ProjectSource</span></a><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#projectSource"><span class="hs-identifier hs-var">projectSource</span></a><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#psLocation"><span class="hs-identifier hs-var">psLocation</span></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#psAuth"><span class="hs-identifier hs-var">psAuth</span></a><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#psBuildspec"><span class="hs-identifier hs-var">psBuildspec</span></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#psType"><span class="hs-identifier hs-var">psType</span></a><span>
+</span><a name="line-260"></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-comment">-- ** SourceAuth</span><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#SourceAuth"><span class="hs-identifier hs-type">SourceAuth</span></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#sourceAuth"><span class="hs-identifier hs-var">sourceAuth</span></a><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#saResource"><span class="hs-identifier hs-var">saResource</span></a><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#saType"><span class="hs-identifier hs-var">saType</span></a><span>
+</span><a name="line-266"></a><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-comment">-- ** Tag</span><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#Tag"><span class="hs-identifier hs-type">Tag</span></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#tag"><span class="hs-identifier hs-var">tag</span></a><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#tagValue"><span class="hs-identifier hs-var">tagValue</span></a><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CodeBuild.Types.Product.html#tagKey"><span class="hs-identifier hs-var">tagKey</span></a><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-273"></a><span>
+</span><a name="line-274"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.BatchGetBuilds.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">BatchGetBuilds</span></a><span>
+</span><a name="line-275"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.BatchGetProjects.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">BatchGetProjects</span></a><span>
+</span><a name="line-276"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.CreateProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">CreateProject</span></a><span>
+</span><a name="line-277"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.DeleteProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteProject</span></a><span>
+</span><a name="line-278"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.ListBuilds.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListBuilds</span></a><span>
+</span><a name="line-279"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.ListBuildsForProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListBuildsForProject</span></a><span>
+</span><a name="line-280"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.ListCuratedEnvironmentImages.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListCuratedEnvironmentImages</span></a><span>
+</span><a name="line-281"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.ListProjects.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">ListProjects</span></a><span>
+</span><a name="line-282"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.StartBuild.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">StartBuild</span></a><span>
+</span><a name="line-283"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.StopBuild.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">StopBuild</span></a><span>
+</span><a name="line-284"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-285"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.UpdateProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateProject</span></a><span>
+</span><a name="line-286"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CodeBuild.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CodeBuild</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-287"></a><span>
+</span><a name="line-288"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'CodeBuild'.
+-}</span><span>
+</span><a name="line-294"></a><span>
+</span><a name="line-295"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-311"></a><span>
+</span><a name="line-312"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-317"></a></pre></body></html>
