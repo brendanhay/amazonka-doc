@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE DataKinds          #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# LANGUAGE FlexibleInstances  #-}</span><span>
+</span><a name="line-3"></a><span class="hs-pragma">{-# LANGUAGE GADTs              #-}</span><span>
+</span><a name="line-4"></a><span class="hs-pragma">{-# LANGUAGE KindSignatures     #-}</span><span>
+</span><a name="line-5"></a><span class="hs-pragma">{-# LANGUAGE LambdaCase         #-}</span><span>
+</span><a name="line-6"></a><span class="hs-pragma">{-# LANGUAGE OverloadedStrings  #-}</span><span>
+</span><a name="line-7"></a><span class="hs-pragma">{-# LANGUAGE StandaloneDeriving #-}</span><span>
+</span><a name="line-8"></a><span>
+</span><a name="line-9"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Module      : Network.AWS.Data.Path</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-13"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- Stability   : provisional</span><span>
+</span><a name="line-15"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-16"></a><span class="hs-comment">--</span><span>
+</span><a name="line-17"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Path</span><span>
+</span><a name="line-18"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-19"></a><span>    </span><span class="hs-comment">-- * Path Types</span><span>
+</span><a name="line-20"></a><span>      </span><a href="Network.AWS.Data.Path.html#RawPath"><span class="hs-identifier hs-type">RawPath</span></a><span>
+</span><a name="line-21"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Data.Path.html#EscapedPath"><span class="hs-identifier hs-type">EscapedPath</span></a><span>
+</span><a name="line-22"></a><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- * Constructing Paths</span><span>
+</span><a name="line-24"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Data.Path.html#ToPath"><span class="hs-identifier hs-type">ToPath</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-25"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Data.Path.html#rawPath"><span class="hs-identifier hs-var">rawPath</span></a><span>
+</span><a name="line-26"></a><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-comment">-- * Manipulating Paths</span><span>
+</span><a name="line-28"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Data.Path.html#escapePath"><span class="hs-identifier hs-var">escapePath</span></a><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Data.Path.html#collapsePath"><span class="hs-identifier hs-var">collapsePath</span></a><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">ByteString</span><span>             </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">BS</span><span>
+</span><a name="line-33"></a><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">ByteString</span><span class="hs-operator">.</span><span class="hs-identifier">Char8</span><span>       </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">BS8</span><span>
+</span><a name="line-34"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Monoid</span><span>
+</span><a name="line-35"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Data.ByteString.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">ByteString</span></a><span>
+</span><a name="line-36"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Data.Text.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Text</span></a><span>
+</span><a name="line-37"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">HTTP</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span><span class="hs-operator">.</span><span class="hs-identifier">URI</span><span>
+</span><a name="line-38"></a><span>
+</span><a name="line-39"></a><span class="hs-keyword">class</span><span> </span><a name="ToPath"><a href="Network.AWS.Data.Path.html#ToPath"><span class="hs-identifier">ToPath</span></a></a><span> </span><a name="local-6989586621679091439"><a href="#local-6989586621679091439"><span class="hs-identifier">a</span></a></a><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-identifier">toPath</span><span> </span><span class="hs-glyph">::</span><span> </span><a href="#local-6989586621679091439"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-type">ByteString</span><span>
+</span><a name="line-41"></a><span>
+</span><a name="line-42"></a><span class="hs-keyword">instance</span><span> </span><a href="Network.AWS.Data.Path.html#ToPath"><span class="hs-identifier hs-type">ToPath</span></a><span> </span><span class="hs-identifier hs-type">ByteString</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-43"></a><span>    </span><a name="local-8214565720323866344"><a href="Network.AWS.Data.Path.html#toPath"><span class="hs-identifier">toPath</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">id</span><span>
+</span><a name="line-44"></a><span>
+</span><a name="line-45"></a><span class="hs-keyword">instance</span><span> </span><a href="Network.AWS.Data.Path.html#ToPath"><span class="hs-identifier hs-type">ToPath</span></a><span> </span><span class="hs-identifier hs-type">Text</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-46"></a><span>    </span><a name="local-8214565720323866344"><a href="Network.AWS.Data.Path.html#toPath"><span class="hs-identifier">toPath</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a href="Network.AWS.Data.ByteString.html#toBS"><span class="hs-identifier hs-var">toBS</span></a><span>
+</span><a name="line-47"></a><span>
+</span><a name="line-48"></a><span class="hs-identifier">rawPath</span><span> </span><span class="hs-glyph">::</span><span> </span><a href="Network.AWS.Data.Path.html#ToPath"><span class="hs-identifier hs-type">ToPath</span></a><span> </span><a href="#local-6989586621679091442"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">=&gt;</span><span> </span><a href="#local-6989586621679091442"><span class="hs-identifier hs-type">a</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="Network.AWS.Data.Path.html#Path"><span class="hs-identifier hs-type">Path</span></a><span> </span><span class="hs-char">'NoEncoding
+rawPath = Raw . strip . BS8.split sep . toPath
+  where
+    strip (x:xs)
+        | BS.null x = xs
+    strip xs        = xs
+
+data Encoding = NoEncoding | Percent
+    deriving (Eq, Show)
+
+data Path :: Encoding -&gt; * where
+    Raw     :: [ByteString] -&gt; Path 'NoEncoding
+    Encoded :: [ByteString] -&gt; Path 'Percent
+
+deriving instance Show (Path a)
+deriving instance Eq   (Path a)
+
+type RawPath     = Path 'NoEncoding
+type EscapedPath = Path 'Percent
+
+instance Monoid RawPath where
+    mempty                    = Raw []
+    mappend (Raw xs) (Raw ys) = Raw (xs ++ ys)
+
+instance ToByteString EscapedPath where
+    toBS (Encoded []) = slash
+    toBS (Encoded xs) = slash &lt;&gt; BS8.intercalate slash xs
+
+escapePath :: Path a -&gt; EscapedPath
+escapePath (Raw     xs) = Encoded (map (urlEncode True) xs)
+escapePath (Encoded xs) = Encoded xs
+
+collapsePath :: Path a -&gt; Path a
+collapsePath = \case
+    Raw     xs -&gt; Raw     (go xs)
+    Encoded xs -&gt; Encoded (go xs)
+  where
+    go = reverse . f . reverse
+
+    f :: [ByteString] -&gt; [ByteString]
+    f []            = []
+    f (x:xs)
+        | x == dot  = f xs
+        | x == dots = drop 1 (f xs)
+        | otherwise = x : f xs
+
+    dot  = &quot;.&quot;
+    dots = &quot;..&quot;
+
+slash :: ByteString
+slash = BS8.singleton sep
+
+sep :: Char
+sep = '/'
+</span></pre></body></html>
