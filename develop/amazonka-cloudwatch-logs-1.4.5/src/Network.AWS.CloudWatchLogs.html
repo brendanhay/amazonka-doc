@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.CloudWatchLogs</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- You can use Amazon CloudWatch Logs to monitor, store, and access your log files from EC2 instances, Amazon CloudTrail, or other sources. You can then retrieve the associated log data from CloudWatch Logs using the Amazon CloudWatch console, the CloudWatch Logs commands in the AWS CLI, the CloudWatch Logs API, or the CloudWatch Logs SDK.</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">--</span><span>
+</span><a name="line-17"></a><span class="hs-comment">-- You can use CloudWatch Logs to:</span><span>
+</span><a name="line-18"></a><span class="hs-comment">--</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--     * __Monitor Logs from Amazon EC2 Instances in Real-time__ : You can use CloudWatch Logs to monitor applications and systems using log data. For example, CloudWatch Logs can track the number of errors that occur in your application logs and send you a notification whenever the rate of errors exceeds a threshold you specify. CloudWatch Logs uses your log data for monitoring; so, no code changes are required. For example, you can monitor application logs for specific literal terms (such as &quot;NullReferenceException&quot;) or count the number of occurrences of a literal term at a particular position in log data (such as &quot;404&quot; status codes in an Apache access log). When the term you are searching for is found, CloudWatch Logs reports the data to a Amazon CloudWatch metric that you specify.</span><span>
+</span><a name="line-20"></a><span class="hs-comment">--</span><span>
+</span><a name="line-21"></a><span class="hs-comment">--     * __Monitor Amazon CloudTrail Logged Events__ : You can create alarms in Amazon CloudWatch and receive notifications of particular API activity as captured by CloudTrail and use the notification to perform troubleshooting.</span><span>
+</span><a name="line-22"></a><span class="hs-comment">--</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--     * __Archive Log Data__ : You can use CloudWatch Logs to store your log data in highly durable storage. You can change the log retention setting so that any log events older than this setting are automatically deleted. The CloudWatch Logs agent makes it easy to quickly send both rotated and non-rotated log data off of a host and into the log service. You can then access the raw log data when you need it.</span><span>
+</span><a name="line-24"></a><span class="hs-comment">--</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--</span><span>
+</span><a name="line-27"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span>
+</span><a name="line-28"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-30"></a><span>      </span><a href="Network.AWS.CloudWatchLogs.Types.html#cloudWatchLogs"><span class="hs-identifier hs-var">cloudWatchLogs</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** InvalidParameterException</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_InvalidParameterException"><span class="hs-identifier hs-var">_InvalidParameterException</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** InvalidSequenceTokenException</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_InvalidSequenceTokenException"><span class="hs-identifier hs-var">_InvalidSequenceTokenException</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** ResourceAlreadyExistsException</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_ResourceAlreadyExistsException"><span class="hs-identifier hs-var">_ResourceAlreadyExistsException</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** OperationAbortedException</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_OperationAbortedException"><span class="hs-identifier hs-var">_OperationAbortedException</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** ServiceUnavailableException</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_ServiceUnavailableException"><span class="hs-identifier hs-var">_ServiceUnavailableException</span></a><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- ** DataAlreadyAcceptedException</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_DataAlreadyAcceptedException"><span class="hs-identifier hs-var">_DataAlreadyAcceptedException</span></a><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- ** InvalidOperationException</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_InvalidOperationException"><span class="hs-identifier hs-var">_InvalidOperationException</span></a><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** DescribeDestinations (Paginated)</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDestinations</span><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- ** UntagLogGroup</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">UntagLogGroup</span><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** CreateExportTask</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateExportTask</span><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** PutDestination</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutDestination</span><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- ** DescribeSubscriptionFilters (Paginated)</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSubscriptionFilters</span><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- ** GetLogEvents</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">GetLogEvents</span><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- ** DescribeLogGroups (Paginated)</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLogGroups</span><span>
+</span><a name="line-88"></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- ** DeleteDestination</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDestination</span><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- ** FilterLogEvents (Paginated)</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">FilterLogEvents</span><span>
+</span><a name="line-94"></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- ** TagLogGroup</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">TagLogGroup</span><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-comment">-- ** DeleteLogStream</span><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLogStream</span><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- ** CreateLogStream</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLogStream</span><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-comment">-- ** CreateLogGroup</span><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLogGroup</span><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- ** DescribeExportTasks</span><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeExportTasks</span><span>
+</span><a name="line-109"></a><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-comment">-- ** CancelExportTask</span><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CancelExportTask</span><span>
+</span><a name="line-112"></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-comment">-- ** PutSubscriptionFilter</span><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutSubscriptionFilter</span><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-comment">-- ** DeleteLogGroup</span><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLogGroup</span><span>
+</span><a name="line-118"></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- ** DeleteSubscriptionFilter</span><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSubscriptionFilter</span><span>
+</span><a name="line-121"></a><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-comment">-- ** PutLogEvents</span><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutLogEvents</span><span>
+</span><a name="line-124"></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-comment">-- ** DescribeMetricFilters (Paginated)</span><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMetricFilters</span><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-comment">-- ** TestMetricFilter</span><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">TestMetricFilter</span><span>
+</span><a name="line-130"></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-comment">-- ** PutDestinationPolicy</span><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutDestinationPolicy</span><span>
+</span><a name="line-133"></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-comment">-- ** PutMetricFilter</span><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutMetricFilter</span><span>
+</span><a name="line-136"></a><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-comment">-- ** DeleteRetentionPolicy</span><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRetentionPolicy</span><span>
+</span><a name="line-139"></a><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-comment">-- ** DeleteMetricFilter</span><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteMetricFilter</span><span>
+</span><a name="line-142"></a><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-comment">-- ** PutRetentionPolicy</span><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutRetentionPolicy</span><span>
+</span><a name="line-145"></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-comment">-- ** ListTagsLogGroup</span><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsLogGroup</span><span>
+</span><a name="line-148"></a><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-comment">-- ** DescribeLogStreams (Paginated)</span><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLogStreams</span><span>
+</span><a name="line-151"></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-153"></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-comment">-- ** Distribution</span><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Sum.html#Distribution"><span class="hs-identifier hs-type">Distribution</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-156"></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-comment">-- ** ExportTaskStatusCode</span><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Sum.html#ExportTaskStatusCode"><span class="hs-identifier hs-type">ExportTaskStatusCode</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-159"></a><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-comment">-- ** OrderBy</span><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Sum.html#OrderBy"><span class="hs-identifier hs-type">OrderBy</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-162"></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-comment">-- ** Destination</span><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#Destination"><span class="hs-identifier hs-type">Destination</span></a><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#destination"><span class="hs-identifier hs-var">destination</span></a><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#dTargetARN"><span class="hs-identifier hs-var">dTargetARN</span></a><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#dCreationTime"><span class="hs-identifier hs-var">dCreationTime</span></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#dArn"><span class="hs-identifier hs-var">dArn</span></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#dAccessPolicy"><span class="hs-identifier hs-var">dAccessPolicy</span></a><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#dDestinationName"><span class="hs-identifier hs-var">dDestinationName</span></a><span>
+</span><a name="line-171"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#dRoleARN"><span class="hs-identifier hs-var">dRoleARN</span></a><span>
+</span><a name="line-172"></a><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-comment">-- ** ExportTask</span><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#ExportTask"><span class="hs-identifier hs-type">ExportTask</span></a><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#exportTask"><span class="hs-identifier hs-var">exportTask</span></a><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etDestinationPrefix"><span class="hs-identifier hs-var">etDestinationPrefix</span></a><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etDestination"><span class="hs-identifier hs-var">etDestination</span></a><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etStatus"><span class="hs-identifier hs-var">etStatus</span></a><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etTaskName"><span class="hs-identifier hs-var">etTaskName</span></a><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etTaskId"><span class="hs-identifier hs-var">etTaskId</span></a><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etTo"><span class="hs-identifier hs-var">etTo</span></a><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etFrom"><span class="hs-identifier hs-var">etFrom</span></a><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etLogGroupName"><span class="hs-identifier hs-var">etLogGroupName</span></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etExecutionInfo"><span class="hs-identifier hs-var">etExecutionInfo</span></a><span>
+</span><a name="line-185"></a><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-comment">-- ** ExportTaskExecutionInfo</span><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#ExportTaskExecutionInfo"><span class="hs-identifier hs-type">ExportTaskExecutionInfo</span></a><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#exportTaskExecutionInfo"><span class="hs-identifier hs-var">exportTaskExecutionInfo</span></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#eteiCreationTime"><span class="hs-identifier hs-var">eteiCreationTime</span></a><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#eteiCompletionTime"><span class="hs-identifier hs-var">eteiCompletionTime</span></a><span>
+</span><a name="line-191"></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-comment">-- ** ExportTaskStatus</span><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#ExportTaskStatus"><span class="hs-identifier hs-type">ExportTaskStatus</span></a><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#exportTaskStatus"><span class="hs-identifier hs-var">exportTaskStatus</span></a><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etsCode"><span class="hs-identifier hs-var">etsCode</span></a><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#etsMessage"><span class="hs-identifier hs-var">etsMessage</span></a><span>
+</span><a name="line-197"></a><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-comment">-- ** FilteredLogEvent</span><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#FilteredLogEvent"><span class="hs-identifier hs-type">FilteredLogEvent</span></a><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#filteredLogEvent"><span class="hs-identifier hs-var">filteredLogEvent</span></a><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#fleIngestionTime"><span class="hs-identifier hs-var">fleIngestionTime</span></a><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#fleLogStreamName"><span class="hs-identifier hs-var">fleLogStreamName</span></a><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#fleMessage"><span class="hs-identifier hs-var">fleMessage</span></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#fleTimestamp"><span class="hs-identifier hs-var">fleTimestamp</span></a><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#fleEventId"><span class="hs-identifier hs-var">fleEventId</span></a><span>
+</span><a name="line-206"></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-comment">-- ** InputLogEvent</span><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#InputLogEvent"><span class="hs-identifier hs-type">InputLogEvent</span></a><span>
+</span><a name="line-209"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#inputLogEvent"><span class="hs-identifier hs-var">inputLogEvent</span></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#ileTimestamp"><span class="hs-identifier hs-var">ileTimestamp</span></a><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#ileMessage"><span class="hs-identifier hs-var">ileMessage</span></a><span>
+</span><a name="line-212"></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-comment">-- ** LogGroup</span><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#LogGroup"><span class="hs-identifier hs-type">LogGroup</span></a><span>
+</span><a name="line-215"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#logGroup"><span class="hs-identifier hs-var">logGroup</span></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lgCreationTime"><span class="hs-identifier hs-var">lgCreationTime</span></a><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lgMetricFilterCount"><span class="hs-identifier hs-var">lgMetricFilterCount</span></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lgArn"><span class="hs-identifier hs-var">lgArn</span></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lgLogGroupName"><span class="hs-identifier hs-var">lgLogGroupName</span></a><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lgRetentionInDays"><span class="hs-identifier hs-var">lgRetentionInDays</span></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lgStoredBytes"><span class="hs-identifier hs-var">lgStoredBytes</span></a><span>
+</span><a name="line-222"></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-comment">-- ** LogStream</span><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#LogStream"><span class="hs-identifier hs-type">LogStream</span></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#logStream"><span class="hs-identifier hs-var">logStream</span></a><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsCreationTime"><span class="hs-identifier hs-var">lsCreationTime</span></a><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsUploadSequenceToken"><span class="hs-identifier hs-var">lsUploadSequenceToken</span></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsArn"><span class="hs-identifier hs-var">lsArn</span></a><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsFirstEventTimestamp"><span class="hs-identifier hs-var">lsFirstEventTimestamp</span></a><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsLogStreamName"><span class="hs-identifier hs-var">lsLogStreamName</span></a><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsStoredBytes"><span class="hs-identifier hs-var">lsStoredBytes</span></a><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsLastIngestionTime"><span class="hs-identifier hs-var">lsLastIngestionTime</span></a><span>
+</span><a name="line-233"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#lsLastEventTimestamp"><span class="hs-identifier hs-var">lsLastEventTimestamp</span></a><span>
+</span><a name="line-234"></a><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-comment">-- ** MetricFilter</span><span>
+</span><a name="line-236"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#MetricFilter"><span class="hs-identifier hs-type">MetricFilter</span></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#metricFilter"><span class="hs-identifier hs-var">metricFilter</span></a><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfCreationTime"><span class="hs-identifier hs-var">mfCreationTime</span></a><span>
+</span><a name="line-239"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfFilterName"><span class="hs-identifier hs-var">mfFilterName</span></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfLogGroupName"><span class="hs-identifier hs-var">mfLogGroupName</span></a><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfFilterPattern"><span class="hs-identifier hs-var">mfFilterPattern</span></a><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfMetricTransformations"><span class="hs-identifier hs-var">mfMetricTransformations</span></a><span>
+</span><a name="line-243"></a><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-comment">-- ** MetricFilterMatchRecord</span><span>
+</span><a name="line-245"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#MetricFilterMatchRecord"><span class="hs-identifier hs-type">MetricFilterMatchRecord</span></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#metricFilterMatchRecord"><span class="hs-identifier hs-var">metricFilterMatchRecord</span></a><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfmrExtractedValues"><span class="hs-identifier hs-var">mfmrExtractedValues</span></a><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfmrEventNumber"><span class="hs-identifier hs-var">mfmrEventNumber</span></a><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mfmrEventMessage"><span class="hs-identifier hs-var">mfmrEventMessage</span></a><span>
+</span><a name="line-250"></a><span>
+</span><a name="line-251"></a><span>    </span><span class="hs-comment">-- ** MetricTransformation</span><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#MetricTransformation"><span class="hs-identifier hs-type">MetricTransformation</span></a><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#metricTransformation"><span class="hs-identifier hs-var">metricTransformation</span></a><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mtDefaultValue"><span class="hs-identifier hs-var">mtDefaultValue</span></a><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mtMetricName"><span class="hs-identifier hs-var">mtMetricName</span></a><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mtMetricNamespace"><span class="hs-identifier hs-var">mtMetricNamespace</span></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#mtMetricValue"><span class="hs-identifier hs-var">mtMetricValue</span></a><span>
+</span><a name="line-258"></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-comment">-- ** OutputLogEvent</span><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#OutputLogEvent"><span class="hs-identifier hs-type">OutputLogEvent</span></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#outputLogEvent"><span class="hs-identifier hs-var">outputLogEvent</span></a><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#oleIngestionTime"><span class="hs-identifier hs-var">oleIngestionTime</span></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#oleMessage"><span class="hs-identifier hs-var">oleMessage</span></a><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#oleTimestamp"><span class="hs-identifier hs-var">oleTimestamp</span></a><span>
+</span><a name="line-265"></a><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-comment">-- ** RejectedLogEventsInfo</span><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#RejectedLogEventsInfo"><span class="hs-identifier hs-type">RejectedLogEventsInfo</span></a><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#rejectedLogEventsInfo"><span class="hs-identifier hs-var">rejectedLogEventsInfo</span></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#rleiTooOldLogEventEndIndex"><span class="hs-identifier hs-var">rleiTooOldLogEventEndIndex</span></a><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#rleiTooNewLogEventStartIndex"><span class="hs-identifier hs-var">rleiTooNewLogEventStartIndex</span></a><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#rleiExpiredLogEventEndIndex"><span class="hs-identifier hs-var">rleiExpiredLogEventEndIndex</span></a><span>
+</span><a name="line-272"></a><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-comment">-- ** SearchedLogStream</span><span>
+</span><a name="line-274"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#SearchedLogStream"><span class="hs-identifier hs-type">SearchedLogStream</span></a><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#searchedLogStream"><span class="hs-identifier hs-var">searchedLogStream</span></a><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#slsLogStreamName"><span class="hs-identifier hs-var">slsLogStreamName</span></a><span>
+</span><a name="line-277"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#slsSearchedCompletely"><span class="hs-identifier hs-var">slsSearchedCompletely</span></a><span>
+</span><a name="line-278"></a><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-comment">-- ** SubscriptionFilter</span><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#SubscriptionFilter"><span class="hs-identifier hs-type">SubscriptionFilter</span></a><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#subscriptionFilter"><span class="hs-identifier hs-var">subscriptionFilter</span></a><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#sfCreationTime"><span class="hs-identifier hs-var">sfCreationTime</span></a><span>
+</span><a name="line-283"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#sfFilterName"><span class="hs-identifier hs-var">sfFilterName</span></a><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#sfDistribution"><span class="hs-identifier hs-var">sfDistribution</span></a><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#sfDestinationARN"><span class="hs-identifier hs-var">sfDestinationARN</span></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#sfLogGroupName"><span class="hs-identifier hs-var">sfLogGroupName</span></a><span>
+</span><a name="line-287"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#sfFilterPattern"><span class="hs-identifier hs-var">sfFilterPattern</span></a><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.CloudWatchLogs.Types.Product.html#sfRoleARN"><span class="hs-identifier hs-var">sfRoleARN</span></a><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-290"></a><span>
+</span><a name="line-291"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.CancelExportTask.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CancelExportTask</span></a><span>
+</span><a name="line-292"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.CreateExportTask.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateExportTask</span></a><span>
+</span><a name="line-293"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.CreateLogGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLogGroup</span></a><span>
+</span><a name="line-294"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.CreateLogStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLogStream</span></a><span>
+</span><a name="line-295"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DeleteDestination.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDestination</span></a><span>
+</span><a name="line-296"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DeleteLogGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLogGroup</span></a><span>
+</span><a name="line-297"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DeleteLogStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLogStream</span></a><span>
+</span><a name="line-298"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DeleteMetricFilter.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteMetricFilter</span></a><span>
+</span><a name="line-299"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DeleteRetentionPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRetentionPolicy</span></a><span>
+</span><a name="line-300"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DeleteSubscriptionFilter.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteSubscriptionFilter</span></a><span>
+</span><a name="line-301"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DescribeDestinations.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDestinations</span></a><span>
+</span><a name="line-302"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DescribeExportTasks.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeExportTasks</span></a><span>
+</span><a name="line-303"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DescribeLogGroups.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLogGroups</span></a><span>
+</span><a name="line-304"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DescribeLogStreams.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLogStreams</span></a><span>
+</span><a name="line-305"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DescribeMetricFilters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeMetricFilters</span></a><span>
+</span><a name="line-306"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.DescribeSubscriptionFilters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeSubscriptionFilters</span></a><span>
+</span><a name="line-307"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.FilterLogEvents.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">FilterLogEvents</span></a><span>
+</span><a name="line-308"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.GetLogEvents.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">GetLogEvents</span></a><span>
+</span><a name="line-309"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.ListTagsLogGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsLogGroup</span></a><span>
+</span><a name="line-310"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.PutDestination.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutDestination</span></a><span>
+</span><a name="line-311"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.PutDestinationPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutDestinationPolicy</span></a><span>
+</span><a name="line-312"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.PutLogEvents.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutLogEvents</span></a><span>
+</span><a name="line-313"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.PutMetricFilter.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutMetricFilter</span></a><span>
+</span><a name="line-314"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.PutRetentionPolicy.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutRetentionPolicy</span></a><span>
+</span><a name="line-315"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.PutSubscriptionFilter.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">PutSubscriptionFilter</span></a><span>
+</span><a name="line-316"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.TagLogGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">TagLogGroup</span></a><span>
+</span><a name="line-317"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.TestMetricFilter.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">TestMetricFilter</span></a><span>
+</span><a name="line-318"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-319"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.UntagLogGroup.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">UntagLogGroup</span></a><span>
+</span><a name="line-320"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.CloudWatchLogs.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">CloudWatchLogs</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-321"></a><span>
+</span><a name="line-322"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'CloudWatchLogs'.
+-}</span><span>
+</span><a name="line-328"></a><span>
+</span><a name="line-329"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-345"></a><span>
+</span><a name="line-346"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-351"></a></pre></body></html>
