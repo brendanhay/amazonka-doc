@@ -1,0 +1,682 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.DeviceFarm</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- AWS Device Farm is a service that enables mobile app developers to test Android, iOS, and Fire OS apps on physical phones, tablets, and other devices in the cloud.</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">--</span><span>
+</span><a name="line-17"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span>
+</span><a name="line-18"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-19"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-20"></a><span>      </span><a href="Network.AWS.DeviceFarm.Types.html#deviceFarm"><span class="hs-identifier hs-var">deviceFarm</span></a><span>
+</span><a name="line-21"></a><span>
+</span><a name="line-22"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-24"></a><span>
+</span><a name="line-25"></a><span>    </span><span class="hs-comment">-- ** NotEligibleException</span><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.html#_NotEligibleException"><span class="hs-identifier hs-var">_NotEligibleException</span></a><span>
+</span><a name="line-27"></a><span>
+</span><a name="line-28"></a><span>    </span><span class="hs-comment">-- ** IdempotencyException</span><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.html#_IdempotencyException"><span class="hs-identifier hs-var">_IdempotencyException</span></a><span>
+</span><a name="line-30"></a><span>
+</span><a name="line-31"></a><span>    </span><span class="hs-comment">-- ** ArgumentException</span><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.html#_ArgumentException"><span class="hs-identifier hs-var">_ArgumentException</span></a><span>
+</span><a name="line-33"></a><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-comment">-- ** NotFoundException</span><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.html#_NotFoundException"><span class="hs-identifier hs-var">_NotFoundException</span></a><span>
+</span><a name="line-36"></a><span>
+</span><a name="line-37"></a><span>    </span><span class="hs-comment">-- ** ServiceAccountException</span><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.html#_ServiceAccountException"><span class="hs-identifier hs-var">_ServiceAccountException</span></a><span>
+</span><a name="line-39"></a><span>
+</span><a name="line-40"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-42"></a><span>
+</span><a name="line-43"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-45"></a><span>
+</span><a name="line-46"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-48"></a><span>
+</span><a name="line-49"></a><span>    </span><span class="hs-comment">-- ** ListProjects (Paginated)</span><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListProjects</span><span>
+</span><a name="line-51"></a><span>
+</span><a name="line-52"></a><span>    </span><span class="hs-comment">-- ** DeleteProject</span><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteProject</span><span>
+</span><a name="line-54"></a><span>
+</span><a name="line-55"></a><span>    </span><span class="hs-comment">-- ** UpdateProject</span><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateProject</span><span>
+</span><a name="line-57"></a><span>
+</span><a name="line-58"></a><span>    </span><span class="hs-comment">-- ** UpdateNetworkProfile</span><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateNetworkProfile</span><span>
+</span><a name="line-60"></a><span>
+</span><a name="line-61"></a><span>    </span><span class="hs-comment">-- ** DeleteNetworkProfile</span><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteNetworkProfile</span><span>
+</span><a name="line-63"></a><span>
+</span><a name="line-64"></a><span>    </span><span class="hs-comment">-- ** GetDevicePoolCompatibility</span><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetDevicePoolCompatibility</span><span>
+</span><a name="line-66"></a><span>
+</span><a name="line-67"></a><span>    </span><span class="hs-comment">-- ** InstallToRemoteAccessSession</span><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">InstallToRemoteAccessSession</span><span>
+</span><a name="line-69"></a><span>
+</span><a name="line-70"></a><span>    </span><span class="hs-comment">-- ** ListTests (Paginated)</span><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListTests</span><span>
+</span><a name="line-72"></a><span>
+</span><a name="line-73"></a><span>    </span><span class="hs-comment">-- ** ListArtifacts (Paginated)</span><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListArtifacts</span><span>
+</span><a name="line-75"></a><span>
+</span><a name="line-76"></a><span>    </span><span class="hs-comment">-- ** CreateUpload</span><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateUpload</span><span>
+</span><a name="line-78"></a><span>
+</span><a name="line-79"></a><span>    </span><span class="hs-comment">-- ** DeleteRemoteAccessSession</span><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRemoteAccessSession</span><span>
+</span><a name="line-81"></a><span>
+</span><a name="line-82"></a><span>    </span><span class="hs-comment">-- ** DeleteUpload</span><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUpload</span><span>
+</span><a name="line-84"></a><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-comment">-- ** GetDevicePool</span><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetDevicePool</span><span>
+</span><a name="line-87"></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-comment">-- ** ListDevicePools (Paginated)</span><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListDevicePools</span><span>
+</span><a name="line-90"></a><span>
+</span><a name="line-91"></a><span>    </span><span class="hs-comment">-- ** UpdateDevicePool</span><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateDevicePool</span><span>
+</span><a name="line-93"></a><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-comment">-- ** DeleteDevicePool</span><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDevicePool</span><span>
+</span><a name="line-96"></a><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-comment">-- ** GetUpload</span><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetUpload</span><span>
+</span><a name="line-99"></a><span>
+</span><a name="line-100"></a><span>    </span><span class="hs-comment">-- ** ListOfferingTransactions (Paginated)</span><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListOfferingTransactions</span><span>
+</span><a name="line-102"></a><span>
+</span><a name="line-103"></a><span>    </span><span class="hs-comment">-- ** CreateDevicePool</span><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateDevicePool</span><span>
+</span><a name="line-105"></a><span>
+</span><a name="line-106"></a><span>    </span><span class="hs-comment">-- ** DeleteRun</span><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRun</span><span>
+</span><a name="line-108"></a><span>
+</span><a name="line-109"></a><span>    </span><span class="hs-comment">-- ** ListRuns (Paginated)</span><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListRuns</span><span>
+</span><a name="line-111"></a><span>
+</span><a name="line-112"></a><span>    </span><span class="hs-comment">-- ** GetTest</span><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetTest</span><span>
+</span><a name="line-114"></a><span>
+</span><a name="line-115"></a><span>    </span><span class="hs-comment">-- ** GetNetworkProfile</span><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetNetworkProfile</span><span>
+</span><a name="line-117"></a><span>
+</span><a name="line-118"></a><span>    </span><span class="hs-comment">-- ** RenewOffering</span><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">RenewOffering</span><span>
+</span><a name="line-120"></a><span>
+</span><a name="line-121"></a><span>    </span><span class="hs-comment">-- ** GetDevice</span><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetDevice</span><span>
+</span><a name="line-123"></a><span>
+</span><a name="line-124"></a><span>    </span><span class="hs-comment">-- ** ListJobs (Paginated)</span><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListJobs</span><span>
+</span><a name="line-126"></a><span>
+</span><a name="line-127"></a><span>    </span><span class="hs-comment">-- ** StopRemoteAccessSession</span><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">StopRemoteAccessSession</span><span>
+</span><a name="line-129"></a><span>
+</span><a name="line-130"></a><span>    </span><span class="hs-comment">-- ** CreateNetworkProfile</span><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateNetworkProfile</span><span>
+</span><a name="line-132"></a><span>
+</span><a name="line-133"></a><span>    </span><span class="hs-comment">-- ** GetJob</span><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetJob</span><span>
+</span><a name="line-135"></a><span>
+</span><a name="line-136"></a><span>    </span><span class="hs-comment">-- ** ListNetworkProfiles</span><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListNetworkProfiles</span><span>
+</span><a name="line-138"></a><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-comment">-- ** ScheduleRun</span><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ScheduleRun</span><span>
+</span><a name="line-141"></a><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-comment">-- ** GetRun</span><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetRun</span><span>
+</span><a name="line-144"></a><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-comment">-- ** ListSamples (Paginated)</span><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListSamples</span><span>
+</span><a name="line-147"></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-comment">-- ** ListSuites (Paginated)</span><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListSuites</span><span>
+</span><a name="line-150"></a><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-comment">-- ** ListRemoteAccessSessions</span><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListRemoteAccessSessions</span><span>
+</span><a name="line-153"></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-comment">-- ** GetAccountSettings</span><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetAccountSettings</span><span>
+</span><a name="line-156"></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-comment">-- ** CreateRemoteAccessSession</span><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateRemoteAccessSession</span><span>
+</span><a name="line-159"></a><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-comment">-- ** ListOfferingPromotions</span><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListOfferingPromotions</span><span>
+</span><a name="line-162"></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-comment">-- ** GetOfferingStatus (Paginated)</span><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetOfferingStatus</span><span>
+</span><a name="line-165"></a><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-comment">-- ** ListUploads (Paginated)</span><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListUploads</span><span>
+</span><a name="line-168"></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-comment">-- ** GetSuite</span><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetSuite</span><span>
+</span><a name="line-171"></a><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-comment">-- ** GetRemoteAccessSession</span><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetRemoteAccessSession</span><span>
+</span><a name="line-174"></a><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-comment">-- ** PurchaseOffering</span><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">PurchaseOffering</span><span>
+</span><a name="line-177"></a><span>
+</span><a name="line-178"></a><span>    </span><span class="hs-comment">-- ** GetProject</span><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetProject</span><span>
+</span><a name="line-180"></a><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-comment">-- ** ListUniqueProblems (Paginated)</span><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListUniqueProblems</span><span>
+</span><a name="line-183"></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-comment">-- ** StopRun</span><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">StopRun</span><span>
+</span><a name="line-186"></a><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-comment">-- ** ListDevices (Paginated)</span><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListDevices</span><span>
+</span><a name="line-189"></a><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-comment">-- ** CreateProject</span><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateProject</span><span>
+</span><a name="line-192"></a><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-comment">-- ** ListOfferings (Paginated)</span><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListOfferings</span><span>
+</span><a name="line-195"></a><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-197"></a><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-comment">-- ** ArtifactCategory</span><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#ArtifactCategory"><span class="hs-identifier hs-type">ArtifactCategory</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-200"></a><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-comment">-- ** ArtifactType</span><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#ArtifactType"><span class="hs-identifier hs-type">ArtifactType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-203"></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-comment">-- ** BillingMethod</span><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#BillingMethod"><span class="hs-identifier hs-type">BillingMethod</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-206"></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-comment">-- ** CurrencyCode</span><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#CurrencyCode"><span class="hs-identifier hs-type">CurrencyCode</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-209"></a><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-comment">-- ** DeviceAttribute</span><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#DeviceAttribute"><span class="hs-identifier hs-type">DeviceAttribute</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-212"></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-comment">-- ** DeviceFormFactor</span><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#DeviceFormFactor"><span class="hs-identifier hs-type">DeviceFormFactor</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-215"></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-comment">-- ** DevicePlatform</span><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#DevicePlatform"><span class="hs-identifier hs-type">DevicePlatform</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-218"></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-comment">-- ** DevicePoolType</span><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#DevicePoolType"><span class="hs-identifier hs-type">DevicePoolType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-221"></a><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-comment">-- ** ExecutionResult</span><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#ExecutionResult"><span class="hs-identifier hs-type">ExecutionResult</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-224"></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-comment">-- ** ExecutionStatus</span><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#ExecutionStatus"><span class="hs-identifier hs-type">ExecutionStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-227"></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-comment">-- ** NetworkProfileType</span><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#NetworkProfileType"><span class="hs-identifier hs-type">NetworkProfileType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-230"></a><span>
+</span><a name="line-231"></a><span>    </span><span class="hs-comment">-- ** OfferingTransactionType</span><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#OfferingTransactionType"><span class="hs-identifier hs-type">OfferingTransactionType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-233"></a><span>
+</span><a name="line-234"></a><span>    </span><span class="hs-comment">-- ** OfferingType</span><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#OfferingType"><span class="hs-identifier hs-type">OfferingType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-236"></a><span>
+</span><a name="line-237"></a><span>    </span><span class="hs-comment">-- ** RecurringChargeFrequency</span><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#RecurringChargeFrequency"><span class="hs-identifier hs-type">RecurringChargeFrequency</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-239"></a><span>
+</span><a name="line-240"></a><span>    </span><span class="hs-comment">-- ** RuleOperator</span><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#RuleOperator"><span class="hs-identifier hs-type">RuleOperator</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-242"></a><span>
+</span><a name="line-243"></a><span>    </span><span class="hs-comment">-- ** SampleType</span><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#SampleType"><span class="hs-identifier hs-type">SampleType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-245"></a><span>
+</span><a name="line-246"></a><span>    </span><span class="hs-comment">-- ** TestType</span><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#TestType"><span class="hs-identifier hs-type">TestType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-248"></a><span>
+</span><a name="line-249"></a><span>    </span><span class="hs-comment">-- ** UploadStatus</span><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#UploadStatus"><span class="hs-identifier hs-type">UploadStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-251"></a><span>
+</span><a name="line-252"></a><span>    </span><span class="hs-comment">-- ** UploadType</span><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Sum.html#UploadType"><span class="hs-identifier hs-type">UploadType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-254"></a><span>
+</span><a name="line-255"></a><span>    </span><span class="hs-comment">-- ** AccountSettings</span><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#AccountSettings"><span class="hs-identifier hs-type">AccountSettings</span></a><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#accountSettings"><span class="hs-identifier hs-var">accountSettings</span></a><span>
+</span><a name="line-258"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#asAwsAccountNumber"><span class="hs-identifier hs-var">asAwsAccountNumber</span></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#asMaxJobTimeoutMinutes"><span class="hs-identifier hs-var">asMaxJobTimeoutMinutes</span></a><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#asMaxSlots"><span class="hs-identifier hs-var">asMaxSlots</span></a><span>
+</span><a name="line-261"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#asTrialMinutes"><span class="hs-identifier hs-var">asTrialMinutes</span></a><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#asUnmeteredDevices"><span class="hs-identifier hs-var">asUnmeteredDevices</span></a><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#asUnmeteredRemoteAccessDevices"><span class="hs-identifier hs-var">asUnmeteredRemoteAccessDevices</span></a><span>
+</span><a name="line-264"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#asDefaultJobTimeoutMinutes"><span class="hs-identifier hs-var">asDefaultJobTimeoutMinutes</span></a><span>
+</span><a name="line-265"></a><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-comment">-- ** Artifact</span><span>
+</span><a name="line-267"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Artifact"><span class="hs-identifier hs-type">Artifact</span></a><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#artifact"><span class="hs-identifier hs-var">artifact</span></a><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#aArn"><span class="hs-identifier hs-var">aArn</span></a><span>
+</span><a name="line-270"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#aUrl"><span class="hs-identifier hs-var">aUrl</span></a><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#aExtension"><span class="hs-identifier hs-var">aExtension</span></a><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#aName"><span class="hs-identifier hs-var">aName</span></a><span>
+</span><a name="line-273"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#aType"><span class="hs-identifier hs-var">aType</span></a><span>
+</span><a name="line-274"></a><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-comment">-- ** CPU</span><span>
+</span><a name="line-276"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#CPU"><span class="hs-identifier hs-type">CPU</span></a><span>
+</span><a name="line-277"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cpu"><span class="hs-identifier hs-var">cpu</span></a><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cpuFrequency"><span class="hs-identifier hs-var">cpuFrequency</span></a><span>
+</span><a name="line-279"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cpuClock"><span class="hs-identifier hs-var">cpuClock</span></a><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cpuArchitecture"><span class="hs-identifier hs-var">cpuArchitecture</span></a><span>
+</span><a name="line-281"></a><span>
+</span><a name="line-282"></a><span>    </span><span class="hs-comment">-- ** Counters</span><span>
+</span><a name="line-283"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Counters"><span class="hs-identifier hs-type">Counters</span></a><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#counters"><span class="hs-identifier hs-var">counters</span></a><span>
+</span><a name="line-285"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cPassed"><span class="hs-identifier hs-var">cPassed</span></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cSkipped"><span class="hs-identifier hs-var">cSkipped</span></a><span>
+</span><a name="line-287"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cWarned"><span class="hs-identifier hs-var">cWarned</span></a><span>
+</span><a name="line-288"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cStopped"><span class="hs-identifier hs-var">cStopped</span></a><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cTotal"><span class="hs-identifier hs-var">cTotal</span></a><span>
+</span><a name="line-290"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cFailed"><span class="hs-identifier hs-var">cFailed</span></a><span>
+</span><a name="line-291"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#cErrored"><span class="hs-identifier hs-var">cErrored</span></a><span>
+</span><a name="line-292"></a><span>
+</span><a name="line-293"></a><span>    </span><span class="hs-comment">-- ** CreateRemoteAccessSessionConfiguration</span><span>
+</span><a name="line-294"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#CreateRemoteAccessSessionConfiguration"><span class="hs-identifier hs-type">CreateRemoteAccessSessionConfiguration</span></a><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#createRemoteAccessSessionConfiguration"><span class="hs-identifier hs-var">createRemoteAccessSessionConfiguration</span></a><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#crascBillingMethod"><span class="hs-identifier hs-var">crascBillingMethod</span></a><span>
+</span><a name="line-297"></a><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-comment">-- ** Device</span><span>
+</span><a name="line-299"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Device"><span class="hs-identifier hs-type">Device</span></a><span>
+</span><a name="line-300"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#device"><span class="hs-identifier hs-var">device</span></a><span>
+</span><a name="line-301"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devCarrier"><span class="hs-identifier hs-var">devCarrier</span></a><span>
+</span><a name="line-302"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devImage"><span class="hs-identifier hs-var">devImage</span></a><span>
+</span><a name="line-303"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devManufacturer"><span class="hs-identifier hs-var">devManufacturer</span></a><span>
+</span><a name="line-304"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devPlatform"><span class="hs-identifier hs-var">devPlatform</span></a><span>
+</span><a name="line-305"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devRemoteAccessEnabled"><span class="hs-identifier hs-var">devRemoteAccessEnabled</span></a><span>
+</span><a name="line-306"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devArn"><span class="hs-identifier hs-var">devArn</span></a><span>
+</span><a name="line-307"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devFormFactor"><span class="hs-identifier hs-var">devFormFactor</span></a><span>
+</span><a name="line-308"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devFleetType"><span class="hs-identifier hs-var">devFleetType</span></a><span>
+</span><a name="line-309"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devResolution"><span class="hs-identifier hs-var">devResolution</span></a><span>
+</span><a name="line-310"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devMemory"><span class="hs-identifier hs-var">devMemory</span></a><span>
+</span><a name="line-311"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devRadio"><span class="hs-identifier hs-var">devRadio</span></a><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devOs"><span class="hs-identifier hs-var">devOs</span></a><span>
+</span><a name="line-313"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devName"><span class="hs-identifier hs-var">devName</span></a><span>
+</span><a name="line-314"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devModel"><span class="hs-identifier hs-var">devModel</span></a><span>
+</span><a name="line-315"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devCpu"><span class="hs-identifier hs-var">devCpu</span></a><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devHeapSize"><span class="hs-identifier hs-var">devHeapSize</span></a><span>
+</span><a name="line-317"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devFleetName"><span class="hs-identifier hs-var">devFleetName</span></a><span>
+</span><a name="line-318"></a><span>
+</span><a name="line-319"></a><span>    </span><span class="hs-comment">-- ** DeviceMinutes</span><span>
+</span><a name="line-320"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#DeviceMinutes"><span class="hs-identifier hs-type">DeviceMinutes</span></a><span>
+</span><a name="line-321"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#deviceMinutes"><span class="hs-identifier hs-var">deviceMinutes</span></a><span>
+</span><a name="line-322"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dmMetered"><span class="hs-identifier hs-var">dmMetered</span></a><span>
+</span><a name="line-323"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dmTotal"><span class="hs-identifier hs-var">dmTotal</span></a><span>
+</span><a name="line-324"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dmUnmetered"><span class="hs-identifier hs-var">dmUnmetered</span></a><span>
+</span><a name="line-325"></a><span>
+</span><a name="line-326"></a><span>    </span><span class="hs-comment">-- ** DevicePool</span><span>
+</span><a name="line-327"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#DevicePool"><span class="hs-identifier hs-type">DevicePool</span></a><span>
+</span><a name="line-328"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devicePool"><span class="hs-identifier hs-var">devicePool</span></a><span>
+</span><a name="line-329"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dArn"><span class="hs-identifier hs-var">dArn</span></a><span>
+</span><a name="line-330"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dRules"><span class="hs-identifier hs-var">dRules</span></a><span>
+</span><a name="line-331"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dName"><span class="hs-identifier hs-var">dName</span></a><span>
+</span><a name="line-332"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dType"><span class="hs-identifier hs-var">dType</span></a><span>
+</span><a name="line-333"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dDescription"><span class="hs-identifier hs-var">dDescription</span></a><span>
+</span><a name="line-334"></a><span>
+</span><a name="line-335"></a><span>    </span><span class="hs-comment">-- ** DevicePoolCompatibilityResult</span><span>
+</span><a name="line-336"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#DevicePoolCompatibilityResult"><span class="hs-identifier hs-type">DevicePoolCompatibilityResult</span></a><span>
+</span><a name="line-337"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#devicePoolCompatibilityResult"><span class="hs-identifier hs-var">devicePoolCompatibilityResult</span></a><span>
+</span><a name="line-338"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dpcrDevice"><span class="hs-identifier hs-var">dpcrDevice</span></a><span>
+</span><a name="line-339"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dpcrCompatible"><span class="hs-identifier hs-var">dpcrCompatible</span></a><span>
+</span><a name="line-340"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#dpcrIncompatibilityMessages"><span class="hs-identifier hs-var">dpcrIncompatibilityMessages</span></a><span>
+</span><a name="line-341"></a><span>
+</span><a name="line-342"></a><span>    </span><span class="hs-comment">-- ** ExecutionConfiguration</span><span>
+</span><a name="line-343"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#ExecutionConfiguration"><span class="hs-identifier hs-type">ExecutionConfiguration</span></a><span>
+</span><a name="line-344"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#executionConfiguration"><span class="hs-identifier hs-var">executionConfiguration</span></a><span>
+</span><a name="line-345"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#ecAccountsCleanup"><span class="hs-identifier hs-var">ecAccountsCleanup</span></a><span>
+</span><a name="line-346"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#ecAppPackagesCleanup"><span class="hs-identifier hs-var">ecAppPackagesCleanup</span></a><span>
+</span><a name="line-347"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#ecJobTimeoutMinutes"><span class="hs-identifier hs-var">ecJobTimeoutMinutes</span></a><span>
+</span><a name="line-348"></a><span>
+</span><a name="line-349"></a><span>    </span><span class="hs-comment">-- ** IncompatibilityMessage</span><span>
+</span><a name="line-350"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#IncompatibilityMessage"><span class="hs-identifier hs-type">IncompatibilityMessage</span></a><span>
+</span><a name="line-351"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#incompatibilityMessage"><span class="hs-identifier hs-var">incompatibilityMessage</span></a><span>
+</span><a name="line-352"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#imType"><span class="hs-identifier hs-var">imType</span></a><span>
+</span><a name="line-353"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#imMessage"><span class="hs-identifier hs-var">imMessage</span></a><span>
+</span><a name="line-354"></a><span>
+</span><a name="line-355"></a><span>    </span><span class="hs-comment">-- ** Job</span><span>
+</span><a name="line-356"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Job"><span class="hs-identifier hs-type">Job</span></a><span>
+</span><a name="line-357"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#job"><span class="hs-identifier hs-var">job</span></a><span>
+</span><a name="line-358"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobStatus"><span class="hs-identifier hs-var">jobStatus</span></a><span>
+</span><a name="line-359"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobCounters"><span class="hs-identifier hs-var">jobCounters</span></a><span>
+</span><a name="line-360"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobArn"><span class="hs-identifier hs-var">jobArn</span></a><span>
+</span><a name="line-361"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobCreated"><span class="hs-identifier hs-var">jobCreated</span></a><span>
+</span><a name="line-362"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobDevice"><span class="hs-identifier hs-var">jobDevice</span></a><span>
+</span><a name="line-363"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobStopped"><span class="hs-identifier hs-var">jobStopped</span></a><span>
+</span><a name="line-364"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobResult"><span class="hs-identifier hs-var">jobResult</span></a><span>
+</span><a name="line-365"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobName"><span class="hs-identifier hs-var">jobName</span></a><span>
+</span><a name="line-366"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobDeviceMinutes"><span class="hs-identifier hs-var">jobDeviceMinutes</span></a><span>
+</span><a name="line-367"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobType"><span class="hs-identifier hs-var">jobType</span></a><span>
+</span><a name="line-368"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobMessage"><span class="hs-identifier hs-var">jobMessage</span></a><span>
+</span><a name="line-369"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#jobStarted"><span class="hs-identifier hs-var">jobStarted</span></a><span>
+</span><a name="line-370"></a><span>
+</span><a name="line-371"></a><span>    </span><span class="hs-comment">-- ** Location</span><span>
+</span><a name="line-372"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Location"><span class="hs-identifier hs-type">Location</span></a><span>
+</span><a name="line-373"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#location"><span class="hs-identifier hs-var">location</span></a><span>
+</span><a name="line-374"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#lLatitude"><span class="hs-identifier hs-var">lLatitude</span></a><span>
+</span><a name="line-375"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#lLongitude"><span class="hs-identifier hs-var">lLongitude</span></a><span>
+</span><a name="line-376"></a><span>
+</span><a name="line-377"></a><span>    </span><span class="hs-comment">-- ** MonetaryAmount</span><span>
+</span><a name="line-378"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#MonetaryAmount"><span class="hs-identifier hs-type">MonetaryAmount</span></a><span>
+</span><a name="line-379"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#monetaryAmount"><span class="hs-identifier hs-var">monetaryAmount</span></a><span>
+</span><a name="line-380"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#maAmount"><span class="hs-identifier hs-var">maAmount</span></a><span>
+</span><a name="line-381"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#maCurrencyCode"><span class="hs-identifier hs-var">maCurrencyCode</span></a><span>
+</span><a name="line-382"></a><span>
+</span><a name="line-383"></a><span>    </span><span class="hs-comment">-- ** NetworkProfile</span><span>
+</span><a name="line-384"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#NetworkProfile"><span class="hs-identifier hs-type">NetworkProfile</span></a><span>
+</span><a name="line-385"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#networkProfile"><span class="hs-identifier hs-var">networkProfile</span></a><span>
+</span><a name="line-386"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npUplinkJitterMs"><span class="hs-identifier hs-var">npUplinkJitterMs</span></a><span>
+</span><a name="line-387"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npArn"><span class="hs-identifier hs-var">npArn</span></a><span>
+</span><a name="line-388"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npUplinkLossPercent"><span class="hs-identifier hs-var">npUplinkLossPercent</span></a><span>
+</span><a name="line-389"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npDownlinkJitterMs"><span class="hs-identifier hs-var">npDownlinkJitterMs</span></a><span>
+</span><a name="line-390"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npName"><span class="hs-identifier hs-var">npName</span></a><span>
+</span><a name="line-391"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npDownlinkLossPercent"><span class="hs-identifier hs-var">npDownlinkLossPercent</span></a><span>
+</span><a name="line-392"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npType"><span class="hs-identifier hs-var">npType</span></a><span>
+</span><a name="line-393"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npUplinkDelayMs"><span class="hs-identifier hs-var">npUplinkDelayMs</span></a><span>
+</span><a name="line-394"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npUplinkBandwidthBits"><span class="hs-identifier hs-var">npUplinkBandwidthBits</span></a><span>
+</span><a name="line-395"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npDescription"><span class="hs-identifier hs-var">npDescription</span></a><span>
+</span><a name="line-396"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npDownlinkDelayMs"><span class="hs-identifier hs-var">npDownlinkDelayMs</span></a><span>
+</span><a name="line-397"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#npDownlinkBandwidthBits"><span class="hs-identifier hs-var">npDownlinkBandwidthBits</span></a><span>
+</span><a name="line-398"></a><span>
+</span><a name="line-399"></a><span>    </span><span class="hs-comment">-- ** Offering</span><span>
+</span><a name="line-400"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Offering"><span class="hs-identifier hs-type">Offering</span></a><span>
+</span><a name="line-401"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#offering"><span class="hs-identifier hs-var">offering</span></a><span>
+</span><a name="line-402"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#oPlatform"><span class="hs-identifier hs-var">oPlatform</span></a><span>
+</span><a name="line-403"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#oId"><span class="hs-identifier hs-var">oId</span></a><span>
+</span><a name="line-404"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#oRecurringCharges"><span class="hs-identifier hs-var">oRecurringCharges</span></a><span>
+</span><a name="line-405"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#oType"><span class="hs-identifier hs-var">oType</span></a><span>
+</span><a name="line-406"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#oDescription"><span class="hs-identifier hs-var">oDescription</span></a><span>
+</span><a name="line-407"></a><span>
+</span><a name="line-408"></a><span>    </span><span class="hs-comment">-- ** OfferingPromotion</span><span>
+</span><a name="line-409"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#OfferingPromotion"><span class="hs-identifier hs-type">OfferingPromotion</span></a><span>
+</span><a name="line-410"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#offeringPromotion"><span class="hs-identifier hs-var">offeringPromotion</span></a><span>
+</span><a name="line-411"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#opId"><span class="hs-identifier hs-var">opId</span></a><span>
+</span><a name="line-412"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#opDescription"><span class="hs-identifier hs-var">opDescription</span></a><span>
+</span><a name="line-413"></a><span>
+</span><a name="line-414"></a><span>    </span><span class="hs-comment">-- ** OfferingStatus</span><span>
+</span><a name="line-415"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#OfferingStatus"><span class="hs-identifier hs-type">OfferingStatus</span></a><span>
+</span><a name="line-416"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#offeringStatus"><span class="hs-identifier hs-var">offeringStatus</span></a><span>
+</span><a name="line-417"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#osEffectiveOn"><span class="hs-identifier hs-var">osEffectiveOn</span></a><span>
+</span><a name="line-418"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#osOffering"><span class="hs-identifier hs-var">osOffering</span></a><span>
+</span><a name="line-419"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#osQuantity"><span class="hs-identifier hs-var">osQuantity</span></a><span>
+</span><a name="line-420"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#osType"><span class="hs-identifier hs-var">osType</span></a><span>
+</span><a name="line-421"></a><span>
+</span><a name="line-422"></a><span>    </span><span class="hs-comment">-- ** OfferingTransaction</span><span>
+</span><a name="line-423"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#OfferingTransaction"><span class="hs-identifier hs-type">OfferingTransaction</span></a><span>
+</span><a name="line-424"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#offeringTransaction"><span class="hs-identifier hs-var">offeringTransaction</span></a><span>
+</span><a name="line-425"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#otOfferingStatus"><span class="hs-identifier hs-var">otOfferingStatus</span></a><span>
+</span><a name="line-426"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#otCost"><span class="hs-identifier hs-var">otCost</span></a><span>
+</span><a name="line-427"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#otTransactionId"><span class="hs-identifier hs-var">otTransactionId</span></a><span>
+</span><a name="line-428"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#otOfferingPromotionId"><span class="hs-identifier hs-var">otOfferingPromotionId</span></a><span>
+</span><a name="line-429"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#otCreatedOn"><span class="hs-identifier hs-var">otCreatedOn</span></a><span>
+</span><a name="line-430"></a><span>
+</span><a name="line-431"></a><span>    </span><span class="hs-comment">-- ** Problem</span><span>
+</span><a name="line-432"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Problem"><span class="hs-identifier hs-type">Problem</span></a><span>
+</span><a name="line-433"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#problem"><span class="hs-identifier hs-var">problem</span></a><span>
+</span><a name="line-434"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pDevice"><span class="hs-identifier hs-var">pDevice</span></a><span>
+</span><a name="line-435"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pTest"><span class="hs-identifier hs-var">pTest</span></a><span>
+</span><a name="line-436"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pResult"><span class="hs-identifier hs-var">pResult</span></a><span>
+</span><a name="line-437"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pRun"><span class="hs-identifier hs-var">pRun</span></a><span>
+</span><a name="line-438"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pJob"><span class="hs-identifier hs-var">pJob</span></a><span>
+</span><a name="line-439"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pMessage"><span class="hs-identifier hs-var">pMessage</span></a><span>
+</span><a name="line-440"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pSuite"><span class="hs-identifier hs-var">pSuite</span></a><span>
+</span><a name="line-441"></a><span>
+</span><a name="line-442"></a><span>    </span><span class="hs-comment">-- ** ProblemDetail</span><span>
+</span><a name="line-443"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#ProblemDetail"><span class="hs-identifier hs-type">ProblemDetail</span></a><span>
+</span><a name="line-444"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#problemDetail"><span class="hs-identifier hs-var">problemDetail</span></a><span>
+</span><a name="line-445"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pdArn"><span class="hs-identifier hs-var">pdArn</span></a><span>
+</span><a name="line-446"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pdName"><span class="hs-identifier hs-var">pdName</span></a><span>
+</span><a name="line-447"></a><span>
+</span><a name="line-448"></a><span>    </span><span class="hs-comment">-- ** Project</span><span>
+</span><a name="line-449"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Project"><span class="hs-identifier hs-type">Project</span></a><span>
+</span><a name="line-450"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#project"><span class="hs-identifier hs-var">project</span></a><span>
+</span><a name="line-451"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pArn"><span class="hs-identifier hs-var">pArn</span></a><span>
+</span><a name="line-452"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pCreated"><span class="hs-identifier hs-var">pCreated</span></a><span>
+</span><a name="line-453"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pName"><span class="hs-identifier hs-var">pName</span></a><span>
+</span><a name="line-454"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#pDefaultJobTimeoutMinutes"><span class="hs-identifier hs-var">pDefaultJobTimeoutMinutes</span></a><span>
+</span><a name="line-455"></a><span>
+</span><a name="line-456"></a><span>    </span><span class="hs-comment">-- ** Radios</span><span>
+</span><a name="line-457"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Radios"><span class="hs-identifier hs-type">Radios</span></a><span>
+</span><a name="line-458"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#radios"><span class="hs-identifier hs-var">radios</span></a><span>
+</span><a name="line-459"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rNfc"><span class="hs-identifier hs-var">rNfc</span></a><span>
+</span><a name="line-460"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rGps"><span class="hs-identifier hs-var">rGps</span></a><span>
+</span><a name="line-461"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rBluetooth"><span class="hs-identifier hs-var">rBluetooth</span></a><span>
+</span><a name="line-462"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rWifi"><span class="hs-identifier hs-var">rWifi</span></a><span>
+</span><a name="line-463"></a><span>
+</span><a name="line-464"></a><span>    </span><span class="hs-comment">-- ** RecurringCharge</span><span>
+</span><a name="line-465"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#RecurringCharge"><span class="hs-identifier hs-type">RecurringCharge</span></a><span>
+</span><a name="line-466"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#recurringCharge"><span class="hs-identifier hs-var">recurringCharge</span></a><span>
+</span><a name="line-467"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rcFrequency"><span class="hs-identifier hs-var">rcFrequency</span></a><span>
+</span><a name="line-468"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rcCost"><span class="hs-identifier hs-var">rcCost</span></a><span>
+</span><a name="line-469"></a><span>
+</span><a name="line-470"></a><span>    </span><span class="hs-comment">-- ** RemoteAccessSession</span><span>
+</span><a name="line-471"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#RemoteAccessSession"><span class="hs-identifier hs-type">RemoteAccessSession</span></a><span>
+</span><a name="line-472"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#remoteAccessSession"><span class="hs-identifier hs-var">remoteAccessSession</span></a><span>
+</span><a name="line-473"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasBillingMethod"><span class="hs-identifier hs-var">rasBillingMethod</span></a><span>
+</span><a name="line-474"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasStatus"><span class="hs-identifier hs-var">rasStatus</span></a><span>
+</span><a name="line-475"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasArn"><span class="hs-identifier hs-var">rasArn</span></a><span>
+</span><a name="line-476"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasCreated"><span class="hs-identifier hs-var">rasCreated</span></a><span>
+</span><a name="line-477"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasDevice"><span class="hs-identifier hs-var">rasDevice</span></a><span>
+</span><a name="line-478"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasStopped"><span class="hs-identifier hs-var">rasStopped</span></a><span>
+</span><a name="line-479"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasResult"><span class="hs-identifier hs-var">rasResult</span></a><span>
+</span><a name="line-480"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasName"><span class="hs-identifier hs-var">rasName</span></a><span>
+</span><a name="line-481"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasDeviceMinutes"><span class="hs-identifier hs-var">rasDeviceMinutes</span></a><span>
+</span><a name="line-482"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasEndpoint"><span class="hs-identifier hs-var">rasEndpoint</span></a><span>
+</span><a name="line-483"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasMessage"><span class="hs-identifier hs-var">rasMessage</span></a><span>
+</span><a name="line-484"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rasStarted"><span class="hs-identifier hs-var">rasStarted</span></a><span>
+</span><a name="line-485"></a><span>
+</span><a name="line-486"></a><span>    </span><span class="hs-comment">-- ** Resolution</span><span>
+</span><a name="line-487"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Resolution"><span class="hs-identifier hs-type">Resolution</span></a><span>
+</span><a name="line-488"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#resolution"><span class="hs-identifier hs-var">resolution</span></a><span>
+</span><a name="line-489"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rHeight"><span class="hs-identifier hs-var">rHeight</span></a><span>
+</span><a name="line-490"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rWidth"><span class="hs-identifier hs-var">rWidth</span></a><span>
+</span><a name="line-491"></a><span>
+</span><a name="line-492"></a><span>    </span><span class="hs-comment">-- ** Rule</span><span>
+</span><a name="line-493"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Rule"><span class="hs-identifier hs-type">Rule</span></a><span>
+</span><a name="line-494"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rule"><span class="hs-identifier hs-var">rule</span></a><span>
+</span><a name="line-495"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rAttribute"><span class="hs-identifier hs-var">rAttribute</span></a><span>
+</span><a name="line-496"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rOperator"><span class="hs-identifier hs-var">rOperator</span></a><span>
+</span><a name="line-497"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#rValue"><span class="hs-identifier hs-var">rValue</span></a><span>
+</span><a name="line-498"></a><span>
+</span><a name="line-499"></a><span>    </span><span class="hs-comment">-- ** Run</span><span>
+</span><a name="line-500"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Run"><span class="hs-identifier hs-type">Run</span></a><span>
+</span><a name="line-501"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#run"><span class="hs-identifier hs-var">run</span></a><span>
+</span><a name="line-502"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runBillingMethod"><span class="hs-identifier hs-var">runBillingMethod</span></a><span>
+</span><a name="line-503"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runStatus"><span class="hs-identifier hs-var">runStatus</span></a><span>
+</span><a name="line-504"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runCounters"><span class="hs-identifier hs-var">runCounters</span></a><span>
+</span><a name="line-505"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runPlatform"><span class="hs-identifier hs-var">runPlatform</span></a><span>
+</span><a name="line-506"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runArn"><span class="hs-identifier hs-var">runArn</span></a><span>
+</span><a name="line-507"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runCreated"><span class="hs-identifier hs-var">runCreated</span></a><span>
+</span><a name="line-508"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runStopped"><span class="hs-identifier hs-var">runStopped</span></a><span>
+</span><a name="line-509"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runResult"><span class="hs-identifier hs-var">runResult</span></a><span>
+</span><a name="line-510"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runCompletedJobs"><span class="hs-identifier hs-var">runCompletedJobs</span></a><span>
+</span><a name="line-511"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runName"><span class="hs-identifier hs-var">runName</span></a><span>
+</span><a name="line-512"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runNetworkProfile"><span class="hs-identifier hs-var">runNetworkProfile</span></a><span>
+</span><a name="line-513"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runDeviceMinutes"><span class="hs-identifier hs-var">runDeviceMinutes</span></a><span>
+</span><a name="line-514"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runType"><span class="hs-identifier hs-var">runType</span></a><span>
+</span><a name="line-515"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runMessage"><span class="hs-identifier hs-var">runMessage</span></a><span>
+</span><a name="line-516"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runTotalJobs"><span class="hs-identifier hs-var">runTotalJobs</span></a><span>
+</span><a name="line-517"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#runStarted"><span class="hs-identifier hs-var">runStarted</span></a><span>
+</span><a name="line-518"></a><span>
+</span><a name="line-519"></a><span>    </span><span class="hs-comment">-- ** Sample</span><span>
+</span><a name="line-520"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Sample"><span class="hs-identifier hs-type">Sample</span></a><span>
+</span><a name="line-521"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sample"><span class="hs-identifier hs-var">sample</span></a><span>
+</span><a name="line-522"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#samArn"><span class="hs-identifier hs-var">samArn</span></a><span>
+</span><a name="line-523"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#samUrl"><span class="hs-identifier hs-var">samUrl</span></a><span>
+</span><a name="line-524"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#samType"><span class="hs-identifier hs-var">samType</span></a><span>
+</span><a name="line-525"></a><span>
+</span><a name="line-526"></a><span>    </span><span class="hs-comment">-- ** ScheduleRunConfiguration</span><span>
+</span><a name="line-527"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#ScheduleRunConfiguration"><span class="hs-identifier hs-type">ScheduleRunConfiguration</span></a><span>
+</span><a name="line-528"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#scheduleRunConfiguration"><span class="hs-identifier hs-var">scheduleRunConfiguration</span></a><span>
+</span><a name="line-529"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srcBillingMethod"><span class="hs-identifier hs-var">srcBillingMethod</span></a><span>
+</span><a name="line-530"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srcRadios"><span class="hs-identifier hs-var">srcRadios</span></a><span>
+</span><a name="line-531"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srcLocation"><span class="hs-identifier hs-var">srcLocation</span></a><span>
+</span><a name="line-532"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srcLocale"><span class="hs-identifier hs-var">srcLocale</span></a><span>
+</span><a name="line-533"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srcNetworkProfileARN"><span class="hs-identifier hs-var">srcNetworkProfileARN</span></a><span>
+</span><a name="line-534"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srcExtraDataPackageARN"><span class="hs-identifier hs-var">srcExtraDataPackageARN</span></a><span>
+</span><a name="line-535"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srcAuxiliaryApps"><span class="hs-identifier hs-var">srcAuxiliaryApps</span></a><span>
+</span><a name="line-536"></a><span>
+</span><a name="line-537"></a><span>    </span><span class="hs-comment">-- ** ScheduleRunTest</span><span>
+</span><a name="line-538"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#ScheduleRunTest"><span class="hs-identifier hs-type">ScheduleRunTest</span></a><span>
+</span><a name="line-539"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#scheduleRunTest"><span class="hs-identifier hs-var">scheduleRunTest</span></a><span>
+</span><a name="line-540"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srtTestPackageARN"><span class="hs-identifier hs-var">srtTestPackageARN</span></a><span>
+</span><a name="line-541"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srtParameters"><span class="hs-identifier hs-var">srtParameters</span></a><span>
+</span><a name="line-542"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srtFilter"><span class="hs-identifier hs-var">srtFilter</span></a><span>
+</span><a name="line-543"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#srtType"><span class="hs-identifier hs-var">srtType</span></a><span>
+</span><a name="line-544"></a><span>
+</span><a name="line-545"></a><span>    </span><span class="hs-comment">-- ** Suite</span><span>
+</span><a name="line-546"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Suite"><span class="hs-identifier hs-type">Suite</span></a><span>
+</span><a name="line-547"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#suite"><span class="hs-identifier hs-var">suite</span></a><span>
+</span><a name="line-548"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sStatus"><span class="hs-identifier hs-var">sStatus</span></a><span>
+</span><a name="line-549"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sCounters"><span class="hs-identifier hs-var">sCounters</span></a><span>
+</span><a name="line-550"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sArn"><span class="hs-identifier hs-var">sArn</span></a><span>
+</span><a name="line-551"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sCreated"><span class="hs-identifier hs-var">sCreated</span></a><span>
+</span><a name="line-552"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sStopped"><span class="hs-identifier hs-var">sStopped</span></a><span>
+</span><a name="line-553"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sResult"><span class="hs-identifier hs-var">sResult</span></a><span>
+</span><a name="line-554"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sName"><span class="hs-identifier hs-var">sName</span></a><span>
+</span><a name="line-555"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sDeviceMinutes"><span class="hs-identifier hs-var">sDeviceMinutes</span></a><span>
+</span><a name="line-556"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sType"><span class="hs-identifier hs-var">sType</span></a><span>
+</span><a name="line-557"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sMessage"><span class="hs-identifier hs-var">sMessage</span></a><span>
+</span><a name="line-558"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#sStarted"><span class="hs-identifier hs-var">sStarted</span></a><span>
+</span><a name="line-559"></a><span>
+</span><a name="line-560"></a><span>    </span><span class="hs-comment">-- ** Test</span><span>
+</span><a name="line-561"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Test"><span class="hs-identifier hs-type">Test</span></a><span>
+</span><a name="line-562"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#test"><span class="hs-identifier hs-var">test</span></a><span>
+</span><a name="line-563"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tStatus"><span class="hs-identifier hs-var">tStatus</span></a><span>
+</span><a name="line-564"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tCounters"><span class="hs-identifier hs-var">tCounters</span></a><span>
+</span><a name="line-565"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tArn"><span class="hs-identifier hs-var">tArn</span></a><span>
+</span><a name="line-566"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tCreated"><span class="hs-identifier hs-var">tCreated</span></a><span>
+</span><a name="line-567"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tStopped"><span class="hs-identifier hs-var">tStopped</span></a><span>
+</span><a name="line-568"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tResult"><span class="hs-identifier hs-var">tResult</span></a><span>
+</span><a name="line-569"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tName"><span class="hs-identifier hs-var">tName</span></a><span>
+</span><a name="line-570"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tDeviceMinutes"><span class="hs-identifier hs-var">tDeviceMinutes</span></a><span>
+</span><a name="line-571"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tType"><span class="hs-identifier hs-var">tType</span></a><span>
+</span><a name="line-572"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tMessage"><span class="hs-identifier hs-var">tMessage</span></a><span>
+</span><a name="line-573"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tStarted"><span class="hs-identifier hs-var">tStarted</span></a><span>
+</span><a name="line-574"></a><span>
+</span><a name="line-575"></a><span>    </span><span class="hs-comment">-- ** TrialMinutes</span><span>
+</span><a name="line-576"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#TrialMinutes"><span class="hs-identifier hs-type">TrialMinutes</span></a><span>
+</span><a name="line-577"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#trialMinutes"><span class="hs-identifier hs-var">trialMinutes</span></a><span>
+</span><a name="line-578"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tmRemaining"><span class="hs-identifier hs-var">tmRemaining</span></a><span>
+</span><a name="line-579"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#tmTotal"><span class="hs-identifier hs-var">tmTotal</span></a><span>
+</span><a name="line-580"></a><span>
+</span><a name="line-581"></a><span>    </span><span class="hs-comment">-- ** UniqueProblem</span><span>
+</span><a name="line-582"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#UniqueProblem"><span class="hs-identifier hs-type">UniqueProblem</span></a><span>
+</span><a name="line-583"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uniqueProblem"><span class="hs-identifier hs-var">uniqueProblem</span></a><span>
+</span><a name="line-584"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#upProblems"><span class="hs-identifier hs-var">upProblems</span></a><span>
+</span><a name="line-585"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#upMessage"><span class="hs-identifier hs-var">upMessage</span></a><span>
+</span><a name="line-586"></a><span>
+</span><a name="line-587"></a><span>    </span><span class="hs-comment">-- ** Upload</span><span>
+</span><a name="line-588"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#Upload"><span class="hs-identifier hs-type">Upload</span></a><span>
+</span><a name="line-589"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#upload"><span class="hs-identifier hs-var">upload</span></a><span>
+</span><a name="line-590"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uStatus"><span class="hs-identifier hs-var">uStatus</span></a><span>
+</span><a name="line-591"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uArn"><span class="hs-identifier hs-var">uArn</span></a><span>
+</span><a name="line-592"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uCreated"><span class="hs-identifier hs-var">uCreated</span></a><span>
+</span><a name="line-593"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uUrl"><span class="hs-identifier hs-var">uUrl</span></a><span>
+</span><a name="line-594"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uName"><span class="hs-identifier hs-var">uName</span></a><span>
+</span><a name="line-595"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uMetadata"><span class="hs-identifier hs-var">uMetadata</span></a><span>
+</span><a name="line-596"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uType"><span class="hs-identifier hs-var">uType</span></a><span>
+</span><a name="line-597"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uMessage"><span class="hs-identifier hs-var">uMessage</span></a><span>
+</span><a name="line-598"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.DeviceFarm.Types.Product.html#uContentType"><span class="hs-identifier hs-var">uContentType</span></a><span>
+</span><a name="line-599"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-600"></a><span>
+</span><a name="line-601"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.CreateDevicePool.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateDevicePool</span></a><span>
+</span><a name="line-602"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.CreateNetworkProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateNetworkProfile</span></a><span>
+</span><a name="line-603"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.CreateProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateProject</span></a><span>
+</span><a name="line-604"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.CreateRemoteAccessSession.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateRemoteAccessSession</span></a><span>
+</span><a name="line-605"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.CreateUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">CreateUpload</span></a><span>
+</span><a name="line-606"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.DeleteDevicePool.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDevicePool</span></a><span>
+</span><a name="line-607"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.DeleteNetworkProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteNetworkProfile</span></a><span>
+</span><a name="line-608"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.DeleteProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteProject</span></a><span>
+</span><a name="line-609"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.DeleteRemoteAccessSession.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRemoteAccessSession</span></a><span>
+</span><a name="line-610"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.DeleteRun.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteRun</span></a><span>
+</span><a name="line-611"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.DeleteUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUpload</span></a><span>
+</span><a name="line-612"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetAccountSettings.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetAccountSettings</span></a><span>
+</span><a name="line-613"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetDevice.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetDevice</span></a><span>
+</span><a name="line-614"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetDevicePool.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetDevicePool</span></a><span>
+</span><a name="line-615"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetDevicePoolCompatibility.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetDevicePoolCompatibility</span></a><span>
+</span><a name="line-616"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetJob.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetJob</span></a><span>
+</span><a name="line-617"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetNetworkProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetNetworkProfile</span></a><span>
+</span><a name="line-618"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetOfferingStatus.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetOfferingStatus</span></a><span>
+</span><a name="line-619"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetProject</span></a><span>
+</span><a name="line-620"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetRemoteAccessSession.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetRemoteAccessSession</span></a><span>
+</span><a name="line-621"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetRun.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetRun</span></a><span>
+</span><a name="line-622"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetSuite.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetSuite</span></a><span>
+</span><a name="line-623"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetTest.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetTest</span></a><span>
+</span><a name="line-624"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.GetUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">GetUpload</span></a><span>
+</span><a name="line-625"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.InstallToRemoteAccessSession.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">InstallToRemoteAccessSession</span></a><span>
+</span><a name="line-626"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListArtifacts.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListArtifacts</span></a><span>
+</span><a name="line-627"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListDevicePools.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListDevicePools</span></a><span>
+</span><a name="line-628"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListDevices.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListDevices</span></a><span>
+</span><a name="line-629"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListJobs.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListJobs</span></a><span>
+</span><a name="line-630"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListNetworkProfiles.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListNetworkProfiles</span></a><span>
+</span><a name="line-631"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListOfferingPromotions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListOfferingPromotions</span></a><span>
+</span><a name="line-632"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListOfferings.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListOfferings</span></a><span>
+</span><a name="line-633"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListOfferingTransactions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListOfferingTransactions</span></a><span>
+</span><a name="line-634"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListProjects.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListProjects</span></a><span>
+</span><a name="line-635"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListRemoteAccessSessions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListRemoteAccessSessions</span></a><span>
+</span><a name="line-636"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListRuns.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListRuns</span></a><span>
+</span><a name="line-637"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListSamples.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListSamples</span></a><span>
+</span><a name="line-638"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListSuites.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListSuites</span></a><span>
+</span><a name="line-639"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListTests.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListTests</span></a><span>
+</span><a name="line-640"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListUniqueProblems.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListUniqueProblems</span></a><span>
+</span><a name="line-641"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ListUploads.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ListUploads</span></a><span>
+</span><a name="line-642"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.PurchaseOffering.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">PurchaseOffering</span></a><span>
+</span><a name="line-643"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.RenewOffering.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">RenewOffering</span></a><span>
+</span><a name="line-644"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.ScheduleRun.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">ScheduleRun</span></a><span>
+</span><a name="line-645"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.StopRemoteAccessSession.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">StopRemoteAccessSession</span></a><span>
+</span><a name="line-646"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.StopRun.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">StopRun</span></a><span>
+</span><a name="line-647"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-648"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.UpdateDevicePool.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateDevicePool</span></a><span>
+</span><a name="line-649"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.UpdateNetworkProfile.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateNetworkProfile</span></a><span>
+</span><a name="line-650"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.UpdateProject.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateProject</span></a><span>
+</span><a name="line-651"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.DeviceFarm.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">DeviceFarm</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-652"></a><span>
+</span><a name="line-653"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'DeviceFarm'.
+-}</span><span>
+</span><a name="line-659"></a><span>
+</span><a name="line-660"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-676"></a><span>
+</span><a name="line-677"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-682"></a></pre></body></html>
