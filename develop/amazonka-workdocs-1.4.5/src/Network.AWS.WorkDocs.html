@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.WorkDocs</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- The WorkDocs API is designed for the following use cases:</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">--</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--     * File Migration: File migration applications are supported for users who want to migrate their files from an on-premise or off-premise file system or service. Users can insert files into a user directory structure, as well as allow for basic metadata changes, such as modifications to the permissions of files.</span><span>
+</span><a name="line-18"></a><span class="hs-comment">--</span><span>
+</span><a name="line-19"></a><span class="hs-comment">--     * Security: Support security applications are supported for users who have additional security needs, such as anti-virus or data loss prevention. The APIs, in conjunction with Amazon CloudTrail, allow these applications to detect when changes occur in Amazon WorkDocs, so the application can take the necessary actions and replace the target file. The application can also choose to email the user if the target file violates the policy.</span><span>
+</span><a name="line-20"></a><span class="hs-comment">--</span><span>
+</span><a name="line-21"></a><span class="hs-comment">--     * eDiscovery/Analytics: General administrative applications are supported, such as eDiscovery and analytics. These applications can choose to mimic and/or record the actions in an Amazon WorkDocs site, in conjunction with Amazon CloudTrails, to replicate data for eDiscovery, backup, or analytical applications.</span><span>
+</span><a name="line-22"></a><span class="hs-comment">--</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--</span><span>
+</span><a name="line-24"></a><span class="hs-comment">--</span><span>
+</span><a name="line-25"></a><span class="hs-comment">-- All Amazon WorkDocs APIs are Amazon authenticated, certificate-signed APIs. They not only require the use of the AWS SDK, but also allow for the exclusive use of IAM users and roles to help facilitate access, trust, and permission policies. By creating a role and allowing an IAM user to access the Amazon WorkDocs site, the IAM user gains full administrative visibility into the entire Amazon WorkDocs site (or as set in the IAM policy). This includes, but is not limited to, the ability to modify file permissions and upload any file to any user. This allows developers to perform the three use cases above, as well as give users the ability to grant access on a selective basis using the IAM model.</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--</span><span>
+</span><a name="line-27"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span>
+</span><a name="line-28"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-30"></a><span>      </span><a href="Network.AWS.WorkDocs.Types.html#workDocs"><span class="hs-identifier hs-var">workDocs</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** CustomMetadataLimitExceededException</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_CustomMetadataLimitExceededException"><span class="hs-identifier hs-var">_CustomMetadataLimitExceededException</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** EntityAlreadyExistsException</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_EntityAlreadyExistsException"><span class="hs-identifier hs-var">_EntityAlreadyExistsException</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** ResourceAlreadyCheckedOutException</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_ResourceAlreadyCheckedOutException"><span class="hs-identifier hs-var">_ResourceAlreadyCheckedOutException</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** ProhibitedStateException</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_ProhibitedStateException"><span class="hs-identifier hs-var">_ProhibitedStateException</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** TooManyLabelsException</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_TooManyLabelsException"><span class="hs-identifier hs-var">_TooManyLabelsException</span></a><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- ** InvalidArgumentException</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_InvalidArgumentException"><span class="hs-identifier hs-var">_InvalidArgumentException</span></a><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- ** UnauthorizedResourceAccessException</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_UnauthorizedResourceAccessException"><span class="hs-identifier hs-var">_UnauthorizedResourceAccessException</span></a><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- ** TooManySubscriptionsException</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_TooManySubscriptionsException"><span class="hs-identifier hs-var">_TooManySubscriptionsException</span></a><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** FailedDependencyException</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_FailedDependencyException"><span class="hs-identifier hs-var">_FailedDependencyException</span></a><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- ** DocumentLockedForCommentsException</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_DocumentLockedForCommentsException"><span class="hs-identifier hs-var">_DocumentLockedForCommentsException</span></a><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** EntityNotExistsException</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_EntityNotExistsException"><span class="hs-identifier hs-var">_EntityNotExistsException</span></a><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** DeactivatingLastSystemUserException</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_DeactivatingLastSystemUserException"><span class="hs-identifier hs-var">_DeactivatingLastSystemUserException</span></a><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- ** IllegalUserStateException</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_IllegalUserStateException"><span class="hs-identifier hs-var">_IllegalUserStateException</span></a><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** StorageLimitWillExceedException</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_StorageLimitWillExceedException"><span class="hs-identifier hs-var">_StorageLimitWillExceedException</span></a><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** ConcurrentModificationException</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_ConcurrentModificationException"><span class="hs-identifier hs-var">_ConcurrentModificationException</span></a><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- ** StorageLimitExceededException</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_StorageLimitExceededException"><span class="hs-identifier hs-var">_StorageLimitExceededException</span></a><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- ** ServiceUnavailableException</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_ServiceUnavailableException"><span class="hs-identifier hs-var">_ServiceUnavailableException</span></a><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- ** InvalidOperationException</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_InvalidOperationException"><span class="hs-identifier hs-var">_InvalidOperationException</span></a><span>
+</span><a name="line-88"></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- ** UnauthorizedOperationException</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_UnauthorizedOperationException"><span class="hs-identifier hs-var">_UnauthorizedOperationException</span></a><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- ** DraftUploadOutOfSyncException</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_DraftUploadOutOfSyncException"><span class="hs-identifier hs-var">_DraftUploadOutOfSyncException</span></a><span>
+</span><a name="line-94"></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-comment">-- ** DeleteLabels</span><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLabels</span><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- ** AbortDocumentVersionUpload</span><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">AbortDocumentVersionUpload</span><span>
+</span><a name="line-109"></a><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-comment">-- ** GetDocumentPath</span><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetDocumentPath</span><span>
+</span><a name="line-112"></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-comment">-- ** CreateComment</span><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateComment</span><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-comment">-- ** DescribeUsers (Paginated)</span><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeUsers</span><span>
+</span><a name="line-118"></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- ** DeleteFolder</span><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteFolder</span><span>
+</span><a name="line-121"></a><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-comment">-- ** UpdateFolder</span><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateFolder</span><span>
+</span><a name="line-124"></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-comment">-- ** DeleteCustomMetadata</span><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteCustomMetadata</span><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-comment">-- ** DescribeResourcePermissions</span><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeResourcePermissions</span><span>
+</span><a name="line-130"></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-comment">-- ** DeleteNotificationSubscription</span><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteNotificationSubscription</span><span>
+</span><a name="line-133"></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-comment">-- ** CreateFolder</span><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateFolder</span><span>
+</span><a name="line-136"></a><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-comment">-- ** CreateNotificationSubscription</span><span>
+</span><a name="line-138"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateNotificationSubscription</span><span>
+</span><a name="line-139"></a><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-comment">-- ** CreateCustomMetadata</span><span>
+</span><a name="line-141"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateCustomMetadata</span><span>
+</span><a name="line-142"></a><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-comment">-- ** GetFolderPath</span><span>
+</span><a name="line-144"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetFolderPath</span><span>
+</span><a name="line-145"></a><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-comment">-- ** DescribeComments</span><span>
+</span><a name="line-147"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeComments</span><span>
+</span><a name="line-148"></a><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-comment">-- ** DeleteFolderContents</span><span>
+</span><a name="line-150"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteFolderContents</span><span>
+</span><a name="line-151"></a><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-comment">-- ** RemoveAllResourcePermissions</span><span>
+</span><a name="line-153"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveAllResourcePermissions</span><span>
+</span><a name="line-154"></a><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-comment">-- ** GetFolder</span><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetFolder</span><span>
+</span><a name="line-157"></a><span>
+</span><a name="line-158"></a><span>    </span><span class="hs-comment">-- ** DescribeNotificationSubscriptions</span><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeNotificationSubscriptions</span><span>
+</span><a name="line-160"></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-comment">-- ** ActivateUser</span><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">ActivateUser</span><span>
+</span><a name="line-163"></a><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-comment">-- ** DescribeDocumentVersions (Paginated)</span><span>
+</span><a name="line-165"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDocumentVersions</span><span>
+</span><a name="line-166"></a><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-comment">-- ** GetDocumentVersion</span><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetDocumentVersion</span><span>
+</span><a name="line-169"></a><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-comment">-- ** DescribeActivities</span><span>
+</span><a name="line-171"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeActivities</span><span>
+</span><a name="line-172"></a><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-comment">-- ** DescribeRootFolders</span><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRootFolders</span><span>
+</span><a name="line-175"></a><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-comment">-- ** GetCurrentUser</span><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetCurrentUser</span><span>
+</span><a name="line-178"></a><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-comment">-- ** DeactivateUser</span><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeactivateUser</span><span>
+</span><a name="line-181"></a><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-comment">-- ** GetDocument</span><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetDocument</span><span>
+</span><a name="line-184"></a><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-comment">-- ** DescribeFolderContents (Paginated)</span><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeFolderContents</span><span>
+</span><a name="line-187"></a><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-comment">-- ** CreateLabels</span><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLabels</span><span>
+</span><a name="line-190"></a><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-comment">-- ** UpdateDocumentVersion</span><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateDocumentVersion</span><span>
+</span><a name="line-193"></a><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-comment">-- ** RemoveResourcePermission</span><span>
+</span><a name="line-195"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveResourcePermission</span><span>
+</span><a name="line-196"></a><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-comment">-- ** DeleteComment</span><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteComment</span><span>
+</span><a name="line-199"></a><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-comment">-- ** InitiateDocumentVersionUpload</span><span>
+</span><a name="line-201"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateDocumentVersionUpload</span><span>
+</span><a name="line-202"></a><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-comment">-- ** CreateUser</span><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateUser</span><span>
+</span><a name="line-205"></a><span>
+</span><a name="line-206"></a><span>    </span><span class="hs-comment">-- ** UpdateUser</span><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateUser</span><span>
+</span><a name="line-208"></a><span>
+</span><a name="line-209"></a><span>    </span><span class="hs-comment">-- ** DeleteUser</span><span>
+</span><a name="line-210"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUser</span><span>
+</span><a name="line-211"></a><span>
+</span><a name="line-212"></a><span>    </span><span class="hs-comment">-- ** AddResourcePermissions</span><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">AddResourcePermissions</span><span>
+</span><a name="line-214"></a><span>
+</span><a name="line-215"></a><span>    </span><span class="hs-comment">-- ** UpdateDocument</span><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateDocument</span><span>
+</span><a name="line-217"></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-comment">-- ** DeleteDocument</span><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDocument</span><span>
+</span><a name="line-220"></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-222"></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-comment">-- ** ActivityType</span><span>
+</span><a name="line-224"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#ActivityType"><span class="hs-identifier hs-type">ActivityType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-225"></a><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-comment">-- ** CommentStatusType</span><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#CommentStatusType"><span class="hs-identifier hs-type">CommentStatusType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-228"></a><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-comment">-- ** CommentVisibilityType</span><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#CommentVisibilityType"><span class="hs-identifier hs-type">CommentVisibilityType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-231"></a><span>
+</span><a name="line-232"></a><span>    </span><span class="hs-comment">-- ** DocumentSourceType</span><span>
+</span><a name="line-233"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#DocumentSourceType"><span class="hs-identifier hs-type">DocumentSourceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-234"></a><span>
+</span><a name="line-235"></a><span>    </span><span class="hs-comment">-- ** DocumentStatusType</span><span>
+</span><a name="line-236"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#DocumentStatusType"><span class="hs-identifier hs-type">DocumentStatusType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-237"></a><span>
+</span><a name="line-238"></a><span>    </span><span class="hs-comment">-- ** DocumentThumbnailType</span><span>
+</span><a name="line-239"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#DocumentThumbnailType"><span class="hs-identifier hs-type">DocumentThumbnailType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-240"></a><span>
+</span><a name="line-241"></a><span>    </span><span class="hs-comment">-- ** DocumentVersionStatus</span><span>
+</span><a name="line-242"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#DocumentVersionStatus"><span class="hs-identifier hs-type">DocumentVersionStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-243"></a><span>
+</span><a name="line-244"></a><span>    </span><span class="hs-comment">-- ** FolderContentType</span><span>
+</span><a name="line-245"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#FolderContentType"><span class="hs-identifier hs-type">FolderContentType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-246"></a><span>
+</span><a name="line-247"></a><span>    </span><span class="hs-comment">-- ** LocaleType</span><span>
+</span><a name="line-248"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#LocaleType"><span class="hs-identifier hs-type">LocaleType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-249"></a><span>
+</span><a name="line-250"></a><span>    </span><span class="hs-comment">-- ** OrderType</span><span>
+</span><a name="line-251"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#OrderType"><span class="hs-identifier hs-type">OrderType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-252"></a><span>
+</span><a name="line-253"></a><span>    </span><span class="hs-comment">-- ** PrincipalType</span><span>
+</span><a name="line-254"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#PrincipalType"><span class="hs-identifier hs-type">PrincipalType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-255"></a><span>
+</span><a name="line-256"></a><span>    </span><span class="hs-comment">-- ** ResourceSortType</span><span>
+</span><a name="line-257"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#ResourceSortType"><span class="hs-identifier hs-type">ResourceSortType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-258"></a><span>
+</span><a name="line-259"></a><span>    </span><span class="hs-comment">-- ** ResourceStateType</span><span>
+</span><a name="line-260"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#ResourceStateType"><span class="hs-identifier hs-type">ResourceStateType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-261"></a><span>
+</span><a name="line-262"></a><span>    </span><span class="hs-comment">-- ** ResourceType</span><span>
+</span><a name="line-263"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#ResourceType"><span class="hs-identifier hs-type">ResourceType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-264"></a><span>
+</span><a name="line-265"></a><span>    </span><span class="hs-comment">-- ** RolePermissionType</span><span>
+</span><a name="line-266"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#RolePermissionType"><span class="hs-identifier hs-type">RolePermissionType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-267"></a><span>
+</span><a name="line-268"></a><span>    </span><span class="hs-comment">-- ** RoleType</span><span>
+</span><a name="line-269"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#RoleType"><span class="hs-identifier hs-type">RoleType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-270"></a><span>
+</span><a name="line-271"></a><span>    </span><span class="hs-comment">-- ** ShareStatusType</span><span>
+</span><a name="line-272"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#ShareStatusType"><span class="hs-identifier hs-type">ShareStatusType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-273"></a><span>
+</span><a name="line-274"></a><span>    </span><span class="hs-comment">-- ** StorageType</span><span>
+</span><a name="line-275"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#StorageType"><span class="hs-identifier hs-type">StorageType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-276"></a><span>
+</span><a name="line-277"></a><span>    </span><span class="hs-comment">-- ** SubscriptionProtocolType</span><span>
+</span><a name="line-278"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#SubscriptionProtocolType"><span class="hs-identifier hs-type">SubscriptionProtocolType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-279"></a><span>
+</span><a name="line-280"></a><span>    </span><span class="hs-comment">-- ** SubscriptionType</span><span>
+</span><a name="line-281"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#SubscriptionType"><span class="hs-identifier hs-type">SubscriptionType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-282"></a><span>
+</span><a name="line-283"></a><span>    </span><span class="hs-comment">-- ** UserFilterType</span><span>
+</span><a name="line-284"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#UserFilterType"><span class="hs-identifier hs-type">UserFilterType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-285"></a><span>
+</span><a name="line-286"></a><span>    </span><span class="hs-comment">-- ** UserSortType</span><span>
+</span><a name="line-287"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#UserSortType"><span class="hs-identifier hs-type">UserSortType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-288"></a><span>
+</span><a name="line-289"></a><span>    </span><span class="hs-comment">-- ** UserStatusType</span><span>
+</span><a name="line-290"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#UserStatusType"><span class="hs-identifier hs-type">UserStatusType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-291"></a><span>
+</span><a name="line-292"></a><span>    </span><span class="hs-comment">-- ** UserType</span><span>
+</span><a name="line-293"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Sum.html#UserType"><span class="hs-identifier hs-type">UserType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-294"></a><span>
+</span><a name="line-295"></a><span>    </span><span class="hs-comment">-- ** Activity</span><span>
+</span><a name="line-296"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#Activity"><span class="hs-identifier hs-type">Activity</span></a><span>
+</span><a name="line-297"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#activity"><span class="hs-identifier hs-var">activity</span></a><span>
+</span><a name="line-298"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aResourceMetadata"><span class="hs-identifier hs-var">aResourceMetadata</span></a><span>
+</span><a name="line-299"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aInitiator"><span class="hs-identifier hs-var">aInitiator</span></a><span>
+</span><a name="line-300"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aParticipants"><span class="hs-identifier hs-var">aParticipants</span></a><span>
+</span><a name="line-301"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aOriginalParent"><span class="hs-identifier hs-var">aOriginalParent</span></a><span>
+</span><a name="line-302"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aType"><span class="hs-identifier hs-var">aType</span></a><span>
+</span><a name="line-303"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aCommentMetadata"><span class="hs-identifier hs-var">aCommentMetadata</span></a><span>
+</span><a name="line-304"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aTimeStamp"><span class="hs-identifier hs-var">aTimeStamp</span></a><span>
+</span><a name="line-305"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#aOrganizationId"><span class="hs-identifier hs-var">aOrganizationId</span></a><span>
+</span><a name="line-306"></a><span>
+</span><a name="line-307"></a><span>    </span><span class="hs-comment">-- ** Comment</span><span>
+</span><a name="line-308"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#Comment"><span class="hs-identifier hs-type">Comment</span></a><span>
+</span><a name="line-309"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#comment"><span class="hs-identifier hs-var">comment</span></a><span>
+</span><a name="line-310"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cStatus"><span class="hs-identifier hs-var">cStatus</span></a><span>
+</span><a name="line-311"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cText"><span class="hs-identifier hs-var">cText</span></a><span>
+</span><a name="line-312"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cVisibility"><span class="hs-identifier hs-var">cVisibility</span></a><span>
+</span><a name="line-313"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cThreadId"><span class="hs-identifier hs-var">cThreadId</span></a><span>
+</span><a name="line-314"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cContributor"><span class="hs-identifier hs-var">cContributor</span></a><span>
+</span><a name="line-315"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cCreatedTimestamp"><span class="hs-identifier hs-var">cCreatedTimestamp</span></a><span>
+</span><a name="line-316"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cRecipientId"><span class="hs-identifier hs-var">cRecipientId</span></a><span>
+</span><a name="line-317"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cParentId"><span class="hs-identifier hs-var">cParentId</span></a><span>
+</span><a name="line-318"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cCommentId"><span class="hs-identifier hs-var">cCommentId</span></a><span>
+</span><a name="line-319"></a><span>
+</span><a name="line-320"></a><span>    </span><span class="hs-comment">-- ** CommentMetadata</span><span>
+</span><a name="line-321"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#CommentMetadata"><span class="hs-identifier hs-type">CommentMetadata</span></a><span>
+</span><a name="line-322"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#commentMetadata"><span class="hs-identifier hs-var">commentMetadata</span></a><span>
+</span><a name="line-323"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cmCommentStatus"><span class="hs-identifier hs-var">cmCommentStatus</span></a><span>
+</span><a name="line-324"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cmContributor"><span class="hs-identifier hs-var">cmContributor</span></a><span>
+</span><a name="line-325"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cmCommentId"><span class="hs-identifier hs-var">cmCommentId</span></a><span>
+</span><a name="line-326"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cmCreatedTimestamp"><span class="hs-identifier hs-var">cmCreatedTimestamp</span></a><span>
+</span><a name="line-327"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#cmRecipientId"><span class="hs-identifier hs-var">cmRecipientId</span></a><span>
+</span><a name="line-328"></a><span>
+</span><a name="line-329"></a><span>    </span><span class="hs-comment">-- ** DocumentMetadata</span><span>
+</span><a name="line-330"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#DocumentMetadata"><span class="hs-identifier hs-type">DocumentMetadata</span></a><span>
+</span><a name="line-331"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#documentMetadata"><span class="hs-identifier hs-var">documentMetadata</span></a><span>
+</span><a name="line-332"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmLatestVersionMetadata"><span class="hs-identifier hs-var">dmLatestVersionMetadata</span></a><span>
+</span><a name="line-333"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmParentFolderId"><span class="hs-identifier hs-var">dmParentFolderId</span></a><span>
+</span><a name="line-334"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmModifiedTimestamp"><span class="hs-identifier hs-var">dmModifiedTimestamp</span></a><span>
+</span><a name="line-335"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmId"><span class="hs-identifier hs-var">dmId</span></a><span>
+</span><a name="line-336"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmLabels"><span class="hs-identifier hs-var">dmLabels</span></a><span>
+</span><a name="line-337"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmResourceState"><span class="hs-identifier hs-var">dmResourceState</span></a><span>
+</span><a name="line-338"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmCreatedTimestamp"><span class="hs-identifier hs-var">dmCreatedTimestamp</span></a><span>
+</span><a name="line-339"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dmCreatorId"><span class="hs-identifier hs-var">dmCreatorId</span></a><span>
+</span><a name="line-340"></a><span>
+</span><a name="line-341"></a><span>    </span><span class="hs-comment">-- ** DocumentVersionMetadata</span><span>
+</span><a name="line-342"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#DocumentVersionMetadata"><span class="hs-identifier hs-type">DocumentVersionMetadata</span></a><span>
+</span><a name="line-343"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#documentVersionMetadata"><span class="hs-identifier hs-var">documentVersionMetadata</span></a><span>
+</span><a name="line-344"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmThumbnail"><span class="hs-identifier hs-var">dvmThumbnail</span></a><span>
+</span><a name="line-345"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmStatus"><span class="hs-identifier hs-var">dvmStatus</span></a><span>
+</span><a name="line-346"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmSignature"><span class="hs-identifier hs-var">dvmSignature</span></a><span>
+</span><a name="line-347"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmContentCreatedTimestamp"><span class="hs-identifier hs-var">dvmContentCreatedTimestamp</span></a><span>
+</span><a name="line-348"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmSize"><span class="hs-identifier hs-var">dvmSize</span></a><span>
+</span><a name="line-349"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmName"><span class="hs-identifier hs-var">dvmName</span></a><span>
+</span><a name="line-350"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmModifiedTimestamp"><span class="hs-identifier hs-var">dvmModifiedTimestamp</span></a><span>
+</span><a name="line-351"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmSource"><span class="hs-identifier hs-var">dvmSource</span></a><span>
+</span><a name="line-352"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmId"><span class="hs-identifier hs-var">dvmId</span></a><span>
+</span><a name="line-353"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmCreatedTimestamp"><span class="hs-identifier hs-var">dvmCreatedTimestamp</span></a><span>
+</span><a name="line-354"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmContentModifiedTimestamp"><span class="hs-identifier hs-var">dvmContentModifiedTimestamp</span></a><span>
+</span><a name="line-355"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmCreatorId"><span class="hs-identifier hs-var">dvmCreatorId</span></a><span>
+</span><a name="line-356"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#dvmContentType"><span class="hs-identifier hs-var">dvmContentType</span></a><span>
+</span><a name="line-357"></a><span>
+</span><a name="line-358"></a><span>    </span><span class="hs-comment">-- ** FolderMetadata</span><span>
+</span><a name="line-359"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#FolderMetadata"><span class="hs-identifier hs-type">FolderMetadata</span></a><span>
+</span><a name="line-360"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#folderMetadata"><span class="hs-identifier hs-var">folderMetadata</span></a><span>
+</span><a name="line-361"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmSignature"><span class="hs-identifier hs-var">fmSignature</span></a><span>
+</span><a name="line-362"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmParentFolderId"><span class="hs-identifier hs-var">fmParentFolderId</span></a><span>
+</span><a name="line-363"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmSize"><span class="hs-identifier hs-var">fmSize</span></a><span>
+</span><a name="line-364"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmLatestVersionSize"><span class="hs-identifier hs-var">fmLatestVersionSize</span></a><span>
+</span><a name="line-365"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmName"><span class="hs-identifier hs-var">fmName</span></a><span>
+</span><a name="line-366"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmModifiedTimestamp"><span class="hs-identifier hs-var">fmModifiedTimestamp</span></a><span>
+</span><a name="line-367"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmId"><span class="hs-identifier hs-var">fmId</span></a><span>
+</span><a name="line-368"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmLabels"><span class="hs-identifier hs-var">fmLabels</span></a><span>
+</span><a name="line-369"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmResourceState"><span class="hs-identifier hs-var">fmResourceState</span></a><span>
+</span><a name="line-370"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmCreatedTimestamp"><span class="hs-identifier hs-var">fmCreatedTimestamp</span></a><span>
+</span><a name="line-371"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#fmCreatorId"><span class="hs-identifier hs-var">fmCreatorId</span></a><span>
+</span><a name="line-372"></a><span>
+</span><a name="line-373"></a><span>    </span><span class="hs-comment">-- ** GroupMetadata</span><span>
+</span><a name="line-374"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#GroupMetadata"><span class="hs-identifier hs-type">GroupMetadata</span></a><span>
+</span><a name="line-375"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#groupMetadata"><span class="hs-identifier hs-var">groupMetadata</span></a><span>
+</span><a name="line-376"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#gmName"><span class="hs-identifier hs-var">gmName</span></a><span>
+</span><a name="line-377"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#gmId"><span class="hs-identifier hs-var">gmId</span></a><span>
+</span><a name="line-378"></a><span>
+</span><a name="line-379"></a><span>    </span><span class="hs-comment">-- ** Participants</span><span>
+</span><a name="line-380"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#Participants"><span class="hs-identifier hs-type">Participants</span></a><span>
+</span><a name="line-381"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#participants"><span class="hs-identifier hs-var">participants</span></a><span>
+</span><a name="line-382"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#pGroups"><span class="hs-identifier hs-var">pGroups</span></a><span>
+</span><a name="line-383"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#pUsers"><span class="hs-identifier hs-var">pUsers</span></a><span>
+</span><a name="line-384"></a><span>
+</span><a name="line-385"></a><span>    </span><span class="hs-comment">-- ** PermissionInfo</span><span>
+</span><a name="line-386"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#PermissionInfo"><span class="hs-identifier hs-type">PermissionInfo</span></a><span>
+</span><a name="line-387"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#permissionInfo"><span class="hs-identifier hs-var">permissionInfo</span></a><span>
+</span><a name="line-388"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#piRole"><span class="hs-identifier hs-var">piRole</span></a><span>
+</span><a name="line-389"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#piType"><span class="hs-identifier hs-var">piType</span></a><span>
+</span><a name="line-390"></a><span>
+</span><a name="line-391"></a><span>    </span><span class="hs-comment">-- ** Principal</span><span>
+</span><a name="line-392"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#Principal"><span class="hs-identifier hs-type">Principal</span></a><span>
+</span><a name="line-393"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#principal"><span class="hs-identifier hs-var">principal</span></a><span>
+</span><a name="line-394"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#pRoles"><span class="hs-identifier hs-var">pRoles</span></a><span>
+</span><a name="line-395"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#pId"><span class="hs-identifier hs-var">pId</span></a><span>
+</span><a name="line-396"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#pType"><span class="hs-identifier hs-var">pType</span></a><span>
+</span><a name="line-397"></a><span>
+</span><a name="line-398"></a><span>    </span><span class="hs-comment">-- ** ResourceMetadata</span><span>
+</span><a name="line-399"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#ResourceMetadata"><span class="hs-identifier hs-type">ResourceMetadata</span></a><span>
+</span><a name="line-400"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#resourceMetadata"><span class="hs-identifier hs-var">resourceMetadata</span></a><span>
+</span><a name="line-401"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rmVersionId"><span class="hs-identifier hs-var">rmVersionId</span></a><span>
+</span><a name="line-402"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rmOwner"><span class="hs-identifier hs-var">rmOwner</span></a><span>
+</span><a name="line-403"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rmName"><span class="hs-identifier hs-var">rmName</span></a><span>
+</span><a name="line-404"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rmId"><span class="hs-identifier hs-var">rmId</span></a><span>
+</span><a name="line-405"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rmType"><span class="hs-identifier hs-var">rmType</span></a><span>
+</span><a name="line-406"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rmOriginalName"><span class="hs-identifier hs-var">rmOriginalName</span></a><span>
+</span><a name="line-407"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rmParentId"><span class="hs-identifier hs-var">rmParentId</span></a><span>
+</span><a name="line-408"></a><span>
+</span><a name="line-409"></a><span>    </span><span class="hs-comment">-- ** ResourcePath</span><span>
+</span><a name="line-410"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#ResourcePath"><span class="hs-identifier hs-type">ResourcePath</span></a><span>
+</span><a name="line-411"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#resourcePath"><span class="hs-identifier hs-var">resourcePath</span></a><span>
+</span><a name="line-412"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rpComponents"><span class="hs-identifier hs-var">rpComponents</span></a><span>
+</span><a name="line-413"></a><span>
+</span><a name="line-414"></a><span>    </span><span class="hs-comment">-- ** ResourcePathComponent</span><span>
+</span><a name="line-415"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#ResourcePathComponent"><span class="hs-identifier hs-type">ResourcePathComponent</span></a><span>
+</span><a name="line-416"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#resourcePathComponent"><span class="hs-identifier hs-var">resourcePathComponent</span></a><span>
+</span><a name="line-417"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rpcName"><span class="hs-identifier hs-var">rpcName</span></a><span>
+</span><a name="line-418"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#rpcId"><span class="hs-identifier hs-var">rpcId</span></a><span>
+</span><a name="line-419"></a><span>
+</span><a name="line-420"></a><span>    </span><span class="hs-comment">-- ** SharePrincipal</span><span>
+</span><a name="line-421"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#SharePrincipal"><span class="hs-identifier hs-type">SharePrincipal</span></a><span>
+</span><a name="line-422"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#sharePrincipal"><span class="hs-identifier hs-var">sharePrincipal</span></a><span>
+</span><a name="line-423"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#spId"><span class="hs-identifier hs-var">spId</span></a><span>
+</span><a name="line-424"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#spType"><span class="hs-identifier hs-var">spType</span></a><span>
+</span><a name="line-425"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#spRole"><span class="hs-identifier hs-var">spRole</span></a><span>
+</span><a name="line-426"></a><span>
+</span><a name="line-427"></a><span>    </span><span class="hs-comment">-- ** ShareResult</span><span>
+</span><a name="line-428"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#ShareResult"><span class="hs-identifier hs-type">ShareResult</span></a><span>
+</span><a name="line-429"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#shareResult"><span class="hs-identifier hs-var">shareResult</span></a><span>
+</span><a name="line-430"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#srStatus"><span class="hs-identifier hs-var">srStatus</span></a><span>
+</span><a name="line-431"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#srPrincipalId"><span class="hs-identifier hs-var">srPrincipalId</span></a><span>
+</span><a name="line-432"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#srRole"><span class="hs-identifier hs-var">srRole</span></a><span>
+</span><a name="line-433"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#srStatusMessage"><span class="hs-identifier hs-var">srStatusMessage</span></a><span>
+</span><a name="line-434"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#srShareId"><span class="hs-identifier hs-var">srShareId</span></a><span>
+</span><a name="line-435"></a><span>
+</span><a name="line-436"></a><span>    </span><span class="hs-comment">-- ** StorageRuleType</span><span>
+</span><a name="line-437"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#StorageRuleType"><span class="hs-identifier hs-type">StorageRuleType</span></a><span>
+</span><a name="line-438"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#storageRuleType"><span class="hs-identifier hs-var">storageRuleType</span></a><span>
+</span><a name="line-439"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#srtStorageAllocatedInBytes"><span class="hs-identifier hs-var">srtStorageAllocatedInBytes</span></a><span>
+</span><a name="line-440"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#srtStorageType"><span class="hs-identifier hs-var">srtStorageType</span></a><span>
+</span><a name="line-441"></a><span>
+</span><a name="line-442"></a><span>    </span><span class="hs-comment">-- ** Subscription</span><span>
+</span><a name="line-443"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#Subscription"><span class="hs-identifier hs-type">Subscription</span></a><span>
+</span><a name="line-444"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#subscription"><span class="hs-identifier hs-var">subscription</span></a><span>
+</span><a name="line-445"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#sProtocol"><span class="hs-identifier hs-var">sProtocol</span></a><span>
+</span><a name="line-446"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#sEndPoint"><span class="hs-identifier hs-var">sEndPoint</span></a><span>
+</span><a name="line-447"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#sSubscriptionId"><span class="hs-identifier hs-var">sSubscriptionId</span></a><span>
+</span><a name="line-448"></a><span>
+</span><a name="line-449"></a><span>    </span><span class="hs-comment">-- ** UploadMetadata</span><span>
+</span><a name="line-450"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#UploadMetadata"><span class="hs-identifier hs-type">UploadMetadata</span></a><span>
+</span><a name="line-451"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uploadMetadata"><span class="hs-identifier hs-var">uploadMetadata</span></a><span>
+</span><a name="line-452"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#umUploadURL"><span class="hs-identifier hs-var">umUploadURL</span></a><span>
+</span><a name="line-453"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#umSignedHeaders"><span class="hs-identifier hs-var">umSignedHeaders</span></a><span>
+</span><a name="line-454"></a><span>
+</span><a name="line-455"></a><span>    </span><span class="hs-comment">-- ** User</span><span>
+</span><a name="line-456"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#User"><span class="hs-identifier hs-type">User</span></a><span>
+</span><a name="line-457"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#user"><span class="hs-identifier hs-var">user</span></a><span>
+</span><a name="line-458"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uGivenName"><span class="hs-identifier hs-var">uGivenName</span></a><span>
+</span><a name="line-459"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uStatus"><span class="hs-identifier hs-var">uStatus</span></a><span>
+</span><a name="line-460"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uLocale"><span class="hs-identifier hs-var">uLocale</span></a><span>
+</span><a name="line-461"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uUsername"><span class="hs-identifier hs-var">uUsername</span></a><span>
+</span><a name="line-462"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uStorage"><span class="hs-identifier hs-var">uStorage</span></a><span>
+</span><a name="line-463"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uModifiedTimestamp"><span class="hs-identifier hs-var">uModifiedTimestamp</span></a><span>
+</span><a name="line-464"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uEmailAddress"><span class="hs-identifier hs-var">uEmailAddress</span></a><span>
+</span><a name="line-465"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uId"><span class="hs-identifier hs-var">uId</span></a><span>
+</span><a name="line-466"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uRootFolderId"><span class="hs-identifier hs-var">uRootFolderId</span></a><span>
+</span><a name="line-467"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uType"><span class="hs-identifier hs-var">uType</span></a><span>
+</span><a name="line-468"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uSurname"><span class="hs-identifier hs-var">uSurname</span></a><span>
+</span><a name="line-469"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uTimeZoneId"><span class="hs-identifier hs-var">uTimeZoneId</span></a><span>
+</span><a name="line-470"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uCreatedTimestamp"><span class="hs-identifier hs-var">uCreatedTimestamp</span></a><span>
+</span><a name="line-471"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uOrganizationId"><span class="hs-identifier hs-var">uOrganizationId</span></a><span>
+</span><a name="line-472"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#uRecycleBinFolderId"><span class="hs-identifier hs-var">uRecycleBinFolderId</span></a><span>
+</span><a name="line-473"></a><span>
+</span><a name="line-474"></a><span>    </span><span class="hs-comment">-- ** UserMetadata</span><span>
+</span><a name="line-475"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#UserMetadata"><span class="hs-identifier hs-type">UserMetadata</span></a><span>
+</span><a name="line-476"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#userMetadata"><span class="hs-identifier hs-var">userMetadata</span></a><span>
+</span><a name="line-477"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#umGivenName"><span class="hs-identifier hs-var">umGivenName</span></a><span>
+</span><a name="line-478"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#umUsername"><span class="hs-identifier hs-var">umUsername</span></a><span>
+</span><a name="line-479"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#umEmailAddress"><span class="hs-identifier hs-var">umEmailAddress</span></a><span>
+</span><a name="line-480"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#umId"><span class="hs-identifier hs-var">umId</span></a><span>
+</span><a name="line-481"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#umSurname"><span class="hs-identifier hs-var">umSurname</span></a><span>
+</span><a name="line-482"></a><span>
+</span><a name="line-483"></a><span>    </span><span class="hs-comment">-- ** UserStorageMetadata</span><span>
+</span><a name="line-484"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#UserStorageMetadata"><span class="hs-identifier hs-type">UserStorageMetadata</span></a><span>
+</span><a name="line-485"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#userStorageMetadata"><span class="hs-identifier hs-var">userStorageMetadata</span></a><span>
+</span><a name="line-486"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#usmStorageUtilizedInBytes"><span class="hs-identifier hs-var">usmStorageUtilizedInBytes</span></a><span>
+</span><a name="line-487"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.WorkDocs.Types.Product.html#usmStorageRule"><span class="hs-identifier hs-var">usmStorageRule</span></a><span>
+</span><a name="line-488"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-489"></a><span>
+</span><a name="line-490"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.AbortDocumentVersionUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">AbortDocumentVersionUpload</span></a><span>
+</span><a name="line-491"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.ActivateUser.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">ActivateUser</span></a><span>
+</span><a name="line-492"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.AddResourcePermissions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">AddResourcePermissions</span></a><span>
+</span><a name="line-493"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.CreateComment.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateComment</span></a><span>
+</span><a name="line-494"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.CreateCustomMetadata.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateCustomMetadata</span></a><span>
+</span><a name="line-495"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.CreateFolder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateFolder</span></a><span>
+</span><a name="line-496"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.CreateLabels.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateLabels</span></a><span>
+</span><a name="line-497"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.CreateNotificationSubscription.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateNotificationSubscription</span></a><span>
+</span><a name="line-498"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.CreateUser.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">CreateUser</span></a><span>
+</span><a name="line-499"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeactivateUser.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeactivateUser</span></a><span>
+</span><a name="line-500"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteComment.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteComment</span></a><span>
+</span><a name="line-501"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteCustomMetadata.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteCustomMetadata</span></a><span>
+</span><a name="line-502"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteDocument.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteDocument</span></a><span>
+</span><a name="line-503"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteFolder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteFolder</span></a><span>
+</span><a name="line-504"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteFolderContents.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteFolderContents</span></a><span>
+</span><a name="line-505"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteLabels.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteLabels</span></a><span>
+</span><a name="line-506"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteNotificationSubscription.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteNotificationSubscription</span></a><span>
+</span><a name="line-507"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DeleteUser.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteUser</span></a><span>
+</span><a name="line-508"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeActivities.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeActivities</span></a><span>
+</span><a name="line-509"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeComments.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeComments</span></a><span>
+</span><a name="line-510"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeDocumentVersions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeDocumentVersions</span></a><span>
+</span><a name="line-511"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeFolderContents.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeFolderContents</span></a><span>
+</span><a name="line-512"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeNotificationSubscriptions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeNotificationSubscriptions</span></a><span>
+</span><a name="line-513"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeResourcePermissions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeResourcePermissions</span></a><span>
+</span><a name="line-514"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeRootFolders.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeRootFolders</span></a><span>
+</span><a name="line-515"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.DescribeUsers.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeUsers</span></a><span>
+</span><a name="line-516"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.GetCurrentUser.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetCurrentUser</span></a><span>
+</span><a name="line-517"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.GetDocument.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetDocument</span></a><span>
+</span><a name="line-518"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.GetDocumentPath.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetDocumentPath</span></a><span>
+</span><a name="line-519"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.GetDocumentVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetDocumentVersion</span></a><span>
+</span><a name="line-520"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.GetFolder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetFolder</span></a><span>
+</span><a name="line-521"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.GetFolderPath.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">GetFolderPath</span></a><span>
+</span><a name="line-522"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.InitiateDocumentVersionUpload.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">InitiateDocumentVersionUpload</span></a><span>
+</span><a name="line-523"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.RemoveAllResourcePermissions.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveAllResourcePermissions</span></a><span>
+</span><a name="line-524"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.RemoveResourcePermission.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveResourcePermission</span></a><span>
+</span><a name="line-525"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-526"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.UpdateDocument.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateDocument</span></a><span>
+</span><a name="line-527"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.UpdateDocumentVersion.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateDocumentVersion</span></a><span>
+</span><a name="line-528"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.UpdateFolder.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateFolder</span></a><span>
+</span><a name="line-529"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.UpdateUser.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateUser</span></a><span>
+</span><a name="line-530"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.WorkDocs.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">WorkDocs</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-531"></a><span>
+</span><a name="line-532"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'WorkDocs'.
+-}</span><span>
+</span><a name="line-538"></a><span>
+</span><a name="line-539"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-555"></a><span>
+</span><a name="line-556"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-561"></a></pre></body></html>
