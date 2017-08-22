@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports    #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-duplicate-exports #-}</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-5"></a><span>
+</span><a name="line-6"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- Module      : Network.AWS.Kinesis</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- __Amazon Kinesis Streams Service API Reference__</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- Amazon Kinesis Streams is a managed service that scales elastically for real time processing of streaming big data.</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--</span><span>
+</span><a name="line-18"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span>
+</span><a name="line-19"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-20"></a><span>    </span><span class="hs-comment">-- * Service Configuration</span><span>
+</span><a name="line-21"></a><span>      </span><a href="Network.AWS.Kinesis.Types.html#kinesis"><span class="hs-identifier hs-var">kinesis</span></a><span>
+</span><a name="line-22"></a><span>
+</span><a name="line-23"></a><span>    </span><span class="hs-comment">-- * Errors</span><span>
+</span><a name="line-24"></a><span>    </span><span class="hs-comment">-- $errors</span><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span>    </span><span class="hs-comment">-- ** KMSInvalidStateException</span><span>
+</span><a name="line-27"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_KMSInvalidStateException"><span class="hs-identifier hs-var">_KMSInvalidStateException</span></a><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span>    </span><span class="hs-comment">-- ** KMSThrottlingException</span><span>
+</span><a name="line-30"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_KMSThrottlingException"><span class="hs-identifier hs-var">_KMSThrottlingException</span></a><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span>    </span><span class="hs-comment">-- ** ExpiredIteratorException</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_ExpiredIteratorException"><span class="hs-identifier hs-var">_ExpiredIteratorException</span></a><span>
+</span><a name="line-34"></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-comment">-- ** InvalidArgumentException</span><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_InvalidArgumentException"><span class="hs-identifier hs-var">_InvalidArgumentException</span></a><span>
+</span><a name="line-37"></a><span>
+</span><a name="line-38"></a><span>    </span><span class="hs-comment">-- ** KMSOptInRequired</span><span>
+</span><a name="line-39"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_KMSOptInRequired"><span class="hs-identifier hs-var">_KMSOptInRequired</span></a><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span>    </span><span class="hs-comment">-- ** ProvisionedThroughputExceededException</span><span>
+</span><a name="line-42"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_ProvisionedThroughputExceededException"><span class="hs-identifier hs-var">_ProvisionedThroughputExceededException</span></a><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span>    </span><span class="hs-comment">-- ** KMSNotFoundException</span><span>
+</span><a name="line-45"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_KMSNotFoundException"><span class="hs-identifier hs-var">_KMSNotFoundException</span></a><span>
+</span><a name="line-46"></a><span>
+</span><a name="line-47"></a><span>    </span><span class="hs-comment">-- ** KMSDisabledException</span><span>
+</span><a name="line-48"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_KMSDisabledException"><span class="hs-identifier hs-var">_KMSDisabledException</span></a><span>
+</span><a name="line-49"></a><span>
+</span><a name="line-50"></a><span>    </span><span class="hs-comment">-- ** ResourceNotFoundException</span><span>
+</span><a name="line-51"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_ResourceNotFoundException"><span class="hs-identifier hs-var">_ResourceNotFoundException</span></a><span>
+</span><a name="line-52"></a><span>
+</span><a name="line-53"></a><span>    </span><span class="hs-comment">-- ** KMSAccessDeniedException</span><span>
+</span><a name="line-54"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_KMSAccessDeniedException"><span class="hs-identifier hs-var">_KMSAccessDeniedException</span></a><span>
+</span><a name="line-55"></a><span>
+</span><a name="line-56"></a><span>    </span><span class="hs-comment">-- ** LimitExceededException</span><span>
+</span><a name="line-57"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_LimitExceededException"><span class="hs-identifier hs-var">_LimitExceededException</span></a><span>
+</span><a name="line-58"></a><span>
+</span><a name="line-59"></a><span>    </span><span class="hs-comment">-- ** ResourceInUseException</span><span>
+</span><a name="line-60"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.html#_ResourceInUseException"><span class="hs-identifier hs-var">_ResourceInUseException</span></a><span>
+</span><a name="line-61"></a><span>
+</span><a name="line-62"></a><span>    </span><span class="hs-comment">-- * Waiters</span><span>
+</span><a name="line-63"></a><span>    </span><span class="hs-comment">-- $waiters</span><span>
+</span><a name="line-64"></a><span>
+</span><a name="line-65"></a><span>    </span><span class="hs-comment">-- ** StreamExists</span><span>
+</span><a name="line-66"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Waiters.html#streamExists"><span class="hs-identifier hs-var">streamExists</span></a><span>
+</span><a name="line-67"></a><span>
+</span><a name="line-68"></a><span>    </span><span class="hs-comment">-- ** StreamNotExists</span><span>
+</span><a name="line-69"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Waiters.html#streamNotExists"><span class="hs-identifier hs-var">streamNotExists</span></a><span>
+</span><a name="line-70"></a><span>
+</span><a name="line-71"></a><span>    </span><span class="hs-comment">-- * Operations</span><span>
+</span><a name="line-72"></a><span>    </span><span class="hs-comment">-- $operations</span><span>
+</span><a name="line-73"></a><span>
+</span><a name="line-74"></a><span>    </span><span class="hs-comment">-- ** PutRecord</span><span>
+</span><a name="line-75"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">PutRecord</span><span>
+</span><a name="line-76"></a><span>
+</span><a name="line-77"></a><span>    </span><span class="hs-comment">-- ** DecreaseStreamRetentionPeriod</span><span>
+</span><a name="line-78"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DecreaseStreamRetentionPeriod</span><span>
+</span><a name="line-79"></a><span>
+</span><a name="line-80"></a><span>    </span><span class="hs-comment">-- ** MergeShards</span><span>
+</span><a name="line-81"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">MergeShards</span><span>
+</span><a name="line-82"></a><span>
+</span><a name="line-83"></a><span>    </span><span class="hs-comment">-- ** GetShardIterator</span><span>
+</span><a name="line-84"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">GetShardIterator</span><span>
+</span><a name="line-85"></a><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- ** GetRecords</span><span>
+</span><a name="line-87"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">GetRecords</span><span>
+</span><a name="line-88"></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- ** StopStreamEncryption</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">StopStreamEncryption</span><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- ** EnableEnhancedMonitoring</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">EnableEnhancedMonitoring</span><span>
+</span><a name="line-94"></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- ** DescribeLimits</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLimits</span><span>
+</span><a name="line-97"></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-comment">-- ** DisableEnhancedMonitoring</span><span>
+</span><a name="line-99"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DisableEnhancedMonitoring</span><span>
+</span><a name="line-100"></a><span>
+</span><a name="line-101"></a><span>    </span><span class="hs-comment">-- ** UpdateShardCount</span><span>
+</span><a name="line-102"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateShardCount</span><span>
+</span><a name="line-103"></a><span>
+</span><a name="line-104"></a><span>    </span><span class="hs-comment">-- ** ListTagsForStream</span><span>
+</span><a name="line-105"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForStream</span><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span>    </span><span class="hs-comment">-- ** AddTagsToStream</span><span>
+</span><a name="line-108"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">AddTagsToStream</span><span>
+</span><a name="line-109"></a><span>
+</span><a name="line-110"></a><span>    </span><span class="hs-comment">-- ** PutRecords</span><span>
+</span><a name="line-111"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">PutRecords</span><span>
+</span><a name="line-112"></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-comment">-- ** DeleteStream</span><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteStream</span><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span>    </span><span class="hs-comment">-- ** RemoveTagsFromStream</span><span>
+</span><a name="line-117"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTagsFromStream</span><span>
+</span><a name="line-118"></a><span>
+</span><a name="line-119"></a><span>    </span><span class="hs-comment">-- ** ListStreams (Paginated)</span><span>
+</span><a name="line-120"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">ListStreams</span><span>
+</span><a name="line-121"></a><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-comment">-- ** CreateStream</span><span>
+</span><a name="line-123"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">CreateStream</span><span>
+</span><a name="line-124"></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-comment">-- ** StartStreamEncryption</span><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">StartStreamEncryption</span><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span>    </span><span class="hs-comment">-- ** SplitShard</span><span>
+</span><a name="line-129"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">SplitShard</span><span>
+</span><a name="line-130"></a><span>
+</span><a name="line-131"></a><span>    </span><span class="hs-comment">-- ** IncreaseStreamRetentionPeriod</span><span>
+</span><a name="line-132"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">IncreaseStreamRetentionPeriod</span><span>
+</span><a name="line-133"></a><span>
+</span><a name="line-134"></a><span>    </span><span class="hs-comment">-- ** DescribeStream (Paginated)</span><span>
+</span><a name="line-135"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStream</span><span>
+</span><a name="line-136"></a><span>
+</span><a name="line-137"></a><span>    </span><span class="hs-comment">-- * Types</span><span>
+</span><a name="line-138"></a><span>
+</span><a name="line-139"></a><span>    </span><span class="hs-comment">-- ** EncryptionType</span><span>
+</span><a name="line-140"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Sum.html#EncryptionType"><span class="hs-identifier hs-type">EncryptionType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-141"></a><span>
+</span><a name="line-142"></a><span>    </span><span class="hs-comment">-- ** MetricsName</span><span>
+</span><a name="line-143"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Sum.html#MetricsName"><span class="hs-identifier hs-type">MetricsName</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-144"></a><span>
+</span><a name="line-145"></a><span>    </span><span class="hs-comment">-- ** ScalingType</span><span>
+</span><a name="line-146"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Sum.html#ScalingType"><span class="hs-identifier hs-type">ScalingType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-147"></a><span>
+</span><a name="line-148"></a><span>    </span><span class="hs-comment">-- ** ShardIteratorType</span><span>
+</span><a name="line-149"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Sum.html#ShardIteratorType"><span class="hs-identifier hs-type">ShardIteratorType</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-150"></a><span>
+</span><a name="line-151"></a><span>    </span><span class="hs-comment">-- ** StreamStatus</span><span>
+</span><a name="line-152"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Sum.html#StreamStatus"><span class="hs-identifier hs-type">StreamStatus</span></a><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-153"></a><span>
+</span><a name="line-154"></a><span>    </span><span class="hs-comment">-- ** EnhancedMetrics</span><span>
+</span><a name="line-155"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#EnhancedMetrics"><span class="hs-identifier hs-type">EnhancedMetrics</span></a><span>
+</span><a name="line-156"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#enhancedMetrics"><span class="hs-identifier hs-var">enhancedMetrics</span></a><span>
+</span><a name="line-157"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#emShardLevelMetrics"><span class="hs-identifier hs-var">emShardLevelMetrics</span></a><span>
+</span><a name="line-158"></a><span>
+</span><a name="line-159"></a><span>    </span><span class="hs-comment">-- ** EnhancedMonitoringOutput</span><span>
+</span><a name="line-160"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#EnhancedMonitoringOutput"><span class="hs-identifier hs-type">EnhancedMonitoringOutput</span></a><span>
+</span><a name="line-161"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#enhancedMonitoringOutput"><span class="hs-identifier hs-var">enhancedMonitoringOutput</span></a><span>
+</span><a name="line-162"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#emoDesiredShardLevelMetrics"><span class="hs-identifier hs-var">emoDesiredShardLevelMetrics</span></a><span>
+</span><a name="line-163"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#emoCurrentShardLevelMetrics"><span class="hs-identifier hs-var">emoCurrentShardLevelMetrics</span></a><span>
+</span><a name="line-164"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#emoStreamName"><span class="hs-identifier hs-var">emoStreamName</span></a><span>
+</span><a name="line-165"></a><span>
+</span><a name="line-166"></a><span>    </span><span class="hs-comment">-- ** HashKeyRange</span><span>
+</span><a name="line-167"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#HashKeyRange"><span class="hs-identifier hs-type">HashKeyRange</span></a><span>
+</span><a name="line-168"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#hashKeyRange"><span class="hs-identifier hs-var">hashKeyRange</span></a><span>
+</span><a name="line-169"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#hkrStartingHashKey"><span class="hs-identifier hs-var">hkrStartingHashKey</span></a><span>
+</span><a name="line-170"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#hkrEndingHashKey"><span class="hs-identifier hs-var">hkrEndingHashKey</span></a><span>
+</span><a name="line-171"></a><span>
+</span><a name="line-172"></a><span>    </span><span class="hs-comment">-- ** PutRecordsRequestEntry</span><span>
+</span><a name="line-173"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#PutRecordsRequestEntry"><span class="hs-identifier hs-type">PutRecordsRequestEntry</span></a><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#putRecordsRequestEntry"><span class="hs-identifier hs-var">putRecordsRequestEntry</span></a><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#prreExplicitHashKey"><span class="hs-identifier hs-var">prreExplicitHashKey</span></a><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#prreData"><span class="hs-identifier hs-var">prreData</span></a><span>
+</span><a name="line-177"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#prrePartitionKey"><span class="hs-identifier hs-var">prrePartitionKey</span></a><span>
+</span><a name="line-178"></a><span>
+</span><a name="line-179"></a><span>    </span><span class="hs-comment">-- ** PutRecordsResultEntry</span><span>
+</span><a name="line-180"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#PutRecordsResultEntry"><span class="hs-identifier hs-type">PutRecordsResultEntry</span></a><span>
+</span><a name="line-181"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#putRecordsResultEntry"><span class="hs-identifier hs-var">putRecordsResultEntry</span></a><span>
+</span><a name="line-182"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#prreSequenceNumber"><span class="hs-identifier hs-var">prreSequenceNumber</span></a><span>
+</span><a name="line-183"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#prreErrorCode"><span class="hs-identifier hs-var">prreErrorCode</span></a><span>
+</span><a name="line-184"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#prreErrorMessage"><span class="hs-identifier hs-var">prreErrorMessage</span></a><span>
+</span><a name="line-185"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#prreShardId"><span class="hs-identifier hs-var">prreShardId</span></a><span>
+</span><a name="line-186"></a><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-comment">-- ** Record</span><span>
+</span><a name="line-188"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#Record"><span class="hs-identifier hs-type">Record</span></a><span>
+</span><a name="line-189"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#record"><span class="hs-identifier hs-var">record</span></a><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#rEncryptionType"><span class="hs-identifier hs-var">rEncryptionType</span></a><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#rApproximateArrivalTimestamp"><span class="hs-identifier hs-var">rApproximateArrivalTimestamp</span></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#rSequenceNumber"><span class="hs-identifier hs-var">rSequenceNumber</span></a><span>
+</span><a name="line-193"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#rData"><span class="hs-identifier hs-var">rData</span></a><span>
+</span><a name="line-194"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#rPartitionKey"><span class="hs-identifier hs-var">rPartitionKey</span></a><span>
+</span><a name="line-195"></a><span>
+</span><a name="line-196"></a><span>    </span><span class="hs-comment">-- ** SequenceNumberRange</span><span>
+</span><a name="line-197"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#SequenceNumberRange"><span class="hs-identifier hs-type">SequenceNumberRange</span></a><span>
+</span><a name="line-198"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sequenceNumberRange"><span class="hs-identifier hs-var">sequenceNumberRange</span></a><span>
+</span><a name="line-199"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#snrEndingSequenceNumber"><span class="hs-identifier hs-var">snrEndingSequenceNumber</span></a><span>
+</span><a name="line-200"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#snrStartingSequenceNumber"><span class="hs-identifier hs-var">snrStartingSequenceNumber</span></a><span>
+</span><a name="line-201"></a><span>
+</span><a name="line-202"></a><span>    </span><span class="hs-comment">-- ** Shard</span><span>
+</span><a name="line-203"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#Shard"><span class="hs-identifier hs-type">Shard</span></a><span>
+</span><a name="line-204"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#shard"><span class="hs-identifier hs-var">shard</span></a><span>
+</span><a name="line-205"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sAdjacentParentShardId"><span class="hs-identifier hs-var">sAdjacentParentShardId</span></a><span>
+</span><a name="line-206"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sParentShardId"><span class="hs-identifier hs-var">sParentShardId</span></a><span>
+</span><a name="line-207"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sShardId"><span class="hs-identifier hs-var">sShardId</span></a><span>
+</span><a name="line-208"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sHashKeyRange"><span class="hs-identifier hs-var">sHashKeyRange</span></a><span>
+</span><a name="line-209"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sSequenceNumberRange"><span class="hs-identifier hs-var">sSequenceNumberRange</span></a><span>
+</span><a name="line-210"></a><span>
+</span><a name="line-211"></a><span>    </span><span class="hs-comment">-- ** StreamDescription</span><span>
+</span><a name="line-212"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#StreamDescription"><span class="hs-identifier hs-type">StreamDescription</span></a><span>
+</span><a name="line-213"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#streamDescription"><span class="hs-identifier hs-var">streamDescription</span></a><span>
+</span><a name="line-214"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdEncryptionType"><span class="hs-identifier hs-var">sdEncryptionType</span></a><span>
+</span><a name="line-215"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdKeyId"><span class="hs-identifier hs-var">sdKeyId</span></a><span>
+</span><a name="line-216"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdStreamName"><span class="hs-identifier hs-var">sdStreamName</span></a><span>
+</span><a name="line-217"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdStreamARN"><span class="hs-identifier hs-var">sdStreamARN</span></a><span>
+</span><a name="line-218"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdStreamStatus"><span class="hs-identifier hs-var">sdStreamStatus</span></a><span>
+</span><a name="line-219"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdShards"><span class="hs-identifier hs-var">sdShards</span></a><span>
+</span><a name="line-220"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdHasMoreShards"><span class="hs-identifier hs-var">sdHasMoreShards</span></a><span>
+</span><a name="line-221"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdRetentionPeriodHours"><span class="hs-identifier hs-var">sdRetentionPeriodHours</span></a><span>
+</span><a name="line-222"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdStreamCreationTimestamp"><span class="hs-identifier hs-var">sdStreamCreationTimestamp</span></a><span>
+</span><a name="line-223"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#sdEnhancedMonitoring"><span class="hs-identifier hs-var">sdEnhancedMonitoring</span></a><span>
+</span><a name="line-224"></a><span>
+</span><a name="line-225"></a><span>    </span><span class="hs-comment">-- ** Tag</span><span>
+</span><a name="line-226"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#Tag"><span class="hs-identifier hs-type">Tag</span></a><span>
+</span><a name="line-227"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#tag"><span class="hs-identifier hs-var">tag</span></a><span>
+</span><a name="line-228"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#tagValue"><span class="hs-identifier hs-var">tagValue</span></a><span>
+</span><a name="line-229"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.Kinesis.Types.Product.html#tagKey"><span class="hs-identifier hs-var">tagKey</span></a><span>
+</span><a name="line-230"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-231"></a><span>
+</span><a name="line-232"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.AddTagsToStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">AddTagsToStream</span></a><span>
+</span><a name="line-233"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.CreateStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">CreateStream</span></a><span>
+</span><a name="line-234"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.DecreaseStreamRetentionPeriod.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DecreaseStreamRetentionPeriod</span></a><span>
+</span><a name="line-235"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.DeleteStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DeleteStream</span></a><span>
+</span><a name="line-236"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.DescribeLimits.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeLimits</span></a><span>
+</span><a name="line-237"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.DescribeStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeStream</span></a><span>
+</span><a name="line-238"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.DisableEnhancedMonitoring.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">DisableEnhancedMonitoring</span></a><span>
+</span><a name="line-239"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.EnableEnhancedMonitoring.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">EnableEnhancedMonitoring</span></a><span>
+</span><a name="line-240"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.GetRecords.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">GetRecords</span></a><span>
+</span><a name="line-241"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.GetShardIterator.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">GetShardIterator</span></a><span>
+</span><a name="line-242"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.IncreaseStreamRetentionPeriod.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">IncreaseStreamRetentionPeriod</span></a><span>
+</span><a name="line-243"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.ListStreams.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">ListStreams</span></a><span>
+</span><a name="line-244"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.ListTagsForStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">ListTagsForStream</span></a><span>
+</span><a name="line-245"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.MergeShards.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">MergeShards</span></a><span>
+</span><a name="line-246"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.PutRecord.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">PutRecord</span></a><span>
+</span><a name="line-247"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.PutRecords.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">PutRecords</span></a><span>
+</span><a name="line-248"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.RemoveTagsFromStream.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">RemoveTagsFromStream</span></a><span>
+</span><a name="line-249"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.SplitShard.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">SplitShard</span></a><span>
+</span><a name="line-250"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.StartStreamEncryption.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">StartStreamEncryption</span></a><span>
+</span><a name="line-251"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.StopStreamEncryption.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">StopStreamEncryption</span></a><span>
+</span><a name="line-252"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-253"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.UpdateShardCount.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">UpdateShardCount</span></a><span>
+</span><a name="line-254"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.Kinesis.Waiters.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Kinesis</span><span class="hs-operator">.</span><span class="hs-identifier">Waiters</span></a><span>
+</span><a name="line-255"></a><span>
+</span><a name="line-256"></a><span class="hs-comment">{- $errors
+Error matchers are designed for use with the functions provided by
+&lt;http://hackage.haskell.org/package/lens/docs/Control-Exception-Lens.html Control.Exception.Lens&gt;.
+This allows catching (and rethrowing) service specific errors returned
+by 'Kinesis'.
+-}</span><span>
+</span><a name="line-262"></a><span>
+</span><a name="line-263"></a><span class="hs-comment">{- $operations
+Some AWS operations return results that are incomplete and require subsequent
+requests in order to obtain the entire result set. The process of sending
+subsequent requests to continue where a previous request left off is called
+pagination. For example, the 'ListObjects' operation of Amazon S3 returns up to
+1000 objects at a time, and you must send subsequent requests with the
+appropriate Marker in order to retrieve the next page of results.
+
+Operations that have an 'AWSPager' instance can transparently perform subsequent
+requests, correctly setting Markers and other request facets to iterate through
+the entire result set of a truncated API operation. Operations which support
+this have an additional note in the documentation.
+
+Many operations have the ability to filter results on the server side. See the
+individual operation parameters for details.
+-}</span><span>
+</span><a name="line-279"></a><span>
+</span><a name="line-280"></a><span class="hs-comment">{- $waiters
+Waiters poll by repeatedly sending a request until some remote success condition
+configured by the 'Wait' specification is fulfilled. The 'Wait' specification
+determines how many attempts should be made, in addition to delay and retry strategies.
+-}</span><span>
+</span><a name="line-285"></a></pre></body></html>
