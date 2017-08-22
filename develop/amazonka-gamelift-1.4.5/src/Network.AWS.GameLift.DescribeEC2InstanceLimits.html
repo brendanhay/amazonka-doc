@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE DeriveDataTypeable #-}</span><span>
+</span><a name="line-2"></a><span class="hs-pragma">{-# LANGUAGE DeriveGeneric      #-}</span><span>
+</span><a name="line-3"></a><span class="hs-pragma">{-# LANGUAGE OverloadedStrings  #-}</span><span>
+</span><a name="line-4"></a><span class="hs-pragma">{-# LANGUAGE RecordWildCards    #-}</span><span>
+</span><a name="line-5"></a><span class="hs-pragma">{-# LANGUAGE TypeFamilies       #-}</span><span>
+</span><a name="line-6"></a><span>
+</span><a name="line-7"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-imports #-}</span><span>
+</span><a name="line-8"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-binds   #-}</span><span>
+</span><a name="line-9"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-unused-matches #-}</span><span>
+</span><a name="line-10"></a><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Derived from AWS service descriptions, licensed under Apache 2.0.</span><span>
+</span><a name="line-12"></a><span>
+</span><a name="line-13"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- Module      : Network.AWS.GameLift.DescribeEC2InstanceLimits</span><span>
+</span><a name="line-15"></a><span class="hs-comment">-- Copyright   : (c) 2013-2016 Brendan Hay</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- License     : Mozilla Public License, v. 2.0.</span><span>
+</span><a name="line-17"></a><span class="hs-comment">-- Maintainer  : Brendan Hay &lt;brendan.g.hay@gmail.com&gt;</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- Stability   : auto-generated</span><span>
+</span><a name="line-19"></a><span class="hs-comment">-- Portability : non-portable (GHC extensions)</span><span>
+</span><a name="line-20"></a><span class="hs-comment">--</span><span>
+</span><a name="line-21"></a><span class="hs-comment">-- Retrieves the following information for the specified EC2 instance type:</span><span>
+</span><a name="line-22"></a><span class="hs-comment">--</span><span>
+</span><a name="line-23"></a><span class="hs-comment">--</span><span>
+</span><a name="line-24"></a><span class="hs-comment">--     * maximum number of instances allowed per AWS account (service limit)</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--</span><span>
+</span><a name="line-26"></a><span class="hs-comment">--     * current usage level for the AWS account</span><span>
+</span><a name="line-27"></a><span class="hs-comment">--</span><span>
+</span><a name="line-28"></a><span class="hs-comment">--</span><span>
+</span><a name="line-29"></a><span class="hs-comment">--</span><span>
+</span><a name="line-30"></a><span class="hs-comment">-- Service limits vary depending on region. Available regions for Amazon GameLift can be found in the AWS Management Console for Amazon GameLift (see the drop-down list in the upper right corner).</span><span>
+</span><a name="line-31"></a><span class="hs-comment">--</span><span>
+</span><a name="line-32"></a><span class="hs-comment">-- Fleet-related operations include:</span><span>
+</span><a name="line-33"></a><span class="hs-comment">--</span><span>
+</span><a name="line-34"></a><span class="hs-comment">--     * 'CreateFleet'</span><span>
+</span><a name="line-35"></a><span class="hs-comment">--</span><span>
+</span><a name="line-36"></a><span class="hs-comment">--     * 'ListFleets'</span><span>
+</span><a name="line-37"></a><span class="hs-comment">--</span><span>
+</span><a name="line-38"></a><span class="hs-comment">--     * Describe fleets:</span><span>
+</span><a name="line-39"></a><span class="hs-comment">--</span><span>
+</span><a name="line-40"></a><span class="hs-comment">--     * 'DescribeFleetAttributes'</span><span>
+</span><a name="line-41"></a><span class="hs-comment">--</span><span>
+</span><a name="line-42"></a><span class="hs-comment">--     * 'DescribeFleetPortSettings'</span><span>
+</span><a name="line-43"></a><span class="hs-comment">--</span><span>
+</span><a name="line-44"></a><span class="hs-comment">--     * 'DescribeFleetUtilization'</span><span>
+</span><a name="line-45"></a><span class="hs-comment">--</span><span>
+</span><a name="line-46"></a><span class="hs-comment">--     * 'DescribeRuntimeConfiguration'</span><span>
+</span><a name="line-47"></a><span class="hs-comment">--</span><span>
+</span><a name="line-48"></a><span class="hs-comment">--     * 'DescribeFleetEvents'</span><span>
+</span><a name="line-49"></a><span class="hs-comment">--</span><span>
+</span><a name="line-50"></a><span class="hs-comment">--</span><span>
+</span><a name="line-51"></a><span class="hs-comment">--</span><span>
+</span><a name="line-52"></a><span class="hs-comment">--     * Update fleets:</span><span>
+</span><a name="line-53"></a><span class="hs-comment">--</span><span>
+</span><a name="line-54"></a><span class="hs-comment">--     * 'UpdateFleetAttributes'</span><span>
+</span><a name="line-55"></a><span class="hs-comment">--</span><span>
+</span><a name="line-56"></a><span class="hs-comment">--     * 'UpdateFleetCapacity'</span><span>
+</span><a name="line-57"></a><span class="hs-comment">--</span><span>
+</span><a name="line-58"></a><span class="hs-comment">--     * 'UpdateFleetPortSettings'</span><span>
+</span><a name="line-59"></a><span class="hs-comment">--</span><span>
+</span><a name="line-60"></a><span class="hs-comment">--     * 'UpdateRuntimeConfiguration'</span><span>
+</span><a name="line-61"></a><span class="hs-comment">--</span><span>
+</span><a name="line-62"></a><span class="hs-comment">--</span><span>
+</span><a name="line-63"></a><span class="hs-comment">--</span><span>
+</span><a name="line-64"></a><span class="hs-comment">--     * Manage fleet capacity:</span><span>
+</span><a name="line-65"></a><span class="hs-comment">--</span><span>
+</span><a name="line-66"></a><span class="hs-comment">--     * 'DescribeFleetCapacity'</span><span>
+</span><a name="line-67"></a><span class="hs-comment">--</span><span>
+</span><a name="line-68"></a><span class="hs-comment">--     * 'UpdateFleetCapacity'</span><span>
+</span><a name="line-69"></a><span class="hs-comment">--</span><span>
+</span><a name="line-70"></a><span class="hs-comment">--     * 'PutScalingPolicy' (automatic scaling)</span><span>
+</span><a name="line-71"></a><span class="hs-comment">--</span><span>
+</span><a name="line-72"></a><span class="hs-comment">--     * 'DescribeScalingPolicies' (automatic scaling)</span><span>
+</span><a name="line-73"></a><span class="hs-comment">--</span><span>
+</span><a name="line-74"></a><span class="hs-comment">--     * 'DeleteScalingPolicy' (automatic scaling)</span><span>
+</span><a name="line-75"></a><span class="hs-comment">--</span><span>
+</span><a name="line-76"></a><span class="hs-comment">--     * 'DescribeEC2InstanceLimits'</span><span>
+</span><a name="line-77"></a><span class="hs-comment">--</span><span>
+</span><a name="line-78"></a><span class="hs-comment">--</span><span>
+</span><a name="line-79"></a><span class="hs-comment">--</span><span>
+</span><a name="line-80"></a><span class="hs-comment">--     * 'DeleteFleet'</span><span>
+</span><a name="line-81"></a><span class="hs-comment">--</span><span>
+</span><a name="line-82"></a><span class="hs-comment">--</span><span>
+</span><a name="line-83"></a><span class="hs-comment">--</span><span>
+</span><a name="line-84"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">GameLift</span><span class="hs-operator">.</span><span class="hs-identifier">DescribeEC2InstanceLimits</span><span>
+</span><a name="line-85"></a><span>    </span><span class="hs-special">(</span><span>
+</span><a name="line-86"></a><span>    </span><span class="hs-comment">-- * Creating a Request</span><span>
+</span><a name="line-87"></a><span>      </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#describeEC2InstanceLimits"><span class="hs-identifier hs-var">describeEC2InstanceLimits</span></a><span>
+</span><a name="line-88"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span>
+</span><a name="line-89"></a><span>    </span><span class="hs-comment">-- * Request Lenses</span><span>
+</span><a name="line-90"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#deilEC2InstanceType"><span class="hs-identifier hs-var">deilEC2InstanceType</span></a><span>
+</span><a name="line-91"></a><span>
+</span><a name="line-92"></a><span>    </span><span class="hs-comment">-- * Destructuring the Response</span><span>
+</span><a name="line-93"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#describeEC2InstanceLimitsResponse"><span class="hs-identifier hs-var">describeEC2InstanceLimitsResponse</span></a><span>
+</span><a name="line-94"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse"><span class="hs-identifier hs-type">DescribeEC2InstanceLimitsResponse</span></a><span>
+</span><a name="line-95"></a><span>    </span><span class="hs-comment">-- * Response Lenses</span><span>
+</span><a name="line-96"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#deilrsEC2InstanceLimits"><span class="hs-identifier hs-var">deilrsEC2InstanceLimits</span></a><span>
+</span><a name="line-97"></a><span>    </span><span class="hs-special">,</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#deilrsResponseStatus"><span class="hs-identifier hs-var">deilrsResponseStatus</span></a><span>
+</span><a name="line-98"></a><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-99"></a><span>
+</span><a name="line-100"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.GameLift.Types.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">GameLift</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-101"></a><span class="hs-keyword">import</span><span>           </span><a href="Network.AWS.GameLift.Types.Product.html"><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">GameLift</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span><span class="hs-operator">.</span><span class="hs-identifier">Product</span></a><span>
+</span><a name="line-102"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-103"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Prelude</span><span>
+</span><a name="line-104"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Request</span><span>
+</span><a name="line-105"></a><span class="hs-keyword">import</span><span>           </span><span class="hs-identifier">Network</span><span class="hs-operator">.</span><span class="hs-identifier">AWS</span><span class="hs-operator">.</span><span class="hs-identifier">Response</span><span>
+</span><a name="line-106"></a><span>
+</span><a name="line-107"></a><span class="hs-comment">-- | Represents the input for a request action.</span><span>
+</span><a name="line-108"></a><span class="hs-comment">--</span><span>
+</span><a name="line-109"></a><span class="hs-comment">--</span><span>
+</span><a name="line-110"></a><span class="hs-comment">--</span><span>
+</span><a name="line-111"></a><span class="hs-comment">-- /See:/ 'describeEC2InstanceLimits' smart constructor.</span><span>
+</span><a name="line-112"></a><span class="hs-keyword">newtype</span><span> </span><a name="DescribeEC2InstanceLimits"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier">DescribeEC2InstanceLimits</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="DescribeEC2InstanceLimits%27"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits%27"><span class="hs-identifier">DescribeEC2InstanceLimits'</span></a></a><span>
+</span><a name="line-113"></a><span>    </span><span class="hs-special">{</span><span> </span><a name="_deilEC2InstanceType"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#_deilEC2InstanceType"><span class="hs-identifier">_deilEC2InstanceType</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Maybe</span><span> </span><a href="Network.AWS.GameLift.Types.Sum.html#EC2InstanceType"><span class="hs-identifier hs-type">EC2InstanceType</span></a><span>
+</span><a name="line-114"></a><span>    </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Eq</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Read</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Show</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Data</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Typeable</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Generic</span><span class="hs-special">)</span><span>
+</span><a name="line-115"></a><span>
+</span><a name="line-116"></a><span class="hs-comment">-- | Creates a value of 'DescribeEC2InstanceLimits' with the minimum fields required to make a request.</span><span>
+</span><a name="line-117"></a><span class="hs-comment">--</span><span>
+</span><a name="line-118"></a><span class="hs-comment">-- Use one of the following lenses to modify other fields as desired:</span><span>
+</span><a name="line-119"></a><span class="hs-comment">--</span><span>
+</span><a name="line-120"></a><span class="hs-comment">-- * 'deilEC2InstanceType' - Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See &lt;http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types&gt; for detailed descriptions. Leave this parameter blank to retrieve limits for all types.</span><span>
+</span><a name="line-121"></a><span class="hs-identifier">describeEC2InstanceLimits</span><span>
+</span><a name="line-122"></a><span>    </span><span class="hs-glyph">::</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span>
+</span><a name="line-123"></a><a name="describeEC2InstanceLimits"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#describeEC2InstanceLimits"><span class="hs-identifier">describeEC2InstanceLimits</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-124"></a><span>    </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits%27"><span class="hs-identifier hs-var">DescribeEC2InstanceLimits'</span></a><span>
+</span><a name="line-125"></a><span>    </span><span class="hs-special">{</span><span> </span><span class="hs-identifier">_deilEC2InstanceType</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">Nothing</span><span>
+</span><a name="line-126"></a><span>    </span><span class="hs-special">}</span><span>
+</span><a name="line-127"></a><span>
+</span><a name="line-128"></a><span class="hs-comment">-- | Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See &lt;http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types&gt; for detailed descriptions. Leave this parameter blank to retrieve limits for all types.</span><span>
+</span><a name="line-129"></a><span class="hs-identifier">deilEC2InstanceType</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Lens'</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Maybe</span><span> </span><a href="Network.AWS.GameLift.Types.Sum.html#EC2InstanceType"><span class="hs-identifier hs-type">EC2InstanceType</span></a><span class="hs-special">)</span><span>
+</span><a name="line-130"></a><a name="deilEC2InstanceType"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#deilEC2InstanceType"><span class="hs-identifier">deilEC2InstanceType</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lens</span><span> </span><span class="hs-identifier">_deilEC2InstanceType</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span> </span><a name="local-6989586621679264872"><a href="#local-6989586621679264872"><span class="hs-identifier">s</span></a></a><span> </span><a name="local-6989586621679264873"><a href="#local-6989586621679264873"><span class="hs-identifier">a</span></a></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679264872"><span class="hs-identifier hs-var">s</span></a><span class="hs-special">{</span><span class="hs-identifier">_deilEC2InstanceType</span><span> </span><span class="hs-glyph">=</span><span> </span><a href="#local-6989586621679264873"><span class="hs-identifier hs-var">a</span></a><span class="hs-special">}</span><span class="hs-special">)</span><span class="hs-special">;</span><span>
+</span><a name="line-131"></a><span>
+</span><a name="line-132"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">AWSRequest</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-133"></a><span>        </span><span class="hs-keyword">type</span><span> </span><span class="hs-identifier">Rs</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-134"></a><span>             </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse"><span class="hs-identifier hs-type">DescribeEC2InstanceLimitsResponse</span></a><span>
+</span><a name="line-135"></a><span>        </span><a name="local-8214565720323796179"><span class="hs-identifier">request</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">postJSON</span><span> </span><a href="Network.AWS.GameLift.Types.html#gameLift"><span class="hs-identifier hs-var">gameLift</span></a><span>
+</span><a name="line-136"></a><span>        </span><a name="local-8214565720323796178"><span class="hs-identifier">response</span></a><span>
+</span><a name="line-137"></a><span>          </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">receiveJSON</span><span>
+</span><a name="line-138"></a><span>              </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span> </span><a name="local-6989586621679264869"><a href="#local-6989586621679264869"><span class="hs-identifier">s</span></a></a><span> </span><a name="local-6989586621679264870"><a href="#local-6989586621679264870"><span class="hs-identifier">h</span></a></a><span> </span><a name="local-6989586621679264871"><a href="#local-6989586621679264871"><span class="hs-identifier">x</span></a></a><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a name="line-139"></a><span>                 </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse%27"><span class="hs-identifier hs-var">DescribeEC2InstanceLimitsResponse'</span></a><span> </span><span class="hs-operator hs-var">&lt;$&gt;</span><span>
+</span><a name="line-140"></a><span>                   </span><span class="hs-special">(</span><a href="#local-6989586621679264871"><span class="hs-identifier hs-var">x</span></a><span> </span><span class="hs-operator hs-var">.?&gt;</span><span> </span><span class="hs-string">&quot;EC2InstanceLimits&quot;</span><span> </span><span class="hs-operator hs-var">.!@</span><span> </span><span class="hs-identifier hs-var">mempty</span><span class="hs-special">)</span><span> </span><span class="hs-operator hs-var">&lt;*&gt;</span><span>
+</span><a name="line-141"></a><span>                     </span><span class="hs-special">(</span><span class="hs-identifier hs-var">pure</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">fromEnum</span><span> </span><a href="#local-6989586621679264869"><span class="hs-identifier hs-var">s</span></a><span class="hs-special">)</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-142"></a><span>
+</span><a name="line-143"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">Hashable</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span>
+</span><a name="line-144"></a><span>
+</span><a name="line-145"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">NFData</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span>
+</span><a name="line-146"></a><span>
+</span><a name="line-147"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">ToHeaders</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-148"></a><span>        </span><a name="local-8214565720323796232"><span class="hs-identifier">toHeaders</span></a><span>
+</span><a name="line-149"></a><span>          </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">const</span><span>
+</span><a name="line-150"></a><span>              </span><span class="hs-special">(</span><span class="hs-identifier hs-var">mconcat</span><span>
+</span><a name="line-151"></a><span>                 </span><span class="hs-special">[</span><span class="hs-string">&quot;X-Amz-Target&quot;</span><span> </span><span class="hs-operator hs-var">=#</span><span>
+</span><a name="line-152"></a><span>                    </span><span class="hs-special">(</span><span class="hs-string">&quot;GameLift.DescribeEC2InstanceLimits&quot;</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">ByteString</span><span class="hs-special">)</span><span class="hs-special">,</span><span>
+</span><a name="line-153"></a><span>                  </span><span class="hs-string">&quot;Content-Type&quot;</span><span> </span><span class="hs-operator hs-var">=#</span><span>
+</span><a name="line-154"></a><span>                    </span><span class="hs-special">(</span><span class="hs-string">&quot;application/x-amz-json-1.1&quot;</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">ByteString</span><span class="hs-special">)</span><span class="hs-special">]</span><span class="hs-special">)</span><span>
+</span><a name="line-155"></a><span>
+</span><a name="line-156"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">ToJSON</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-157"></a><span>        </span><a name="local-8214565720323796263"><span class="hs-identifier">toJSON</span></a><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits%27"><span class="hs-identifier hs-var">DescribeEC2InstanceLimits'</span></a><span class="hs-special">{</span><span class="hs-glyph">..</span><span class="hs-special">}</span><span>
+</span><a name="line-158"></a><span>          </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">object</span><span>
+</span><a name="line-159"></a><span>              </span><span class="hs-special">(</span><span class="hs-identifier hs-var">catMaybes</span><span>
+</span><a name="line-160"></a><span>                 </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="hs-string">&quot;EC2InstanceType&quot;</span><span> </span><span class="hs-operator hs-var">.=</span><span class="hs-special">)</span><span> </span><span class="hs-operator hs-var">&lt;$&gt;</span><span> </span><a href="#local-6989586621679264868"><span class="hs-identifier hs-var">_deilEC2InstanceType</span></a><span class="hs-special">]</span><span class="hs-special">)</span><span>
+</span><a name="line-161"></a><span>
+</span><a name="line-162"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">ToPath</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-163"></a><span>        </span><a name="local-8214565720323796219"><span class="hs-identifier">toPath</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">const</span><span> </span><span class="hs-string">&quot;/&quot;</span><span>
+</span><a name="line-164"></a><span>
+</span><a name="line-165"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">ToQuery</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimits"><span class="hs-identifier hs-type">DescribeEC2InstanceLimits</span></a><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-166"></a><span>        </span><a name="local-8214565720323796213"><span class="hs-identifier">toQuery</span></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">const</span><span> </span><span class="hs-identifier hs-var">mempty</span><span>
+</span><a name="line-167"></a><span>
+</span><a name="line-168"></a><span class="hs-comment">-- | Represents the returned data in response to a request action.</span><span>
+</span><a name="line-169"></a><span class="hs-comment">--</span><span>
+</span><a name="line-170"></a><span class="hs-comment">--</span><span>
+</span><a name="line-171"></a><span class="hs-comment">--</span><span>
+</span><a name="line-172"></a><span class="hs-comment">-- /See:/ 'describeEC2InstanceLimitsResponse' smart constructor.</span><span>
+</span><a name="line-173"></a><span class="hs-keyword">data</span><span> </span><a name="DescribeEC2InstanceLimitsResponse"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse"><span class="hs-identifier">DescribeEC2InstanceLimitsResponse</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="DescribeEC2InstanceLimitsResponse%27"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse%27"><span class="hs-identifier">DescribeEC2InstanceLimitsResponse'</span></a></a><span>
+</span><a name="line-174"></a><span>    </span><span class="hs-special">{</span><span> </span><a name="_deilrsEC2InstanceLimits"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#_deilrsEC2InstanceLimits"><span class="hs-identifier">_deilrsEC2InstanceLimits</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-special">(</span><span class="hs-identifier hs-type">Maybe</span><span> </span><span class="hs-special">[</span><a href="Network.AWS.GameLift.Types.Product.html#EC2InstanceLimit"><span class="hs-identifier hs-type">EC2InstanceLimit</span></a><span class="hs-special">]</span><span class="hs-special">)</span><span>
+</span><a name="line-175"></a><span>    </span><span class="hs-special">,</span><span> </span><a name="_deilrsResponseStatus"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#_deilrsResponseStatus"><span class="hs-identifier">_deilrsResponseStatus</span></a></a><span>    </span><span class="hs-glyph">::</span><span> </span><span class="hs-glyph">!</span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-176"></a><span>    </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Eq</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Read</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Show</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Data</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Typeable</span><span class="hs-special">,</span><span class="hs-identifier hs-type">Generic</span><span class="hs-special">)</span><span>
+</span><a name="line-177"></a><span>
+</span><a name="line-178"></a><span class="hs-comment">-- | Creates a value of 'DescribeEC2InstanceLimitsResponse' with the minimum fields required to make a request.</span><span>
+</span><a name="line-179"></a><span class="hs-comment">--</span><span>
+</span><a name="line-180"></a><span class="hs-comment">-- Use one of the following lenses to modify other fields as desired:</span><span>
+</span><a name="line-181"></a><span class="hs-comment">--</span><span>
+</span><a name="line-182"></a><span class="hs-comment">-- * 'deilrsEC2InstanceLimits' - Object that contains the maximum number of instances for the specified instance type.</span><span>
+</span><a name="line-183"></a><span class="hs-comment">--</span><span>
+</span><a name="line-184"></a><span class="hs-comment">-- * 'deilrsResponseStatus' - -- | The response status code.</span><span>
+</span><a name="line-185"></a><span class="hs-identifier">describeEC2InstanceLimitsResponse</span><span>
+</span><a name="line-186"></a><span>    </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Int</span><span> </span><span class="hs-comment">-- ^ 'deilrsResponseStatus'</span><span>
+</span><a name="line-187"></a><span>    </span><span class="hs-glyph">-&gt;</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse"><span class="hs-identifier hs-type">DescribeEC2InstanceLimitsResponse</span></a><span>
+</span><a name="line-188"></a><a name="describeEC2InstanceLimitsResponse"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#describeEC2InstanceLimitsResponse"><span class="hs-identifier">describeEC2InstanceLimitsResponse</span></a></a><span> </span><a name="local-6989586621679264874"><a href="#local-6989586621679264874"><span class="hs-identifier">pResponseStatus_</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-189"></a><span>    </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse%27"><span class="hs-identifier hs-var">DescribeEC2InstanceLimitsResponse'</span></a><span>
+</span><a name="line-190"></a><span>    </span><span class="hs-special">{</span><span> </span><span class="hs-identifier">_deilrsEC2InstanceLimits</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">Nothing</span><span>
+</span><a name="line-191"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-identifier">_deilrsResponseStatus</span><span> </span><span class="hs-glyph">=</span><span> </span><a href="#local-6989586621679264874"><span class="hs-identifier hs-var">pResponseStatus_</span></a><span>
+</span><a name="line-192"></a><span>    </span><span class="hs-special">}</span><span>
+</span><a name="line-193"></a><span>
+</span><a name="line-194"></a><span class="hs-comment">-- | Object that contains the maximum number of instances for the specified instance type.</span><span>
+</span><a name="line-195"></a><span class="hs-identifier">deilrsEC2InstanceLimits</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Lens'</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse"><span class="hs-identifier hs-type">DescribeEC2InstanceLimitsResponse</span></a><span> </span><span class="hs-special">[</span><a href="Network.AWS.GameLift.Types.Product.html#EC2InstanceLimit"><span class="hs-identifier hs-type">EC2InstanceLimit</span></a><span class="hs-special">]</span><span>
+</span><a name="line-196"></a><a name="deilrsEC2InstanceLimits"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#deilrsEC2InstanceLimits"><span class="hs-identifier">deilrsEC2InstanceLimits</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lens</span><span> </span><span class="hs-identifier">_deilrsEC2InstanceLimits</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span> </span><a name="local-6989586621679264875"><a href="#local-6989586621679264875"><span class="hs-identifier">s</span></a></a><span> </span><a name="local-6989586621679264876"><a href="#local-6989586621679264876"><span class="hs-identifier">a</span></a></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679264875"><span class="hs-identifier hs-var">s</span></a><span class="hs-special">{</span><span class="hs-identifier">_deilrsEC2InstanceLimits</span><span> </span><span class="hs-glyph">=</span><span> </span><a href="#local-6989586621679264876"><span class="hs-identifier hs-var">a</span></a><span class="hs-special">}</span><span class="hs-special">)</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">_Default</span><span> </span><span class="hs-operator hs-var">.</span><span> </span><span class="hs-identifier hs-var">_Coerce</span><span class="hs-special">;</span><span>
+</span><a name="line-197"></a><span>
+</span><a name="line-198"></a><span class="hs-comment">-- | -- | The response status code.</span><span>
+</span><a name="line-199"></a><span class="hs-identifier">deilrsResponseStatus</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Lens'</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse"><span class="hs-identifier hs-type">DescribeEC2InstanceLimitsResponse</span></a><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-200"></a><a name="deilrsResponseStatus"><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#deilrsResponseStatus"><span class="hs-identifier">deilrsResponseStatus</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">lens</span><span> </span><span class="hs-identifier">_deilrsResponseStatus</span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span> </span><a name="local-6989586621679264877"><a href="#local-6989586621679264877"><span class="hs-identifier">s</span></a></a><span> </span><a name="local-6989586621679264878"><a href="#local-6989586621679264878"><span class="hs-identifier">a</span></a></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679264877"><span class="hs-identifier hs-var">s</span></a><span class="hs-special">{</span><span class="hs-identifier">_deilrsResponseStatus</span><span> </span><span class="hs-glyph">=</span><span> </span><a href="#local-6989586621679264878"><span class="hs-identifier hs-var">a</span></a><span class="hs-special">}</span><span class="hs-special">)</span><span class="hs-special">;</span><span>
+</span><a name="line-201"></a><span>
+</span><a name="line-202"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier hs-type">NFData</span><span> </span><a href="Network.AWS.GameLift.DescribeEC2InstanceLimits.html#DescribeEC2InstanceLimitsResponse"><span class="hs-identifier hs-type">DescribeEC2InstanceLimitsResponse</span></a><span>
+</span><a name="line-203"></a></pre></body></html>
